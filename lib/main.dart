@@ -58,60 +58,48 @@ class MyHomePage extends StatelessWidget{
 class TextField extends StatefulWidget {
   @override
   _TextFiledState createState() => _TextFiledState();
-  static int _expression;
+  //static int _expression;
 }
 class _TextFiledState extends State<TextField> {
-  int _expression = 0;
-
-  static final controller = StreamController<int>();
-  @override
-  void initState() {
-    controller.stream.listen((event) => _UpdateText(event));
-  }
-
-  void _UpdateText(int letter){
-    setState(() {
-      _expression += letter;
-    });
-  }
+  // int _expression = 0;
+  //
+  // static final controller = StreamController<int>();
+  // @override
+  // void initState() {
+  //   controller.stream.listen((event) => _UpdateText(event));
+  // }
+  //
+  // void _UpdateText(int letter){
+  //   setState(() {
+  //     _expression += letter;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    double VPIP = (_expression / 1326) * 100;
 
     return
       Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              '${VPIP.toStringAsFixed(3)}%',
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
+        child:Consumer<Light>(builder: (context, model, child) {
+          return
+          Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            '${model.count}%',
+            style: TextStyle(
+              fontSize: 20.0,
             ),
-          ],
-        ),
+          ),
+        ],
+      );
+        }
+        )
       );
   }
 
 }
 
-class View extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      child:Text(
-        '${TextField._expression}',
-        style: TextStyle(
-          fontSize: 64.0,
-        ),
-      ),
-    );
-  }
-}
 
 
 
