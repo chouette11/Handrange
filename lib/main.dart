@@ -127,20 +127,23 @@ class Keyboard extends StatelessWidget {
       width: screensizewidth,
       height: screensizewidth,
       color: Colors.white,
-      child: GridView.count(
-          crossAxisCount: 13,
-          mainAxisSpacing: 0.001,
-          crossAxisSpacing: 0.001,
-          children: CONBI.map((e) => GridTile(
-            child: TapBox(hand: e["hand"], value: e["value"], isSelected: e["isSelected"],),
-          ),
-          ).toList()
+      child: Consumer<Light>(
+        builder: (context, model, child) {
+          return GridView.count(
+              crossAxisCount: 13,
+              mainAxisSpacing: 0.001,
+              crossAxisSpacing: 0.001,
+              children: model.status.map((e) => GridTile(
+                child: TapBox(hand: e["hand"], value: e["value"], isSelected: e["isSelected"]),
+              ),
+              ).toList()
+          );
+        },
       ),
     );
   }
 }
 
-//　キーボタン
 class TapBox extends StatelessWidget {
   TapBox( {Key key, this.hand, this.value, this.isSelected }) : super(key: key);
   String hand;
