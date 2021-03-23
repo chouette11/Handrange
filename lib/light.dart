@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:handrange/combination.dart';
 
-class Pockets extends ChangeNotifier {
+class Light extends ChangeNotifier {
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],
     "value": e["value"],

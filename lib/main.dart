@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: ChangeNotifierProvider<Pockets>(
-        create: (_) => Pockets(),
+      home: ChangeNotifierProvider<Light>(
+        create: (_) => Light(),
         child: MyHomePage() ,
       )
     );
@@ -32,7 +32,7 @@ class MyHomePage extends StatelessWidget{
         appBar: AppBar(
           title: Text('Handrange'),
         ),
-        body:Consumer<Pockets>(builder: (context, model, child) {
+        body:Consumer<Light>(builder: (context, model, child) {
           return
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +149,7 @@ class TapBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Pockets>(builder: (context, model, child) {
+    return Consumer<Light>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () {
           // TODO: 個別に状態を変える
