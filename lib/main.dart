@@ -86,7 +86,7 @@ class _TextFiledState extends State<TextField> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            '${model.count}%',
+            '${(model.count / 1326) * 100}%',
             style: TextStyle(
               fontSize: 20.0,
             ),
