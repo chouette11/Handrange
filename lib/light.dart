@@ -11,21 +11,28 @@ class Light extends ChangeNotifier {
   }).toList();
 
   bool isPocketed = false;
+  double count = 0;
+
 
   onTapped(String hand) {
     status.forEach((element) {
       if (element["hand"] == hand) {
         element["isSelected"] = !element["isSelected"];
-      }
-    });
+        count = count + element["value"];
+    }
+    }
+    );
     notifyListeners();
-  }
+    }
+
+
 
   onPocket() {
     isPocketed = !isPocketed;
     status.forEach((element) {
       if (element["hand"].length == 2) {
         element["isSelected"] = isPocketed;
+        count = count + element["value"];
       }
     });
     notifyListeners();
