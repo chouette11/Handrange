@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:handrange/light.dart';
-import 'package:provider/provider.dart';
+
 const CONBI =[{
   "hand": 'AA',
   "value":6,
