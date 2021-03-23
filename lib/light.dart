@@ -18,14 +18,11 @@ class Light extends ChangeNotifier {
     status.forEach((element) {
       if (element["hand"] == hand) {
         element["isSelected"] = !element["isSelected"];
-        if (element["isSelected"] = true) {
-          count = count + element["value"];
+        element["isSelected"] ? count = count + element["value"] : count = count - element["value"];
         }
-        else if (element["isSelected"] = false) {
-          count = count - element["value"];
-        }
+
       }
-    }
+
     );
     notifyListeners();
     }
@@ -37,14 +34,10 @@ class Light extends ChangeNotifier {
     status.forEach((element) {
       if (element["hand"].length == 2) {
         element["isSelected"] = isPocketed;
-        if (isPocketed = true) {
-          count = count + element["value"];
-        }
-        else if (isPocketed = false){
-          count = count - element["value"];
-        }
+        isPocketed ? count = count + element["value"] : count = count - element["value"];
       }
-    });
+    }
+    );
     notifyListeners();
   }
 }
