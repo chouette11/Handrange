@@ -300,7 +300,7 @@ const CONBI =[{
     "value":6,
   },{
     "hand": '76s',
-    "value":6,
+    "value":4,
   },{
     "hand": '75s',
     "value":4,
