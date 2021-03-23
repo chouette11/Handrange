@@ -40,13 +40,10 @@ class MyHomePage extends StatelessWidget{
                 Keyboard(),
                 TextField(),
                 RaisedButton(
-                    child: Text('button'),
+                    child: Text('Pockets'),
                     onPressed: () {
-                      model.onPowerSwitch();
+                      model.onPocket();
                     }),
-                Text(
-                  '${model.active}'
-                ),
               ],
             );
         }
@@ -135,7 +132,7 @@ class Keyboard extends StatelessWidget {
           mainAxisSpacing: 0.001,
           crossAxisSpacing: 0.001,
           children: CONBI.map((e) => GridTile(
-            child: Tapbox(hand: e["hand"], value: e["value"],),
+            child: TapBox(hand: e["hand"], value: e["value"], isSelected: e["isSelected"],),
           ),
           ).toList()
       ),
@@ -144,98 +141,32 @@ class Keyboard extends StatelessWidget {
 }
 
 //　キーボタン
-class Tapbox extends StatefulWidget {
-  Tapbox( {Key key, this.hand, this.value }) : super(key: key);
-  String hand; int value;
+class TapBox extends StatelessWidget {
+  TapBox( {Key key, this.hand, this.value, this.isSelected }) : super(key: key);
+  String hand;
+  int value;
+  bool isSelected;
+
   @override
-  _TapboxState createState() => _TapboxState();
-}
-
-class _TapboxState extends State<Tapbox> {
-
-  bool active = false;
-
-  void _changetrue() async {
-    setState(() {
-      return
-        active = true;
-    });
-    if (active == false)
-      _TextFiledState.controller.sink.add(widget.value);
-    else
-      _TextFiledState.controller.sink.add(-widget.value);
-  }
-
-  void _changefalse() async{
-    setState(() {
-      return
-        active = false;
-    });
-}
-
-
   Widget build(BuildContext context) {
-    return
-    Container(
-    child:Consumer<Pockets>(builder: (context, model, child) {
-        return
-          GestureDetector(
-            onTap: () {
-              if (model.active == true) {
-                model.active = false;
-                _changefalse();
-              }
-              else if (model.active == false && active == true) {
-                _changefalse();
-              }
-              else if (model.active == false && active == false) {
-                _changetrue();
-              }
-            }
-            ,
-
-            child: Consumer<Pockets>(builder: (context, model, child) {
-              if (active == true || model.active == true) {
-                return
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5, color: Colors.white),
-                        color: Colors.green.shade600
-                    ),
-                    child: Center(
-                      child: Text(
-                          widget.hand
-                      ),
-                    ),
-                  );
-              }
-              else {
-                return
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 0.5, color: Colors.white),
-                        color: Colors.green.shade50
-                    ),
-                    child: Center(
-                      child: Text(
-                          widget.hand
-                      ),
-                    ),
-                  );
-              }
-            }
+    return Consumer<Pockets>(builder: (context, model, child) {
+      return GestureDetector(
+        onTap: () {
+          // TODO: 個別に状態を変える
+          model.onTapped(hand);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 0.5, color: Colors.white),
+            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+          ),
+          child: Center(
+            child: Text(
+              hand,
             ),
-          );
-      }
-    )
-    );
+          ),
+        ),
+      );
+    });
   }
 }
-
-// child: (() {
-//   if (widget.hand == 'AA') {
-//     return Text('1');
-//   } else {
-//     return Text('2');
-//   }
-// })(),
