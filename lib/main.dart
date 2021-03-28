@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/combination.dart';
 import 'package:handrange/light.dart';
 void main() => runApp(MyApp());
 
@@ -38,17 +37,43 @@ class MyHomePage extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Keyboard(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    RaisedButton(
+                        child: Text('Pockets'),
+                        onPressed: () {
+                          model.onPocket();
+                        }),
+                    RaisedButton(
+                        child: Text('A'),
+                        onPressed: () {
+                          model.onAhigh();
+                        }),
+                    RaisedButton(
+                        child: Text('K'),
+                        onPressed: () {
+                          model.onKhigh();
+                        }),
+
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    RaisedButton(
+                        child: Text('Q'),
+                        onPressed: () {
+                          model.onQhigh();
+                        }),
+                    RaisedButton(
+                        child: Text('J'),
+                        onPressed: () {
+                          model.onJhigh();
+                        }),
+                  ],
+                ),
                 TextField(),
-                RaisedButton(
-                    child: Text('Pockets'),
-                    onPressed: () {
-                      model.onPocket();
-                    }),
-                RaisedButton(
-                    child: Text('Pockets'),
-                    onPressed: () {
-                      model.onAhigh();
-                    }),
               ],
             );
         }
