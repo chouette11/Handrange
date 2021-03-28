@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +12,11 @@ class Light extends ChangeNotifier {
     "isSelected": false,
   }).toList();
 
-  bool isPocketed = false;
+  bool isPocket = false;
+  bool isAce = false;
+  bool isKing = false;
+  bool isQueen = false;
+  bool isJuck = false;
   double count = 0;
 
 
@@ -30,14 +36,68 @@ class Light extends ChangeNotifier {
 
 
   onPocket() {
-    isPocketed = !isPocketed;
+    isPocket = !isPocket;
     status.forEach((element) {
       if (element["hand"].length == 2) {
-        element["isSelected"] = isPocketed;
-        isPocketed ? count = count + element["value"] : count = count - element["value"];
+        element["isSelected"] = isPocket;
+        isPocket ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
     notifyListeners();
   }
+
+  onAhigh() {
+    isAce = !isAce;
+    status.forEach((element) {
+      String hand = element["hand"];
+      if (hand.startsWith('A')) {
+        element["isSelected"] = isAce;
+        isAce ? count = count + element["value"] : count = count - element["value"];
+      }
+    }
+    );
+    notifyListeners();
+  }
+
+  onKhigh() {
+    isKing = !isKing;
+    status.forEach((element) {
+      String hand = element["hand"];
+      if (hand.startsWith('K') || hand.endsWith('Ks') || hand.endsWith('Ko') ) {
+        element["isSelected"] = isKing;
+        isKing ? count = count + element["value"] : count = count - element["value"];
+      }
+    }
+    );
+    notifyListeners();
+  }
+
+  onQhigh() {
+    isQueen = !isQueen;
+    status.forEach((element) {
+      String hand = element["hand"];
+      if (hand.startsWith('Q') || hand.endsWith('Qs') || hand.endsWith('Qo')) {
+        element["isSelected"] = isQueen;
+        isQueen ? count = count + element["value"] : count = count - element["value"];
+      }
+    }
+    );
+    notifyListeners();
+  }
+
+  onJhigh() {
+    isJuck = !isJuck;
+    status.forEach((element) {
+      String hand = element["hand"];
+      if (hand.startsWith('J') || hand.endsWith('Js') || hand.endsWith('Jo')) {
+        element["isSelected"] = isJuck;
+        isJuck ? count = count + element["value"] : count = count - element["value"];
+      }
+    }
+    );
+    notifyListeners();
+  }
+
+
 }
