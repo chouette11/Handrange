@@ -31,6 +31,29 @@ class MyHomePage extends StatelessWidget{
         appBar: AppBar(
           title: Text('Handrange'),
         ),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: const <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.message),
+                title: Text('Messages'),
+              ),
+            ],
+          ),
+        ),
         body:Consumer<Light>(builder: (context, model, child) {
           return
             Column(
