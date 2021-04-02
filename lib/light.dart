@@ -16,7 +16,7 @@ class Light extends ChangeNotifier {
   bool isAce = false;
   bool isKing = false;
   bool isQueen = false;
-  bool isJuck = false;
+  bool isJack = false;
   double count = 0;
 
 
@@ -87,12 +87,12 @@ class Light extends ChangeNotifier {
   }
 
   onJhigh() {
-    isJuck = !isJuck;
+    isJack = !isJack;
     status.forEach((element) {
       String hand = element["hand"];
       if (hand.startsWith('J') || hand.endsWith('Js') || hand.endsWith('Jo')) {
-        element["isSelected"] = isJuck;
-        isJuck ? count = count + element["value"] : count = count - element["value"];
+        element["isSelected"] = isJack;
+        isJack ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
