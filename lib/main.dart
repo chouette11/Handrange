@@ -1,9 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
+import 'package:sqflite/sqflite.dart';
+class Hand {
+  final int i
+  final List<Map<String, dynamic>> status;
+
+  Hand({this.id, this.status});
+
+  Map<String, dynamic> toMap() {
+    Map<String, bool> s;
+    status.forEach((element) {
+      s[element["id"]] = element["id"];
+      s[element["hand"]] = element["isSelected"]; // s["AA"] = false;
+    });
+    return s;
+  }
+
+  @override
+  String toString() {
+    return 'Hand{id: $id, text: $status}';
+  }
+//table create
+  static Future<Database> get database async {
+    final Future<Database> _database = openDatabase(
+      join(await getDatabasesPath(), 'hand_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+          "CREATE TABLE Hand(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)",
+        );
+      },
+      version: 1,
+    );
+    return _database;
+  }
+
+  static Future<void> insertMemo(Hand hand) async {
+    final Database db = await database;
+    await db.insert(
+      'memo',
+      hand.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<List<Hand>> getMemos() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('memo');
+    return List.generate(maps.length, (i) {
+      return Hand(
+        id: maps[i]['id'],
+        status: maps[i]['status'],
+      );
+    });
+  }
+
+  static Future<void> updateMemo(Hand hand) async {
+    final db = await database;
+    await db.update(
+      'memo',
+      hand.toMap(),
+      where: "id = ?",
+      whereArgs: [hand.id],
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
+  }
+
+  static Future<void> deleteMemo(int id) async {
+    final db = await database;
+    await db.delete(
+      'memo',
+      where: "id = ?",
+      whereArgs: [id],
+    );
+  }
+}
+
 void main() => runApp(MyApp());
 
 

@@ -1,5 +1,5 @@
 
-
+import 'package:handrange/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,6 +19,15 @@ class Light extends ChangeNotifier {
   bool isJack = false;
   double count = 0;
 
+  onInsert() async {
+    Hand hand = Hand(status: status);
+    await Hand.insertMemo(hand);
+  }
+
+  onGet() async {
+    final List<Hand> hands = await Hand.getMemos();
+    print(await hands());
+  }
 
   onTapped(String hand) {
     status.forEach((element) {
@@ -100,4 +109,26 @@ class Light extends ChangeNotifier {
   }
 
 
+}
+
+class Dog {
+  final List<Map<String, dynamic>> status;
+
+  Dog({this.status});
+  
+  Map<String, dynamic> toMap() {
+    Map<String, bool> s;
+    status.forEach((element) {
+      s[element["hand"]] = element["isSelected"]; // s["AA"] = false;
+    });
+
+    return s;
+  }
+
+  // Implement toString to make it easier to see information about
+  // each dog when using the print statement.
+  @override
+  String toString() {
+    return 'Dog{status: $status}';
+  }
 }
