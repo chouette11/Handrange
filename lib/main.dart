@@ -6,32 +6,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:sqflite/sqflite.dart';
-class Hand {
-  final int i
+class Graph {
   final List<Map<String, dynamic>> status;
 
-  Hand({this.id, this.status});
+  Graph({this.status});
 
   Map<String, dynamic> toMap() {
-    Map<String, bool> s;
+    Map<String, bool> s = {};
     status.forEach((element) {
-      s[element["id"]] = element["id"];
       s[element["hand"]] = element["isSelected"]; // s["AA"] = false;
     });
     return s;
   }
 
+
+
   @override
   String toString() {
-    return 'Hand{id: $id, text: $status}';
+    return 'Graph{status: $status}';
   }
 //table create
   static Future<Database> get database async {
     final Future<Database> _database = openDatabase(
-      join(await getDatabasesPath(), 'hand_database.db'),
+      join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE Hand(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)",
+          "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, status LIST)",
         );
       },
       version: 1,
@@ -39,38 +39,37 @@ class Hand {
     return _database;
   }
 
-  static Future<void> insertMemo(Hand hand) async {
+  static Future<void> insertGraph(Graph graph) async {
     final Database db = await database;
     await db.insert(
-      'memo',
-      hand.toMap(),
+      'graph',
+      graph.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  static Future<List<Hand>> getMemos() async {
+  static Future<List<Graph>> getGraph() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('memo');
     return List.generate(maps.length, (i) {
-      return Hand(
-        id: maps[i]['id'],
+      return Graph(
         status: maps[i]['status'],
       );
     });
   }
 
-  static Future<void> updateMemo(Hand hand) async {
+  static Future<void> updateGraph(Graph graph) async {
     final db = await database;
     await db.update(
-      'memo',
-      hand.toMap(),
+      'graph',
+      graph.toMap(),
       where: "id = ?",
-      whereArgs: [hand.id],
+      whereArgs: [graph.status],
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
 
-  static Future<void> deleteMemo(int id) async {
+  static Future<void> deleteGraph(int id) async {
     final db = await database;
     await db.delete(
       'memo',
@@ -79,6 +78,7 @@ class Hand {
     );
   }
 }
+
 
 void main() => runApp(MyApp());
 
