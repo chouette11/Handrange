@@ -11,7 +11,7 @@ class Light extends ChangeNotifier {
     "value": e["value"],
     "isSelected": false,
   }).toList();
-
+  final list = [];
   bool isPocket = false;
   bool isAce = false;
   bool isKing = false;
@@ -20,14 +20,10 @@ class Light extends ChangeNotifier {
   double count = 0;
 
   onInsert() async {
-    Hand hand = Hand(status: status);
-    await Hand.insertMemo(hand);
+
   }
 
-  onGet() async {
-    final List<Hand> hands = await Hand.getMemos();
-    print(await hands());
-  }
+
 
   onTapped(String hand) {
     status.forEach((element) {
