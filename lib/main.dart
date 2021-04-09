@@ -4,22 +4,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 
-
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Handrange',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: ChangeNotifierProvider<Light>(
-        create: (_) => Light(),
-        child: MyHomePage() ,
-      )
+        title: 'Handrange',
+        theme: ThemeData(
+          primarySwatch: Colors.lightBlue,
+        ),
+        home: ChangeNotifierProvider<Light>(
+          create: (_) => Light(),
+          child: MyHomePage() ,
+        )
     );
   }
 }
@@ -29,90 +27,92 @@ class MyHomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return
       Scaffold(
-        appBar: AppBar(
-          title: Text('Handrange'),
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: const <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  'Drawer Header',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
+          appBar: AppBar(
+            title: Text('Handrange'),
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: const <Widget>[
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  child: Text(
+                    'Drawer Header',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
-              ),
-              ListTile(
-                leading: Icon(Icons.message),
-                title: Text('Messages'),
-              ),
-            ],
-          ),
-        ),
-        body:Consumer<Light>(builder: (context, model, child) {
-          return
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Keyboard(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    RaisedButton(
-                        child: Text('Pockets'),
-                        onPressed: () {
-                          model.onPocket();
-                        }),
-                    RaisedButton(
-                        child: Text('A'),
-                        onPressed: () {
-                          model.onAhigh();
-                        }),
-                    RaisedButton(
-                        child: Text('K'),
-                        onPressed: () {
-                          model.onKhigh();
-                        }),
-
-                  ],
+                ListTile(
+                  leading: Icon(Icons.message),
+                  title: Text('Messages'),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    RaisedButton(
-                        child: Text('Q'),
-                        onPressed: () {
-                          model.onQhigh();
-                        }),
-                    RaisedButton(
-                        child: Text('J'),
-                        onPressed: () {
-                          model.onJhigh();
-                        }),
-                  ],
-                ),
-                TextField(),
               ],
-            );
-        }
-        )
-    );
+            ),
+          ),
+          body:Consumer<Light>(builder: (context, model, child) {
+            return
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Keyboard(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      RaisedButton(
+                          child: Text('Pockets'),
+                          onPressed: () {
+                            model.onPocket();
+                          }),
+                      RaisedButton(
+                          child: Text('A'),
+                          onPressed: () {
+                            model.onAhigh();
+                          }),
+                      RaisedButton(
+                          child: Text('K'),
+                          onPressed: () {
+                            model.onKhigh();
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      RaisedButton(
+                          child: Text('Q'),
+                          onPressed: () {
+                            model.onQhigh();
+                          }),
+                      RaisedButton(
+                          child: Text('J'),
+                          onPressed: () {
+                            model.onJhigh();
+                          }),
+                      RaisedButton(
+                          child: Text('保存'),
+                          onPressed: () {
+                            model.onSave();
+                          }),
+                    ],
+                  ),
+                  TextField(),
+                ],
+              );
+          }
+          )
+      );
   }
 }
-
-
 //=============================================================================
 // 表示
 class TextField extends StatefulWidget {
   @override
   _TextFiledState createState() => _TextFiledState();
-  //static int _expression;
+//static int _expression;
 }
 class _TextFiledState extends State<TextField> {
   // int _expression = 0;
@@ -134,30 +134,24 @@ class _TextFiledState extends State<TextField> {
 
     return
       Expanded(
-        child:Consumer<Light>(builder: (context, model, child) {
-          return
-          Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            '${((model.count / 1326) * 100).toStringAsFixed(2)}%',
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-        ],
-      );
-        }
-        )
+          child:Consumer<Light>(builder: (context, model, child) {
+            return
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    '${((model.count / 1326) * 100).toStringAsFixed(2)}%',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ],
+              );
+          }
+          )
       );
   }
-
 }
-
-
-
-
-
 //==============================================================================
 // キーボード
 class Keyboard extends StatelessWidget {

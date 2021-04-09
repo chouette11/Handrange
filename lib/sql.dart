@@ -15,13 +15,11 @@ class Graph {
     return s;
   }
 
-
-
   @override
   String toString() {
     return 'Graph{status: $status}';
   }
-//table create
+
   static Future<Database> get database async {
     final Future<Database> _database = openDatabase(
       join(await getDatabasesPath(), 'graph_database.db'),

@@ -1,4 +1,3 @@
-
 import 'package:handrange/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -20,27 +19,23 @@ class Light extends ChangeNotifier {
   bool isJack = false;
   double count = 0;
 
-  onInsert() async {
+  onSave() async {
     Graph graph = Graph(status: status);
     await Graph.insertGraph(graph);
   }
-
-
 
   onTapped(String hand) {
     status.forEach((element) {
       if (element["hand"] == hand) {
         element["isSelected"] = !element["isSelected"];
         element["isSelected"] ? count = count + element["value"] : count = count - element["value"];
-        }
-
       }
+
+    }
 
     );
     notifyListeners();
-    }
-
-
+  }
 
   onPocket() {
     isPocket = !isPocket;
@@ -105,7 +100,5 @@ class Light extends ChangeNotifier {
     );
     notifyListeners();
   }
-
-
 }
 
