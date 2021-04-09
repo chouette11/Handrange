@@ -6,32 +6,32 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:sqflite/sqflite.dart';
-class Graph {
+class Hand {
+  final int i
   final List<Map<String, dynamic>> status;
 
-  Graph({this.status});
+  Hand({this.id, this.status});
 
   Map<String, dynamic> toMap() {
-    Map<String, bool> s = {};
+    Map<String, bool> s;
     status.forEach((element) {
+      s[element["id"]] = element["id"];
       s[element["hand"]] = element["isSelected"]; // s["AA"] = false;
     });
     return s;
   }
 
-
-
   @override
   String toString() {
-    return 'Graph{status: $status}';
+    return 'Hand{id: $id, text: $status}';
   }
 //table create
   static Future<Database> get database async {
     final Future<Database> _database = openDatabase(
-      join(await getDatabasesPath(), 'graph_database.db'),
+      join(await getDatabasesPath(), 'hand_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, status LIST)",
+          "CREATE TABLE Hand(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)",
         );
       },
       version: 1,
@@ -39,37 +39,38 @@ class Graph {
     return _database;
   }
 
-  static Future<void> insertGraph(Graph graph) async {
+  static Future<void> insertMemo(Hand hand) async {
     final Database db = await database;
     await db.insert(
-      'graph',
-      graph.toMap(),
+      'memo',
+      hand.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  static Future<List<Graph>> getGraph() async {
+  static Future<List<Hand>> getMemos() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('memo');
     return List.generate(maps.length, (i) {
-      return Graph(
+      return Hand(
+        id: maps[i]['id'],
         status: maps[i]['status'],
       );
     });
   }
 
-  static Future<void> updateGraph(Graph graph) async {
+  static Future<void> updateMemo(Hand hand) async {
     final db = await database;
     await db.update(
-      'graph',
-      graph.toMap(),
+      'memo',
+      hand.toMap(),
       where: "id = ?",
-      whereArgs: [graph.status],
+      whereArgs: [hand.id],
       conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
 
-  static Future<void> deleteGraph(int id) async {
+  static Future<void> deleteMemo(int id) async {
     final db = await database;
     await db.delete(
       'memo',
@@ -78,9 +79,6 @@ class Graph {
     );
   }
 }
-
-
-
 
 void main() => runApp(MyApp());
 
@@ -171,11 +169,6 @@ class MyHomePage extends StatelessWidget{
                         child: Text('J'),
                         onPressed: () {
                           model.onJhigh();
-                        }),
-                    RaisedButton(
-                        child: Text('保存'),
-                        onPressed: () {
-                          model.onInsert();
                         }),
                   ],
                 ),
