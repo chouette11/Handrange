@@ -1,7 +1,31 @@
+import 'package:handrange/combination.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 
+class SqlText {
+  static void CreateText() {
+    List<String> hands = new List<String>();
+    String inputText = "";
+    int i = 0;
+
+    List<Map<String, dynamic>> inputhands = CONBI.map((e) =>
+    {
+      "hand": e["hand"],
+    }).toList();
+
+    inputhands.forEach((element) {
+      String hand = element["hand"];
+      hands.add(hand);
+    });
+
+    for(int i = 0; i <= 168; i++ ) {
+      inputText +=" ${hands[i]} INTEGER,";
+      //print(inputText);
+    }
+    print(inputText);
+  }
+}
 class Graph {
   final List<Map<String, dynamic>> status;
 
@@ -25,13 +49,14 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, status LIST)",
+          "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT)",
         );
       },
       version: 1,
     );
     return _database;
   }
+
 
   static Future<void> insertGraph(Graph graph) async {
     final Database db = await database;

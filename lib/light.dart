@@ -21,7 +21,7 @@ class Light extends ChangeNotifier {
 
   onSave() async {
     Graph graph = Graph(status: status);
-    await Graph.insertGraph(graph);
+    print(await graph.toMap());
   }
 
   onTapped(String hand) {
@@ -30,9 +30,7 @@ class Light extends ChangeNotifier {
         element["isSelected"] = !element["isSelected"];
         element["isSelected"] ? count = count + element["value"] : count = count - element["value"];
       }
-
     }
-
     );
     notifyListeners();
   }
