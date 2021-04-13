@@ -20,8 +20,43 @@ class Light extends ChangeNotifier {
   double count = 0;
 
   onSave() async {
-    Graph graph = Graph(status: status);
-    print(await graph.toMap());
+      List<String> judge = new List<String>();
+      String inputText = "";
+      List<Map<String, dynamic>> inputjudge = status.map((e) =>
+      {
+        "isSelected": e["isSelected"],
+      }).toList();
+
+      inputjudge.forEach((element) {
+        String isSelected;
+        if (element["isSelected"] == true){
+          isSelected = "T";
+        }
+        else {
+          isSelected = "F";
+        }
+        judge.add(isSelected);
+      });
+
+      // List<String> hands = new List<String>();
+      // List<Map<String, dynamic>> inputhands = CONBI.map((e) =>
+      // {
+      //   "hand": e["hand"],
+      // }).toList();
+      //
+      // inputhands.forEach((element) {
+      //   String hand = element["hand"];
+      //   hands.add(hand);
+      // });
+
+      for(int i = 0; i <= 168; i++ ) {
+        inputText +="${judge[i]}";
+        //print(inputText);
+      }
+
+    Graph graph = Graph(text: inputText);
+    await Graph.insertGraph(graph);
+
   }
 
   onTapped(String hand) {

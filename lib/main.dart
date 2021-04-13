@@ -95,8 +95,8 @@ class MyHomePage extends StatelessWidget{
                       RaisedButton(
                           child: Text('保存'),
                           onPressed: () {
-                            //model.onSave();
-                            SqlText.CreateText();
+                            model.onSave();
+                            //SqlText.CreateText();
                           }),
                     ],
                   ),
