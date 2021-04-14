@@ -1,7 +1,6 @@
-import 'package:handrange/main.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
 import 'package:handrange/sql.dart';
 
@@ -20,43 +19,31 @@ class Light extends ChangeNotifier {
   double count = 0;
 
   onSave() async {
-      List<String> judge = new List<String>();
-      String inputText = "";
-      List<Map<String, dynamic>> inputjudge = status.map((e) =>
-      {
-        "isSelected": e["isSelected"],
-      }).toList();
+    List<String> judge = new List<String>();
+    String inputText = "";
+    List<Map<String, dynamic>> inputjudge = status.map((e) =>
+    {
+      "isSelected": e["isSelected"],
+    }).toList();
 
-      inputjudge.forEach((element) {
-        String isSelected;
-        if (element["isSelected"] == true){
-          isSelected = "T";
-        }
-        else {
-          isSelected = "F";
-        }
-        judge.add(isSelected);
-      });
-
-      // List<String> hands = new List<String>();
-      // List<Map<String, dynamic>> inputhands = CONBI.map((e) =>
-      // {
-      //   "hand": e["hand"],
-      // }).toList();
-      //
-      // inputhands.forEach((element) {
-      //   String hand = element["hand"];
-      //   hands.add(hand);
-      // });
-
-      for(int i = 0; i <= 168; i++ ) {
-        inputText +="${judge[i]}";
-        //print(inputText);
+    inputjudge.forEach((element) {
+      String isSelected;
+      if (element["isSelected"] == true){
+        isSelected = "T";
       }
+      else {
+        isSelected = "F";
+      }
+      judge.add(isSelected);
+    });
+
+    for(int i = 0; i <= 168; i++ ) {
+      inputText +="${judge[i]}";
+    }
 
     Graph graph = Graph(text: inputText);
     await Graph.insertGraph(graph);
-
+    notifyListeners();
   }
 
   onTapped(String hand) {

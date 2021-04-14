@@ -3,42 +3,6 @@ import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 
-
-class SqlText {
-  static void CreateText() {
-    String inputText = "";
-    List<String> hands = new List<String>();
-    int i = 0;
-
-    List<Map<String, dynamic>> inputhands = CONBI.map((e) =>
-    {
-      "hand": e["hand"],
-    }).toList();
-
-    inputhands.forEach((element) {
-      String hand = element["hand"];
-      hands.add(hand);
-    });
-
-    for(int i = 0; i <= 50; i++ ) {
-      inputText += "x_${hands[i].toLowerCase()}:  ";
-      //print(inputText);
-    }
-    print(inputText);
-    inputText ="";
-    for(int i = 51; i <= 100; i++ ) {
-      inputText += "final x_${hands[i].toLowerCase()}; ";
-      //print(inputText);
-    }
-    print(inputText);
-    inputText = "";
-    for(int i = 101; i <= 168; i++ ) {
-      inputText += "final x_${hands[i].toLowerCase()}; ";
-      //print(inputText);
-    }
-    print(inputText);
-  }
-}
 class Graph {
   final int id;
   final String text;
@@ -49,24 +13,11 @@ class Graph {
       'id': id,
       'text': text,
     };
-    //Map<String, String> s = {};
-    // id.forEach((element) {
-    //   String hand = element["hand"];
-    //   String isSelected;
-    //   if (element["isSelected"] == true){
-    //     isSelected = "true";
-    //   }
-    //   else {
-    //     isSelected = "false";
-    //   }
-    //   s[hand.toLowerCase()] = isSelected; // s["AA"] = false;
-    // });
-    // return s;
   }
 
   @override
   String toString() {
-    return 'Graph{status: $id}';
+    return 'Graph{id: $id, text: $text}';
   }
 
   static Future<Database> get database async {
@@ -74,7 +25,7 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)"
+            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)"
         );
       },
       version: 1,
@@ -94,10 +45,11 @@ class Graph {
 
   static Future<List<Graph>> getGraph() async {
     final Database db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('memo');
+    final List<Map<String, dynamic>> maps = await db.query('graph');
     return List.generate(maps.length, (i) {
       return Graph(
-        id: maps[i]['status'],
+        id: maps[i]['id'],
+        text: maps[i]['text'],
       );
     });
   }

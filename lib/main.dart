@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/sql.dart';
+import 'dart:async';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -94,9 +95,8 @@ class MyHomePage extends StatelessWidget{
                           }),
                       RaisedButton(
                           child: Text('保存'),
-                          onPressed: () {
+                          onPressed: () async {
                             model.onSave();
-                            //SqlText.CreateText();
                           }),
                     ],
                   ),
