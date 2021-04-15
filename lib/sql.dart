@@ -61,7 +61,6 @@ class Graph {
       graph.toMap(),
       where: "id = ?",
       whereArgs: [graph.id],
-      conflictAlgorithm: ConflictAlgorithm.fail,
     );
   }
 

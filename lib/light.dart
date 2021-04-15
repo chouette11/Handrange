@@ -11,6 +11,7 @@ class Light extends ChangeNotifier {
     "isSelected": false,
   }).toList();
 
+  int tablenumber;
   bool isPocket = false;
   bool isAce = false;
   bool isKing = false;
@@ -43,6 +44,64 @@ class Light extends ChangeNotifier {
 
     Graph graph = Graph(text: inputText);
     await Graph.insertGraph(graph);
+    notifyListeners();
+  }
+
+  onUpdate1() async {
+    List<String> judge = new List<String>();
+    String inputText = "";
+    List<Map<String, dynamic>> inputjudge = status.map((e) =>
+    {
+      "isSelected": e["isSelected"],
+    }).toList();
+
+    inputjudge.forEach((element) {
+      String isSelected;
+      if (element["isSelected"] == true){
+        isSelected = "T";
+      }
+      else {
+        isSelected = "F";
+      }
+      judge.add(isSelected);
+    });
+
+    for(int i = 0; i <= 168; i++ ) {
+      inputText +="${judge[i]}";
+    }
+
+    Graph graph = Graph(id: 1, text: inputText);
+    await Graph.updateGraph(graph);
+    print(graph);
+  }
+
+  onGet1() async {
+    tablenumber = 0;
+    final List<Graph> graphs = await Graph.getGraph();
+    int i;
+    String graph = graphs[0].text;
+    print(graph);
+    for(i = 0; i <= 168; i++){
+      String isLighted = graph[i];
+      if(isLighted == "T"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,bool>{
+              "isSelected": true,
+            }
+        );
+      }
+      else if (isLighted == "F"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,dynamic>{
+              "isSelected": false,
+            }
+        );
+      }
+    }
+    print(graphs);
+    print(status);
     notifyListeners();
   }
 

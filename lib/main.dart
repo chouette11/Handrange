@@ -78,6 +78,11 @@ class MyHomePage extends StatelessWidget{
                           onPressed: () {
                             model.onKhigh();
                           }),
+                      RaisedButton(
+                          child: Text('読み込み1'),
+                          onPressed: () async {
+                            model.onGet1();
+                          }),
                     ],
                   ),
                   Row(
@@ -97,6 +102,11 @@ class MyHomePage extends StatelessWidget{
                           child: Text('保存'),
                           onPressed: () async {
                             model.onSave();
+                          }),
+                      RaisedButton(
+                          child: Text('更新１'),
+                          onPressed: () async {
+                            model.onUpdate1();
                           }),
                     ],
                   ),
