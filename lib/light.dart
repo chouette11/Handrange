@@ -18,16 +18,17 @@ class Light extends ChangeNotifier {
   bool isQueen = false;
   bool isJack = false;
   double count = 0;
+  List<Graph> graphs =[];
 
   onSave() async {
-    List<String> judge = new List<String>();
-    String inputText = "";
-    List<Map<String, dynamic>> inputjudge = status.map((e) =>
+    List<String> TF = new List<String>();
+    String TFText = "";
+    List<Map<String, dynamic>> inputTF = status.map((e) =>
     {
       "isSelected": e["isSelected"],
     }).toList();
 
-    inputjudge.forEach((element) {
+    inputTF.forEach((element) {
       String isSelected;
       if (element["isSelected"] == true){
         isSelected = "T";
@@ -35,27 +36,27 @@ class Light extends ChangeNotifier {
       else {
         isSelected = "F";
       }
-      judge.add(isSelected);
+      TF.add(isSelected);
     });
 
     for(int i = 0; i <= 168; i++ ) {
-      inputText +="${judge[i]}";
+      TFText +="${TF[i]}";
     }
 
-    Graph graph = Graph(text: inputText);
+    Graph graph = Graph(text: TFText);
     await Graph.insertGraph(graph);
     notifyListeners();
   }
 
   onUpdate1() async {
-    List<String> judge = new List<String>();
-    String inputText = "";
-    List<Map<String, dynamic>> inputjudge = status.map((e) =>
+    List<String> TF = new List<String>();
+    String TFText = "";
+    List<Map<String, dynamic>> inputTF = status.map((e) =>
     {
       "isSelected": e["isSelected"],
     }).toList();
 
-    inputjudge.forEach((element) {
+    inputTF.forEach((element) {
       String isSelected;
       if (element["isSelected"] == true){
         isSelected = "T";
@@ -63,21 +64,21 @@ class Light extends ChangeNotifier {
       else {
         isSelected = "F";
       }
-      judge.add(isSelected);
+      TF.add(isSelected);
     });
 
     for(int i = 0; i <= 168; i++ ) {
-      inputText +="${judge[i]}";
+      TFText +="${TF[i]}";
     }
 
-    Graph graph = Graph(id: 1, text: inputText);
+    Graph graph = Graph(id: 1, text: TFText);
     await Graph.updateGraph(graph);
     print(graph);
   }
 
   onGet1() async {
     tablenumber = 0;
-    final List<Graph> graphs = await Graph.getGraph();
+    graphs = await Graph.getGraph();
     int i;
     String graph = graphs[0].text;
     print(graph);
@@ -103,6 +104,10 @@ class Light extends ChangeNotifier {
     print(graphs);
     print(status);
     notifyListeners();
+  }
+
+  onDelete(int id) async {
+    await Graph.deleteGraph(id);
   }
 
   onTapped(String hand) {
@@ -177,6 +182,59 @@ class Light extends ChangeNotifier {
       }
     }
     );
+    notifyListeners();
+  }
+
+  List<Map<String, dynamic>> TF = CONBI.map((e) => {
+    "hand": e["hand"],
+    "value": e["value"],
+  }).toList();
+
+  List <List> TFs = [];
+  Map numbers_map = {};
+  List <Map<dynamic,dynamic>> numbers = [{
+    "id" : 0
+  },{
+    "id" : 1
+  },{
+    "id" : 2
+  }];
+
+  Creategraphs() async {
+    final List<Graph> graphs = await Graph.getGraph();
+    int i, j;
+    //print(graphs);
+    for (j = 0; j < graphs.length ; j++) {
+      String graph = graphs[j].text;
+      //print(graph);
+      for (i = 0; i <= 168; i++) {
+        String isLighted = graph[i];
+        //print(isLighted);
+        if (isLighted == "T") {
+          TF[i].addAll(
+              <String, bool>{
+                "isSelected": true,
+              }
+          );
+        }
+        else if (isLighted == "F") {
+          TF[i].addAll(
+              <String, bool>{
+                "isSelected": false,
+              }
+          );
+        }
+        //print(TF[i]);
+      }
+      TFs.add(TF);
+      //print(TFs);
+      // numbers_map.addAll(
+      //     <dynamic,dynamic>{
+      //       "id": j
+      //     }
+      // );
+      // numbers.add(numbers_map);
+    }
     notifyListeners();
   }
 }
