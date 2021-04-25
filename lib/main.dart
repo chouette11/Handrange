@@ -5,29 +5,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/save.dart';
-import 'dart:async';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Handrange',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => ChangeNotifierProvider<Light>(
-          create: (_) => Light(),
-          child: MyHomePage() ,
-        ),
-        '/next': (context) => ChangeNotifierProvider<Light>(
-          create: (_) => Light(),
-          child: SavePage(),
-        )
-      },
-    );
+    return
+      Container(
+          child:ChangeNotifierProvider<Light>(
+            create: (_) => Light(),
+            child: MaterialApp(
+              title: 'Handrange',
+              theme: ThemeData(
+                primarySwatch: Colors.lightBlue,
+              ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => MyHomePage() ,
+                '/next': (context) => SavePage(),
+              },
+            ) ,
+          )
+      );
   }
 }
 

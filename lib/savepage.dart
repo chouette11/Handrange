@@ -4,8 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:handrange/save.dart';
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -59,11 +57,9 @@ class SavePage extends StatelessWidget{
             ),
           ),
           body:SaveGraph()
-
       );
   }
 }
-
 
 class SaveGraph extends StatelessWidget {
   final myController = TextEditingController();
