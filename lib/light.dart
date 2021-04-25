@@ -185,27 +185,21 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Map<String, dynamic>> TF = CONBI.map((e) => {
-    "hand": e["hand"],
-    "value": e["value"],
-  }).toList();
-
   List <List> TFs = [];
-  Map numbers_map = {};
-  List <Map<dynamic,dynamic>> numbers = [{
-    "id" : 0
-  },{
-    "id" : 1
-  },{
-    "id" : 2
-  }];
+  List <Map<String,int>> numbers = [];
 
   Creategraphs() async {
     final List<Graph> graphs = await Graph.getGraph();
-    int i, j;
+    List <Map<String,int>> inputnumbers = [];
+    List <List> inputTFs = [];
+    int i, j,k;
     //print(graphs);
     for (j = 0; j < graphs.length ; j++) {
       String graph = graphs[j].text;
+      List<Map<String, dynamic>> TF = CONBI.map((e) => {
+        "hand": e["hand"],
+        "value": e["value"],
+      }).toList();
       //print(graph);
       for (i = 0; i <= 168; i++) {
         String isLighted = graph[i];
@@ -226,15 +220,22 @@ class Light extends ChangeNotifier {
         }
         //print(TF[i]);
       }
-      TFs.add(TF);
+      inputTFs.add(TF);
       //print(TFs);
-      // numbers_map.addAll(
-      //     <dynamic,dynamic>{
-      //       "id": j
-      //     }
-      // );
-      // numbers.add(numbers_map);
     }
+
+    for(k = 0; k < graphs.length; k++){
+      Map <String,int> numbers_map = {};
+      numbers_map.addAll(
+          <String,int>{
+            "id": k
+          }
+      );
+      inputnumbers.add(numbers_map);
+      print(inputnumbers);
+    }
+    TFs = inputTFs;
+    numbers = inputnumbers;
     notifyListeners();
   }
 }

@@ -65,46 +65,23 @@ class SaveGraph extends StatelessWidget {
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    double screensizewidth = MediaQuery.of(context).size.width;
     return
-      Consumer<Light>(builder: (context, model, child) {
-        double screensizewidth = MediaQuery.of(context).size.width;
-        return
-          Column(
-              children:[
-                List(),
-                RaisedButton(
-                    child: Text('表示'),
-                    onPressed: () async {
-                      print(model.TFs[0]);
-                      await model.Creategraphs();
-                    }),
-                RaisedButton(
-                    child: Text('消去'),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            title: Text("新規メモ作成"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('数字を入力してね'),
-                                TextField(controller: myController),
-                                RaisedButton(
-                                  child: Text('実行'),
-                                  onPressed: () async {
-                                    model.onDelete(int.parse(myController.text));
-                                    myController.clear();
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ));
-                    }),
-              ]
-          );
-      }
+      Container(
+          width: screensizewidth,
+          child: Consumer<Light>(builder: (context, model, child) {
+            return
+                    GridView.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 0.001,
+                        crossAxisSpacing: 0.001,
+                        children: model.numbers.map((e) => GridTile(
+                          child: List(id: e["id"]),
+                        ),
+                        ).toList()
+                    );
+          }
+          )
       );
   }
 }
@@ -115,17 +92,15 @@ class List extends StatelessWidget {
   int id;
   @override
   Widget build(BuildContext context) {
-    double screensizewidth = MediaQuery.of(context).size.width;
+    // double screensizewidth = MediaQuery.of(context).size.width;
     return Container(
-        width: screensizewidth,
-        height: screensizewidth,
         child: Consumer<Light>(builder: (context, model, child) {
           return
             GridView.count(
                 crossAxisCount: 13,
                 mainAxisSpacing: 0.001,
                 crossAxisSpacing: 0.001,
-                children: model.TFs[0].map((e) => GridTile(
+                children: model.TFs[id].map((e) => GridTile(
                   child: Box(isSelected: e["isSelected"]),
                 ),
                 ).toList()

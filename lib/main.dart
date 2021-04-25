@@ -35,107 +35,110 @@ class MyHomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Scaffold(
-          appBar: AppBar(
-            title: Text('Handrange'),
-          ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children:  <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                  child: Text(
-                    'Drawer Header',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
+      Container(
+        child:Consumer<Light>(builder: (context, model, child) {
+          return
+            Scaffold(
+                appBar: AppBar(
+                  title: Text('Handrange'),
                 ),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Messages'),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/next');
-                  },
-                ),
+                drawer: Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children:  <Widget>[
+                      DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                        child: Text(
+                          'Drawer Header',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text('Home'),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.graphic_eq_sharp),
+                        title: Text('Graphs'),
+                        onTap: () async {
+                          await model.Creategraphs();
+                          await Navigator.pushNamed(context, '/next');
 
-              ],
-            ),
-          ),
-          body:Consumer<Light>(builder: (context, model, child) {
-            return
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Keyboard(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      RaisedButton(
-                          child: Text('Pockets'),
-                          onPressed: () {
-                            model.onPocket();
-                            model.Creategraphs();
-                          }),
-                      RaisedButton(
-                          child: Text('A'),
-                          onPressed: () {
-                            model.onAhigh();
-                          }),
-                      RaisedButton(
-                          child: Text('K'),
-                          onPressed: () {
-                            model.onKhigh();
-                          }),
-                      RaisedButton(
-                          child: Text('読み込み1'),
-                          onPressed: () async {
-                            model.onGet1();
-                          }),
+                        },
+                      ),
+
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      RaisedButton(
-                          child: Text('Q'),
-                          onPressed: () {
-                            model.onQhigh();
-                          }),
-                      RaisedButton(
-                          child: Text('J'),
-                          onPressed: () {
-                            model.onJhigh();
-                          }),
-                      RaisedButton(
-                          child: Text('保存'),
-                          onPressed: () async {
-                            model.onSave();
-                          }),
-                      RaisedButton(
-                          child: Text('表示'),
-                          onPressed: () async {
-                            await model.Creategraphs();
-                            print(model.TFs[0]);
-                          }),
-                    ],
-                  ),
-                  TextField(),
-                ],
-              );
-          }
-          )
+                ),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Keyboard(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        RaisedButton(
+                            child: Text('Pockets'),
+                            onPressed: () {
+                              model.onPocket();
+                              model.Creategraphs();
+                            }),
+                        RaisedButton(
+                            child: Text('A'),
+                            onPressed: () {
+                              model.onAhigh();
+                            }),
+                        RaisedButton(
+                            child: Text('K'),
+                            onPressed: () {
+                              model.onKhigh();
+                            }),
+                        RaisedButton(
+                            child: Text('読み込み1'),
+                            onPressed: () async {
+                              model.onGet1();
+                            }),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        RaisedButton(
+                            child: Text('Q'),
+                            onPressed: () {
+                              model.onQhigh();
+                            }),
+                        RaisedButton(
+                            child: Text('J'),
+                            onPressed: () {
+                              model.onJhigh();
+                            }),
+                        RaisedButton(
+                            child: Text('保存'),
+                            onPressed: () async {
+                              model.onSave();
+                            }),
+                        RaisedButton(
+                            child: Text('表示'),
+                            onPressed: () async {
+                              await model.Creategraphs();
+                              print(model.numbers);
+                            }),
+                      ],
+                    ),
+                    TextField(),
+                  ],
+                )
+            );
+        }) ,
       );
   }
 }
