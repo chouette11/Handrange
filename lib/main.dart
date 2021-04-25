@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:handrange/sql.dart';
+import 'package:handrange/save.dart';
 import 'dart:async';
 void main() => runApp(MyApp());
 
@@ -11,14 +12,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Handrange',
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-        home: ChangeNotifierProvider<Light>(
+      title: 'Handrange',
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue,
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => ChangeNotifierProvider<Light>(
           create: (_) => Light(),
           child: MyHomePage() ,
+        ),
+        '/next': (context) => ChangeNotifierProvider<Light>(
+          create: (_) => Light(),
+          child: SavePage(),
         )
+      },
     );
   }
 }
@@ -34,7 +42,7 @@ class MyHomePage extends StatelessWidget{
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
-              children: const <Widget>[
+              children:  <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.blue,
@@ -48,9 +56,20 @@ class MyHomePage extends StatelessWidget{
                   ),
                 ),
                 ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+                ListTile(
                   leading: Icon(Icons.message),
                   title: Text('Messages'),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/next');
+                  },
                 ),
+
               ],
             ),
           ),
@@ -67,6 +86,7 @@ class MyHomePage extends StatelessWidget{
                           child: Text('Pockets'),
                           onPressed: () {
                             model.onPocket();
+                            model.Creategraphs();
                           }),
                       RaisedButton(
                           child: Text('A'),
@@ -104,9 +124,10 @@ class MyHomePage extends StatelessWidget{
                             model.onSave();
                           }),
                       RaisedButton(
-                          child: Text('更新１'),
+                          child: Text('表示'),
                           onPressed: () async {
-                            model.onUpdate1();
+                            await model.Creategraphs();
+                            print(model.TFs[0]);
                           }),
                     ],
                   ),
@@ -220,3 +241,4 @@ class TapBox extends StatelessWidget {
     });
   }
 }
+
