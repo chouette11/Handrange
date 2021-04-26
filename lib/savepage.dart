@@ -56,12 +56,12 @@ class SavePage extends StatelessWidget{
               ],
             ),
           ),
-          body:SaveGraph()
+          body:SaveGraphs()
       );
   }
 }
 
-class SaveGraph extends StatelessWidget {
+class SaveGraphs extends StatelessWidget {
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -93,18 +93,31 @@ class List extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // double screensizewidth = MediaQuery.of(context).size.width;
-    return Container(
+    return
+      Container(
         child: Consumer<Light>(builder: (context, model, child) {
           return
-            GridView.count(
-                crossAxisCount: 13,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 0.001,
-                children: model.TFs[id].map((e) => GridTile(
-                  child: Box(isSelected: e["isSelected"]),
-                ),
-                ).toList()
-            );
+              GestureDetector(
+                 onLongPress: () => {
+
+                  },
+                child:Column(
+                  children: [
+                    GridView.count(
+                        crossAxisCount: 13,
+                        mainAxisSpacing: 0.001,
+                        crossAxisSpacing: 0.001,
+                        children: model.TFs[id].map((e) => GridTile(
+                          child: Box(isSelected: e["isSelected"]),
+                        ),
+                        ).toList()
+                    ),
+                    Text(
+                        "graph${id}"
+                    ),
+                  ],
+                ) ,
+              );
         })
     );
   }
