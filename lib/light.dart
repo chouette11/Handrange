@@ -76,11 +76,10 @@ class Light extends ChangeNotifier {
     print(graph);
   }
 
-  onGet1() async {
-    tablenumber = 0;
+  onGet(int id) async {
     graphs = await Graph.getGraph();
     int i;
-    String graph = graphs[0].text;
+    String graph = graphs[id].text;
     print(graph);
     for(i = 0; i <= 168; i++){
       String isLighted = graph[i];

@@ -101,11 +101,6 @@ class MyHomePage extends StatelessWidget{
                             onPressed: () {
                               model.onKhigh();
                             }),
-                        RaisedButton(
-                            child: Text('読み込み1'),
-                            onPressed: () async {
-                              model.onGet1();
-                            }),
                       ],
                     ),
                     Row(

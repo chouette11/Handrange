@@ -71,15 +71,16 @@ class SaveGraphs extends StatelessWidget {
           width: screensizewidth,
           child: Consumer<Light>(builder: (context, model, child) {
             return
-                    GridView.count(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 0.001,
-                        crossAxisSpacing: 0.001,
-                        children: model.numbers.map((e) => GridTile(
-                          child: List(id: e["id"]),
-                        ),
-                        ).toList()
-                    );
+              GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 0.001,
+                  crossAxisSpacing: 0.001,
+                  childAspectRatio: 0.8,
+                  children: model.numbers.map((e) => GridTile(
+                    child: List(id: e["id"]),
+                  ),
+                  ).toList()
+              );
           }
           )
       );
@@ -95,18 +96,41 @@ class List extends StatelessWidget {
     // double screensizewidth = MediaQuery.of(context).size.width;
     return
       Container(
-        child: Consumer<Light>(builder: (context, model, child) {
-          return
+          child: Consumer<Light>(builder: (context, model, child) {
+            return
               GestureDetector(
-                 onLongPress: () => {
-
-                  },
+                onTap: () =>{
+                  model.onGet(id),
+                Navigator.pushNamed(context, '/')
+                },
+                onLongPress: () => {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SimpleDialog(
+                          title: const Text('Select assignment'),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              onPressed: () { Navigator.pop(context); },
+                              child: const Text('Treasury department'),
+                            ),
+                            SimpleDialogOption(
+                              onPressed: () { Navigator.pop(context); },
+                              child: const Text('State department'),
+                            ),
+                          ],
+                        );
+                      }
+                  )
+                },
                 child:Column(
                   children: [
                     GridView.count(
                         crossAxisCount: 13,
                         mainAxisSpacing: 0.001,
                         crossAxisSpacing: 0.001,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         children: model.TFs[id].map((e) => GridTile(
                           child: Box(isSelected: e["isSelected"]),
                         ),
@@ -118,8 +142,8 @@ class List extends StatelessWidget {
                   ],
                 ) ,
               );
-        })
-    );
+          })
+      );
   }
 }
 
