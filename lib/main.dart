@@ -71,10 +71,8 @@ class MyHomePage extends StatelessWidget{
                         onTap: () async {
                           await model.Creategraphs();
                           await Navigator.pushNamed(context, '/next');
-
                         },
                       ),
-
                     ],
                   ),
                 ),
@@ -101,7 +99,6 @@ class MyHomePage extends StatelessWidget{
                             onPressed: () {
                               model.onKhigh();
                             }),
-
                       ],
                     ),
                     Row(
@@ -143,23 +140,8 @@ class MyHomePage extends StatelessWidget{
 class TextField extends StatefulWidget {
   @override
   _TextFiledState createState() => _TextFiledState();
-//static int _expression;
 }
 class _TextFiledState extends State<TextField> {
-  // int _expression = 0;
-  //
-  // static final controller = StreamController<int>();
-  // @override
-  // void initState() {
-  //   controller.stream.listen((event) => _UpdateText(event));
-  // }
-  //
-  // void _UpdateText(int letter){
-  //   setState(() {
-  //     _expression += letter;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
 
@@ -186,7 +168,6 @@ class _TextFiledState extends State<TextField> {
 //==============================================================================
 // キーボード
 class Keyboard extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     double screensizewidth = MediaQuery.of(context).size.width;
@@ -222,7 +203,6 @@ class TapBox extends StatelessWidget {
     return Consumer<Light>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () {
-          // TODO: 個別に状態を変える
           model.onTapped(hand);
         },
         child: Container(

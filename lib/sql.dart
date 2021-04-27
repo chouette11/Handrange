@@ -14,7 +14,6 @@ class Graph {
       'text': text,
     };
   }
-
   @override
   String toString() {
     return 'Graph{id: $id, text: $text}';
@@ -32,7 +31,6 @@ class Graph {
     );
     return _database;
   }
-
 
   static Future<void> insertGraph(Graph graph) async {
     final Database db = await database;
