@@ -22,41 +22,50 @@ class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Scaffold(
-          appBar: AppBar(
-            title: Text('Handrange'),
-          ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
+      Container(
+        child: Consumer<Light>(builder: (context, model, child) {
+          return
+            Scaffold(
+                appBar: AppBar(
+                  title: Text('Handrange'),
+                ),
+                drawer: Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                        child: Text(
+                          'Drawer Header',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text('Home'),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.graphic_eq_sharp),
+                        title: Text('Graphs'),
+                        onTap: () async {
+                          await model.Creategraphs();
+                          await Navigator.pushNamed(context, '/next');
+                        },
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    'Drawer Header',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                    ),
-                  ),
                 ),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Messages'),
-                ),
-              ],
-            ),
-          ),
-          body:SaveGraphs()
+                body:SaveGraphs()
+            );
+        }),
       );
   }
 }
@@ -101,18 +110,21 @@ class List extends StatelessWidget {
               GestureDetector(
                 onTap: () =>{
                   model.onGet(id),
-                Navigator.pushNamed(context, '/')
+                  Navigator.pushNamed(context, '/')
                 },
                 onLongPress: () => {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return SimpleDialog(
-                          title: const Text('Select assignment'),
+                          title: Text('Graph${id}'),
                           children: <Widget>[
                             SimpleDialogOption(
-                              onPressed: () { Navigator.pop(context); },
-                              child: const Text('Treasury department'),
+                              onPressed: () async {
+                                await model.onDelete(id);
+                                print("${id}");
+                              },
+                              child: const Text('削除'),
                             ),
                             SimpleDialogOption(
                               onPressed: () { Navigator.pop(context); },
