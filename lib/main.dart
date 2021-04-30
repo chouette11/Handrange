@@ -99,6 +99,11 @@ class MyHomePage extends StatelessWidget{
                             onPressed: () {
                               model.onKhigh();
                             }),
+                        RaisedButton(
+                            child: Text('All'),
+                            onPressed: () {
+                              model.onAll();
+                            }),
                       ],
                     ),
                     Row(

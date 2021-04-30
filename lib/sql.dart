@@ -6,17 +6,19 @@ import 'package:path/path.dart';
 class Graph {
   final int id;
   final String text;
+  final int count;
 
-  Graph({this.id, this.text});
+  Graph({this.id, this.text, this.count});
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'text': text,
+      'count' : count,
     };
   }
   @override
   String toString() {
-    return 'Graph{id: $id, text: $text}';
+    return 'Graph{id: $id, text: $text, count: $count}';
   }
 
   static Future<Database> get database async {
@@ -24,7 +26,7 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT)"
+            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, count INTEGER)"
         );
       },
       version: 1,
@@ -48,6 +50,7 @@ class Graph {
       return Graph(
         id: maps[i]['id'],
         text: maps[i]['text'],
+        count: maps[i]['count']
       );
     });
   }

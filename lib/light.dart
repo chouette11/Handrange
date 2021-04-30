@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,8 @@ class Light extends ChangeNotifier {
   bool isKing = false;
   bool isQueen = false;
   bool isJack = false;
-  double count = 0;
+  bool isAll = false;
+  int count = 0;
 
   onTapped(String hand) {
     status.forEach((element) {
@@ -30,14 +33,21 @@ class Light extends ChangeNotifier {
   }
 
   onPocket() {
-    isPocket = !isPocket;
+    isPocket= !isPocket;
     status.forEach((element) {
+      String hand = element["hand"];
       if (element["hand"].length == 2) {
+        if(element["isSelected"] == true && isPocket == true){
+          count = count - element["value"];
+        }
+        if(element["isSelected"] == false && isPocket == false){
+          count = count + element["value"];
+        }
         element["isSelected"] = isPocket;
-        isPocket ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
+    isPocket ? count = count + 198 : count = count - 198;
     notifyListeners();
   }
 
@@ -45,12 +55,18 @@ class Light extends ChangeNotifier {
     isAce = !isAce;
     status.forEach((element) {
       String hand = element["hand"];
-      if (hand.startsWith('A')) {
+      if (hand.startsWith('A') || hand.endsWith('As') || hand.endsWith('Ao')) {
+        if(element["isSelected"] == true && isAce == true){
+          count = count - element["value"];
+        }
+        if(element["isSelected"] == false && isAce == false){
+          count = count + element["value"];
+        }
         element["isSelected"] = isAce;
-        isAce ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
+    isAce ? count = count + 198 : count = count - 198;
     notifyListeners();
   }
 
@@ -58,12 +74,18 @@ class Light extends ChangeNotifier {
     isKing = !isKing;
     status.forEach((element) {
       String hand = element["hand"];
-      if (hand.startsWith('K') || hand.endsWith('Ks') || hand.endsWith('Ko') ) {
+      if (hand.startsWith('K') || hand.endsWith('Ks') || hand.endsWith('Ko')) {
+        if(element["isSelected"] == true && isKing == true){
+          count = count - element["value"];
+        }
+        if(element["isSelected"] == false && isKing == false){
+          count = count + element["value"];
+        }
         element["isSelected"] = isKing;
-        isKing ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
+    isKing ? count = count + 198 : count = count - 198;
     notifyListeners();
   }
 
@@ -72,11 +94,17 @@ class Light extends ChangeNotifier {
     status.forEach((element) {
       String hand = element["hand"];
       if (hand.startsWith('Q') || hand.endsWith('Qs') || hand.endsWith('Qo')) {
+        if(element["isSelected"] == true && isQueen == true){
+          count = count - element["value"];
+        }
+        if(element["isSelected"] == false && isQueen == false){
+          count = count + element["value"];
+        }
         element["isSelected"] = isQueen;
-        isQueen ? count = count + element["value"] : count = count - element["value"];
       }
     }
     );
+    isQueen ? count = count + 198 : count = count - 198;
     notifyListeners();
   }
 
@@ -85,17 +113,34 @@ class Light extends ChangeNotifier {
     status.forEach((element) {
       String hand = element["hand"];
       if (hand.startsWith('J') || hand.endsWith('Js') || hand.endsWith('Jo')) {
+        if(element["isSelected"] == true && isJack == true){
+          count = count - element["value"];
+        }
+        if(element["isSelected"] == false && isJack == false){
+          count = count + element["value"];
+        }
         element["isSelected"] = isJack;
-        isJack ? count = count + element["value"] : count = count - element["value"];
       }
+    }
+    );
+    isJack ? count = count + 198 : count = count - 198;
+    notifyListeners();
+  }
+
+  onAll() {
+    isAll = !isAll;
+    status.forEach((element) {
+      element["isSelected"] = isAll;
+      isAll ? count = count + element["value"] : count = count - element["value"];
     }
     );
     notifyListeners();
   }
 
+
   List <List> TFs = [];
   List <Map<String,int>> numbers = [];
-
+//sqlからデータを受け取りsavepageの作成
   Creategraphs() async {
     final List<Graph> graphs = await Graph.getGraph();
     List <Map<String,int>> inputNumbers = [];
@@ -104,6 +149,7 @@ class Light extends ChangeNotifier {
 
     for (j = 0; j < graphs.length ; j++) {
       String TFText = graphs[j].text;
+      int id = graphs[j].id;
       List<Map<String, dynamic>> TF = CONBI.map((e) => {
         "hand": e["hand"],
         "value": e["value"],
@@ -127,12 +173,15 @@ class Light extends ChangeNotifier {
         }
       }
       inputTFs.add(TF);
+      print(id);
     }
     for(k = 0; k < graphs.length; k++){
+      int num = graphs[k].count;
       Map <String,int> numbers_map = {};
       numbers_map.addAll(
           <String,int>{
-            "id": k
+            "id": k,
+            "count": num
           }
       );
       inputNumbers.add(numbers_map);
@@ -142,7 +191,7 @@ class Light extends ChangeNotifier {
     numbers = inputNumbers;
     notifyListeners();
   }
-
+//mainのgraphをsqlに送る
   onSave() async {
     List<String> TF = new List<String>();
     String TFText = "";
@@ -165,12 +214,11 @@ class Light extends ChangeNotifier {
     for(int i = 0; i <= 168; i++ ) {
       TFText +="${TF[i]}";
     }
-
-    Graph graph = Graph(text: TFText);
+    Graph graph = Graph(text: TFText,count: count);
     await Graph.insertGraph(graph);
     notifyListeners();
   }
-
+//まだ
   onUpdate() async {
     List<String> TF = new List<String>();
     String TFText = "";
@@ -198,11 +246,14 @@ class Light extends ChangeNotifier {
     await Graph.updateGraph(graph);
     print(graph);
   }
-
+//sqlからgraphのリストを受け取ってタップ時に読み込み
   onGet(int id) async {
     final graphs = await Graph.getGraph();
-    int i;
     String TFText = graphs[id].text;
+    count = graphs[id].count;
+    print(count);
+    print(graphs[id].count);
+    int i;
     for(i = 0; i <= 168; i++){
       String isTF = TFText[i];
       if(isTF == "T"){
@@ -224,7 +275,7 @@ class Light extends ChangeNotifier {
     }
     notifyListeners();
   }
-
+//intを受け取ってsqlの変更
   onDelete(int id) async {
     await Graph.deleteGraph(id);
   }

@@ -86,7 +86,7 @@ class SaveGraphs extends StatelessWidget {
                   crossAxisSpacing: 0.001,
                   childAspectRatio: 0.8,
                   children: model.numbers.map((e) => GridTile(
-                    child: List(id: e["id"]),
+                    child: List(id: e["id"], count: e["count"]),
                   ),
                   ).toList()
               );
@@ -97,9 +97,10 @@ class SaveGraphs extends StatelessWidget {
 }
 
 class List extends StatelessWidget {
-
-  List({Key key, this.id,}) : super(key: key);
+  final myController = TextEditingController();
+  List({Key key, this.id, this.count}) : super(key: key);
   int id;
+  int count;
   @override
   Widget build(BuildContext context) {
     // double screensizewidth = MediaQuery.of(context).size.width;
@@ -148,8 +149,15 @@ class List extends StatelessWidget {
                         ),
                         ).toList()
                     ),
-                    Text(
-                        "graph${id}"
+                    Row(
+                      children: [
+                        Text(
+                          "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
+                        ),
+                        Text(
+                            "graph${id}"
+                        ),
+                      ],
                     ),
                   ],
                 ) ,
@@ -158,7 +166,6 @@ class List extends StatelessWidget {
       );
   }
 }
-
 
 class Box extends StatelessWidget {
   Box( {Key key,  this.isSelected }) : super(key: key);
