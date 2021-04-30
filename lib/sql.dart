@@ -6,19 +6,22 @@ import 'package:path/path.dart';
 class Graph {
   final int id;
   final String text;
+  final String name;
   final int count;
 
-  Graph({this.id, this.text, this.count});
+
+  Graph({this.id, this.text, this.name, this.count});
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'text': text,
+      'name': name,
       'count' : count,
     };
   }
   @override
   String toString() {
-    return 'Graph{id: $id, text: $text, count: $count}';
+    return 'Graph{id: $id, text: $text, name: $name count: $count}';
   }
 
   static Future<Database> get database async {
@@ -26,7 +29,7 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, count INTEGER)"
+            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, name TEXT, count INTEGER)"
         );
       },
       version: 1,
@@ -50,6 +53,7 @@ class Graph {
       return Graph(
         id: maps[i]['id'],
         text: maps[i]['text'],
+        name: maps[i]['name'],
         count: maps[i]['count']
       );
     });
@@ -65,12 +69,12 @@ class Graph {
     );
   }
 
-  static Future<void> deleteGraph(int id) async {
+  static Future<void> deleteGraph(Graph graph) async {
     final db = await database;
     await db.delete(
       'graph',
-      where: "id = ?",
-      whereArgs: [id],
+      where: "name = ?",
+      whereArgs: [graph.name],
     );
   }
 }

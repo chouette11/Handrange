@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/save.dart';
+import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -86,7 +87,7 @@ class SaveGraphs extends StatelessWidget {
                   crossAxisSpacing: 0.001,
                   childAspectRatio: 0.8,
                   children: model.numbers.map((e) => GridTile(
-                    child: List(id: e["id"], count: e["count"]),
+                    child: List(id: e["id"],name: e["name"], count: e["count"]),
                   ),
                   ).toList()
               );
@@ -98,8 +99,9 @@ class SaveGraphs extends StatelessWidget {
 
 class List extends StatelessWidget {
   final myController = TextEditingController();
-  List({Key key, this.id, this.count}) : super(key: key);
+  List({Key key, this.id, this.name, this.count}) : super(key: key);
   int id;
+  String name;
   int count;
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,10 @@ class List extends StatelessWidget {
                           children: <Widget>[
                             SimpleDialogOption(
                               onPressed: () async {
-                                await model.onDelete(id);
+                                await Graph.deleteGraph(Graph(name: name));
+                                await model.Creategraphs();
+                                Navigator.pop(context);
+
                                 print("${id}");
                               },
                               child: const Text('削除'),
@@ -149,16 +154,21 @@ class List extends StatelessWidget {
                         ),
                         ).toList()
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
-                        ),
-                        Text(
-                            "graph${id}"
-                        ),
-                      ],
-                    ),
+                    Center(
+                      child: Row(
+                        children: [
+                          Text(
+                              "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
+                          ),
+                          Text(
+                              "graph${id}"
+                          ),
+                          Text(
+                            name
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ) ,
               );

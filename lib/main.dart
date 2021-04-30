@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget{
+  final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return
@@ -122,7 +123,28 @@ class MyHomePage extends StatelessWidget{
                         RaisedButton(
                             child: Text('保存'),
                             onPressed: () async {
-                              model.onSave();
+                              await showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: Text("新規メモ作成"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Text('名前を入力してね'),
+                                        TextFormField(controller: myController),
+                                        RaisedButton(
+                                          child: Text('実行'),
+                                          onPressed: () async {
+                                            model.name = myController.text;
+                                            myController.clear();
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                              );
+                              await model.onSave();
                             }),
                         RaisedButton(
                             child: Text('表示'),

@@ -139,11 +139,11 @@ class Light extends ChangeNotifier {
 
 
   List <List> TFs = [];
-  List <Map<String,int>> numbers = [];
+  List <Map<String,dynamic>> numbers = [];
 //sqlからデータを受け取りsavepageの作成
   Creategraphs() async {
     final List<Graph> graphs = await Graph.getGraph();
-    List <Map<String,int>> inputNumbers = [];
+    List <Map<String,dynamic>> inputNumbers = [];
     List <List> inputTFs = [];
     int i, j,k;
 
@@ -176,11 +176,13 @@ class Light extends ChangeNotifier {
       print(id);
     }
     for(k = 0; k < graphs.length; k++){
+      String graphName = graphs[k].name;
       int num = graphs[k].count;
-      Map <String,int> numbers_map = {};
+      Map <String,dynamic> numbers_map = {};
       numbers_map.addAll(
-          <String,int>{
+          <String,dynamic>{
             "id": k,
+            "name":graphName,
             "count": num
           }
       );
@@ -192,6 +194,7 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 //mainのgraphをsqlに送る
+  String name = "";
   onSave() async {
     List<String> TF = new List<String>();
     String TFText = "";
@@ -214,7 +217,8 @@ class Light extends ChangeNotifier {
     for(int i = 0; i <= 168; i++ ) {
       TFText +="${TF[i]}";
     }
-    Graph graph = Graph(text: TFText,count: count);
+    Graph graph = Graph(text: TFText,name: name, count: count);
+    print(graph);
     await Graph.insertGraph(graph);
     notifyListeners();
   }
@@ -276,8 +280,6 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 //intを受け取ってsqlの変更
-  onDelete(int id) async {
-    await Graph.deleteGraph(id);
-  }
+
 }
 
