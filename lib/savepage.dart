@@ -161,9 +161,6 @@ class List extends StatelessWidget {
                               "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
                           ),
                           Text(
-                              "graph${id}"
-                          ),
-                          Text(
                             name
                           ),
                         ],

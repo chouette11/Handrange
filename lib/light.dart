@@ -131,9 +131,9 @@ class Light extends ChangeNotifier {
     isAll = !isAll;
     status.forEach((element) {
       element["isSelected"] = isAll;
-      isAll ? count = count + element["value"] : count = count - element["value"];
     }
     );
+    isAll ? count = 1326 : count = 0;
     notifyListeners();
   }
 
