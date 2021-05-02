@@ -29,7 +29,7 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-            "CREATE TABLE graph(id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, name TEXT, count INTEGER)"
+            "CREATE TABLE graph(id INTEGER PRIMARY KEY , text TEXT, name TEXT, count INTEGER)"
         );
       },
       version: 1,
@@ -73,8 +73,8 @@ class Graph {
     final db = await database;
     await db.delete(
       'graph',
-      where: "name = ?",
-      whereArgs: [graph.name],
+      where: "id = ?",
+      whereArgs: [graph.id],
     );
   }
 }

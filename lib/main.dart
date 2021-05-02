@@ -70,7 +70,7 @@ class MyHomePage extends StatelessWidget{
                         leading: Icon(Icons.graphic_eq_sharp),
                         title: Text('Graphs'),
                         onTap: () async {
-                          await model.Creategraphs();
+                          await model.createGraphs();
                           await Navigator.pushNamed(context, '/next');
                         },
                       ),
@@ -88,7 +88,7 @@ class MyHomePage extends StatelessWidget{
                             child: Text('Pockets'),
                             onPressed: () {
                               model.onPocket();
-                              model.Creategraphs();
+                              model.createGraphs();
                             }),
                         RaisedButton(
                             child: Text('A'),
@@ -149,7 +149,7 @@ class MyHomePage extends StatelessWidget{
                         RaisedButton(
                             child: Text('表示'),
                             onPressed: () async {
-                              await model.Creategraphs();
+                              await model.createGraphs();
                               print(model.numbers);
                             }),
                       ],

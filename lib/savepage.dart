@@ -57,7 +57,7 @@ class SavePage extends StatelessWidget{
                         leading: Icon(Icons.graphic_eq_sharp),
                         title: Text('Graphs'),
                         onTap: () async {
-                          await model.Creategraphs();
+                          await model.createGraphs();
                           await Navigator.pushNamed(context, '/next');
                         },
                       ),
@@ -120,12 +120,12 @@ class List extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return SimpleDialog(
-                          title: Text('Graph${id}'),
+                          title: Text('${name}'),
                           children: <Widget>[
                             SimpleDialogOption(
                               onPressed: () async {
-                                await Graph.deleteGraph(Graph(name: name));
-                                await model.Creategraphs();
+                                await Graph.deleteGraph(Graph(id:id, name: name));
+                                await model.createGraphs();
                                 Navigator.pop(context);
 
                                 print("${id}");
@@ -133,8 +133,31 @@ class List extends StatelessWidget {
                               child: const Text('削除'),
                             ),
                             SimpleDialogOption(
-                              onPressed: () { Navigator.pop(context); },
-                              child: const Text('State department'),
+                              onPressed: () async {
+                                await showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      title: Text("新規メモ作成"),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Text('名前を入力してね'),
+                                          TextFormField(controller: myController),
+                                          RaisedButton(
+                                            child: Text('実行'),
+                                            onPressed: () async {
+                                              await Graph.updateGraph(Graph(name: myController.text));
+                                              await myController.clear();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                );
+                                await model.createGraphs();
+                                Navigator.pop(context); },
+                              child: const Text('名前の変更'),
                             ),
                           ],
                         );
@@ -161,7 +184,7 @@ class List extends StatelessWidget {
                               "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
                           ),
                           Text(
-                            name
+                              name
                           ),
                         ],
                       ),

@@ -141,7 +141,7 @@ class Light extends ChangeNotifier {
   List <List> TFs = [];
   List <Map<String,dynamic>> numbers = [];
 //sqlからデータを受け取りsavepageの作成
-  Creategraphs() async {
+  createGraphs() async {
     final List<Graph> graphs = await Graph.getGraph();
     List <Map<String,dynamic>> inputNumbers = [];
     List <List> inputTFs = [];
@@ -217,7 +217,9 @@ class Light extends ChangeNotifier {
     for(int i = 0; i <= 168; i++ ) {
       TFText +="${TF[i]}";
     }
-    Graph graph = Graph(text: TFText,name: name, count: count);
+    final graphs = await Graph.getGraph();
+    int id = graphs.length;
+    Graph graph = Graph(id: id, text: TFText, name: name, count: count);
     print(graph);
     await Graph.insertGraph(graph);
     notifyListeners();
