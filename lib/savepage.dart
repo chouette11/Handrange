@@ -112,7 +112,7 @@ class List extends StatelessWidget {
             return
               GestureDetector(
                 onTap: () =>{
-                  model.onGet(id),
+                  model.onGet(id,name),
                   Navigator.pushNamed(context, '/')
                 },
                 onLongPress: () => {

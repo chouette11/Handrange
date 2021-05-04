@@ -80,7 +80,10 @@ class MyHomePage extends StatelessWidget{
                 body: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Keyboard(),
+                    Text(
+                      model.graphName
+                    ),
+                    Graph(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -93,12 +96,12 @@ class MyHomePage extends StatelessWidget{
                         RaisedButton(
                             child: Text('A'),
                             onPressed: () {
-                              model.onAhigh();
+                              model.onHighs('A');
                             }),
                         RaisedButton(
                             child: Text('K'),
                             onPressed: () {
-                              model.onKhigh();
+                              model.onHighs('K');
                             }),
                         RaisedButton(
                             child: Text('All'),
@@ -113,12 +116,12 @@ class MyHomePage extends StatelessWidget{
                         RaisedButton(
                             child: Text('Q'),
                             onPressed: () {
-                              model.onQhigh();
+                              model.onHighs('Q');
                             }),
                         RaisedButton(
                             child: Text('J'),
                             onPressed: () {
-                              model.onJhigh();
+                              model.onHighs('J');
                             }),
                         RaisedButton(
                             child: Text('保存'),
@@ -145,12 +148,6 @@ class MyHomePage extends StatelessWidget{
                                   )
                               );
                               await model.onSave();
-                            }),
-                        RaisedButton(
-                            child: Text('表示'),
-                            onPressed: () async {
-                              await model.createGraphs();
-                              print(model.numbers);
                             }),
                       ],
                     ),
@@ -192,9 +189,8 @@ class _TextFiledState extends State<TextField> {
       );
   }
 }
-//==============================================================================
-// キーボード
-class Keyboard extends StatelessWidget {
+
+class Graph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screensizewidth = MediaQuery.of(context).size.width;
@@ -209,7 +205,7 @@ class Keyboard extends StatelessWidget {
               mainAxisSpacing: 0.001,
               crossAxisSpacing: 0.001,
               children: model.status.map((e) => GridTile(
-                child: TapBox(hand: e["hand"], value: e["value"], isSelected: e["isSelected"]),
+                child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
               ),
               ).toList()
           );
@@ -220,9 +216,8 @@ class Keyboard extends StatelessWidget {
 }
 
 class TapBox extends StatelessWidget {
-  TapBox( {Key key, this.hand, this.value, this.isSelected }) : super(key: key);
+  TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
   String hand;
-  int value;
   bool isSelected;
 
   @override

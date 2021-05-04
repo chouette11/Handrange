@@ -1,4 +1,5 @@
 import 'package:handrange/combination.dart';
+import 'package:handrange/light.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path/path.dart';
@@ -29,7 +30,7 @@ class Graph {
       join(await getDatabasesPath(), 'graph_database.db'),
       onCreate: (db, version) {
         return db.execute(
-            "CREATE TABLE graph(id INTEGER PRIMARY KEY , text TEXT, name TEXT, count INTEGER)"
+            "CREATE TABLE graph(id INTEGER PRIMARY KEY, text TEXT, name TEXT, count INTEGER)"
         );
       },
       version: 1,

@@ -14,21 +14,37 @@ class Light extends ChangeNotifier {
   }).toList();
 
   bool isPocket = false;
-  bool isAce = false;
-  bool isKing = false;
-  bool isQueen = false;
-  bool isJack = false;
+  Map highs = {
+    'A': false,
+    'K': false,
+    'Q': false,
+    'J': false,
+  };
   bool isAll = false;
   int count = 0;
 
-  onTapped(String hand) {
+  onHighs(String num){
+    highs[num] = !highs[num];
     status.forEach((element) {
-      if (element["hand"] == hand) {
-        element["isSelected"] = !element["isSelected"];
-        element["isSelected"] ? count = count + element["value"] : count = count - element["value"];
+      if (element["hand"].contains(num)) {
+        if (element["isSelected"] == true && highs[num] == true) {
+          count -= element["value"];
+        }
+        if (element["isSelected"] == false && highs[num] == false) {
+          count += element["value"];
+        }
+        element["isSelected"] = highs[num];
       }
     }
     );
+    highs[num] ? count = count + 198 : count = count - 198;
+    notifyListeners();
+  }
+
+  onTapped(String hand) {
+    final tappedBox = status.firstWhere((e) => e["hand"] == hand);
+    tappedBox["isSelected"] = !tappedBox["isSelected"];
+    tappedBox["isSelected"] ? count += tappedBox["value"] : count -= tappedBox["value"];
     notifyListeners();
   }
 
@@ -48,82 +64,6 @@ class Light extends ChangeNotifier {
     }
     );
     isPocket ? count = count + 198 : count = count - 198;
-    notifyListeners();
-  }
-
-  onAhigh() {
-    isAce = !isAce;
-    status.forEach((element) {
-      String hand = element["hand"];
-      if (hand.startsWith('A') || hand.endsWith('As') || hand.endsWith('Ao')) {
-        if(element["isSelected"] == true && isAce == true){
-          count = count - element["value"];
-        }
-        if(element["isSelected"] == false && isAce == false){
-          count = count + element["value"];
-        }
-        element["isSelected"] = isAce;
-      }
-    }
-    );
-    isAce ? count = count + 198 : count = count - 198;
-    notifyListeners();
-  }
-
-  onKhigh() {
-    isKing = !isKing;
-    status.forEach((element) {
-      String hand = element["hand"];
-      if (hand.startsWith('K') || hand.endsWith('Ks') || hand.endsWith('Ko')) {
-        if(element["isSelected"] == true && isKing == true){
-          count = count - element["value"];
-        }
-        if(element["isSelected"] == false && isKing == false){
-          count = count + element["value"];
-        }
-        element["isSelected"] = isKing;
-      }
-    }
-    );
-    isKing ? count = count + 198 : count = count - 198;
-    notifyListeners();
-  }
-
-  onQhigh() {
-    isQueen = !isQueen;
-    status.forEach((element) {
-      String hand = element["hand"];
-      if (hand.startsWith('Q') || hand.endsWith('Qs') || hand.endsWith('Qo')) {
-        if(element["isSelected"] == true && isQueen == true){
-          count = count - element["value"];
-        }
-        if(element["isSelected"] == false && isQueen == false){
-          count = count + element["value"];
-        }
-        element["isSelected"] = isQueen;
-      }
-    }
-    );
-    isQueen ? count = count + 198 : count = count - 198;
-    notifyListeners();
-  }
-
-  onJhigh() {
-    isJack = !isJack;
-    status.forEach((element) {
-      String hand = element["hand"];
-      if (hand.startsWith('J') || hand.endsWith('Js') || hand.endsWith('Jo')) {
-        if(element["isSelected"] == true && isJack == true){
-          count = count - element["value"];
-        }
-        if(element["isSelected"] == false && isJack == false){
-          count = count + element["value"];
-        }
-        element["isSelected"] = isJack;
-      }
-    }
-    );
-    isJack ? count = count + 198 : count = count - 198;
     notifyListeners();
   }
 
@@ -253,7 +193,8 @@ class Light extends ChangeNotifier {
     print(graph);
   }
 //sqlからgraphのリストを受け取ってタップ時に読み込み
-  onGet(int id) async {
+  String graphName = "";
+  onGet(int id, String name) async {
     final graphs = await Graph.getGraph();
     String TFText = graphs[id].text;
     count = graphs[id].count;
@@ -279,6 +220,7 @@ class Light extends ChangeNotifier {
         );
       }
     }
+    graphName = name;
     notifyListeners();
   }
 //intを受け取ってsqlの変更
