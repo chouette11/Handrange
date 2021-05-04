@@ -91,7 +91,6 @@ class MyHomePage extends StatelessWidget{
                             child: Text('Pockets'),
                             onPressed: () {
                               model.onPocket();
-                              model.createGraphs();
                             }),
                         RaisedButton(
                             child: Text('A'),

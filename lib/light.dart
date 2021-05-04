@@ -51,19 +51,18 @@ class Light extends ChangeNotifier {
   onPocket() {
     isPocket= !isPocket;
     status.forEach((element) {
-      String hand = element["hand"];
-      if (element["hand"].length == 2) {
+      if (element["hand"].contains( RegExp(r"(.)\1") )) {
         if(element["isSelected"] == true && isPocket == true){
-          count = count - element["value"];
+          count -= element["value"];
         }
         if(element["isSelected"] == false && isPocket == false){
-          count = count + element["value"];
+          count += element["value"];
         }
         element["isSelected"] = isPocket;
       }
     }
     );
-    isPocket ? count = count + 198 : count = count - 198;
+    isPocket ? count += 78 : count -= 78;
     notifyListeners();
   }
 
