@@ -1,3 +1,162 @@
+const CARDS =[{
+  "num": 1,
+  "mark": "s"
+},{
+  "num": 2,
+  "mark": "s"
+},{
+  "num": 3,
+  "mark": "s"
+},{
+  "num": 4,
+  "mark": "s"
+},{
+  "num": 5,
+  "mark": "s"
+},{
+  "num": 6,
+  "mark": "s"
+},{
+  "num": 7,
+  "mark": "s"
+},{
+  "num": 8,
+  "mark": "s"
+},{
+  "num": 9,
+  "mark": "s"
+},{
+  "num": 10,
+  "mark": "s"
+},{
+  "num": 11,
+  "mark": "s"
+},{
+  "num": 12,
+  "mark": "s"
+},{
+  "num": 13,
+  "mark": "s"
+},
+  {
+    "num": 1,
+    "mark": "c"
+  },{
+    "num": 2,
+    "mark": "c"
+  },{
+    "num": 3,
+    "mark": "c"
+  },{
+    "num": 4,
+    "mark": "c"
+  },{
+    "num": 5,
+    "mark": "c"
+  },{
+    "num": 6,
+    "mark": "c"
+  },{
+    "num": 7,
+    "mark": "c"
+  },{
+    "num": 8,
+    "mark": "c"
+  },{
+    "num": 9,
+    "mark": "c"
+  },{
+    "num": 10,
+    "mark": "c"
+  },{
+    "num": 11,
+    "mark": "c"
+  },{
+    "num": 12,
+    "mark": "c"
+  },{
+    "num": 13,
+    "mark": "c"
+  },{
+    "num": 1,
+    "mark": "h"
+  },{
+    "num": 2,
+    "mark": "h"
+  },{
+    "num": 3,
+    "mark": "h"
+  },{
+    "num": 4,
+    "mark": "h"
+  },{
+    "num": 5,
+    "mark": "h"
+  },{
+    "num": 6,
+    "mark": "h"
+  },{
+    "num": 7,
+    "mark": "h"
+  },{
+    "num": 8,
+    "mark": "h"
+  },{
+    "num": 9,
+    "mark": "h"
+  },{
+    "num": 10,
+    "mark": "h"
+  },{
+    "num": 11,
+    "mark": "h"
+  },{
+    "num": 12,
+    "mark": "h"
+  },{
+    "num": 13,
+    "mark": "h"
+  },{
+    "num": 1,
+    "mark": "d"
+  },{
+    "num": 2,
+    "mark": "d"
+  },{
+    "num": 3,
+    "mark": "d"
+  },{
+    "num": 4,
+    "mark": "d"
+  },{
+    "num": 5,
+    "mark": "d"
+  },{
+    "num": 6,
+    "mark": "d"
+  },{
+    "num": 7,
+    "mark": "d"
+  },{
+    "num": 8,
+    "mark": "d"
+  },{
+    "num": 9,
+    "mark": "d"
+  },{
+    "num": 10,
+    "mark": "d"
+  },{
+    "num": 11,
+    "mark": "d"
+  },{
+    "num": 12,
+    "mark": "d"
+  },{
+    "num": 13,
+    "mark": "d"
+  },
+];
 
 const CONBI =[{
   "hand": 'AA',

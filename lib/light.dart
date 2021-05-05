@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,7 @@ class Light extends ChangeNotifier {
   };
   bool isAll = false;
   int count = 0;
+
 
   onHighs(String num){
     highs[num] = !highs[num];
@@ -222,7 +221,6 @@ class Light extends ChangeNotifier {
     graphName = name;
     notifyListeners();
   }
-//intを受け取ってsqlの変更
 
 }
 

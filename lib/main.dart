@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/calculation.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
+import 'package:handrange/calculatepage.dart';
 import 'package:handrange/save.dart';
 
 void main() => runApp(MyApp());
@@ -15,17 +17,21 @@ class MyApp extends StatelessWidget {
       Container(
           child:ChangeNotifierProvider<Light>(
             create: (_) => Light(),
-            child: MaterialApp(
-              title: 'Handrange',
-              theme: ThemeData(
-                primarySwatch: Colors.lightBlue,
+            child:ChangeNotifierProvider<Calculation>(
+              create: (_) => Calculation(),
+              child:  MaterialApp(
+                title: 'Handrange',
+                theme: ThemeData(
+                  primarySwatch: Colors.lightBlue,
+                ),
+                initialRoute: '/',
+                routes: {
+                  '/': (context) => MyHomePage() ,
+                  '/save': (context) => SavePage(),
+                  '/calculate': (context) => CalculatePage(),
+                },
               ),
-              initialRoute: '/',
-              routes: {
-                '/': (context) => MyHomePage() ,
-                '/next': (context) => SavePage(),
-              },
-            ) ,
+            )
           )
       );
   }
@@ -71,7 +77,15 @@ class MyHomePage extends StatelessWidget{
                         title: Text('Graphs'),
                         onTap: () async {
                           await model.createGraphs();
-                          await Navigator.pushNamed(context, '/next');
+                          await Navigator.pushNamed(context, '/save');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.file_copy),
+                        title: Text('Calculate'),
+                        onTap: () async {
+                          await model.createGraphs();
+                          await Navigator.pushNamed(context, '/calculate');
                         },
                       ),
                     ],

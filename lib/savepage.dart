@@ -58,7 +58,15 @@ class SavePage extends StatelessWidget{
                         title: Text('Graphs'),
                         onTap: () async {
                           await model.createGraphs();
-                          await Navigator.pushNamed(context, '/next');
+                          await Navigator.pushNamed(context, '/save');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.file_copy),
+                        title: Text('Calculate'),
+                        onTap: () async {
+                          await model.createGraphs();
+                          await Navigator.pushNamed(context, '/calculate');
                         },
                       ),
                     ],
@@ -203,7 +211,6 @@ class Box extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Light>(builder: (context, model, child) {
       return
         Container(
           decoration: BoxDecoration(
@@ -211,7 +218,5 @@ class Box extends StatelessWidget {
             color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
           ),
         );
-    }
-    );
   }
 }
