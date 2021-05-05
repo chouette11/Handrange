@@ -25,59 +25,59 @@ class CalculatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        Container(
+      Container(
           child: Consumer<Light>(builder: (context, model, child) {
             return
-                Scaffold(
-                  appBar: AppBar(
-                    title: Text('Handrange'),
-                  ),
-                  drawer: Drawer(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: <Widget>[
-                        DrawerHeader(
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
+              Scaffold(
+                appBar: AppBar(
+                  title: Text('Handrange'),
+                ),
+                drawer: Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      DrawerHeader(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                        ),
+                        child: Text(
+                          'Drawer Header',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
                           ),
-                          child: Text(
-                            'Drawer Header',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                            ),
-                          ),
                         ),
-                        ListTile(
-                          leading: Icon(Icons.home),
-                          title: Text('Home'),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/');
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.graphic_eq_sharp),
-                          title: Text('Graphs'),
-                          onTap: () async {
-                            await model.createGraphs();
-                            await Navigator.pushNamed(context, '/next');
-                          },
-                        ),
-                        ListTile(
-                          leading: Icon(Icons.file_copy),
-                          title: Text('Calculate'),
-                          onTap: () async {
-                            await model.createGraphs();
-                            await Navigator.pushNamed(context, '/calculate');
-                          },
-                        ),
-                      ],
-                    ),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.home),
+                        title: Text('Home'),
+                        onTap: () {
+                          Navigator.pushNamed(context, '/');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.graphic_eq_sharp),
+                        title: Text('Graphs'),
+                        onTap: () async {
+                          await model.createGraphs();
+                          await Navigator.pushNamed(context, '/next');
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.file_copy),
+                        title: Text('Calculate'),
+                        onTap: () async {
+                          await model.createGraphs();
+                          await Navigator.pushNamed(context, '/calculate');
+                        },
+                      ),
+                    ],
                   ),
-                  body: Calculate(),
-                );
+                ),
+                body: Calculate(),
+              );
           })
-        );
+      );
   }
 }
 
@@ -85,39 +85,81 @@ class Calculate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        Container(
-          child: Consumer<Calculation>(builder: (context, model, child) {
-            return
-                ListView(
+      Container(
+        child: Consumer<Calculation>(builder: (context, model, child) {
+          return
+            ListView(
+              children: [
+                Display(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text("${model.num1}${model.mark1}"),
-                        Text("${model.num2}${model.mark2}"),
-                        Text("${model.num3}${model.mark3}"),
-                        Text("${model.num4}${model.mark4}"),
-                        Text("${model.num5}${model.mark5}"),
-                      ],
-                    ),
-                    Buttons(),
-                    RaisedButton(
-                        child: Text('Pockets'),
-                        onPressed: () {
-                          model.handJudge();
-                        }),
+                    Text("${model.num1}${model.mark1}"),
+                    Text("${model.num2}${model.mark2}"),
+                    Text("${model.num3}${model.mark3}"),
+                    Text("${model.num4}${model.mark4}"),
+                    Text("${model.num5}${model.mark5}"),
                   ],
-                );
-          }),
-        );
+                ),
+                Buttons(),
+                RaisedButton(
+                    child: Text('グラフ判定'),
+                    onPressed: () {
+                      model.graphJudge();
+                    }),
+                RaisedButton(
+                    child: Text('判定'),
+                    onPressed: () {
+                      model.handJudge("p");
+                    }),
+                RaisedButton(
+                    child: Text('クリア'),
+                    onPressed: () {
+                      model.num1 = null;
+                      model.num2 = null;
+                      model.num3 = null;
+                      model.num4 = null;
+                      model.num5 = null;
+                      model.mark1 = null;
+                      model.mark2 = null;
+                      model.mark3 = null;
+                      model.mark4 = null;
+                      model.mark5 = null;
+                    }),
+                RaisedButton(
+                    child: Text('読み込み'),
+                    onPressed: () {
+                     model.onGet(0);
+                    }),
+              ],
+            );
+        }),
+      );
   }
 }
 
 class Display extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-
+    double screensizewidth = MediaQuery.of(context).size.width;
+    return Container(
+      width: screensizewidth,
+      height: screensizewidth,
+      color: Colors.white,
+      child: Consumer<Calculation>(
+        builder: (context, model, child) {
+          return GridView.count(
+              crossAxisCount: 13,
+              mainAxisSpacing: 0.001,
+              crossAxisSpacing: 0.001,
+              children: model.status.map((e) => GridTile(
+                child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
+              ),
+              ).toList()
+          );
+        },
+      ),
+    );
   }
 }
 
@@ -125,22 +167,22 @@ class Buttons extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-        Container(
-          child: Consumer<Light>(builder: (context, model, child) {
-            return
-              GridView.count(
-                  crossAxisCount: 13,
-                  mainAxisSpacing: 0.001,
-                  crossAxisSpacing: 0.001,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: CARDS.map((e) => GridTile(
-                    child: Button(num: e["num"], mark: e["mark"],),
-                  ),
-                  ).toList()
-              );
-          }),
-        );
+      Container(
+        child: Consumer<Light>(builder: (context, model, child) {
+          return
+            GridView.count(
+                crossAxisCount: 13,
+                mainAxisSpacing: 0.001,
+                crossAxisSpacing: 0.001,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: CARDS.map((e) => GridTile(
+                  child: Button(num: e["num"], mark: e["mark"],),
+                ),
+                ).toList()
+            );
+        }),
+      );
     // TODO: implement build
   }
 }
@@ -152,39 +194,71 @@ class Button extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-        Container(
-          child: Consumer<Calculation>(builder: (context, model, child) {
-            return
-                GestureDetector(
-                  onTap: () =>{
-                    if(model.num1 == null){
-                      model.num1 = num,
-                      model.mark1 = mark,
+      Container(
+        child: Consumer<Calculation>(builder: (context, model, child) {
+          return
+            GestureDetector(
+              onTap: () =>{
+                if(model.num1 == null){
+                  model.num1 = num,
+                  model.mark1 = mark,
+                  Navigator.pushNamed(context, '/calculate')
+                }
+                else if(model.num2 == null){
+                  model.num2 = num,
+                  model.mark2 = mark,
+                  Navigator.pushNamed(context, '/calculate')
+                }
+                else if(model.num3 == null){
+                    model.num3 = num,
+                    model.mark3 = mark,
+                    Navigator.pushNamed(context, '/calculate')
+                  }
+                  else if(model.num4 == null){
+                      model.num4 = num,
+                      model.mark4 = mark,
+                      Navigator.pushNamed(context, '/calculate')
                     }
-                    else if(model.num2 == null){
-                      model.num2 = num,
-                      model.mark2 = mark,
-                    }
-                    else if(model.num3 == null){
-                        model.num3 = num,
-                        model.mark3 = mark,
-                      }
-                    else if(model.num4 == null){
-                          model.num4 = num,
-                          model.mark4 = mark,
-                        }
                     else if(model.num5 == null){
-                            model.num5 = num,
-                            model.mark5 = mark,
-                          }
-                  },
-                  child: Center(
-                    child: Text(
-                      "${num}${mark}"
-                    ),
-                  ),
-                );
-          }),
-        );
+                        model.num5 = num,
+                        model.mark5 = mark,
+                        Navigator.pushNamed(context, '/calculate')
+                      }
+              },
+              child: Center(
+                child: Text(
+                    "${num}${mark}"
+                ),
+              ),
+            );
+        }),
+      );
+  }
+}
+class TapBox extends StatelessWidget {
+  TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
+  String hand;
+  bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Light>(builder: (context, model, child) {
+      return GestureDetector(
+        onTap: () {
+          model.onTapped(hand);
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(width: 0.5, color: Colors.white),
+            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+          ),
+          child: Center(
+            child: Text(
+              hand,
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
