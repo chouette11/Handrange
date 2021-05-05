@@ -132,7 +132,7 @@ class List extends StatelessWidget {
                           children: <Widget>[
                             SimpleDialogOption(
                               onPressed: () async {
-                                await Graph.deleteGraph(Graph(id:id, name: name));
+                                await Graph.deleteGraph(Graph(id:id));
                                 await model.createGraphs();
                                 Navigator.pop(context);
 

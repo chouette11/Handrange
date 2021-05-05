@@ -129,7 +129,7 @@ class Calculate extends StatelessWidget {
                 RaisedButton(
                     child: Text('読み込み'),
                     onPressed: () {
-                     model.onGet(0);
+                     model.onGet(1);
                     }),
               ],
             );

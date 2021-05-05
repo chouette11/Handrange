@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
 import 'package:handrange/sql.dart';
 
-class Calculation extends ChangeNotifier{
+class Calculation extends ChangeNotifier {
   int num1;
   int num2;
   int num3;
@@ -20,13 +20,11 @@ class Calculation extends ChangeNotifier{
   String mark3;
   String mark4;
   String mark5;
-  String mark6;
-  String mark7;
 
-  graphJudge(){
+  graphJudge() {
     status.forEach((element) {
-      if(element["isSelected"] == true){
-        switch (element["hand"][0]){
+      if (element["isSelected"] == true) {
+        switch (element["hand"][0]) {
           case 'A':
             num6 = 1;
             break;
@@ -67,7 +65,7 @@ class Calculation extends ChangeNotifier{
             num6 = 2;
             break;
         }
-        switch (element["hand"][1]){
+        switch (element["hand"][1]) {
           case 'A':
             num7 = 1;
             break;
@@ -109,105 +107,165 @@ class Calculation extends ChangeNotifier{
             break;
         }
         String hand = element["hand"];
-        if(hand.endsWith('s')){
+        if (hand.endsWith('s')) {
           handJudge("s");
         }
-        else if(hand.endsWith('o')){
+        else if (hand.endsWith('o')) {
           handJudge('o');
         }
-        else{
+        else {
           handJudge('p');
         }
       }
     });
   }
-  handJudge(String isSuit){
+
+  handJudge(String isSuit) {
     List<int> numbers = [];
-    numbers.add(num1);numbers.add(num2);numbers.add(num3);numbers.add(num4);numbers.add(num5);numbers.add(num6);numbers.add(num7);
+    numbers.add(num1);
+    numbers.add(num2);
+    numbers.add(num3);
+    numbers.add(num4);
+    numbers.add(num5);
+    numbers.add(num6);
+    numbers.add(num7);
     numbers.sort();
     print(numbers);
     List<String> marks = [];
-    marks.add(mark1);marks.add(mark2);marks.add(mark3);marks.add(mark4);marks.add(mark5);
+    marks.add(mark1);
+    marks.add(mark2);
+    marks.add(mark3);
+    marks.add(mark4);
+    marks.add(mark5);
     marks.sort();
     print(marks);
     List<String> hands = [];
-    hands.add("${num1.toString()}${mark1}");hands.add("${num2.toString()}${mark2}");hands.add("${num3.toString()}${mark3}");hands.add("${num4.toString()}${mark4}");hands.add("${num5.toString()}${mark5}");
+    hands.add("${num1.toString()}${mark1}");
+    hands.add("${num2.toString()}${mark2}");
+    hands.add("${num3.toString()}${mark3}");
+    hands.add("${num4.toString()}${mark4}");
+    hands.add("${num5.toString()}${mark5}");
     print(hands);
-    List <String> mark = ["s","c","h","d"];
-    int i, j;
-    if(isSuit == "s"){
-      for(i = 0; i <= 2; i++){
-        if(marks[i] == marks[i + 1] && marks[i] == marks[i + 2]){
-          if(numbers.contains(13) && numbers.contains(12) && numbers.contains(11) && numbers.contains(10) && numbers.contains(1)){
+    List <String> mark = ["s", "c", "h", "d"];
+    int i, j, k, l, m;
+    onCalculate(){
+      for (i = 0; i <= 2; i++) {
+        if (marks[i] == marks[i + 1] && marks[i] == marks[i + 2] && marks[i] == marks[i + 3] && marks[i] == marks[i + 4]) {
+          if (numbers.contains(13) && numbers.contains(12) &&
+              numbers.contains(11) && numbers.contains(10) &&
+              numbers.contains(1)) {
             print("RoyalStraightFlush");
           }
-          for(i = 1; i <= 8; i++){
-            if(numbers.contains(i) && numbers.contains(i + 1) && numbers.contains(i + 2) && numbers.contains(i + 3) && numbers.contains(i + 4)){
+          for (i = 1; i <= 8; i++) {
+            if (numbers.contains(i) && numbers.contains(i + 1) &&
+                numbers.contains(i + 2) && numbers.contains(i + 3) &&
+                numbers.contains(i + 4)) {
               print("StraightFlush");
             }
           }
           print("flush");
         }
       }
-    }
-    else {
-      for(i = 0; i <= 1; i++){
-        if(marks[i] == marks[i + 1] && marks[i] == marks[i + 2] && marks[i] == marks[i + 3]){
-          if(numbers.contains(13) && numbers.contains(12) && numbers.contains(11) && numbers.contains(10) && numbers.contains(1)){
-            print("RoyalStraightFlush");
+      for (i = 0; i <= 3; i++) {
+        if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2] &&
+            numbers[i] == numbers[i + 3])) {
+          print("FourCards");
+        }
+      }
+      for (i = 0; i <= 2; i++) {
+        for (j = i + 3; j <= 5; j++) {
+          if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
+              numbers[j] == numbers[j + 1]) {
+            print("FullHouse");
           }
-          for(i = 1; i <= 8; i++){
-            if(numbers.contains(i) && numbers.contains(i + 1) && numbers.contains(i + 2) && numbers.contains(i + 3) && numbers.contains(i + 4)){
-              print("StraightFlush");
-            }
+        }
+      }
+      for (i = 2; i <= 4; i++) {
+        for (j = i - 2; j >= 0; j--) {
+          if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
+              numbers[j] == numbers[j + 1]) {
+            print("FullHouse");
           }
-          print("flush");
+        }
+      }
+      for (i = 1; i <= 8; i++) {
+        if (numbers.contains(i) && numbers.contains(i + 1) &&
+            numbers.contains(i + 2) && numbers.contains(i + 3) &&
+            numbers.contains(i + 4)) {
+          print("Straight");
+        }
+      }
+      for (i = 0; i <= 4; i++) {
+        if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) {
+          print("ThreeCards");
+        }
+      }
+      for (i = 0; i <= 3; i++) {
+        for (j = i + 2; j <= 4; j++) {
+          if (numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]) {
+            print("TwoPair");
+          }
+        }
+      }
+      for (i = 0; i <= 5; i++) {
+        if (numbers[i] == numbers[i + 1]) {
+          print("OnePair");
         }
       }
     }
-    for(i = 0; i <= 3; i++){
-      if((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2] && numbers[i] == numbers[i + 3])) {
-        print("FourCards");
-      }
-    }
-    for(i = 0; i <= 2; i++){
-      for(j = i + 3; j <= 5; j++) {
-        if((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) && numbers[j] == numbers[j + 1]){
-          print("FullHouse");
+
+    if (isSuit == "s") {
+      for(l = 0; l <= 3; l++){
+        String mark6 = mark[l];
+        String card1 = "${num6}${mark6}";
+        String card2 = "${num7}${mark6}";
+        marks.add(mark6);
+        marks.add(mark6);
+        if((hands.every((hand) => hand != card1)) && (hands.every((hand) => hand != card2)) ){
+          onCalculate();
         }
       }
     }
-    for(i = 2; i <= 4; i++){
-      for(j = i - 2; j >= 0; j--) {
-        if((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) && numbers[j] == numbers[j + 1]){
-          print("FullHouse");
+    else if(isSuit =="o"){
+      for(m = 0; m <= 2; m++){
+        for(l = m + 1; l <= 3; l++){
+          String mark6 = mark[l];
+          String mark7 = mark[m];
+          String card1 = "${num6}${mark6}";
+          String card2 = "${num7}${mark7}";
+          marks.add(mark6);
+          marks.add(mark7);
+          if((hands.every((hand) => hand != card1)) && (hands.every((hand) => hand != card2))){
+            onCalculate();
+          }
+          mark6 = mark[l];
+          mark7 = mark[m];
+          card1 = "${num6}${mark6}";
+          card2 = "${num7}${mark7}";
+          marks.add(mark6);
+          marks.add(mark7);
+          if((hands.every((hand) => hand != card1)) && (hands.every((hand) => hand != card2))){
+            onCalculate();
+          }
         }
       }
     }
-    for(i = 1; i <= 8; i++){
-      if(numbers.contains(i) && numbers.contains(i + 1) && numbers.contains(i + 2) && numbers.contains(i + 3) && numbers.contains(i + 4)){
-        print("Straight");
-      }
-    }
-    for(i = 0; i <= 4; i++){
-      if(numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2] ) {
-        print("ThreeCards");
-      }
-    }
-    for(i = 0; i <= 3; i++){
-      for(j = i + 2; j <= 4; j++){
-        if(numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]){
-          print("TwoPair");
+    else if(isSuit == "p"){
+      for(m = 0; m <= 2; m++){
+        for(l = m + 1; l <= 3; l++) {
+          String mark6 = mark[l];
+          String mark7 = mark[m];
+          String card1 = "${num6}${mark6}";
+          String card2 = "${num7}${mark7}";
+          marks.add(mark6);
+          marks.add(mark7);
+          if((hands.every((hand) => hand != card1)) && (hands.every((hand) => hand != card2))){
+            onCalculate();
+          }
         }
-      }
-    }
-    for(i = 0; i <= 5; i++){
-      if(numbers[i] == numbers[i + 1]){
-        print("OnePair");
       }
     }
   }
-
 
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],
@@ -243,5 +301,5 @@ class Calculation extends ChangeNotifier{
 
     notifyListeners();
   }
-}
 
+}
