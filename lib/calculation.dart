@@ -44,6 +44,7 @@ class Calculation extends ChangeNotifier {
     int inputThreeCards = 0;
     int inputTwoPair = 0;
     int inputOnePair = 0;
+
     handJudge(String isSuit) {
       List<int> numbers = [];
       numbers.add(num1);
@@ -54,7 +55,6 @@ class Calculation extends ChangeNotifier {
       numbers.add(num6);
       numbers.add(num7);
       numbers.sort();
-      print(numbers);
       List<String> marks = [];
       marks.add(mark1);
       marks.add(mark2);
@@ -62,37 +62,38 @@ class Calculation extends ChangeNotifier {
       marks.add(mark4);
       marks.add(mark5);
       marks.sort();
-      print(marks);
       List<String> cards = [];
       cards.add(card1);
       cards.add(card2);
       cards.add(card3);
       cards.add(card4);
       cards.add(card5);
-
-      print(cards);
       List <String> mark = ["s", "c", "h", "d"];
-      int i, j,  l, m;
+      List <String> doubleMark = ["ss","cc","hh","dd"];
+      int i, j, k, l, m;
+
       onCalculate(){
-        for (i = 0; i <= 2; i++) {
-          if (marks[i] == marks[i + 1] && marks[i] == marks[i + 2] && marks[i] == marks[i + 3] && marks[i] == marks[i + 4]) {
-            if (numbers.contains(13) && numbers.contains(12) &&
-                numbers.contains(11) && numbers.contains(10) &&
-                numbers.contains(1)) {
-              print("RoyalStraightFlush");
-              inputRoyalStraightFlash++;
-            }
-            for (i = 1; i <= 8; i++) {
-              if (numbers.contains(i) && numbers.contains(i + 1) &&
-                  numbers.contains(i + 2) && numbers.contains(i + 3) &&
-                  numbers.contains(i + 4)) {
-                print("StraightFlush");
-                inputStraightFlush++;
-                break;
+        for (k = 0; k <= 2; k++) {
+          for(j = 0; j <= 3; j++){
+            if (marks[k].contains(mark[j]) && marks[k + 1].contains(mark[j]) && marks[k + 2].contains(mark[j]) &&  marks[k + 3].contains(mark[j]) && marks[k + 4].contains(mark[j])) {
+              if (numbers.contains(13) && numbers.contains(12) &&
+                  numbers.contains(11) && numbers.contains(10) &&
+                  numbers.contains(1)) {
+                print("RoyalStraightFlush");
+                inputRoyalStraightFlash++;
               }
+              for (i = 1; i <= 8; i++) {
+                if (numbers.contains(i) && numbers.contains(i + 1) &&
+                    numbers.contains(i + 2) && numbers.contains(i + 3) &&
+                    numbers.contains(i + 4)) {
+                  print("StraightFlush");
+                  inputStraightFlush++;
+                  break;
+                }
+              }
+              print("flush");
+              inputFlush++;
             }
-            print("flush");
-            inputFlush++;
           }
         }
         for (i = 0; i <= 3; i++) {
@@ -134,6 +135,12 @@ class Calculation extends ChangeNotifier {
             break;
           }
         }
+        if(numbers.contains(1) && numbers.contains(10) &&
+            numbers.contains(11) && numbers.contains(12) &&
+            numbers.contains(13)){
+          print("Straight");
+          inputStraight++;
+        }
         for (i = 0; i <= 4; i++) {
           if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) {
             print("ThreeCards");
@@ -158,10 +165,10 @@ class Calculation extends ChangeNotifier {
           }
         }
       }
-
+      //end onCalculate
       if (isSuit == "s") {
         for(l = 0; l <= 3; l++){
-          String mark6 = mark[l];
+          String mark6 = doubleMark[l];
           String card1 = "${num6}${mark6}";
           String card2 = "${num7}${mark6}";
           marks.add(mark6);
@@ -170,13 +177,14 @@ class Calculation extends ChangeNotifier {
             onCalculate();
             inputSum++;
           }
+          marks.removeWhere((element) => element == doubleMark[l]);
         }
       }
       else if(isSuit =="o"){
         for(m = 0; m <= 2; m++){
           for(l = m + 1; l <= 3; l++){
-            String mark6 = mark[l];
-            String mark7 = mark[m];
+            String mark6 = doubleMark[l];
+            String mark7 = doubleMark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
             marks.add(mark6);
@@ -184,25 +192,19 @@ class Calculation extends ChangeNotifier {
             if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
               onCalculate();
               inputSum++;
-            }
-            mark6 = mark[l];
-            mark7 = mark[m];
-            card1 = "${num6}${mark6}";
-            card2 = "${num7}${mark7}";
-            marks.add(mark6);
-            marks.add(mark7);
-            if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
               onCalculate();
               inputSum++;
             }
-          }
+            marks.removeWhere((element) => element == doubleMark[l]);
+            marks.removeWhere((element) => element == doubleMark[m]);
+            }
         }
       }
       else if(isSuit == "p"){
         for(m = 0; m <= 2; m++){
           for(l = m + 1; l <= 3; l++) {
-            String mark6 = mark[l];
-            String mark7 = mark[m];
+            String mark6 = doubleMark[l];
+            String mark7 = doubleMark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
             marks.add(mark6);
@@ -211,6 +213,8 @@ class Calculation extends ChangeNotifier {
               onCalculate();
               inputSum++;
             }
+            marks.removeWhere((element) => element == doubleMark[l]);
+            marks.removeWhere((element) => element == doubleMark[m]);
           }
         }
       }
