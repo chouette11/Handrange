@@ -95,7 +95,7 @@ class SaveGraphs extends StatelessWidget {
                   crossAxisSpacing: 0.001,
                   childAspectRatio: 0.8,
                   children: model.numbers.map((e) => GridTile(
-                    child: List(id: e["id"],name: e["name"], count: e["count"]),
+                    child: List(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
                   ),
                   ).toList()
               );
@@ -107,8 +107,9 @@ class SaveGraphs extends StatelessWidget {
 
 class List extends StatelessWidget {
   final myController = TextEditingController();
-  List({Key key, this.id, this.name, this.count}) : super(key: key);
+  List({Key key, this.id, this.num, this.name, this.count}) : super(key: key);
   int id;
+  int num;
   String name;
   int count;
   @override
@@ -180,7 +181,7 @@ class List extends StatelessWidget {
                         crossAxisSpacing: 0.001,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        children: model.TFs[id].map((e) => GridTile(
+                        children: model.TFs[num].map((e) => GridTile(
                           child: Box(isSelected: e["isSelected"]),
                         ),
                         ).toList()

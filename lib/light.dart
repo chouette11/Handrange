@@ -84,10 +84,10 @@ class Light extends ChangeNotifier {
     List <Map<String,dynamic>> inputNumbers = [];
     List <List> inputTFs = [];
     int i, j,k;
-
+    print(graphs);
+    print(graphs.length);
     for (j = 0; j < graphs.length ; j++) {
       String TFText = graphs[j].text;
-      int id = graphs[j].id;
       List<Map<String, dynamic>> TF = CONBI.map((e) => {
         "hand": e["hand"],
         "value": e["value"],
@@ -111,21 +111,21 @@ class Light extends ChangeNotifier {
         }
       }
       inputTFs.add(TF);
-      print(id);
     }
-    for(k = 0; k < graphs.length; k++){
-      String graphName = graphs[k].name;
-      int num = graphs[k].count;
+    for(i = 0; i < graphs.length; i++){
+      int id = graphs[i].id;
+      String graphName = graphs[i].name;
+      int num = graphs[i].count;
       Map <String,dynamic> numbers_map = {};
       numbers_map.addAll(
           <String,dynamic>{
-            "id": k,
+            "id": id,
+            "num":i,
             "name":graphName,
             "count": num
           }
       );
       inputNumbers.add(numbers_map);
-      print(inputNumbers);
     }
     TFs = inputTFs;
     numbers = inputNumbers;
@@ -156,10 +156,11 @@ class Light extends ChangeNotifier {
       TFText +="${TF[i]}";
     }
     final graphs = await Graph.getGraph();
-    int id = graphs.length;
-    print(id);
+    int id = 0;
+    if(graphs.length != 0){
+      id = graphs.last.id + 1;;
+    }
     Graph graph = Graph(id: id, text: TFText, name: name, count: count);
-    print(graph);
     await Graph.insertGraph(graph);
     notifyListeners();
   }
@@ -189,7 +190,6 @@ class Light extends ChangeNotifier {
 
     Graph graph = Graph(id: 1, text: TFText);
     await Graph.updateGraph(graph);
-    print(graph);
   }
 //sqlからgraphのリストを受け取ってタップ時に読み込み
   String graphName = "";
@@ -197,8 +197,6 @@ class Light extends ChangeNotifier {
     final graphs = await Graph.getGraph();
     String TFText = graphs[id].text;
     count = graphs[id].count;
-    print(count);
-    print(graphs[id].count);
     int i;
     for(i = 0; i <= 168; i++){
       String isTF = TFText[i];

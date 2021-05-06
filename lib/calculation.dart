@@ -72,7 +72,7 @@ class Calculation extends ChangeNotifier {
 
       print(cards);
       List <String> mark = ["s", "c", "h", "d"];
-      int i, j, k, l, m;
+      int i, j,  l, m;
       onCalculate(){
         for (i = 0; i <= 2; i++) {
           if (marks[i] == marks[i + 1] && marks[i] == marks[i + 2] && marks[i] == marks[i + 3] && marks[i] == marks[i + 4]) {
