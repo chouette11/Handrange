@@ -22,16 +22,16 @@ class Calculation extends ChangeNotifier {
   String card3;
   String card4;
   String card5;
-  int royalStraightFlash;
-  int straightFlush;
-  int fourCards;
-  int fullHouse;
-  int flush;
-  int straight;
-  int threeCards;
-  int twoPair;
-  int onePair;
-  int sum;
+  int royalStraightFlash = 0;
+  int straightFlush = 0;
+  int fourCards = 0;
+  int fullHouse = 0;
+  int flush = 0;
+  int straight = 0;
+  int threeCards = 0;
+  int twoPair = 0;
+  int onePair = 0;
+  int sum = 1;
 
   graphJudge() {
     int inputSum = 0;

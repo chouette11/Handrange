@@ -272,15 +272,15 @@ class Result extends StatelessWidget {
             return
                 Column(
                   children: [
-                    Text("${model.royalStraightFlash}"),
-                    Text("${model.straightFlush}"),
-                    Text("${model.fourCards}"),
-                    Text("${model.fullHouse}"),
-                    Text("${model.flush}"),
-                    Text("${model.straight}"),
-                    Text("${model.threeCards}"),
-                    Text("${model.twoPair}"),
-                    Text("${model.onePair}"),
+                    Text("Royal combo:${model.royalStraightFlash} ${(model.royalStraightFlash / model.sum) * 100}%"),
+                    Text("StraightFlush combo:${model.straightFlush} ${(model.straightFlush / model.sum) * 100}%"),
+                    Text("FourCards combo:${model.fourCards} ${(model.fourCards / model.sum) * 100}%"),
+                    Text("FullHouse combo:${model.fullHouse} ${(model.fullHouse / model.sum) * 100}%"),
+                    Text("Flush combo:${model.flush} ${(model.flush / model.sum) * 100}%"),
+                    Text("Straight combo:${model.straight} ${(model.straight / model.sum) * 100}%"),
+                    Text("ThreeCards combo:${model.threeCards} ${(model.threeCards / model.sum) * 100}%"),
+                    Text("TwoPair combo:${model.twoPair} ${(model.twoPair / model.sum) * 100}%"),
+                    Text("OnePair combo:${model.onePair} ${(model.onePair / model.sum) * 100}%"),
                   ],
                 );
           }),
