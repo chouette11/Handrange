@@ -153,6 +153,7 @@ class MyHomePage extends StatelessWidget{
                                           onPressed: () async {
                                             model.name = myController.text;
                                             myController.clear();
+                                            await model.onSave();
                                             Navigator.pop(context);
                                           },
                                         ),
@@ -160,7 +161,6 @@ class MyHomePage extends StatelessWidget{
                                     ),
                                   )
                               );
-                              await model.onSave();
                             }),
                       ],
                     ),

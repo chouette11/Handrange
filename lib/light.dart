@@ -157,6 +157,7 @@ class Light extends ChangeNotifier {
     }
     final graphs = await Graph.getGraph();
     int id = graphs.length;
+    print(id);
     Graph graph = Graph(id: id, text: TFText, name: name, count: count);
     print(graph);
     await Graph.insertGraph(graph);
