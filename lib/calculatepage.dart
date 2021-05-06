@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
-import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:handrange/save.dart';
 import 'package:handrange/combination.dart';
 
 class MyApp extends StatelessWidget {
@@ -108,11 +106,6 @@ class Calculate extends StatelessWidget {
                       model.graphJudge();
                     }),
                 RaisedButton(
-                    child: Text('判定'),
-                    onPressed: () {
-                      model.handJudge("p");
-                    }),
-                RaisedButton(
                     child: Text('クリア'),
                     onPressed: () {
                       model.num1 = null;
@@ -131,6 +124,7 @@ class Calculate extends StatelessWidget {
                     onPressed: () {
                      model.onGet(1);
                     }),
+                Result(),
               ],
             );
         }),
@@ -163,78 +157,6 @@ class Display extends StatelessWidget{
   }
 }
 
-class Buttons extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: Consumer<Light>(builder: (context, model, child) {
-          return
-            GridView.count(
-                crossAxisCount: 13,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 0.001,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: CARDS.map((e) => GridTile(
-                  child: Button(num: e["num"], mark: e["mark"],),
-                ),
-                ).toList()
-            );
-        }),
-      );
-    // TODO: implement build
-  }
-}
-
-class Button extends StatelessWidget{
-  Button( {Key key,  this.num, this.mark }) : super(key: key);
-  int num;
-  String mark;
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: Consumer<Calculation>(builder: (context, model, child) {
-          return
-            GestureDetector(
-              onTap: () =>{
-                if(model.num1 == null){
-                  model.num1 = num,
-                  model.mark1 = mark,
-                  Navigator.pushNamed(context, '/calculate')
-                }
-                else if(model.num2 == null){
-                  model.num2 = num,
-                  model.mark2 = mark,
-                  Navigator.pushNamed(context, '/calculate')
-                }
-                else if(model.num3 == null){
-                    model.num3 = num,
-                    model.mark3 = mark,
-                    Navigator.pushNamed(context, '/calculate')
-                  }
-                  else if(model.num4 == null){
-                      model.num4 = num,
-                      model.mark4 = mark,
-                      Navigator.pushNamed(context, '/calculate')
-                    }
-                    else if(model.num5 == null){
-                        model.num5 = num,
-                        model.mark5 = mark,
-                        Navigator.pushNamed(context, '/calculate')
-                      }
-              },
-              child: Center(
-                child: Text(
-                    "${num}${mark}"
-                ),
-              ),
-            );
-        }),
-      );
-  }
-}
 class TapBox extends StatelessWidget {
   TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
   String hand;
@@ -260,5 +182,109 @@ class TapBox extends StatelessWidget {
         ),
       );
     });
+  }
+}
+
+class Buttons extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: Consumer<Light>(builder: (context, model, child) {
+          return
+            GridView.count(
+                crossAxisCount: 13,
+                mainAxisSpacing: 0.001,
+                crossAxisSpacing: 0.001,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: CARDS.map((e) => GridTile(
+                  child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
+                ),
+                ).toList()
+            );
+        }),
+      );
+  }
+}
+
+class Button extends StatelessWidget{
+  Button( {Key key,  this.num, this.mark,  this.card }) : super(key: key);
+  int num;
+  String mark;
+  String card;
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: Consumer<Calculation>(builder: (context, model, child) {
+          return
+            GestureDetector(
+              onTap: () =>{
+                if(model.num1 == null){
+                  model.num1 = num,
+                  model.mark1 = mark,
+                  model.card1 = card,
+                  Navigator.pushNamed(context, '/calculate')
+                }
+                else if(model.num2 == null && model.card1 != card){
+                  model.num2 = num,
+                  model.mark2 = mark,
+                  model.card2 = card,
+                  Navigator.pushNamed(context, '/calculate')
+                }
+                else if(model.num3 == null && model.card1 != card && model.card2 != card){
+                    model.num3 = num,
+                    model.mark3 = mark,
+                    model.card3 = card,
+                    Navigator.pushNamed(context, '/calculate')
+                  }
+                  else if(model.num4 == null && model.card1 != card && model.card2 != card && model.card3 != card ){
+                      model.num4 = num,
+                      model.mark4 = mark,
+                      model.card4 = card,
+                      Navigator.pushNamed(context, '/calculate')
+                    }
+                    else if(model.num5 == null && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card){
+                        model.num5 = num,
+                        model.mark5 = mark,
+                        model.card5 = card,
+                        Navigator.pushNamed(context, '/calculate')
+                      }
+              },
+              child: Center(
+                child: Text(
+                    card
+                ),
+              ),
+            );
+        }),
+      );
+  }
+}
+
+class Result extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return
+        Container(
+          child:Consumer<Calculation>(builder: (context, model, child) {
+            return
+                Column(
+                  children: [
+                    Text("${model.royalStraightFlash}"),
+                    Text("${model.straightFlush}"),
+                    Text("${model.fourCards}"),
+                    Text("${model.fullHouse}"),
+                    Text("${model.flush}"),
+                    Text("${model.straight}"),
+                    Text("${model.threeCards}"),
+                    Text("${model.twoPair}"),
+                    Text("${model.onePair}"),
+                  ],
+                );
+          }),
+        );
+
   }
 }
