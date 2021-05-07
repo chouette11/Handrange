@@ -114,7 +114,6 @@ class List extends StatelessWidget {
   int count;
   @override
   Widget build(BuildContext context) {
-    // double screensizewidth = MediaQuery.of(context).size.width;
     return
       Container(
           child: Consumer<Light>(builder: (context, model, child) {
@@ -129,15 +128,13 @@ class List extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return SimpleDialog(
-                          title: Text('${name}'),
+                          title: Text(name),
                           children: <Widget>[
                             SimpleDialogOption(
                               onPressed: () async {
                                 await Graph.deleteGraph(Graph(id:id));
                                 await model.createGraphs();
                                 Navigator.pop(context);
-
-                                print("${id}");
                               },
                               child: const Text('削除'),
                             ),
@@ -156,7 +153,7 @@ class List extends StatelessWidget {
                                             child: Text('実行'),
                                             onPressed: () async {
                                               await Graph.updateGraph(Graph(name: myController.text));
-                                              await myController.clear();
+                                              myController.clear();
                                               Navigator.pop(context);
                                             },
                                           ),

@@ -70,29 +70,27 @@ class Calculation extends ChangeNotifier {
       cards.add(card5);
       List <String> mark = ["s", "c", "h", "d"];
       List <String> doubleMark = ["ss","cc","hh","dd"];
-      int i, j, k, l, m;
+      int i, j, k, l, m, n;
 
       onCalculate(){
-        for (k = 0; k <= 2; k++) {
+        for(i = 0; i <= 2; i++){
           for(j = 0; j <= 3; j++){
-            if (marks[k].contains(mark[j]) && marks[k + 1].contains(mark[j]) && marks[k + 2].contains(mark[j]) &&  marks[k + 3].contains(mark[j]) && marks[k + 4].contains(mark[j])) {
-              if (numbers.contains(13) && numbers.contains(12) &&
-                  numbers.contains(11) && numbers.contains(10) &&
-                  numbers.contains(1)) {
-                print("RoyalStraightFlush");
-                inputRoyalStraightFlash++;
+            if(cards[i].contains("13${mark[j]}") && cards[i + 1].contains("12${mark[j]}") && cards[i + 2].contains("11${mark[j]}") && cards[i + 3].contains("10${mark[j]}") && cards[i + 4].contains("1${mark[j]}")){
+              print("Royal");
+              inputRoyalStraightFlash++;
+            }
+          }
+        }
+        for(i = 0; i <= 2; i++){
+          for(j = 0; j <= 3; j++){
+            for (n = 1; n <= 8; n++) {
+              if (cards[i].contains("${n}${mark[j]}") && cards[i].contains("${n + 1}${mark[j]}") &&
+                  cards[i].contains("${n + 2}${mark[j]}") && cards[i].contains("${n + 3}${mark[j]}") &&
+                  cards[i].contains("${n + 4}${mark[j]}")) {
+                print("StraightFlush");
+                inputStraightFlush++;
+                break;
               }
-              for (i = 1; i <= 8; i++) {
-                if (numbers.contains(i) && numbers.contains(i + 1) &&
-                    numbers.contains(i + 2) && numbers.contains(i + 3) &&
-                    numbers.contains(i + 4)) {
-                  print("StraightFlush");
-                  inputStraightFlush++;
-                  break;
-                }
-              }
-              print("flush");
-              inputFlush++;
             }
           }
         }
@@ -125,6 +123,14 @@ class Calculation extends ChangeNotifier {
             }
           }
           break;
+        }
+        for (k = 0; k <= 2; k++) {
+          for(j = 0; j <= 3; j++){
+            if (marks[k].contains(mark[j]) && marks[k + 1].contains(mark[j]) && marks[k + 2].contains(mark[j]) &&  marks[k + 3].contains(mark[j]) && marks[k + 4].contains(mark[j])) {
+                print("flush");
+                inputFlush++;
+            }
+          }
         }
         for (i = 1; i <= 8; i++) {
           if (numbers.contains(i) && numbers.contains(i + 1) &&
@@ -173,6 +179,8 @@ class Calculation extends ChangeNotifier {
           String card2 = "${num7}${mark6}";
           marks.add(mark6);
           marks.add(mark6);
+          cards.add(card1);
+          cards.add(card2);
           if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2)) ){
             onCalculate();
             inputSum++;

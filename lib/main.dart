@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/calculatepage.dart';
-import 'package:handrange/save.dart';
+
 
 void main() => runApp(MyApp());
 
