@@ -76,6 +76,7 @@ class MyHomePage extends StatelessWidget{
                         leading: Icon(Icons.graphic_eq_sharp),
                         title: Text('Graphs'),
                         onTap: () async {
+                          //TODO
                           await model.createGraphs();
                           await Navigator.pushNamed(context, '/save');
                         },
@@ -142,7 +143,7 @@ class MyHomePage extends StatelessWidget{
                               await showDialog(
                                   context: context,
                                   builder: (_) => AlertDialog(
-                                    title: Text("新規メモ作成"),
+                                    title: Text("新規ハンドレンジ作成"),
                                     content: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
@@ -181,7 +182,6 @@ class TextField extends StatefulWidget {
 class _TextFiledState extends State<TextField> {
   @override
   Widget build(BuildContext context) {
-
     return
       Expanded(
           child:Consumer<Light>(builder: (context, model, child) {
@@ -206,10 +206,10 @@ class _TextFiledState extends State<TextField> {
 class Graph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screensizewidth = MediaQuery.of(context).size.width;
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: screensizewidth,
-      height: screensizewidth,
+      width: screenSizeWidth,
+      height: screenSizeWidth,
       color: Colors.white,
       child: Consumer<Light>(
         builder: (context, model, child) {

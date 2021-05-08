@@ -75,7 +75,6 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-
   List <List> TFs = [];
   List <Map<String,dynamic>> numbers = [];
 //sqlからデータを受け取りsavepageの作成
@@ -83,7 +82,7 @@ class Light extends ChangeNotifier {
     final List<Graph> graphs = await Graph.getGraph();
     List <Map<String,dynamic>> inputNumbers = [];
     List <List> inputTFs = [];
-    int i, j,k;
+    int i, j;
     print(graphs);
     print(graphs.length);
     for (j = 0; j < graphs.length ; j++) {
@@ -220,6 +219,5 @@ class Light extends ChangeNotifier {
     graphName = name;
     notifyListeners();
   }
-
 }
 

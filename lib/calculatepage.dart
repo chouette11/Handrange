@@ -135,10 +135,10 @@ class Calculate extends StatelessWidget {
 class Display extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    double screensizewidth = MediaQuery.of(context).size.width;
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: screensizewidth,
-      height: screensizewidth,
+      width: screenSizeWidth,
+      height: screenSizeWidth,
       color: Colors.white,
       child: Consumer<Calculation>(
         builder: (context, model, child) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/save.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -83,10 +82,10 @@ class SaveGraphs extends StatelessWidget {
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    double screensizewidth = MediaQuery.of(context).size.width;
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return
       Container(
-          width: screensizewidth,
+          width: screenSizeWidth,
           child: Consumer<Light>(builder: (context, model, child) {
             return
               GridView.count(
@@ -131,14 +130,15 @@ class List extends StatelessWidget {
                           title: Text(name),
                           children: <Widget>[
                             SimpleDialogOption(
+                              child: const Text('削除'),
                               onPressed: () async {
                                 await Graph.deleteGraph(Graph(id:id));
                                 await model.createGraphs();
                                 Navigator.pop(context);
                               },
-                              child: const Text('削除'),
                             ),
                             SimpleDialogOption(
+                              child: const Text('名前の変更'),
                               onPressed: () async {
                                 await showDialog(
                                     context: context,
@@ -162,8 +162,8 @@ class List extends StatelessWidget {
                                     )
                                 );
                                 await model.createGraphs();
-                                Navigator.pop(context); },
-                              child: const Text('名前の変更'),
+                                Navigator.pop(context);
+                              },
                             ),
                           ],
                         );
@@ -209,12 +209,12 @@ class Box extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: Colors.white),
-            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-          ),
-        );
+    return
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 0.5, color: Colors.white),
+          color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+        ),
+      );
   }
 }

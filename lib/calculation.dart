@@ -61,7 +61,6 @@ class Calculation extends ChangeNotifier {
       marks.add(mark3);
       marks.add(mark4);
       marks.add(mark5);
-      marks.sort();
       List<String> cards = [];
       cards.add(card1);
       cards.add(card2);
@@ -69,32 +68,28 @@ class Calculation extends ChangeNotifier {
       cards.add(card4);
       cards.add(card5);
       List <String> mark = ["s", "c", "h", "d"];
-      List <String> doubleMark = ["ss","cc","hh","dd"];
-      int i, j, k, l, m, n;
+      int i, j, l, m;
+      int max = numbers.length;
 
       onCalculate(){
-        for(i = 0; i <= 2; i++){
+        for(i = 0; i <= 3; i++){
+          if(cards.contains("13${mark[i]}") && cards.contains("12${mark[i]}") && cards.contains("11${mark[i]}") && cards.contains("10${mark[i]}") && cards.contains("1${mark[i]}")){
+            print("Royal");
+            inputRoyalStraightFlash++;
+          }
+        }
+        for(i = 0; i <= max - 5; i++){
           for(j = 0; j <= 3; j++){
-            if(cards[i].contains("13${mark[j]}") && cards[i + 1].contains("12${mark[j]}") && cards[i + 2].contains("11${mark[j]}") && cards[i + 3].contains("10${mark[j]}") && cards[i + 4].contains("1${mark[j]}")){
-              print("Royal");
-              inputRoyalStraightFlash++;
+            if (cards.contains("${i}${mark[j]}") && cards.contains("${i + 1}${mark[j]}") &&
+                cards.contains("${i + 2}${mark[j]}") && cards.contains("${i + 3}${mark[j]}") &&
+                cards.contains("${i + 4}${mark[j]}")) {
+              print("StraightFlush");
+              inputStraightFlush++;
+              break;
             }
           }
         }
-        for(i = 0; i <= 2; i++){
-          for(j = 0; j <= 3; j++){
-            for (n = 1; n <= 8; n++) {
-              if (cards[i].contains("${n}${mark[j]}") && cards[i].contains("${n + 1}${mark[j]}") &&
-                  cards[i].contains("${n + 2}${mark[j]}") && cards[i].contains("${n + 3}${mark[j]}") &&
-                  cards[i].contains("${n + 4}${mark[j]}")) {
-                print("StraightFlush");
-                inputStraightFlush++;
-                break;
-              }
-            }
-          }
-        }
-        for (i = 0; i <= 3; i++) {
+        for (i = 0; i <= max - 4; i++) {
           if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2] &&
               numbers[i] == numbers[i + 3])) {
             print("FourCards");
@@ -124,11 +119,12 @@ class Calculation extends ChangeNotifier {
           }
           break;
         }
-        for (k = 0; k <= 2; k++) {
+        for (i = 0; i <= max - 5; i++) {
           for(j = 0; j <= 3; j++){
-            if (marks[k].contains(mark[j]) && marks[k + 1].contains(mark[j]) && marks[k + 2].contains(mark[j]) &&  marks[k + 3].contains(mark[j]) && marks[k + 4].contains(mark[j])) {
-                print("flush");
-                inputFlush++;
+            if (marks[i].contains(mark[j]) && marks[i + 1].contains(mark[j]) && marks[i + 2].contains(mark[j]) &&  marks[i + 3].contains(mark[j]) && marks[i + 4].contains(mark[j])) {
+              print("flush");
+              inputFlush++;
+              break;
             }
           }
         }
@@ -147,15 +143,15 @@ class Calculation extends ChangeNotifier {
           print("Straight");
           inputStraight++;
         }
-        for (i = 0; i <= 4; i++) {
+        for (i = 0; i <= max - 3; i++) {
           if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) {
             print("ThreeCards");
             inputThreeCards++;
             break;
           }
         }
-        for (i = 0; i <= 3; i++) {
-          for (j = i + 2; j <= 4; j++) {
+        for (i = 0; i <= max - 4; i++) {
+          for (j = i + 2; j <= max - 2; j++) {
             if (numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]) {
               print("TwoPair");
               inputTwoPair++;
@@ -163,7 +159,7 @@ class Calculation extends ChangeNotifier {
             }
           }
         }
-        for (i = 0; i <= 5; i++) {
+        for (i = 0; i <= max - 2; i++) {
           if (numbers[i] == numbers[i + 1]) {
             print("OnePair");
             inputOnePair++;
@@ -174,7 +170,7 @@ class Calculation extends ChangeNotifier {
       //end onCalculate
       if (isSuit == "s") {
         for(l = 0; l <= 3; l++){
-          String mark6 = doubleMark[l];
+          String mark6 = mark[l];
           String card1 = "${num6}${mark6}";
           String card2 = "${num7}${mark6}";
           marks.add(mark6);
@@ -185,14 +181,14 @@ class Calculation extends ChangeNotifier {
             onCalculate();
             inputSum++;
           }
-          marks.removeWhere((element) => element == doubleMark[l]);
+          marks.removeLast();marks.removeLast();
         }
       }
       else if(isSuit =="o"){
         for(m = 0; m <= 2; m++){
           for(l = m + 1; l <= 3; l++){
-            String mark6 = doubleMark[l];
-            String mark7 = doubleMark[m];
+            String mark6 = mark[l];
+            String mark7 = mark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
             marks.add(mark6);
@@ -203,16 +199,16 @@ class Calculation extends ChangeNotifier {
               onCalculate();
               inputSum++;
             }
-            marks.removeWhere((element) => element == doubleMark[l]);
-            marks.removeWhere((element) => element == doubleMark[m]);
-            }
+            marks.removeLast();
+            marks.removeLast();
+          }
         }
       }
       else if(isSuit == "p"){
         for(m = 0; m <= 2; m++){
           for(l = m + 1; l <= 3; l++) {
-            String mark6 = doubleMark[l];
-            String mark7 = doubleMark[m];
+            String mark6 = mark[l];
+            String mark7 = mark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
             marks.add(mark6);
@@ -221,8 +217,8 @@ class Calculation extends ChangeNotifier {
               onCalculate();
               inputSum++;
             }
-            marks.removeWhere((element) => element == doubleMark[l]);
-            marks.removeWhere((element) => element == doubleMark[m]);
+            marks.removeLast();
+            marks.removeLast();
           }
         }
       }
@@ -367,8 +363,6 @@ class Calculation extends ChangeNotifier {
         );
       }
     }
-
     notifyListeners();
   }
-
 }
