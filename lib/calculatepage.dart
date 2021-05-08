@@ -58,7 +58,7 @@ class CalculatePage extends StatelessWidget {
                         title: Text('Graphs'),
                         onTap: () async {
                           await model.createGraphs();
-                          await Navigator.pushNamed(context, '/next');
+                          await Navigator.pushNamed(context, '/save');
                         },
                       ),
                       ListTile(
