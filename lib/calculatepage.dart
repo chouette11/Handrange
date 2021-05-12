@@ -122,7 +122,7 @@ class Calculate extends StatelessWidget {
                 RaisedButton(
                     child: Text('読み込み'),
                     onPressed: () {
-                     model.onGet(0);
+                      model.onGet(0);
                     }),
                 Result(),
               ],
@@ -185,6 +185,28 @@ class TapBox extends StatelessWidget {
   }
 }
 
+class CardBoxes extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Consumer<Calculation>(builder: (context, model, child) {
+        return
+          Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  returnCard(model.num1, model.mark1),
+                  returnCard(model.num2, model.mark2),
+                  returnCard(model.num3, model.mark3),
+                  returnCard(model.num4, model.mark4),
+                  returnCard(model.num5, model.mark5),
+                ],
+              )
+          );
+      });
+  }
+}
+
 class Buttons extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -196,6 +218,7 @@ class Buttons extends StatelessWidget{
                 crossAxisCount: 13,
                 mainAxisSpacing: 0.001,
                 crossAxisSpacing: 0.001,
+                childAspectRatio: 0.78,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 children: CARDS.map((e) => GridTile(
@@ -213,6 +236,7 @@ class Button extends StatelessWidget{
   int num;
   String mark;
   String card;
+
   @override
   Widget build(BuildContext context) {
     return
@@ -220,43 +244,44 @@ class Button extends StatelessWidget{
         child: Consumer<Calculation>(builder: (context, model, child) {
           return
             GestureDetector(
-              onTap: () =>{
-                if(model.num1 == null){
-                  model.num1 = num,
-                  model.mark1 = mark,
-                  model.card1 = card,
-                  Navigator.pushNamed(context, '/calculate')
-                }
-                else if(model.num2 == null && model.card1 != card){
-                  model.num2 = num,
-                  model.mark2 = mark,
-                  model.card2 = card,
-                  Navigator.pushNamed(context, '/calculate')
-                }
-                else if(model.num3 == null && model.card1 != card && model.card2 != card){
-                    model.num3 = num,
-                    model.mark3 = mark,
-                    model.card3 = card,
+                onTap: () =>{
+                  if(model.num1 == null){
+                    model.num1 = num,
+                    model.mark1 = mark,
+                    model.card1 = card,
                     Navigator.pushNamed(context, '/calculate')
                   }
-                  else if(model.num4 == null && model.card1 != card && model.card2 != card && model.card3 != card ){
-                      model.num4 = num,
-                      model.mark4 = mark,
-                      model.card4 = card,
+                  else if(model.num2 == null && model.card1 != card){
+                    model.num2 = num,
+                    model.mark2 = mark,
+                    model.card2 = card,
+                    Navigator.pushNamed(context, '/calculate')
+                  }
+                  else if(model.num3 == null && model.card1 != card && model.card2 != card){
+                      model.num3 = num,
+                      model.mark3 = mark,
+                      model.card3 = card,
                       Navigator.pushNamed(context, '/calculate')
                     }
-                    else if(model.num5 == null && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card){
-                        model.num5 = num,
-                        model.mark5 = mark,
-                        model.card5 = card,
+                    else if(model.num4 == null && model.card1 != card && model.card2 != card && model.card3 != card ){
+                        model.num4 = num,
+                        model.mark4 = mark,
+                        model.card4 = card,
                         Navigator.pushNamed(context, '/calculate')
                       }
-              },
-              child: Center(
-                child: Text(
-                    card
-                ),
-              ),
+                      else if(model.num5 == null && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card){
+                          model.num5 = num,
+                          model.mark5 = mark,
+                          model.card5 = card,
+                          Navigator.pushNamed(context, '/calculate')
+                        }
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                    ),
+                    child: returnCard(num, mark)
+                )
             );
         }),
       );
@@ -267,24 +292,75 @@ class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        Container(
-          child:Consumer<Calculation>(builder: (context, model, child) {
-            return
-                Column(
-                  children: [
-                    Text("Royal combo:${model.royalStraightFlash} ${(model.royalStraightFlash / model.sum) * 100}%"),
-                    Text("StraightFlush combo:${model.straightFlush} ${(model.straightFlush / model.sum) * 100}%"),
-                    Text("FourCards combo:${model.fourCards} ${(model.fourCards / model.sum) * 100}%"),
-                    Text("FullHouse combo:${model.fullHouse} ${(model.fullHouse / model.sum) * 100}%"),
-                    Text("Flush combo:${model.flush} ${(model.flush / model.sum) * 100}%"),
-                    Text("Straight combo:${model.straight} ${(model.straight / model.sum) * 100}%"),
-                    Text("ThreeCards combo:${model.threeCards} ${(model.threeCards / model.sum) * 100}%"),
-                    Text("TwoPair combo:${model.twoPair} ${(model.twoPair / model.sum) * 100}%"),
-                    Text("OnePair combo:${model.onePair} ${(model.onePair / model.sum) * 100}%"),
-                  ],
-                );
-          }),
-        );
+      Container(
+        child:Consumer<Calculation>(builder: (context, model, child) {
+          return
+            Column(
+              children: [
+                Text("Royal combo:${model.royalStraightFlash} ${(model.royalStraightFlash / model.sum) * 100}%"),
+                Text("StraightFlush combo:${model.straightFlush} ${(model.straightFlush / model.sum) * 100}%"),
+                Text("FourCards combo:${model.fourCards} ${(model.fourCards / model.sum) * 100}%"),
+                Text("FullHouse combo:${model.fullHouse} ${(model.fullHouse / model.sum) * 100}%"),
+                Text("Flush combo:${model.flush} ${(model.flush / model.sum) * 100}%"),
+                Text("Straight combo:${model.straight} ${(model.straight / model.sum) * 100}%"),
+                Text("ThreeCards combo:${model.threeCards} ${(model.threeCards / model.sum) * 100}%"),
+                Text("TwoPair combo:${model.twoPair} ${(model.twoPair / model.sum) * 100}%"),
+                Text("OnePair combo:${model.onePair} ${(model.onePair / model.sum) * 100}%"),
+              ],
+            );
+        }),
+      );
 
   }
+}
+
+Column returnCard(int number, String selectedMark){
+  String returnText(int n) {
+    if(n == null){
+      return "";
+    }
+    else if(n == 13){
+      return "K";
+    }
+    else if(n == 12) {
+      return "Q";
+    }
+    else if(n == 11) {
+      return "J";
+    }
+    else if(n == 10){
+      return "T";
+    }
+    else{
+      return "${n}";
+    }
+  }
+  String returnMark(String m){
+    if(m == null){
+      return "";
+    }
+    else if(m == "s"){
+      return "♠";
+    }
+    else if(m == "c"){
+      return "♣";
+    }
+    else if(m == "h"){
+      return "♥";
+    }
+    else if(m == "d"){
+      return "♦";
+    }
+  }
+  return
+    Column(
+      children: [
+        Text(
+            returnText(number)
+        ),
+        Text(
+            returnMark(selectedMark)
+        )
+      ],
+    );
 }
