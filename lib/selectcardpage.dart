@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:handrange/calculatepage.dart';
+import 'package:flutter/material.dart';gi
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -45,42 +44,6 @@ class SelectCards extends StatelessWidget{
             children: [
               Buttons(),
             ],
-          );
-      });
-  }
-}
-
-class CardBoxes extends StatelessWidget{
-  Container returnContainer(int n, String m){
-    return
-      Container(
-          child: Container(
-            width: 20,
-            height: 35,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black)
-            ),
-            child: returnCard(n, m),
-          )
-      );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      Consumer<Calculation>(builder: (context, model, child) {
-        return
-          Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  returnContainer(model.num1, model.mark1),
-                  returnContainer(model.num2, model.mark2),
-                  returnContainer(model.num3, model.mark3),
-                  returnContainer(model.num4, model.mark4),
-                  returnContainer(model.num5, model.mark5),
-                ],
-              )
           );
       });
   }
