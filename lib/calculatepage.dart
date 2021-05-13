@@ -181,12 +181,16 @@ class CardBoxes extends StatelessWidget{
   Container returnContainer(int n, String m){
     return
       Container(
-        width: 20,
-        height: 35,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black)
+        color: n == null || m == null ? Colors.black26 : Colors.white,
+        child: Container(
+          width: 40,
+          height: 65,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(5.0)
+          ),
+          child: returnCard(n, m),
         ),
-        child: returnCard(n, m),
       );
   }
 
@@ -199,8 +203,9 @@ class CardBoxes extends StatelessWidget{
             onTap: (){
               showDialog(
                   context: context,
-                builder: (_) => SelectPage()
+                  builder: (_) => SelectPage()
               );
+
             },
             child: Container(
                 child: Row(
@@ -286,12 +291,18 @@ Column returnCard(int number, String selectedMark){
   return
     Column(
       children: [
-        Text(
-            returnText(number)
+        Center(
+          child: Text(
+            returnText(number),
+            style: TextStyle(fontSize: 23,fontFamily: "PTS"),
+          ),
         ),
-        Text(
-            returnMark(selectedMark)
-        )
+        Center(
+            child: Text(
+              returnMark(selectedMark),
+              style: TextStyle(fontSize: 23,fontFamily: "PTS"),
+            )
+        ),
       ],
     );
 }
