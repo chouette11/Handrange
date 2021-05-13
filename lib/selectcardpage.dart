@@ -27,51 +27,7 @@ class SelectPage extends StatelessWidget {
       Consumer<Light>(builder: (context, model, child) {
         return
           Scaffold(
-            appBar: AppBar(
-              title: Text('Handrange'),
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                    child: Text(
-                      'Drawer Header',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.home),
-                    title: Text('Home'),
-                    onTap: () {
-                      Navigator.pushNamed(context, '/');
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.graphic_eq_sharp),
-                    title: Text('Graphs'),
-                    onTap: () async {
-                      await model.createGraphs();
-                      await Navigator.pushNamed(context, '/save');
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.file_copy),
-                    title: Text('Calculate'),
-                    onTap: () async {
-                      await model.createGraphs();
-                      await Navigator.pushNamed(context, '/calculate');
-                    },
-                  ),
-                ],
-              ),
-            ),
+            backgroundColor: Colors.transparent,
             body: SelectCards(),
           );
       });
@@ -85,10 +41,46 @@ class SelectCards extends StatelessWidget{
       Consumer<Light>(builder: (context, model, child) {
         return
           Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CardBoxes(),
               Buttons(),
             ],
+          );
+      });
+  }
+}
+
+class CardBoxes extends StatelessWidget{
+  Container returnContainer(int n, String m){
+    return
+      Container(
+          child: Container(
+            width: 20,
+            height: 35,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black)
+            ),
+            child: returnCard(n, m),
+          )
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Consumer<Calculation>(builder: (context, model, child) {
+        return
+          Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  returnContainer(model.num1, model.mark1),
+                  returnContainer(model.num2, model.mark2),
+                  returnContainer(model.num3, model.mark3),
+                  returnContainer(model.num4, model.mark4),
+                  returnContainer(model.num5, model.mark5),
+                ],
+              )
           );
       });
   }
@@ -128,6 +120,7 @@ class Button extends StatelessWidget{
   Widget build(BuildContext context) {
     return
       Container(
+        color: Colors.white,
         child: Consumer<Calculation>(builder: (context, model, child) {
           return
             GestureDetector(
@@ -136,7 +129,7 @@ class Button extends StatelessWidget{
                     model.num1 = num,
                     model.mark1 = mark,
                     model.card1 = card,
-                    Navigator.pushNamed(context, '/calculate')
+                    Navigator.pushNamed(context, '/calculate'),
                   }
                   else if(model.num2 == null && model.card1 != card){
                     model.num2 = num,
@@ -167,10 +160,61 @@ class Button extends StatelessWidget{
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black),
                     ),
-                    child: returnCard(num, mark)
+                    child: returnCards(num, mark)
                 )
             );
         }),
       );
   }
+}
+
+Column returnCards(int number, String selectedMark){
+  String returnText(int n) {
+    if(n == null){
+      return "";
+    }
+    else if(n == 13){
+      return "K";
+    }
+    else if(n == 12) {
+      return "Q";
+    }
+    else if(n == 11) {
+      return "J";
+    }
+    else if(n == 10){
+      return "T";
+    }
+    else{
+      return "${n}";
+    }
+  }
+  String returnMark(String m){
+    if(m == null){
+      return "";
+    }
+    else if(m == "s"){
+      return "♠";
+    }
+    else if(m == "c"){
+      return "♣";
+    }
+    else if(m == "h"){
+      return "♥";
+    }
+    else if(m == "d"){
+      return "♦";
+    }
+  }
+  return
+    Column(
+      children: [
+        Expanded(child: Text(
+            returnText(number)
+        ),),
+        Expanded(child: Text(
+            returnMark(selectedMark)
+        ))
+      ],
+    );
 }
