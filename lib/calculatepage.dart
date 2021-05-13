@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
+import 'package:handrange/selectcardpage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -90,7 +91,6 @@ class Calculate extends StatelessWidget {
               children: [
                 Display(),
                 CardBoxes(),
-                Buttons(),
                 RaisedButton(
                     child: Text('グラフ判定'),
                     onPressed: () {
@@ -177,6 +177,7 @@ class TapBox extends StatelessWidget {
 }
 
 class CardBoxes extends StatelessWidget{
+
   Container returnContainer(int n, String m){
     return
       Container(
@@ -188,105 +189,33 @@ class CardBoxes extends StatelessWidget{
         child: returnCard(n, m),
       );
   }
+
   @override
   Widget build(BuildContext context) {
     return
       Consumer<Calculation>(builder: (context, model, child) {
         return
-          Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  returnContainer(model.num1, model.mark1),
-                  returnContainer(model.num2, model.mark2),
-                  returnContainer(model.num3, model.mark3),
-                  returnContainer(model.num4, model.mark4),
-                  returnContainer(model.num5, model.mark5),
-                ],
-              )
+          GestureDetector(
+            onTap: (){
+              showDialog(
+                  context: context,
+                builder: (_) => SelectPage()
+              );
+            },
+            child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    returnContainer(model.num1, model.mark1),
+                    returnContainer(model.num2, model.mark2),
+                    returnContainer(model.num3, model.mark3),
+                    returnContainer(model.num4, model.mark4),
+                    returnContainer(model.num5, model.mark5),
+                  ],
+                )
+            ),
           );
       });
-  }
-}
-
-class Buttons extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: Consumer<Light>(builder: (context, model, child) {
-          return
-            GridView.count(
-                crossAxisCount: 13,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 0.001,
-                childAspectRatio: 0.78,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: CARDS.map((e) => GridTile(
-                  child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
-                ),
-                ).toList()
-            );
-        }),
-      );
-  }
-}
-
-class Button extends StatelessWidget{
-  Button( {Key key,  this.num, this.mark,  this.card }) : super(key: key);
-  int num;
-  String mark;
-  String card;
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: Consumer<Calculation>(builder: (context, model, child) {
-          return
-            GestureDetector(
-                onTap: () =>{
-                  if(model.num1 == null){
-                    model.num1 = num,
-                    model.mark1 = mark,
-                    model.card1 = card,
-                    Navigator.pushNamed(context, '/calculate')
-                  }
-                  else if(model.num2 == null && model.card1 != card){
-                    model.num2 = num,
-                    model.mark2 = mark,
-                    model.card2 = card,
-                    Navigator.pushNamed(context, '/calculate')
-                  }
-                  else if(model.num3 == null && model.card1 != card && model.card2 != card){
-                      model.num3 = num,
-                      model.mark3 = mark,
-                      model.card3 = card,
-                      Navigator.pushNamed(context, '/calculate')
-                    }
-                    else if(model.num4 == null && model.card1 != card && model.card2 != card && model.card3 != card ){
-                        model.num4 = num,
-                        model.mark4 = mark,
-                        model.card4 = card,
-                        Navigator.pushNamed(context, '/calculate')
-                      }
-                      else if(model.num5 == null && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card){
-                          model.num5 = num,
-                          model.mark5 = mark,
-                          model.card5 = card,
-                          Navigator.pushNamed(context, '/calculate')
-                        }
-                },
-                child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: returnCard(num, mark)
-                )
-            );
-        }),
-      );
   }
 }
 
