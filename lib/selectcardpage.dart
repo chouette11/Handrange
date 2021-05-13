@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';gi
+import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -42,10 +43,38 @@ class SelectCards extends StatelessWidget{
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  DeleteButton()
+                ],
+              ),
               Buttons(),
             ],
           );
       });
+  }
+}
+
+class DeleteButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return
+        GestureDetector(
+          onTap: (){} ,
+          child: ClipPath(
+            clipper: OvalLeftBorderClipper(),
+            child: Container(
+              width: 60,
+              height: 40,
+              color: Colors.blueGrey,
+              child: Center(
+                child: Text("削除"),
+              ),
+            ),
+          ),
+        );
+
   }
 }
 
