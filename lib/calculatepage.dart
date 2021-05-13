@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
+import 'package:handrange/sql.dart';
 import 'package:handrange/combination.dart';
 
 class MyApp extends StatelessWidget {
@@ -112,8 +113,14 @@ class Calculate extends StatelessWidget {
                     }),
                 RaisedButton(
                     child: Text('読み込み'),
-                    onPressed: () {
-                      model.onGet(0);
+                    onPressed: ()async{
+                      await model.createGraphs();
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: SavedGraphs(),
+                          )
+                      );
                     }),
                 Result(),
               ],
@@ -200,7 +207,8 @@ class CardBoxes extends StatelessWidget{
       Consumer<Calculation>(builder: (context, model, child) {
         return
           GestureDetector(
-            onTap: (){
+            onTap: ()async{
+              await model.createGraphs();
               showDialog(
                   context: context,
                   builder: (_) => SelectPage()
@@ -305,4 +313,94 @@ Column returnCard(int number, String selectedMark){
         ),
       ],
     );
+}
+
+class SavedGraphs extends StatelessWidget {
+  final myController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    double screenSizeWidth = MediaQuery.of(context).size.width;
+    return
+      Container(
+          width: screenSizeWidth,
+          child: Consumer<Calculation>(builder: (context, model, child) {
+            return
+              GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 0.001,
+                  crossAxisSpacing: 0.001,
+                  childAspectRatio: 0.8,
+                  children: model.numbers.map((e) => GridTile(
+                    child: GraphList(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
+                  ),
+                  ).toList()
+              );
+          }
+          )
+      );
+  }
+}
+
+class GraphList extends StatelessWidget {
+  final myController = TextEditingController();
+  GraphList({Key key, this.id, this.num, this.name, this.count}) : super(key: key);
+  int id;
+  int num;
+  String name;
+  int count;
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+          child: Consumer<Calculation>(builder: (context, model, child) {
+            return
+              GestureDetector(
+                onTap: () =>{
+                  model.onGet(num,name),
+                  Navigator.pushNamed(context, '/calculate')
+                },
+                child:Column(
+                  children: [
+                    GridView.count(
+                        crossAxisCount: 13,
+                        mainAxisSpacing: 0.001,
+                        crossAxisSpacing: 0.001,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: model.TFs[num].map((e) => GridTile(
+                          child: Box(isSelected: e["isSelected"]),
+                        ),
+                        ).toList()
+                    ),
+                    Center(
+                      child: Row(
+                        children: [
+                          Text(
+                              name
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ) ,
+              );
+          })
+      );
+  }
+}
+
+class Box extends StatelessWidget {
+  Box( {Key key,  this.isSelected }) : super(key: key);
+  bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 0.5, color: Colors.white),
+          color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+        ),
+      );
+  }
 }
