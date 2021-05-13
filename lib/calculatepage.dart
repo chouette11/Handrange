@@ -89,16 +89,7 @@ class Calculate extends StatelessWidget {
             ListView(
               children: [
                 Display(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text("${model.num1}${model.mark1}"),
-                    Text("${model.num2}${model.mark2}"),
-                    Text("${model.num3}${model.mark3}"),
-                    Text("${model.num4}${model.mark4}"),
-                    Text("${model.num5}${model.mark5}"),
-                  ],
-                ),
+                CardBoxes(),
                 Buttons(),
                 RaisedButton(
                     child: Text('グラフ判定'),
@@ -186,6 +177,17 @@ class TapBox extends StatelessWidget {
 }
 
 class CardBoxes extends StatelessWidget{
+  Container returnContainer(int n, String m){
+    return
+      Container(
+        width: 20,
+        height: 35,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black)
+        ),
+        child: returnCard(n, m),
+      );
+  }
   @override
   Widget build(BuildContext context) {
     return
@@ -195,11 +197,11 @@ class CardBoxes extends StatelessWidget{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  returnCard(model.num1, model.mark1),
-                  returnCard(model.num2, model.mark2),
-                  returnCard(model.num3, model.mark3),
-                  returnCard(model.num4, model.mark4),
-                  returnCard(model.num5, model.mark5),
+                  returnContainer(model.num1, model.mark1),
+                  returnContainer(model.num2, model.mark2),
+                  returnContainer(model.num3, model.mark3),
+                  returnContainer(model.num4, model.mark4),
+                  returnContainer(model.num5, model.mark5),
                 ],
               )
           );

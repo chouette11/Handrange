@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/calculatepage.dart';
-
+import 'package:handrange/selectcardpage.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
                   '/': (context) => MyHomePage() ,
                   '/save': (context) => SavePage(),
                   '/calculate': (context) => CalculatePage(),
+                  '/select': (context) => SelectPage(),
                 },
               ),
             )
