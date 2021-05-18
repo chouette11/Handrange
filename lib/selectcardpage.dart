@@ -24,13 +24,10 @@ class SelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      Consumer<Light>(builder: (context, model, child) {
-        return
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            body: SelectCards(),
-          );
-      });
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SelectCards(),
+      );
   }
 }
 
@@ -38,21 +35,18 @@ class SelectCards extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Consumer<Light>(builder: (context, model, child) {
-        return
-          Column(
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  DeleteButton()
-                ],
-              ),
-              Buttons(),
+              DeleteButton()
             ],
-          );
-      });
+          ),
+          Buttons(),
+        ],
+      );
   }
 }
 
@@ -60,20 +54,20 @@ class DeleteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        GestureDetector(
-          onTap: (){} ,
-          child: ClipPath(
-            clipper: OvalLeftBorderClipper(),
-            child: Container(
-              width: 60,
-              height: 40,
-              color: Colors.blueGrey,
-              child: Center(
-                child: Text("削除"),
-              ),
+      GestureDetector(
+        onTap: (){} ,
+        child: ClipPath(
+          clipper: OvalLeftBorderClipper(),
+          child: Container(
+            width: 60,
+            height: 40,
+            color: Colors.blueGrey,
+            child: Center(
+              child: Text("削除"),
             ),
           ),
-        );
+        ),
+      );
 
   }
 }
@@ -82,23 +76,21 @@ class Buttons extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-        child: Consumer<Light>(builder: (context, model, child) {
-          return
-            GridView.count(
-                crossAxisCount: 13,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 0.001,
-                childAspectRatio: 0.78,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: CARDS.map((e) => GridTile(
-                  child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
-                ),
-                ).toList()
-            );
-        }),
-      );
+      Consumer<Light>(builder: (context, model, child) {
+        return
+          GridView.count(
+              crossAxisCount: 13,
+              mainAxisSpacing: 0.001,
+              crossAxisSpacing: 0.001,
+              childAspectRatio: 0.78,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: CARDS.map((e) => GridTile(
+                child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
+              ),
+              ).toList()
+          );
+      });
   }
 }
 

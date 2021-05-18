@@ -75,67 +75,6 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-//mainのgraphをsqlに送る
-  String name = "";
-  onSave() async {
-    List<String> TF = new List<String>();
-    String TFText = "";
-    List<Map<String, dynamic>> inputTF = status.map((e) =>
-    {
-      "isSelected": e["isSelected"],
-    }).toList();
-
-    inputTF.forEach((element) {
-      String isTF;
-      if (element["isSelected"] == true){
-        isTF = "T";
-      }
-      else {
-        isTF = "F";
-      }
-      TF.add(isTF);
-    });
-
-    for(int i = 0; i <= 168; i++ ) {
-      TFText +="${TF[i]}";
-    }
-    final graphs = await Graph.getGraph();
-    int id = 0;
-    if(graphs.length != 0){
-      id = graphs.last.id + 1;
-    }
-    Graph graph = Graph(id: id, text: TFText, name: name, count: count);
-    await Graph.insertGraph(graph);
-    notifyListeners();
-  }
-//まだ
-  onUpdate() async {
-    List<String> TF = new List<String>();
-    String TFText = "";
-    List<Map<String, dynamic>> inputTF = status.map((e) =>
-    {
-      "isSelected": e["isSelected"],
-    }).toList();
-
-    inputTF.forEach((element) {
-      String isSelected;
-      if (element["isSelected"] == true){
-        isSelected = "T";
-      }
-      else {
-        isSelected = "F";
-      }
-      TF.add(isSelected);
-    });
-
-    for(int i = 0; i <= 168; i++ ) {
-      TFText +="${TF[i]}";
-    }
-
-    Graph graph = Graph(id: 1, text: TFText);
-    await Graph.updateGraph(graph);
-  }
-//sqlからgraphのリストを受け取ってタップ時に読み込み
   String graphName = "";
   onGet(int id, String name) async {
     final graphs = await Graph.getGraph();
@@ -166,3 +105,7 @@ class Light extends ChangeNotifier {
   }
 }
 
+lightButton(String name, function){
+  return
+    ElevatedButton(onPressed: () => function, child: Text(name));
+}

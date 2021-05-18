@@ -29,7 +29,7 @@ Drawer returnDrawer(BuildContext context) {
             leading: Icon(Icons.graphic_eq_sharp),
             title: Text('Graphs'),
             onTap: ()  {
-               Navigator.pushNamed(context, '/save');
+              Navigator.pushNamed(context, '/save');
             },
           ),
           ListTile(
@@ -41,5 +41,5 @@ Drawer returnDrawer(BuildContext context) {
           ),
         ],
       ),
-    ),
+    );
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
 import 'package:handrange/drawer.dart';
-
-import 'package:handrange/save.dart';
+import 'package:handrange/creategraph.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -99,90 +98,88 @@ class _GraphList extends State<GraphList>{
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-          child: Consumer<Light>(builder: (context, model, child) {
-            return
-              GestureDetector(
-                onTap: () =>{
-                  model.onGet(widget.num,widget.name),
-                  Navigator.pushNamed(context, '/')
-                },
-                onLongPress: () => {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return SimpleDialog(
-                          title: Text(widget.name),
-                          children: <Widget>[
-                            SimpleDialogOption(
-                              child: const Text('削除'),
-                              onPressed: () async {
-                                await Graph.deleteGraph(Graph(id:widget.id));
-                                Navigator.pop(context);
-                              },
-                            ),
-                            SimpleDialogOption(
-                              child: const Text('名前の変更'),
-                              onPressed: () async {
-                                await showDialog(
-                                    context: context,
-                                    builder: (_) => AlertDialog(
-                                      title: Text("新規メモ作成"),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Text('名前を入力してね'),
-                                          TextFormField(controller: myController),
-                                          RaisedButton(
-                                            child: Text('実行'),
-                                            onPressed: () async {
-                                              await Graph.updateGraph(Graph(name: myController.text));
-                                              myController.clear();
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                );
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
-                      }
-                  )
-                },
-                child:Column(
-                  children: [
-                    GridView.count(
-                        crossAxisCount: 13,
-                        mainAxisSpacing: 0.001,
-                        crossAxisSpacing: 0.001,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: TFs[widget.num].map((e) => GridTile(
-                          child: Box(isSelected: e["isSelected"]),
+      Consumer<Light>(builder: (context, model, child) {
+        return
+          GestureDetector(
+            onTap: () =>{
+              model.onGet(widget.num,widget.name),
+              Navigator.pushNamed(context, '/')
+            },
+            onLongPress: () => {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return SimpleDialog(
+                      title: Text(widget.name),
+                      children: <Widget>[
+                        SimpleDialogOption(
+                          child: const Text('削除'),
+                          onPressed: () async {
+                            await Graph.deleteGraph(Graph(id:widget.id));
+                            Navigator.pop(context);
+                          },
                         ),
-                        ).toList()
+                        SimpleDialogOption(
+                          child: const Text('名前の変更'),
+                          onPressed: () async {
+                            await showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text("新規メモ作成"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text('名前を入力してね'),
+                                      TextFormField(controller: myController),
+                                      RaisedButton(
+                                        child: Text('実行'),
+                                        onPressed: () async {
+                                          await Graph.updateGraph(Graph(name: myController.text));
+                                          myController.clear();
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            );
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    );
+                  }
+              )
+            },
+            child:Column(
+              children: [
+                GridView.count(
+                    crossAxisCount: 13,
+                    mainAxisSpacing: 0.001,
+                    crossAxisSpacing: 0.001,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: TFs[widget.num].map((e) => GridTile(
+                      child: Box(isSelected: e["isSelected"]),
                     ),
-                    Center(
-                      child: Row(
-                        children: [
-                          Text(
-                              "VPIP ${((widget.count / 1326) * 100).toStringAsFixed(2)}%"
-                          ),
-                          Text(
-                              widget.name
-                          ),
-                        ],
+                    ).toList()
+                ),
+                Center(
+                  child: Row(
+                    children: [
+                      Text(
+                          "VPIP ${((widget.count / 1326) * 100).toStringAsFixed(2)}%"
                       ),
-                    )
-                  ],
-                ) ,
-              );
-          })
-      );
+                      Text(
+                          widget.name
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ) ,
+          );
+      });
   }
 }
 

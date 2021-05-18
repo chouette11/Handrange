@@ -76,3 +76,61 @@ class Graph {
     );
   }
 }
+
+onSave(status,int count,String name) async {
+  List<String> TF;
+  String TFText = "";
+  List<Map<String, dynamic>> inputTF = status.map((e) =>
+  {
+    "isSelected": e["isSelected"],
+  }).toList();
+
+  inputTF.forEach((element) {
+    String isTF;
+    if (element["isSelected"] == true){
+      isTF = "T";
+    }
+    else {
+      isTF = "F";
+    }
+    TF.add(isTF);
+  });
+
+  for(int i = 0; i <= 168; i++ ) {
+    TFText +="${TF[i]}";
+  }
+  final graphs = await Graph.getGraph();
+  int id = 0;
+  if(graphs.length != 0){
+    id = graphs.last.id + 1;
+  }
+  Graph graph = Graph(id: id, text: TFText, name: name, count: count);
+  await Graph.insertGraph(graph);
+}
+
+onUpdate(status, int id) async {
+  List<String> TF;
+  String TFText = "";
+  List<Map<String, dynamic>> inputTF = status.map((e) =>
+  {
+    "isSelected": e["isSelected"],
+  }).toList();
+
+  inputTF.forEach((element) {
+    String isSelected;
+    if (element["isSelected"] == true){
+      isSelected = "T";
+    }
+    else {
+      isSelected = "F";
+    }
+    TF.add(isSelected);
+  });
+
+  for(int i = 0; i <= 168; i++ ) {
+    TFText +="${TF[i]}";
+  }
+
+  Graph graph = Graph(id: id, text: TFText);
+  await Graph.updateGraph(graph);
+}
