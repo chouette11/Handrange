@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => MyHomePage() ,
                   '/save': (context) => SavePage(),
-                  '/calculate': (context) => BarChartDemo(),
+                  '/calculate': (context) => CalculatePage(),
                   '/select': (context) => SelectPage(),
                 },
               ),

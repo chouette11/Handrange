@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/bar_chart_demo.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/selectcardpage.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lightBlue,
         ),
-        home: BarChartDemo()
+        home: CalculatePage()
     );
   }
 }
@@ -94,7 +93,7 @@ class Calculate extends StatelessWidget {
               children: [
                 Display(),
                 CardBoxes(),
-                RaisedButton(
+                ElevatedButton(
                     child: Text('グラフ判定'),
                     onPressed: () {
                       model.graphJudge();
