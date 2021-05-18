@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/bar_chart_demo.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => MyHomePage() ,
                   '/save': (context) => SavePage(),
-                  '/calculate': (context) => CalculatePage(),
+                  '/calculate': (context) => BarChartDemo(),
                   '/select': (context) => SelectPage(),
                 },
               ),

@@ -27,6 +27,7 @@ dependencies:
   sqflite:
   path:
   flutter_custom_clippers:
+  charts_flutter: ^0.9.0
 
 
   # The following adds the Cupertino Icons font to your application.
