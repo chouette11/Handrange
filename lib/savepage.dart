@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/combination.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,13 +80,39 @@ class SavePage extends StatelessWidget{
 }
 
 class SaveGraphs extends StatefulWidget {
-  final List<Graph> graphs;
   @override
   _SaveGraphsState createState() => _SaveGraphsState();
 }
 class _SaveGraphsState extends State<SaveGraphs>{
-
+  List<Graph> graphs;
+  List <Map<String,dynamic>> ids = [];
   final myController = TextEditingController();
+
+  @override
+  Future<void> initState() async {
+    List <Map<String,dynamic>> inputIds = [];
+    super.initState();
+    graphs = await Graph.getGraph();
+    List getGraphs() {
+      int i;
+      for(i = 0; i < graphs.length; i++){
+        int id = graphs[i].id;
+        String graphName = graphs[i].name;
+        int num = graphs[i].count;
+        Map <String,dynamic> ids_map = {};
+        ids_map.addAll(
+            <String,dynamic>{
+              "id": id,
+              "num":i,
+              "name":graphName,
+              "count": num
+            }
+        );
+        inputIds.add(ids_map);
+      }
+    }
+    ids = getGraphs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +127,8 @@ class _SaveGraphsState extends State<SaveGraphs>{
                   mainAxisSpacing: 0.001,
                   crossAxisSpacing: 0.001,
                   childAspectRatio: 0.8,
-                  children: model.numbers.map((e) => GridTile(
-                    child: List(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
+                  children: ids.map((e) => GridTile(
+                    child: GraphList(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
                   ),
                   ).toList()
               );
@@ -111,13 +138,58 @@ class _SaveGraphsState extends State<SaveGraphs>{
   }
 }
 
-class List extends StatelessWidget {
-  final myController = TextEditingController();
-  List({Key key, this.id, this.num, this.name, this.count}) : super(key: key);
+class GraphList extends StatefulWidget {
   int id;
   int num;
   String name;
   int count;
+  GraphList({Key key, this.id, this.num, this.name, this.count}) : super(key: key);
+  @override
+  _GraphList createState() => _GraphList();
+}
+class _GraphList extends State<GraphList>{
+  List<Graph> graphs;
+  List <List> TFs = [];
+  final myController = TextEditingController();
+  @override
+  Future<void> initState() async {
+    super.initState();
+    graphs = await Graph.getGraph();
+    List getTFs() {
+      int i, j;
+      List<List>inputTFs = [];
+      for (j = 0; j < graphs.length; j++) {
+        String TFText = graphs[j].text;
+        List<Map<String, dynamic>> TF = CONBI.map((e) =>
+        {
+          "hand": e["hand"],
+          "value": e["value"],
+        }).toList();
+
+        for (i = 0; i <= 168; i++) {
+          String isTF = TFText[i];
+          if (isTF == "T") {
+            TF[i].addAll(
+                <String, bool>{
+                  "isSelected": true,
+                }
+            );
+          }
+          else if (isTF == "F") {
+            TF[i].addAll(
+                <String, bool>{
+                  "isSelected": false,
+                }
+            );
+          }
+        }
+        inputTFs.add(TF);
+      }
+    }
+    TFs = getTFs();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return
@@ -126,7 +198,7 @@ class List extends StatelessWidget {
             return
               GestureDetector(
                 onTap: () =>{
-                  model.onGet(num,name),
+                  model.onGet(widget.num,widget.name),
                   Navigator.pushNamed(context, '/')
                 },
                 onLongPress: () => {
@@ -134,12 +206,12 @@ class List extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return SimpleDialog(
-                          title: Text(name),
+                          title: Text(widget.name),
                           children: <Widget>[
                             SimpleDialogOption(
                               child: const Text('削除'),
                               onPressed: () async {
-                                await Graph.deleteGraph(Graph(id:id));
+                                await Graph.deleteGraph(Graph(id:widget.id));
                                 await model.createGraphs();
                                 Navigator.pop(context);
                               },
