@@ -78,8 +78,15 @@ class SavePage extends StatelessWidget{
   }
 }
 
-class SaveGraphs extends StatelessWidget {
+class SaveGraphs extends StatefulWidget {
+  final List<Graph> graphs;
+  @override
+  _SaveGraphsState createState() => _SaveGraphsState();
+}
+class _SaveGraphsState extends State<SaveGraphs>{
+
   final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
