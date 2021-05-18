@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
+import 'package:handrange/drawer.dart';
+
+import 'package:handrange/save.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,58 +26,12 @@ class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-        child: Consumer<Light>(builder: (context, model, child) {
-          return
-            Scaffold(
-                appBar: AppBar(
-                  title: Text('Handrange'),
-                ),
-                drawer: Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          'Drawer Header',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text('Home'),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.graphic_eq_sharp),
-                        title: Text('Graphs'),
-                        onTap: () async {
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/save');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.file_copy),
-                        title: Text('Calculate'),
-                        onTap: () async {
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/calculate');
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                body:SaveGraphs()
-            );
-        }),
+      Scaffold(
+          appBar: AppBar(
+            title: Text('Handrange'),
+          ),
+          drawer: returnDrawer(context),
+          body:SaveGraphs()
       );
   }
 }
@@ -90,28 +47,9 @@ class _SaveGraphsState extends State<SaveGraphs>{
 
   @override
   Future<void> initState() async {
-    List <Map<String,dynamic>> inputIds = [];
     super.initState();
     graphs = await Graph.getGraph();
-    List getGraphs() {
-      int i;
-      for(i = 0; i < graphs.length; i++){
-        int id = graphs[i].id;
-        String graphName = graphs[i].name;
-        int num = graphs[i].count;
-        Map <String,dynamic> ids_map = {};
-        ids_map.addAll(
-            <String,dynamic>{
-              "id": id,
-              "num":i,
-              "name":graphName,
-              "count": num
-            }
-        );
-        inputIds.add(ids_map);
-      }
-    }
-    ids = getGraphs();
+    ids = getIds(graphs);
   }
 
   @override
@@ -155,40 +93,8 @@ class _GraphList extends State<GraphList>{
   Future<void> initState() async {
     super.initState();
     graphs = await Graph.getGraph();
-    List getTFs() {
-      int i, j;
-      List<List>inputTFs = [];
-      for (j = 0; j < graphs.length; j++) {
-        String TFText = graphs[j].text;
-        List<Map<String, dynamic>> TF = CONBI.map((e) =>
-        {
-          "hand": e["hand"],
-          "value": e["value"],
-        }).toList();
-
-        for (i = 0; i <= 168; i++) {
-          String isTF = TFText[i];
-          if (isTF == "T") {
-            TF[i].addAll(
-                <String, bool>{
-                  "isSelected": true,
-                }
-            );
-          }
-          else if (isTF == "F") {
-            TF[i].addAll(
-                <String, bool>{
-                  "isSelected": false,
-                }
-            );
-          }
-        }
-        inputTFs.add(TF);
-      }
-    }
-    TFs = getTFs();
+    TFs = getTFs(graphs);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +118,6 @@ class _GraphList extends State<GraphList>{
                               child: const Text('削除'),
                               onPressed: () async {
                                 await Graph.deleteGraph(Graph(id:widget.id));
-                                await model.createGraphs();
                                 Navigator.pop(context);
                               },
                             ),
@@ -240,7 +145,6 @@ class _GraphList extends State<GraphList>{
                                       ),
                                     )
                                 );
-                                await model.createGraphs();
                                 Navigator.pop(context);
                               },
                             ),
@@ -257,7 +161,7 @@ class _GraphList extends State<GraphList>{
                         crossAxisSpacing: 0.001,
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        children: model.TFs[num].map((e) => GridTile(
+                        children: TFs[widget.num].map((e) => GridTile(
                           child: Box(isSelected: e["isSelected"]),
                         ),
                         ).toList()
@@ -266,10 +170,10 @@ class _GraphList extends State<GraphList>{
                       child: Row(
                         children: [
                           Text(
-                              "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
+                              "VPIP ${((widget.count / 1326) * 100).toStringAsFixed(2)}%"
                           ),
                           Text(
-                              name
+                              widget.name
                           ),
                         ],
                       ),

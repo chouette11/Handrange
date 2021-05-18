@@ -102,7 +102,7 @@ class Light extends ChangeNotifier {
     final graphs = await Graph.getGraph();
     int id = 0;
     if(graphs.length != 0){
-      id = graphs.last.id + 1;;
+      id = graphs.last.id + 1;
     }
     Graph graph = Graph(id: id, text: TFText, name: name, count: count);
     await Graph.insertGraph(graph);
