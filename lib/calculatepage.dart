@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/bar_chart_demo.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/selectcardpage.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/sql.dart';
 import 'package:handrange/combination.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lightBlue,
         ),
-        home: CalculatePage()
+        home: BarChartDemo()
     );
   }
 }
@@ -241,15 +243,15 @@ class Result extends StatelessWidget {
           return
             Column(
               children: [
-                Text("Royal combo:${model.royalStraightFlash} ${(model.royalStraightFlash / model.sum) * 100}%"),
-                Text("StraightFlush combo:${model.straightFlush} ${(model.straightFlush / model.sum) * 100}%"),
-                Text("FourCards combo:${model.fourCards} ${(model.fourCards / model.sum) * 100}%"),
-                Text("FullHouse combo:${model.fullHouse} ${(model.fullHouse / model.sum) * 100}%"),
-                Text("Flush combo:${model.flush} ${(model.flush / model.sum) * 100}%"),
-                Text("Straight combo:${model.straight} ${(model.straight / model.sum) * 100}%"),
-                Text("ThreeCards combo:${model.threeCards} ${(model.threeCards / model.sum) * 100}%"),
-                Text("TwoPair combo:${model.twoPair} ${(model.twoPair / model.sum) * 100}%"),
-                Text("OnePair combo:${model.onePair} ${(model.onePair / model.sum) * 100}%"),
+                Text("Royal combo:${model.royalStraightFlash} ${((model.royalStraightFlash / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("StraightFlush combo:${model.straightFlush} ${((model.straightFlush / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("FourCards combo:${model.fourCards} ${((model.fourCards / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("FullHouse combo:${model.fullHouse} ${((model.fullHouse / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("Flush combo:${model.flush} ${((model.flush / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("Straight combo:${model.straight} ${((model.straight / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("ThreeCards combo:${model.threeCards} ${((model.threeCards / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("TwoPair combo:${model.twoPair} ${((model.twoPair / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("OnePair combo:${model.onePair} ${((model.onePair / model.sum) * 100).toStringAsFixed(2)}%"),
               ],
             );
         }),
