@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/bar_chart_demo.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/drawer.dart';
 import 'package:handrange/savepage.dart';
+import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -18,23 +18,23 @@ class MyApp extends StatelessWidget {
     return
       Container(
           child:ChangeNotifierProvider<Light>(
-            create: (_) => Light(),
-            child:ChangeNotifierProvider<Calculation>(
-              create: (_) => Calculation(),
-              child:  MaterialApp(
-                title: 'Handrange',
-                theme: ThemeData(
-                  primarySwatch: Colors.lightBlue,
+              create: (_) => Light(),
+              child:ChangeNotifierProvider<Calculation>(
+                create: (_) => Calculation(),
+                child:  MaterialApp(
+                  title: 'Handrange',
+                  theme: ThemeData(
+                    primarySwatch: Colors.lightBlue,
+                  ),
+                  initialRoute: '/',
+                  routes: {
+                    '/': (context) => MyHomePage() ,
+                    '/save': (context) => SavePage(),
+                    '/calculate': (context) => CalculatePage(),
+                    '/select': (context) => SelectPage(),
+                  },
                 ),
-                initialRoute: '/',
-                routes: {
-                  '/': (context) => MyHomePage() ,
-                  '/save': (context) => SavePage(),
-                  '/calculate': (context) => CalculatePage(),
-                  '/select': (context) => SelectPage(),
-                },
-              ),
-            )
+              )
           )
       );
   }
@@ -45,95 +45,67 @@ class MyHomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-        child:Consumer<Light>(builder: (context, model, child) {
-          return
-            Scaffold(
-                appBar: AppBar(
-                  title: Text('Handrange'),
-                ),
-                drawer: returnDrawer(context),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.graphName
-                    ),
-                    Graph(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RaisedButton(
-                            child: Text('Pockets'),
-                            onPressed: () {
-                              model.onPocket();
-                            }),
-                        RaisedButton(
-                            child: Text('A'),
-                            onPressed: () {
-                              model.onHighs('A');
-                            }),
-                        RaisedButton(
-                            child: Text('K'),
-                            onPressed: () {
-                              model.onHighs('K');
-                            }),
-                        RaisedButton(
-                            child: Text('All'),
-                            onPressed: () {
-                              model.onAll();
-                            }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RaisedButton(
-                            child: Text('Q'),
-                            onPressed: () {
-                              model.onHighs('Q');
-                            }),
-                        RaisedButton(
-                            child: Text('J'),
-                            onPressed: () {
-                              model.onHighs('J');
-                            }),
-                        RaisedButton(
-                            child: Text('保存'),
-                            onPressed: () async {
-                              await showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: Text("新規ハンドレンジ作成"),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text('名前を入力してね'),
-                                        TextFormField(controller: myController),
-                                        RaisedButton(
-                                          child: Text('実行'),
-                                          onPressed: () async {
-                                            model.name = myController.text;
-                                            myController.clear();
-                                            await model.onSave();
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              );
-                            }),
-                      ],
-                    ),
-                    TextField(),
-                  ],
-                )
-            );
-        }) ,
-      );
+      Consumer<Light>(builder: (context, model, child) {
+        return
+          Scaffold(
+              appBar: AppBar(
+                title: Text('Handrange'),
+              ),
+              drawer: returnDrawer(context),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Graph(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      lightButton('pocket', model.onPocket()),
+                      lightButton('A', model.onHighs('A')),
+                      lightButton('K', model.onHighs('K')),
+                      lightButton('Q', model.onHighs('Q')),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      lightButton('J', model.onHighs('J')),
+                      lightButton('ALL', model.onAll()),
+                      ElevatedButton(
+                          child: Text('保存'),
+                          onPressed: () async {
+                            await showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text("新規ハンドレンジ作成"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text('名前を入力してね'),
+                                      TextFormField(controller: myController),
+                                      ElevatedButton(
+                                        child: Text('実行'),
+                                        onPressed: () async {
+                                          String graphName = myController.text;
+                                          myController.clear();
+                                          await onSave(model.status,model.count,graphName);
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            );
+                          }),
+                    ],
+                  ),
+                  TextField(),
+                ],
+              )
+          );
+      });
   }
 }
+
 //=============================================================================
 // 表示
 class TextField extends StatefulWidget {
@@ -158,8 +130,7 @@ class _TextFiledState extends State<TextField> {
                   ),
                 ],
               );
-          }
-          )
+          })
       );
   }
 }
