@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
                 ),
                 initialRoute: '/',
                 routes: {
-                  '/': (context) => BarChartDemo(),
+                  '/': (context) => MyHomePage(),
                   '/save': (context) => SavePage(),
                   '/calculate': (context) => CalculatePage(),
                   '/select': (context) => SelectPage(),
@@ -44,8 +44,7 @@ class MyHomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-        child:Consumer<Light>(builder: (context, model, child) {
+      Consumer<Light>(builder: (context, model, child) {
           return
             Scaffold(
                 appBar: AppBar(
@@ -171,8 +170,7 @@ class MyHomePage extends StatelessWidget{
                   ],
                 )
             );
-        }) ,
-      );
+        });
   }
 }
 //=============================================================================

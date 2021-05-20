@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/bar_chart.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/selectcardpage.dart';
 import 'package:provider/provider.dart';
@@ -121,6 +122,12 @@ class Calculate extends StatelessWidget {
                           )
                       );
                     }),
+                RaisedButton(
+                    child: Text('読み込み'),
+                    onPressed: (){
+                      model.createList();
+                      //print(model.createList());
+                    }),
                 Result(),
               ],
             );
@@ -238,19 +245,7 @@ class Result extends StatelessWidget {
       Container(
         child:Consumer<Calculation>(builder: (context, model, child) {
           return
-            Column(
-              children: [
-                Text("Royal combo:${model.royal} ${((model.royal / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("StraightFlush combo:${model.straightFlush} ${((model.straightFlush / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("FourCards combo:${model.fourCards} ${((model.fourCards / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("FullHouse combo:${model.fullHouse} ${((model.fullHouse / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("Flush combo:${model.flush} ${((model.flush / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("Straight combo:${model.straight} ${((model.straight / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("ThreeCards combo:${model.threeCards} ${((model.threeCards / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("TwoPair combo:${model.twoPair} ${((model.twoPair / model.sum) * 100).toStringAsFixed(2)}%"),
-                Text("OnePair combo:${model.onePair} ${((model.onePair / model.sum) * 100).toStringAsFixed(2)}%"),
-              ],
-            );
+            BarChartDemo(comboList:model.comboList);
         }),
       );
 

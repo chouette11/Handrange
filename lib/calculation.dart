@@ -329,21 +329,27 @@ class Calculation extends ChangeNotifier {
     twoPair = inputTwoPair;
     onePair = inputOnePair;
     sum = inputSum;
+    print(onePair);
+    notifyListeners();
   }
 
-  List createList(){
-    List<double> comboList = [];
-    comboList.add(royal.toDouble());
-    comboList.add(straightFlush.toDouble());
-    comboList.add(fourCards.toDouble());
-    comboList.add(fullHouse.toDouble());
-    comboList.add(flush.toDouble());
-    comboList.add(straight.toDouble());
-    comboList.add(threeCards.toDouble());
-    comboList.add(twoPair.toDouble());
-    comboList.add(onePair.toDouble());
-    comboList.add(sum.toDouble());
-    return comboList;
+  List<int> comboList;
+  createList(){
+    List<int> inputComboList = [];
+    //print(onePair);
+    inputComboList.add(royal);
+    inputComboList.add(straightFlush);
+    inputComboList.add(fourCards);
+    inputComboList.add(fullHouse);
+    inputComboList.add(flush);
+    inputComboList.add(straight);
+    inputComboList.add(threeCards);
+    inputComboList.add(twoPair);
+    inputComboList.add(onePair);
+    inputComboList.add(sum);
+    //print(inputComboList);
+    comboList = inputComboList;
+    notifyListeners();
   }
 
   List<Map<String, dynamic>> status = CONBI.map((e) => {
