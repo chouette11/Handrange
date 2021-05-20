@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:handrange/sql.dart';
-import 'package:handrange/combination.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+
 
 class MyApp extends StatelessWidget {
   @override

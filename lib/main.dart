@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/bar_chart_demo.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
