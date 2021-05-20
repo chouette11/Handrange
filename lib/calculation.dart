@@ -332,17 +332,17 @@ class Calculation extends ChangeNotifier {
   }
 
   List createList(){
-    List<int> comboList = [];
-    comboList.add(royal);
-    comboList.add(straightFlush);
-    comboList.add(fourCards);
-    comboList.add(fullHouse);
-    comboList.add(flush);
-    comboList.add(straight);
-    comboList.add(threeCards);
-    comboList.add(twoPair);
-    comboList.add(onePair);
-    comboList.add(sum);
+    List<double> comboList = [];
+    comboList.add(royal.toDouble());
+    comboList.add(straightFlush.toDouble());
+    comboList.add(fourCards.toDouble());
+    comboList.add(fullHouse.toDouble());
+    comboList.add(flush.toDouble());
+    comboList.add(straight.toDouble());
+    comboList.add(threeCards.toDouble());
+    comboList.add(twoPair.toDouble());
+    comboList.add(onePair.toDouble());
+    comboList.add(sum.toDouble());
     return comboList;
   }
 
