@@ -22,7 +22,7 @@ class Calculation extends ChangeNotifier {
   String card3;
   String card4;
   String card5;
-  int royalStraightFlash = 0;
+  int royal = 0;
   int straightFlush = 0;
   int fourCards = 0;
   int fullHouse = 0;
@@ -319,7 +319,7 @@ class Calculation extends ChangeNotifier {
         }
       }
     });
-    royalStraightFlash = inputRoyalStraightFlash;
+    royal = inputRoyalStraightFlash;
     straightFlush = inputStraightFlush;
     fourCards = inputFourCards;
     fullHouse = inputFullHouse;
@@ -331,6 +331,20 @@ class Calculation extends ChangeNotifier {
     sum = inputSum;
   }
 
+  List createList(){
+    List<int> comboList = [];
+    comboList.add(royal);
+    comboList.add(straightFlush);
+    comboList.add(fourCards);
+    comboList.add(fullHouse);
+    comboList.add(flush);
+    comboList.add(straight);
+    comboList.add(threeCards);
+    comboList.add(twoPair);
+    comboList.add(onePair);
+    comboList.add(sum);
+    return comboList;
+  }
 
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],

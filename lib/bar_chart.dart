@@ -4,69 +4,79 @@ import 'package:vertical_barchart/vertical-barchartmodel.dart';
 import 'package:vertical_barchart/vertical-legend.dart';
 
 class BarChartDemo extends StatefulWidget {
-  BarChartDemo({Key key, this.title}) : super(key: key);
+  BarChartDemo({Key key, this.title, this.comboList}) : super(key: key);
 
   final String title;
+  final List<double> comboList;
 
   @override
   _BarChartDemo createState() => _BarChartDemo();
 }
 
 class _BarChartDemo extends State<BarChartDemo> {
-  List<VBarChartModel> bardata = [
+  List<VBarChartModel> barData = [
     VBarChartModel(
       index: 0,
-      label: "Strawberry",
+      label: "Royal",
       colors: [Colors.orange, Colors.deepOrange],
-      jumlah: 20,
+      jumlah: widget.comboList[0],
       tooltip: "20 Pcs",
-      description: Text(
-        "Most selling fruit last week",
-        style: TextStyle(fontSize: 10),
-      ),
     ),
     VBarChartModel(
       index: 1,
-      label: "Apple",
+      label: "StraightFlush",
       colors: [Colors.orange, Colors.deepOrange],
       jumlah: 55,
       tooltip: "55 Pcs",
-      description: Text(
-        "Most selling fruit this week",
-        style: TextStyle(fontSize: 10),
-      ),
     ),
     VBarChartModel(
       index: 2,
-      label: "Broccoli",
+      label: "FourCards",
       colors: [Colors.teal, Colors.indigo],
       jumlah: 12,
       tooltip: "12 Pcs",
     ),
     VBarChartModel(
       index: 3,
-      label: "Chilli",
+      label: "FullHouse",
       colors: [Colors.teal, Colors.indigo],
       jumlah: 1,
       tooltip: "5 Pcs",
     ),
     VBarChartModel(
       index: 4,
-      label: "Manggo",
+      label: "Flush",
       colors: [Colors.orange, Colors.deepOrange],
       jumlah: 15,
       tooltip: "15 Pcs",
     ),
     VBarChartModel(
       index: 5,
-      label: "Asparagus",
+      label: "Straight",
       colors: [Colors.teal, Colors.indigo],
       jumlah: 30,
       tooltip: "30 Pcs",
-      description: Text(
-        "Favorites vegetables",
-        style: TextStyle(fontSize: 10),
-      ),
+    ),
+    VBarChartModel(
+      index: 6,
+      label: "ThreeCards",
+      colors: [Colors.teal, Colors.indigo],
+      jumlah: 30,
+      tooltip: "30 Pcs",
+    ),
+    VBarChartModel(
+      index: 7,
+      label: "TwoPair",
+      colors: [Colors.teal, Colors.indigo],
+      jumlah: 30,
+      tooltip: "30 Pcs",
+    ),
+    VBarChartModel(
+      index: 8,
+      label: "OnePair",
+      colors: [Colors.teal, Colors.indigo],
+      jumlah: 30,
+      tooltip: "30 Pcs",
     ),
   ];
 
@@ -79,16 +89,16 @@ class _BarChartDemo extends State<BarChartDemo> {
       body: SingleChildScrollView(
           child: Column(
             children: [
-              _buildGrafik(bardata),
+              _buildGrafik(barData),
             ],
           )),
     );
   }
 
-  Widget _buildGrafik(List<VBarChartModel> bardata) {
+  Widget _buildGrafik(List<VBarChartModel> barData) {
     return VerticalBarchart(
       maxX: 100,
-      data: bardata,
+      data: barData,
       showLegend: true,
       showBackdrop: true,
       barStyle: BarStyle.DEFAULT,

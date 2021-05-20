@@ -240,7 +240,7 @@ class Result extends StatelessWidget {
           return
             Column(
               children: [
-                Text("Royal combo:${model.royalStraightFlash} ${((model.royalStraightFlash / model.sum) * 100).toStringAsFixed(2)}%"),
+                Text("Royal combo:${model.royal} ${((model.royal / model.sum) * 100).toStringAsFixed(2)}%"),
                 Text("StraightFlush combo:${model.straightFlush} ${((model.straightFlush / model.sum) * 100).toStringAsFixed(2)}%"),
                 Text("FourCards combo:${model.fourCards} ${((model.fourCards / model.sum) * 100).toStringAsFixed(2)}%"),
                 Text("FullHouse combo:${model.fullHouse} ${((model.fullHouse / model.sum) * 100).toStringAsFixed(2)}%"),
