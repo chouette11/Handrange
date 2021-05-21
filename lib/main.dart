@@ -55,18 +55,19 @@ class MyHomePage extends StatelessWidget{
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                      model.graphName
+                  Center(
+                    child:
+                    Text(
+                      model.graphName,
+                      style: TextStyle(
+                        fontFamily: "Sans",
+                      ),
+                    ),
                   ),
                   Graph(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      RaisedButton(
-                          child: Text('Pockets'),
-                          onPressed: () {
-                            model.onPocket();
-                          }),
                       RaisedButton(
                           child: Text('A'),
                           onPressed: () {
@@ -78,16 +79,6 @@ class MyHomePage extends StatelessWidget{
                             model.onHighs('K');
                           }),
                       RaisedButton(
-                          child: Text('All'),
-                          onPressed: () {
-                            model.onAll();
-                          }),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      RaisedButton(
                           child: Text('Q'),
                           onPressed: () {
                             model.onHighs('Q');
@@ -96,6 +87,21 @@ class MyHomePage extends StatelessWidget{
                           child: Text('J'),
                           onPressed: () {
                             model.onHighs('J');
+                          }),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      RaisedButton(
+                          child: Text('Pockets'),
+                          onPressed: () {
+                            model.onPocket();
+                          }),
+                      RaisedButton(
+                          child: Text('All'),
+                          onPressed: () {
+                            model.onAll();
                           }),
                       RaisedButton(
                           child: Text('保存'),
@@ -115,7 +121,7 @@ class MyHomePage extends StatelessWidget{
                                           String name;
                                           name = myController.text;
                                           myController.clear();
-                                          await saveGraph(model.status, name, model.count);
+                                          saveGraph(model.status, name, model.count);
                                           Navigator.pop(context);
                                         },
                                       ),
