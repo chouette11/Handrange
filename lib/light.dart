@@ -80,7 +80,6 @@ class Light extends ChangeNotifier {
 //sqlからデータを受け取りsavepageの作成
   createGraphs() async {
     final List<Graph> graphs = await Graph.getGraph();
-    List <Map<String,dynamic>> inputNumbers = [];
     List <List> inputTFs = [];
     int i, j;
     print(graphs);
@@ -111,23 +110,7 @@ class Light extends ChangeNotifier {
       }
       inputTFs.add(TF);
     }
-    for(i = 0; i < graphs.length; i++){
-      int id = graphs[i].id;
-      String graphName = graphs[i].name;
-      int num = graphs[i].count;
-      Map <String,dynamic> numbers_map = {};
-      numbers_map.addAll(
-          <String,dynamic>{
-            "id": id,
-            "num":i,
-            "name":graphName,
-            "count": num
-          }
-      );
-      inputNumbers.add(numbers_map);
-    }
     TFs = inputTFs;
-    numbers = inputNumbers;
     notifyListeners();
   }
 //mainのgraphをsqlに送る

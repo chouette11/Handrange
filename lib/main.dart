@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
+import 'package:handrange/future.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -77,8 +78,7 @@ class MyHomePage extends StatelessWidget{
                       title: Text('Graphs'),
                       onTap: () async {
                         //TODO
-                        await model.createGraphs();
-                        await Navigator.pushNamed(context, '/save');
+                        Navigator.pushNamed(context, '/save');
                       },
                     ),
                     ListTile(
