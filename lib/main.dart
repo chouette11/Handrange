@@ -115,7 +115,7 @@ class MyHomePage extends StatelessWidget{
                                           String name;
                                           name = myController.text;
                                           myController.clear();
-                                          await onSave(model.status, name, model.count);
+                                          await saveGraph(model.status, name, model.count);
                                           Navigator.pop(context);
                                         },
                                       ),
@@ -126,7 +126,7 @@ class MyHomePage extends StatelessWidget{
                           }),
                       ElevatedButton(
                           onPressed: (){
-                            onUpdate(model.status, model.graphId, model.graphCount, model.graphName);
+                            updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
                           },
                           child: Text("更新")
                       )
