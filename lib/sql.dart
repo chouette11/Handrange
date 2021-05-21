@@ -77,7 +77,7 @@ class Graph {
   }
 }
 
-onSave(List<Map<String, dynamic>> status,String name, int count) async {
+saveGraph(List<Map<String, dynamic>> status,String name, int count) async {
   List<String> TF = [];
   String TFText = "";
   List<Map<String, dynamic>> inputTF = status.map((e) =>
@@ -108,7 +108,7 @@ onSave(List<Map<String, dynamic>> status,String name, int count) async {
   await Graph.insertGraph(graph);
 }
 
-onUpdate(List<Map<String, dynamic>> status,int graphId, int graphCount, String graphName) async {
+updateGraph(List<Map<String, dynamic>> status,int graphId, int graphCount, String graphName) async {
   List<String> TF = [];
   String TFText = "";
   List<Map<String, dynamic>> inputTF = status.map((e) =>
