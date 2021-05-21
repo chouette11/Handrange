@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/bar_chart.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
@@ -241,6 +240,7 @@ class TapBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double boxWidth = MediaQuery.of(context).size.width / 29;
     return Consumer<Light>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () {
@@ -251,16 +251,18 @@ class TapBox extends StatelessWidget {
             border: Border.all(width: 0.5, color: Colors.white),
             color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
           ),
-          child: Center(
-            child: Text(
-              hand,
-              style: TextStyle(
-                fontFamily: "Sans",
+            child:Center(
+              child:
+              Text(
+                hand,
+                style: TextStyle(
+                    fontFamily: "Sans",
+                    fontSize: boxWidth
+                ),
               ),
-            ),
+            )
           ),
-        ),
-      );
+        );
     });
   }
 }
