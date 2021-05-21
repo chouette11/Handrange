@@ -123,10 +123,12 @@ class TapBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double boxWidth = MediaQuery.of(context).size.width / 29;
     return Consumer<Light>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () {
-          model.onTapped(hand);
+          //TODO
+          isSelected != isSelected;
         },
         child: Container(
           decoration: BoxDecoration(
@@ -134,10 +136,15 @@ class TapBox extends StatelessWidget {
             color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
           ),
           child: Center(
-            child: Text(
+            child:
+            Text(
               hand,
+              style: TextStyle(
+                  fontFamily: "Sans",
+                  fontSize: boxWidth
+              ),
             ),
-          ),
+          )
         ),
       );
     });
