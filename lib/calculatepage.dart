@@ -56,6 +56,7 @@ class Calculate extends StatelessWidget {
                     child: Text('グラフ判定'),
                     onPressed: () {
                       model.graphJudge();
+                      model.createList();
                     }),
                 RaisedButton(
                     child: Text('クリア'),
@@ -81,12 +82,6 @@ class Calculate extends StatelessWidget {
                             content: SavedGraphs(),
                           )
                       );
-                    }),
-                RaisedButton(
-                    child: Text('読み込み'),
-                    onPressed: (){
-                      model.createList();
-                      //print(model.createList());
                     }),
                 Result(),
               ],
@@ -173,13 +168,11 @@ class CardBoxes extends StatelessWidget{
       Consumer<Calculation>(builder: (context, model, child) {
         return
           GestureDetector(
-            onTap: ()async{
-              await model.createGraphs();
+            onTap: (){
               showDialog(
                   context: context,
                   builder: (_) => SelectPage()
               );
-
             },
             child: Container(
                 child: Row(
@@ -351,8 +344,6 @@ class Box extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       GestureDetector(
-          onTap: (){
-          },
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(width: 0.5, color: Colors.white),
