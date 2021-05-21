@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
+import 'package:handrange/drawer.dart';
 import 'package:handrange/future.dart';
 import 'package:handrange/savepage.dart';
 import 'package:provider/provider.dart';
@@ -50,48 +51,7 @@ class MyHomePage extends StatelessWidget{
               appBar: AppBar(
                 title: Text('Handrange'),
               ),
-              drawer: Drawer(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children:  <Widget>[
-                    DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                      child: Text(
-                        'Drawer Header',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text('Home'),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/');
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.graphic_eq_sharp),
-                      title: Text('Graphs'),
-                      onTap: () async {
-                        //TODO
-                        Navigator.pushNamed(context, '/save');
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.file_copy),
-                      title: Text('Calculate'),
-                      onTap: () async {
-                        await model.createGraphs();
-                        await Navigator.pushNamed(context, '/calculate');
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              drawer: returnDrawer(context),
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [

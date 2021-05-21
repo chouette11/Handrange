@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Drawer returnDrawer(BuildContext context, dynamic function) {
+Drawer returnDrawer(BuildContext context,) {
   return
   Drawer(
     child: ListView(
@@ -28,20 +28,17 @@ Drawer returnDrawer(BuildContext context, dynamic function) {
         ListTile(
           leading: Icon(Icons.graphic_eq_sharp),
           title: Text('Graphs'),
-          onTap: () async {
-            await function;
-            await Navigator.pushNamed(context, '/save');
+          onTap: ()  {
+             Navigator.pushNamed(context, '/save');
           },
         ),
         ListTile(
           leading: Icon(Icons.file_copy),
           title: Text('Calculate'),
-          onTap: () async {
-            await function;
-            await Navigator.pushNamed(context, '/calculate');
+          onTap: ()  {
+            Navigator.pushNamed(context, '/calculate');
           },
         ),
-
       ],
     ),
   );

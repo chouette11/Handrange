@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
 import 'package:handrange/creategraph.dart';
+import 'package:handrange/drawer.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,48 +32,7 @@ class SavePage extends StatelessWidget{
                 appBar: AppBar(
                   title: Text('Handrange'),
                 ),
-                drawer: Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          'Drawer Header',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text('Home'),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.graphic_eq_sharp),
-                        title: Text('Graphs'),
-                        onTap: () async {
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/save');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.file_copy),
-                        title: Text('Calculate'),
-                        onTap: () async {
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/calculate');
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                drawer: returnDrawer(context),
                 body:SaveGraphs()
             );
         }),
@@ -226,7 +186,8 @@ class _GraphList extends State<GraphList>{
                   ) ,
                 );
             });
-        });}
+        });
+  }
 }
 
 
