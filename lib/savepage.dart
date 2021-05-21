@@ -130,7 +130,6 @@ class _GraphList extends State<GraphList>{
                                 child: const Text('削除'),
                                 onPressed: () async {
                                   await Graph.deleteGraph(Graph(id:widget.id));
-                                  await model.createGraphs();
                                   Navigator.pop(context);
                                 },
                               ),
@@ -158,7 +157,6 @@ class _GraphList extends State<GraphList>{
                                         ),
                                       )
                                   );
-                                  await model.createGraphs();
                                   Navigator.pop(context);
                                 },
                               ),

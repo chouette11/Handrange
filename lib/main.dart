@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/drawer.dart';
-import 'package:handrange/future.dart';
 import 'package:handrange/savepage.dart';
+import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -112,9 +112,10 @@ class MyHomePage extends StatelessWidget{
                                       RaisedButton(
                                         child: Text('実行'),
                                         onPressed: () async {
-                                          model.name = myController.text;
+                                          String name;
+                                          name = myController.text;
                                           myController.clear();
-                                          await model.onSave();
+                                          await onSave(model.status, name, model.count);
                                           Navigator.pop(context);
                                         },
                                       ),
@@ -125,7 +126,7 @@ class MyHomePage extends StatelessWidget{
                           }),
                       ElevatedButton(
                           onPressed: (){
-                            model.onUpdate();
+                            onUpdate(model.status, model.graphId, model.graphCount, model.graphName);
                           },
                           child: Text("更新")
                       )
