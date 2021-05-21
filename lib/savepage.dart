@@ -68,6 +68,12 @@ class _SaveGraphsState extends State<SaveGraphs>{
                       ).toList()
                   );
             }
+            else if(snapshot.hasError){
+              //TODO
+            }
+            else{
+              //TODO
+            }
             return
               Container(
                   width: screenSizeWidth,

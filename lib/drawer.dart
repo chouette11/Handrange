@@ -11,7 +11,7 @@ Drawer returnDrawer(BuildContext context,) {
             color: Colors.blue,
           ),
           child: Text(
-            'Drawer Header',
+            'メニュー',
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
