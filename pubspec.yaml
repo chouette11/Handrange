@@ -69,6 +69,10 @@ flutter:
     - family: PTS
       fonts:
         - asset: assets/fonts/PTSerif-Bold.ttf
+    - family: Sans
+      fonts:
+        - asset: assets/fonts/MerriweatherSans-Bold.ttf
+          weight: 700
 
   #
   # For details regarding fonts from package dependencies,

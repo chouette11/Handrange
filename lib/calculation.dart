@@ -50,8 +50,12 @@ class Calculation extends ChangeNotifier {
       numbers.add(num1);
       numbers.add(num2);
       numbers.add(num3);
-      numbers.add(num4);
-      numbers.add(num5);
+      if(num4 != null){
+        numbers.add(num4);
+      }
+      if(num5 != null){
+        numbers.add(num5);
+      }
       numbers.add(num6);
       numbers.add(num7);
       numbers.sort();
@@ -59,15 +63,24 @@ class Calculation extends ChangeNotifier {
       marks.add(mark1);
       marks.add(mark2);
       marks.add(mark3);
-      marks.add(mark4);
-      marks.add(mark5);
+      if(mark4 != null) {
+        marks.add(mark4);
+      }
+      if(mark5 != null){
+        marks.add(mark5);
+      }
       List<String> cards = [];
       cards.add(card1);
       cards.add(card2);
       cards.add(card3);
-      cards.add(card4);
-      cards.add(card5);
+      if(card4 != null){
+        cards.add(card4);
+      }
+      if(card5 != null){
+        cards.add(card5);
+      }
       List <String> mark = ["s", "c", "h", "d"];
+      List <String> selectedMark = ["ss","cc","hh","dd"];
       int i, j, l, m;
       int max = numbers.length;
 
@@ -171,17 +184,17 @@ class Calculation extends ChangeNotifier {
       if (isSuit == "s") {
         for(l = 0; l <= 3; l++){
           String mark6 = mark[l];
+          String mark6_2 = selectedMark[l];
           String card1 = "${num6}${mark6}";
           String card2 = "${num7}${mark6}";
-          marks.add(mark6);
-          marks.add(mark6);
-          cards.add(card1);
-          cards.add(card2);
-          if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2)) ){
+          marks.add(mark6_2);
+          marks.add(mark6_2);
+          marks.sort((a, b) => a.compareTo(b));1
+          if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
             onCalculate();
             inputSum++;
           }
-          marks.removeLast();marks.removeLast();
+          marks.remove(mark6);marks.remove(mark6);
         }
       }
       else if(isSuit =="o"){
@@ -189,18 +202,21 @@ class Calculation extends ChangeNotifier {
           for(l = m + 1; l <= 3; l++){
             String mark6 = mark[l];
             String mark7 = mark[m];
+            String mark6_2 = selectedMark[l];
+            String mark7_2 = selectedMark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
-            marks.add(mark6);
-            marks.add(mark7);
+            marks.add(mark6_2);
+            marks.add(mark7_2);
+            marks.sort((a, b) => a.compareTo(b));
             if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
               onCalculate();
               inputSum++;
               onCalculate();
               inputSum++;
             }
-            marks.removeLast();
-            marks.removeLast();
+            marks.remove(mark6);
+            marks.remove(mark7);
           }
         }
       }
@@ -209,16 +225,19 @@ class Calculation extends ChangeNotifier {
           for(l = m + 1; l <= 3; l++) {
             String mark6 = mark[l];
             String mark7 = mark[m];
+            String mark6_2 = selectedMark[l];
+            String mark7_2 = selectedMark[m];
             String card1 = "${num6}${mark6}";
             String card2 = "${num7}${mark7}";
-            marks.add(mark6);
-            marks.add(mark7);
+            marks.add(mark6_2);
+            marks.add(mark7_2);
+            marks.sort((a, b) => a.compareTo(b));
             if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
               onCalculate();
               inputSum++;
             }
-            marks.removeLast();
-            marks.removeLast();
+            marks.remove(mark6);
+            marks.remove(mark7);
           }
         }
       }
@@ -329,14 +348,12 @@ class Calculation extends ChangeNotifier {
     twoPair = inputTwoPair;
     onePair = inputOnePair;
     sum = inputSum;
-    print(onePair);
     notifyListeners();
   }
 
   List<int> comboList;
   createList(){
     List<int> inputComboList = [];
-    //print(onePair);
     inputComboList.add(royal);
     inputComboList.add(straightFlush);
     inputComboList.add(fourCards);
@@ -347,7 +364,6 @@ class Calculation extends ChangeNotifier {
     inputComboList.add(twoPair);
     inputComboList.add(onePair);
     inputComboList.add(sum);
-    //print(inputComboList);
     comboList = inputComboList;
     notifyListeners();
   }
@@ -362,7 +378,6 @@ class Calculation extends ChangeNotifier {
   onGet(int id,String name) async {
     final graphs = await Graph.getGraph();
     String TFText = graphs[id].text;
-    print(graphs[id].count);
     int i;
     for(i = 0; i <= 168; i++){
       String isTF = TFText[i];
@@ -395,7 +410,6 @@ class Calculation extends ChangeNotifier {
     List <List> inputTFs = [];
     int i, j;
     print(graphs);
-    print(graphs.length);
     for (j = 0; j < graphs.length ; j++) {
       String TFText = graphs[j].text;
       List<Map<String, dynamic>> TF = CONBI.map((e) => {

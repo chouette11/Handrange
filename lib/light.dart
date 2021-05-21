@@ -133,7 +133,7 @@ class Light extends ChangeNotifier {
 //mainのgraphをsqlに送る
   String name = "";
   onSave() async {
-    List<String> TF = new List<String>();
+    List<String> TF;
     String TFText = "";
     List<Map<String, dynamic>> inputTF = status.map((e) =>
     {
@@ -165,7 +165,7 @@ class Light extends ChangeNotifier {
   }
 //まだ
   onUpdate() async {
-    List<String> TF = new List<String>();
+    List<String> TF;
     String TFText = "";
     List<Map<String, dynamic>> inputTF = status.map((e) =>
     {
@@ -187,11 +187,16 @@ class Light extends ChangeNotifier {
       TFText +="${TF[i]}";
     }
 
-    Graph graph = Graph(id: 1, text: TFText);
-    await Graph.updateGraph(graph);
+    if(graphId == null){
+      print("TODO");
+    }
+    else{
+      await Graph.updateGraph(Graph(id: graphId, text: TFText));
+    }
   }
 //sqlからgraphのリストを受け取ってタップ時に読み込み
   String graphName = "";
+  int graphId;
   onGet(int id, String name) async {
     final graphs = await Graph.getGraph();
     String TFText = graphs[id].text;
@@ -216,8 +221,34 @@ class Light extends ChangeNotifier {
         );
       }
     }
+    graphId = id;
     graphName = name;
     notifyListeners();
+  }
+}
+
+class lightButton extends StatelessWidget {
+  lightButton( {Key key, this.name, this.function }) : super(key: key);
+  String name;
+  dynamic function;
+  @override
+  Widget build(BuildContext context){
+    return GestureDetector(
+      onTap: () {
+        function;
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 0.5, color: Colors.white),
+          color:  Colors.green.shade600
+        ),
+        child: Center(
+          child: Text(
+            name,
+          ),
+        ),
+      ),
+    );
   }
 }
 
