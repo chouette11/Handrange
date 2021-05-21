@@ -17,23 +17,23 @@ class MyApp extends StatelessWidget {
     return
       Container(
           child:ChangeNotifierProvider<Light>(
-            create: (_) => Light(),
-            child:ChangeNotifierProvider<Calculation>(
-              create: (_) => Calculation(),
-              child:  MaterialApp(
-                title: 'Handrange',
-                theme: ThemeData(
-                  primarySwatch: Colors.lightBlue,
+              create: (_) => Light(),
+              child:ChangeNotifierProvider<Calculation>(
+                create: (_) => Calculation(),
+                child:  MaterialApp(
+                  title: 'Handrange',
+                  theme: ThemeData(
+                    primarySwatch: Colors.lightBlue,
+                  ),
+                  initialRoute: '/',
+                  routes: {
+                    '/': (context) => MyHomePage(),
+                    '/save': (context) => SavePage(),
+                    '/calculate': (context) => CalculatePage(),
+                    '/select': (context) => SelectPage(),
+                  },
                 ),
-                initialRoute: '/',
-                routes: {
-                  '/': (context) => MyHomePage(),
-                  '/save': (context) => SavePage(),
-                  '/calculate': (context) => CalculatePage(),
-                  '/select': (context) => SelectPage(),
-                },
-              ),
-            )
+              )
           )
       );
   }
@@ -45,132 +45,138 @@ class MyHomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return
       Consumer<Light>(builder: (context, model, child) {
-          return
-            Scaffold(
-                appBar: AppBar(
-                  title: Text('Handrange'),
+        return
+          Scaffold(
+              appBar: AppBar(
+                title: Text('Handrange'),
+              ),
+              drawer: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children:  <Widget>[
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                      ),
+                      child: Text(
+                        'Drawer Header',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text('Home'),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/');
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.graphic_eq_sharp),
+                      title: Text('Graphs'),
+                      onTap: () async {
+                        //TODO
+                        await model.createGraphs();
+                        await Navigator.pushNamed(context, '/save');
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.file_copy),
+                      title: Text('Calculate'),
+                      onTap: () async {
+                        await model.createGraphs();
+                        await Navigator.pushNamed(context, '/calculate');
+                      },
+                    ),
+                  ],
                 ),
-                drawer: Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children:  <Widget>[
-                      DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                        ),
-                        child: Text(
-                          'Drawer Header',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.home),
-                        title: Text('Home'),
-                        onTap: () {
-                          Navigator.pushNamed(context, '/');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.graphic_eq_sharp),
-                        title: Text('Graphs'),
-                        onTap: () async {
-                          //TODO
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/save');
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.file_copy),
-                        title: Text('Calculate'),
-                        onTap: () async {
-                          await model.createGraphs();
-                          await Navigator.pushNamed(context, '/calculate');
-                        },
-                      ),
+              ),
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                      model.graphName
+                  ),
+                  Graph(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      RaisedButton(
+                          child: Text('Pockets'),
+                          onPressed: () {
+                            model.onPocket();
+                          }),
+                      RaisedButton(
+                          child: Text('A'),
+                          onPressed: () {
+                            model.onHighs('A');
+                          }),
+                      RaisedButton(
+                          child: Text('K'),
+                          onPressed: () {
+                            model.onHighs('K');
+                          }),
+                      RaisedButton(
+                          child: Text('All'),
+                          onPressed: () {
+                            model.onAll();
+                          }),
                     ],
                   ),
-                ),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.graphName
-                    ),
-                    Graph(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RaisedButton(
-                            child: Text('Pockets'),
-                            onPressed: () {
-                              model.onPocket();
-                            }),
-                        RaisedButton(
-                            child: Text('A'),
-                            onPressed: () {
-                              model.onHighs('A');
-                            }),
-                        RaisedButton(
-                            child: Text('K'),
-                            onPressed: () {
-                              model.onHighs('K');
-                            }),
-                        RaisedButton(
-                            child: Text('All'),
-                            onPressed: () {
-                              model.onAll();
-                            }),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        RaisedButton(
-                            child: Text('Q'),
-                            onPressed: () {
-                              model.onHighs('Q');
-                            }),
-                        RaisedButton(
-                            child: Text('J'),
-                            onPressed: () {
-                              model.onHighs('J');
-                            }),
-                        RaisedButton(
-                            child: Text('保存'),
-                            onPressed: () async {
-                              await showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    title: Text("新規ハンドレンジ作成"),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text('名前を入力してね'),
-                                        TextFormField(controller: myController),
-                                        RaisedButton(
-                                          child: Text('実行'),
-                                          onPressed: () async {
-                                            model.name = myController.text;
-                                            myController.clear();
-                                            await model.onSave();
-                                            Navigator.pop(context);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                              );
-                            }),
-                      ],
-                    ),
-                    TextField(),
-                  ],
-                )
-            );
-        });
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      RaisedButton(
+                          child: Text('Q'),
+                          onPressed: () {
+                            model.onHighs('Q');
+                          }),
+                      RaisedButton(
+                          child: Text('J'),
+                          onPressed: () {
+                            model.onHighs('J');
+                          }),
+                      RaisedButton(
+                          child: Text('保存'),
+                          onPressed: () async {
+                            await showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  title: Text("新規ハンドレンジ作成"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text('名前を入力してね'),
+                                      TextFormField(controller: myController),
+                                      RaisedButton(
+                                        child: Text('実行'),
+                                        onPressed: () async {
+                                          model.name = myController.text;
+                                          myController.clear();
+                                          await model.onSave();
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                            );
+                          }),
+                      ElevatedButton(
+                          onPressed: (){
+                            model.onUpdate();
+                          },
+                          child: Text("更新")
+                      )
+                    ],
+                  ),
+                  TextField(),
+                ],
+              )
+          );
+      });
   }
 }
 //=============================================================================
@@ -248,6 +254,9 @@ class TapBox extends StatelessWidget {
           child: Center(
             child: Text(
               hand,
+              style: TextStyle(
+                fontFamily: "Sans",
+              ),
             ),
           ),
         ),

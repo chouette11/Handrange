@@ -390,11 +390,15 @@ class Box extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: Colors.white),
-          color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-        ),
+      GestureDetector(
+          onTap: (){
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.white),
+              color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+            ),
+          )
       );
   }
 }

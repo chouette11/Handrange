@@ -189,7 +189,7 @@ class Calculation extends ChangeNotifier {
           String card2 = "${num7}${mark6}";
           marks.add(mark6_2);
           marks.add(mark6_2);
-          marks.sort((a, b) => a.compareTo(b));1
+          marks.sort((a, b) => a.compareTo(b));
           if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
             onCalculate();
             inputSum++;
