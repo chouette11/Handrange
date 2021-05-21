@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
+import 'package:handrange/creategraph.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -95,33 +96,13 @@ class _SaveGraphsState extends State<SaveGraphs>{
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
             Widget gridView;
             if (snapshot.hasData){
-              List getIds() {
-                List <Map<String,dynamic>> inputIds = [];
-                int i;
-                for(i = 0; i < snapshot.data.length; i++){
-                  int id = snapshot.data[i].id;
-                  String graphName = snapshot.data[i].name;
-                  int num = snapshot.data[i].count;
-                  Map <String,dynamic> ids_map = {};
-                  ids_map.addAll(
-                      <String,dynamic>{
-                        "id": id,
-                        "num":i,
-                        "name":graphName,
-                        "count": num
-                      }
-                  );
-                  inputIds.add(ids_map);
-                }
-                return inputIds;
-              }
               gridView =
                   GridView.count(
                       crossAxisCount: 2,
                       mainAxisSpacing: 0.001,
                       crossAxisSpacing: 0.001,
                       childAspectRatio: 0.8,
-                      children: getIds().map((e) => GridTile(
+                      children: getIds(snapshot).map((e) => GridTile(
                         child: GraphList(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
                       ),
                       ).toList()
@@ -157,38 +138,6 @@ class _GraphList extends State<GraphList>{
         builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
           Widget gridView;
           if (snapshot.hasData){
-            List<List<Map<String, dynamic>>> getTFs() {
-              int i, j;
-              List<List<Map<String, dynamic>>>inputTFs = [];
-              for (j = 0; j < snapshot.data.length; j++) {
-                String TFText = snapshot.data[j].text;
-                List<Map<String, dynamic>> TF = CONBI.map((e) =>
-                {
-                  "hand": e["hand"],
-                  "value": e["value"],
-                }).toList();
-
-                for (i = 0; i <= 168; i++) {
-                  String isTF = TFText[i];
-                  if (isTF == "T") {
-                    TF[i].addAll(
-                        <String, bool>{
-                          "isSelected": true,
-                        }
-                    );
-                  }
-                  else if (isTF == "F") {
-                    TF[i].addAll(
-                        <String, bool>{
-                          "isSelected": false,
-                        }
-                    );
-                  }
-                }
-                inputTFs.add(TF);
-              }
-              return inputTFs;
-            }
             gridView =
                 GridView.count(
                     crossAxisCount: 13,
@@ -196,7 +145,7 @@ class _GraphList extends State<GraphList>{
                     crossAxisSpacing: 0.001,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    children: getTFs()[widget.num].map((e) => GridTile(
+                    children: getTFs(snapshot)[widget.num].map((e) => GridTile(
                       child: Box(isSelected: e["isSelected"]),
                     ),
                     ).toList()
