@@ -39,14 +39,14 @@ List <Map<String,dynamic>> getIds(snapshot) {
   for(i = 0; i < snapshot.data.length; i++){
     int id = snapshot.data[i].id;
     String graphName = snapshot.data[i].name;
-    int num = snapshot.data[i].count;
+    int count = snapshot.data[i].count;
     Map <String,dynamic> ids_map = {};
     ids_map.addAll(
         <String,dynamic>{
           "id": id,
           "num":i,
           "name":graphName,
-          "count": num
+          "count": count
         }
     );
     inputIds.add(ids_map);

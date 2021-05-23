@@ -30,7 +30,7 @@ class SavePage extends StatelessWidget{
           return
             Scaffold(
                 appBar: AppBar(
-                  title: Text('Handrange'),
+                  title: Text('Save'),
                 ),
                 drawer: returnDrawer(context),
                 body:SaveGraphs()

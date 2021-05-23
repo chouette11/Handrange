@@ -79,7 +79,7 @@ class Light extends ChangeNotifier {
   String graphName = "";
   int graphId;
   int graphCount;
-  onGet(int id, String name, int count) async {
+  onGet(int id, String name, int inputCount) async {
     final graphs = await Graph.getGraph();
     String TFText = graphs[id].text;
     int i;
@@ -104,7 +104,8 @@ class Light extends ChangeNotifier {
     }
     graphId = id;
     graphName = name;
-    graphCount = count;
+    graphCount = inputCount;
+    count = inputCount;
     notifyListeners();
   }
 }
