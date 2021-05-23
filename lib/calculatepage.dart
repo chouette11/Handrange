@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/bar_chart.dart';
 import 'package:handrange/calculation.dart';
+import 'package:handrange/creategraph.dart';
 import 'package:handrange/drawer.dart';
 import 'package:handrange/selectcardpage.dart';
+import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Handrange',
+        title: 'Calculation',
         theme: ThemeData(
           primarySwatch: Colors.lightBlue,
         ),
@@ -31,7 +33,7 @@ class CalculatePage extends StatelessWidget {
             return
               Scaffold(
                 appBar: AppBar(
-                  title: Text('Handrange'),
+                  title: Text('Calculate'),
                 ),
                 drawer: returnDrawer(context),
                 body: Calculate(),
@@ -53,10 +55,10 @@ class Calculate extends StatelessWidget {
                 Display(),
                 CardBoxes(),
                 ElevatedButton(
-                    child: Text('グラフ判定'),
+                    child: Text('計算'),
                     onPressed: () {
                       model.graphJudge();
-                      model.createList();
+                      model.createComboList();
                     }),
                 RaisedButton(
                     child: Text('クリア'),
@@ -73,13 +75,13 @@ class Calculate extends StatelessWidget {
                       model.mark5 = null;
                     }),
                 RaisedButton(
-                    child: Text('読み込み'),
+                    child: Text('グラフ読み込み'),
                     onPressed: ()async{
-                      await model.createGraphs();
+                      await model.createComboList();
                       showDialog(
                           context: context,
                           builder: (_) => AlertDialog(
-                            content: SavedGraphs(),
+                            content: SaveGraphs(),
                           )
                       );
                     }),
@@ -269,77 +271,153 @@ Column returnCard(int number, String selectedMark){
     );
 }
 
-class SavedGraphs extends StatelessWidget {
+class SaveGraphs extends StatefulWidget {
+  @override
+  _SaveGraphsState createState() => _SaveGraphsState();
+}
+class _SaveGraphsState extends State<SaveGraphs>{
   final myController = TextEditingController();
+  final Future<List<Graph>> graphs = Graph.getGraph();
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
     return
-      Container(
-          width: screenSizeWidth,
-          child: Consumer<Calculation>(builder: (context, model, child) {
+      FutureBuilder(
+          future: graphs,
+          builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
+            Widget gridView;
+            if (snapshot.hasData){
+              gridView =
+                  GridView.count(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 0.001,
+                      crossAxisSpacing: 0.001,
+                      childAspectRatio: 0.8,
+                      children: getIds(snapshot).map((e) => GridTile(
+                        child: GraphList(id: e["id"],num: e["num"], name: e["name"],),
+                      ),
+                      ).toList()
+                  );
+            }
+            else if(snapshot.hasError){
+              //TODO
+            }
+            else{
+              //TODO
+            }
             return
-              GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 0.001,
-                  crossAxisSpacing: 0.001,
-                  childAspectRatio: 0.8,
-                  children: model.numbers.map((e) => GridTile(
-                    child: GraphList(id: e["id"],num: e["num"], name: e["name"], count: e["count"]),
-                  ),
-                  ).toList()
+              Container(
+                  width: screenSizeWidth,
+                  child: gridView
               );
           }
-          )
       );
   }
 }
 
-class GraphList extends StatelessWidget {
-  final myController = TextEditingController();
-  GraphList({Key key, this.id, this.num, this.name, this.count}) : super(key: key);
+class GraphList extends StatefulWidget {
   int id;
   int num;
   String name;
-  int count;
+  GraphList({Key key, this.id, this.num, this.name,}) : super(key: key);
+  @override
+  _GraphList createState() => _GraphList();
+}
+class _GraphList extends State<GraphList>{
+  final Future<List<Graph>> graphs = Graph.getGraph();
+  final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return
-      Container(
-          child: Consumer<Calculation>(builder: (context, model, child) {
-            return
-              GestureDetector(
-                onTap: () =>{
-                  model.onGet(num,name),
-                  Navigator.pushNamed(context, '/calculate')
-                },
-                child:Column(
-                  children: [
-                    GridView.count(
-                        crossAxisCount: 13,
-                        mainAxisSpacing: 0.001,
-                        crossAxisSpacing: 0.001,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: model.TFs[num].map((e) => GridTile(
-                          child: Box(isSelected: e["isSelected"]),
-                        ),
-                        ).toList()
-                    ),
-                    Center(
-                      child: Row(
-                        children: [
-                          Text(
-                              name
-                          ),
-                        ],
+      FutureBuilder(
+          future: graphs,
+          builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
+            Widget gridView;
+            if (snapshot.hasData){
+              gridView =
+                  GridView.count(
+                      crossAxisCount: 13,
+                      mainAxisSpacing: 0.001,
+                      crossAxisSpacing: 0.001,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: getTFs(snapshot)[widget.num].map((e) => GridTile(
+                        child: Box(isSelected: e["isSelected"]),
                       ),
-                    )
-                  ],
-                ) ,
-              );
-          })
-      );
+                      ).toList()
+                  );
+            }
+            return
+              Consumer<Calculation>(builder: (context, model, child) {
+                return
+                  GestureDetector(
+                    onTap: () =>{
+                      model.onGet(widget.num,widget.name,),
+                      Navigator.pushNamed(context, '/')
+                    },
+                    onLongPress: () => {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SimpleDialog(
+                              title: Text(widget.name),
+                              children: <Widget>[
+                                SimpleDialogOption(
+                                  child: const Text('削除'),
+                                  onPressed: () async {
+                                    await Graph.deleteGraph(Graph(id:widget.id));
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                SimpleDialogOption(
+                                  child: const Text('名前の変更'),
+                                  onPressed: () async {
+                                    await showDialog(
+                                        context: context,
+                                        builder: (_) => AlertDialog(
+                                          title: Text("新規メモ作成"),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              Text('名前を入力してね'),
+                                              TextFormField(controller: myController),
+                                              RaisedButton(
+                                                child: Text('実行'),
+                                                onPressed: () async {
+                                                  await Graph.updateGraph(Graph(name: myController.text));
+                                                  myController.clear();
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      )
+                    },
+                    child:Column(
+                      children: [
+                        gridView,
+                        Center(
+                          child: Row(
+                            children: [
+                              Text(
+                                  widget.name
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ) ,
+                  );
+              });
+          });
   }
 }
 
