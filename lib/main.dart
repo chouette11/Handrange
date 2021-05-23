@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               child:ChangeNotifierProvider<Calculation>(
                 create: (_) => Calculation(),
                 child:  MaterialApp(
-                  title: 'Handrange',
+                  title: 'HandRange',
                   theme: ThemeData(
                     primarySwatch: Colors.lightBlue,
                   ),
@@ -49,7 +49,7 @@ class MyHomePage extends StatelessWidget{
         return
           Scaffold(
               appBar: AppBar(
-                title: Text('Handrange'),
+                title: Text('HandRange'),
               ),
               drawer: returnDrawer(context),
               body: Column(
@@ -64,7 +64,7 @@ class MyHomePage extends StatelessWidget{
                       ),
                     ),
                   ),
-                  Graph(),
+                  DisplayGraph(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -130,7 +130,7 @@ class MyHomePage extends StatelessWidget{
                                 )
                             );
                           }),
-                      ElevatedButton(
+                      RaisedButton(
                           onPressed: (){
                             updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
                           },
@@ -162,7 +162,7 @@ class _TextFiledState extends State<TextField> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    '${((model.count / 1326) * 100).toStringAsFixed(2)}%',
+                    'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -175,7 +175,7 @@ class _TextFiledState extends State<TextField> {
   }
 }
 
-class Graph extends StatelessWidget {
+class DisplayGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
