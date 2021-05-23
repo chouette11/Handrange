@@ -59,6 +59,7 @@ class Calculation extends ChangeNotifier {
       numbers.add(num6);
       numbers.add(num7);
       numbers.sort();
+
       List<String> marks = [];
       marks.add(mark1);
       marks.add(mark2);
@@ -86,16 +87,18 @@ class Calculation extends ChangeNotifier {
 
       onCalculate(){
         for(i = 0; i <= 3; i++){
-          if(cards.contains("13${mark[i]}") && cards.contains("12${mark[i]}") && cards.contains("11${mark[i]}") && cards.contains("10${mark[i]}") && cards.contains("1${mark[i]}")){
+          String doubleMark = "${mark[i]}${mark[i]}";
+          if((cards.contains("13${mark[i]}") || cards.contains("13${doubleMark}")) && (cards.contains("12${mark[i]}") || cards.contains("12${doubleMark}")) && (cards.contains("11${mark[i]}") || cards.contains("11${doubleMark}")) && (cards.contains("10${mark[i]}") || cards.contains("10${doubleMark}")) && (cards.contains("1${mark[i]}") || cards.contains("1${doubleMark}"))){
             print("Royal");
             inputRoyalStraightFlash++;
           }
         }
         for(i = 0; i <= max - 5; i++){
           for(j = 0; j <= 3; j++){
-            if (cards.contains("${i}${mark[j]}") && cards.contains("${i + 1}${mark[j]}") &&
-                cards.contains("${i + 2}${mark[j]}") && cards.contains("${i + 3}${mark[j]}") &&
-                cards.contains("${i + 4}${mark[j]}")) {
+            String doubleMark = "${mark[i]}${mark[i]}";
+            if ((cards.contains("${i}${mark[j]}") || cards.contains("${i}${doubleMark}")) && (cards.contains("${i + 1}${mark[j]}") || cards.contains("${i + 1}${doubleMark}")) &&
+                (cards.contains("${i + 2}${mark[j]}") || cards.contains("${i + 2}${doubleMark}")) && (cards.contains("${i + 3}${mark[j]}") || cards.contains("${i + 3}${doubleMark}")) &&
+                (cards.contains("${i + 4}${mark[j]}") || cards.contains("${i + 4}${doubleMark}"))) {
               print("StraightFlush");
               inputStraightFlush++;
               break;
@@ -352,7 +355,7 @@ class Calculation extends ChangeNotifier {
   }
 
   List<int> comboList;
-  createList(){
+  createComboList(){
     List<int> inputComboList = [];
     inputComboList.add(royal);
     inputComboList.add(straightFlush);
@@ -399,60 +402,6 @@ class Calculation extends ChangeNotifier {
       }
     }
     graphName = name;
-    notifyListeners();
-  }
-  List <List> TFs = [];
-  List <Map<String,dynamic>> numbers = [];
-//sqlからデータを受け取りsavepageの作成
-  createGraphs() async {
-    final List<Graph> graphs = await Graph.getGraph();
-    List <Map<String,dynamic>> inputNumbers = [];
-    List <List> inputTFs = [];
-    int i, j;
-    print(graphs);
-    for (j = 0; j < graphs.length ; j++) {
-      String TFText = graphs[j].text;
-      List<Map<String, dynamic>> TF = CONBI.map((e) => {
-        "hand": e["hand"],
-        "value": e["value"],
-      }).toList();
-
-      for (i = 0; i <= 168; i++) {
-        String isTF = TFText[i];
-        if (isTF == "T") {
-          TF[i].addAll(
-              <String, bool>{
-                "isSelected": true,
-              }
-          );
-        }
-        else if (isTF == "F") {
-          TF[i].addAll(
-              <String, bool>{
-                "isSelected": false,
-              }
-          );
-        }
-      }
-      inputTFs.add(TF);
-    }
-    for(i = 0; i < graphs.length; i++){
-      int id = graphs[i].id;
-      String graphName = graphs[i].name;
-      int num = graphs[i].count;
-      Map <String,dynamic> numbers_map = {};
-      numbers_map.addAll(
-          <String,dynamic>{
-            "id": id,
-            "num":i,
-            "name":graphName,
-            "count": num
-          }
-      );
-      inputNumbers.add(numbers_map);
-    }
-    TFs = inputTFs;
-    numbers = inputNumbers;
     notifyListeners();
   }
 }
