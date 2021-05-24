@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:vertical_barchart/vertical-barchart.dart';
 import 'package:vertical_barchart/vertical-barchartmodel.dart';
 
-class BarChartDemo extends StatefulWidget {
-  BarChartDemo({Key key, this.title, this.comboList}) : super(key: key);
+class BarChart extends StatefulWidget {
+  BarChart({Key key, this.title, this.comboList}) : super(key: key);
 
   final String title;
   List<int> comboList;
 
   @override
-  _BarChartDemo createState() => _BarChartDemo();
+  _BarChart createState() => _BarChart();
 }
 
-class _BarChartDemo extends State<BarChartDemo> {
+class _BarChart extends State<BarChart> {
   List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];

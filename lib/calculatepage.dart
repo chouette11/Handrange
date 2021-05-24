@@ -207,7 +207,7 @@ class Result extends StatelessWidget {
       Container(
         child:Consumer<Calculation>(builder: (context, model, child) {
           return
-            BarChartDemo(comboList:model.comboList);
+            BarChart(comboList:model.comboList);
         }),
       );
 
