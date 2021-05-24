@@ -1,10 +1,7 @@
 import 'package:handrange/combination.dart';
 
-List<List<Map<String, dynamic>>> getTFs(snapshot) {
-  int i, j;
-  List<List<Map<String, dynamic>>>inputTFs = [];
-  for (j = 0; j < snapshot.data.length; j++) {
-    String TFText = snapshot.data[j].text;
+List<Map<String, dynamic>> getTFs(String tfText,) {
+  int i;
     List<Map<String, dynamic>> TF = CONBI.map((e) =>
     {
       "hand": e["hand"],
@@ -12,7 +9,7 @@ List<List<Map<String, dynamic>>> getTFs(snapshot) {
     }).toList();
 
     for (i = 0; i <= 168; i++) {
-      String isTF = TFText[i];
+      String isTF = tfText[i];
       if (isTF == "T") {
         TF[i].addAll(
             <String, bool>{
@@ -28,9 +25,8 @@ List<List<Map<String, dynamic>>> getTFs(snapshot) {
         );
       }
     }
-    inputTFs.add(TF);
-  }
-  return inputTFs;
+
+  return TF;
 }
 
 List <Map<String,dynamic>> getIds(snapshot) {
@@ -38,6 +34,7 @@ List <Map<String,dynamic>> getIds(snapshot) {
   int i;
   for(i = 0; i < snapshot.data.length; i++){
     int id = snapshot.data[i].id;
+    String text = snapshot.data[i].text;
     String graphName = snapshot.data[i].name;
     int count = snapshot.data[i].count;
     Map <String,dynamic> ids_map = {};
@@ -45,6 +42,7 @@ List <Map<String,dynamic>> getIds(snapshot) {
         <String,dynamic>{
           "id": id,
           "num":i,
+          "text":text,
           "name":graphName,
           "count": count
         }
