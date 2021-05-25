@@ -30,9 +30,11 @@ dependencies:
   vertical_barchart: ^2.0.0+2
   loading_gifs: ^0.3.0
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +76,9 @@ flutter:
         - asset: assets/fonts/MerriweatherSans-Bold.ttf
           weight: 700
 
-  #
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/pictures/icon.png"
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

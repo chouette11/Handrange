@@ -1,4 +1,4 @@
-package com.example.handrange
+package com.kei.handrange
 
 import io.flutter.embedding.android.FlutterActivity
 
