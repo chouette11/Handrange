@@ -9,8 +9,20 @@ import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
 import 'package:handrange/calculatepage.dart';
 import 'package:handrange/selectcardpage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:handrange/ad_state.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
+  runApp(
+    Provider.value(
+      value: adState,
+      builder: (context, child) => MyApp(),
+    )
+  );
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -152,21 +164,45 @@ class TextField extends StatefulWidget {
   _TextFiledState createState() => _TextFiledState();
 }
 class _TextFiledState extends State<TextField> {
+
+ BannerAd _ad;
+
+  @override
+  void initState(){
+    super.initState();
+
+    _ad = BannerAd(
+      adUnitId: AdState.bannerAdUnitId,
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdState.listener
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return
       Expanded(
           child:Consumer<Light>(builder: (context, model, child) {
             return
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              Column(
                 children: [
-                  Text(
-                    'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ],
                   ),
+                  if(_ad == null)
+                    SizedBox(height: 50,)
+                  else
+                    Container(
+                      child: AdWidget(ad: _ad),
+                    )
                 ],
               );
           }
