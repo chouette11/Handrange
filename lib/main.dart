@@ -177,6 +177,8 @@ class _TextFiledState extends State<TextField> {
       request: AdRequest(),
       listener: AdState.listener
     );
+
+    _ad.load();
   }
   @override
   Widget build(BuildContext context) {
@@ -201,7 +203,9 @@ class _TextFiledState extends State<TextField> {
                     SizedBox(height: 50,)
                   else
                     Container(
-                      child: AdWidget(ad: _ad),
+                      width: _ad.size.width.toDouble(),
+                      height: _ad.size.height.toDouble(),
+                      child: AdWidget(ad: _ad)
                     )
                 ],
               );
