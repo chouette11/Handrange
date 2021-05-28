@@ -99,9 +99,9 @@ class MyHomePage extends StatelessWidget{
                             model.onPocket();
                           }),
                       RaisedButton(
-                          child: Text('All'),
+                          child: Text('クリア'),
                           onPressed: () {
-                            model.onAll();
+                            model.onClear();
                           }),
                       RaisedButton(
                           child: Text('保存'),
@@ -136,6 +136,31 @@ class MyHomePage extends StatelessWidget{
                           },
                           child: Text("更新")
                       )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      RaisedButton(
+                          onPressed: (){
+                            model.onUTG();
+                          },
+                          child: Text("UTG")
+                      ),
+                      RaisedButton(
+                          onPressed: (){
+                            model.onHJ();
+                          },
+                          child: Text("HJ")),
+                      RaisedButton(
+                          onPressed: (){
+                            model.onCO();
+                          },
+                          child: Text("CO")),
+                      RaisedButton(
+                          onPressed: (){
+                            model.onBTN();
+                          },
+                          child: Text("BTN")),
                     ],
                   ),
                   TextField(),
@@ -214,10 +239,10 @@ class TapBox extends StatelessWidget {
           model.onTapped(hand);
         },
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: Colors.white),
-            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-          ),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.white),
+              color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+            ),
             child:Center(
               child:
               Text(
@@ -228,8 +253,8 @@ class TapBox extends StatelessWidget {
                 ),
               ),
             )
-          ),
-        );
+        ),
+      );
     });
   }
 }
