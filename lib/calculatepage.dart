@@ -287,29 +287,28 @@ class _SaveGraphsState extends State<SaveGraphs>{
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
             Widget gridView;
             if (snapshot.hasData){
-              gridView =
-                  GridView.count(
+              return
+                Container(
+                  width: screenSizeWidth,
+                  child: GridView.count(
                       crossAxisCount: 2,
                       mainAxisSpacing: 0.001,
                       crossAxisSpacing: 0.001,
                       childAspectRatio: 0.8,
                       children: getIds(snapshot).map((e) => GridTile(
-                        child: GraphList(id: e["id"],num: e["num"], name: e["name"],),
+                        child: GraphList(id: e["id"],num: e["num"], text: e["text"], name: e["name"], count: e["count"]),
                       ),
                       ).toList()
-                  );
-            }
-            else if(snapshot.hasError){
-              //TODO
+                  ),
+                );
             }
             else{
-              //TODO
+              return
+                Center(
+                    child:
+                    CircularProgressIndicator()
+                );
             }
-            return
-              Container(
-                  width: screenSizeWidth,
-                  child: gridView
-              );
           }
       );
   }
