@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/drawer.dart';
+import 'package:handrange/initsql.dart';
 import 'package:handrange/savepage.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
@@ -10,9 +11,18 @@ import 'package:handrange/light.dart';
 import 'package:handrange/calculatepage.dart';
 import 'package:handrange/selectcardpage.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  if( InitGraph.getInitGraph() == null) {
+    InitGraph hjGraph = InitGraph(id: 0, text: "TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTTFFFFFFFTTTTTTFFFFFFFTTFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFF", name: "HJ", count: 180);
+    InitGraph.insertInitGraph(hjGraph);
+  } runApp(MyApp());}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return
@@ -148,7 +158,7 @@ class MyHomePage extends StatelessWidget{
                       ),
                       RaisedButton(
                           onPressed: (){
-                            model.onHJ();
+                            model.oninitGet(0);
                           },
                           child: Text("HJ")),
                       RaisedButton(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
+import 'package:handrange/initsql.dart';
 import 'package:handrange/sql.dart';
 
 class Light extends ChangeNotifier {
@@ -175,6 +176,33 @@ class Light extends ChangeNotifier {
     graphName = name;
     graphCount = inputCount;
     count = inputCount;
+    notifyListeners();
+  }
+
+  oninitGet(int id, ) async {
+    final graphs = await InitGraph.getInitGraph();
+    String TFText = graphs[id].text;
+    int i;
+    for(i = 0; i <= 168; i++){
+      String isTF = TFText[i];
+      if(isTF == "T"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,bool>{
+              "isSelected": true,
+            }
+        );
+      }
+      else if (isTF == "F"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,dynamic>{
+              "isSelected": false,
+            }
+        );
+      }
+    }
+
     notifyListeners();
   }
 }

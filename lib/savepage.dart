@@ -54,7 +54,6 @@ class _SaveGraphsState extends State<SaveGraphs>{
       FutureBuilder(
           future: graphs,
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
-            Widget gridView;
             if (snapshot.hasData){
               return
                 Container(
@@ -100,7 +99,8 @@ class GraphList extends StatelessWidget {
           GestureDetector(
             onTap: () =>{
               model.onGet(num,name,count),
-              Navigator.pushNamed(context, '/')
+              Navigator.pushNamed(context, '/'),
+              print(text)
             },
             onLongPress: () => {
               showDialog(
@@ -131,7 +131,7 @@ class GraphList extends StatelessWidget {
                                       RaisedButton(
                                         child: Text('実行'),
                                         onPressed: () async {
-                                          await Graph.updateGraph(Graph(name: myController.text));
+                                          await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
                                           myController.clear();
                                           Navigator.pop(context);
                                         },
