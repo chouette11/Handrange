@@ -30,7 +30,7 @@ List<Map<String, dynamic>> getTFs(String tfText,) {
 }
 
 List <Map<String,dynamic>> getIds(snapshot) {
-  List <Map<String,dynamic>> inputIds = [];
+  List <Map<String,dynamic>> Ids = [];
   int i;
   for(i = 0; i < snapshot.data.length; i++){
     int id = snapshot.data[i].id;
@@ -47,7 +47,69 @@ List <Map<String,dynamic>> getIds(snapshot) {
           "count": count
         }
     );
-    inputIds.add(ids_map);
+    Ids.add(ids_map);
   }
-  return inputIds;
+  return Ids;
 }
+
+List<Map<String,String>> labelList = [
+  {
+    "num":"A"
+  },{
+    "num":"K"
+  },{
+    "num":"Q"
+  },{
+    "num":"J"
+  },{
+    "num":"T"
+  },{
+    "num":"9"
+  },{
+    "num":"8"
+  },{
+    "num":"7"
+  },{
+    "num":"6"
+  },{
+    "num":"5"
+  },{
+    "num":"4"
+  },{
+    "num":"3"
+  },{
+    "num":"2"
+  },
+];
+
+List<Map<String,String>> ColumnLabelList = [
+  {
+    "num":""
+  }, {
+    "num":"A"
+  },{
+    "num":"K"
+  },{
+    "num":"Q"
+  },{
+    "num":"J"
+  },{
+    "num":"T"
+  },{
+    "num":"9"
+  },{
+    "num":"8"
+  },{
+    "num":"7"
+  },{
+    "num":"6"
+  },{
+    "num":"5"
+  },{
+    "num":"4"
+  },{
+    "num":"3"
+  },{
+    "num":"2"
+  },
+];

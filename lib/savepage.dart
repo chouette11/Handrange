@@ -76,12 +76,10 @@ class _SaveGraphsState extends State<SaveGraphs>{
                     CircularProgressIndicator()
                 );
             }
-
           }
       );
   }
 }
-
 class GraphList extends StatelessWidget {
   int id;
   int num;
@@ -99,8 +97,6 @@ class GraphList extends StatelessWidget {
             onTap: () =>{
               model.onGet(num,name,count),
               Navigator.pushNamed(context, '/'),
-              print(text),
-              print(count)
             },
             onLongPress: () => {
               showDialog(
@@ -148,31 +144,35 @@ class GraphList extends StatelessWidget {
                   }
               )
             },
-            child:Column(
+            child:Row(
               children: [
-                GridView.count(
-                    crossAxisCount: 13,
-                    mainAxisSpacing: 0.001,
-                    crossAxisSpacing: 0.001,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: getTFs(text).map((e) => GridTile(
-                      child: Box(isSelected: e["isSelected"]),
+                Column(
+                  children: [
+                    GridView.count(
+                        crossAxisCount: 13,
+                        mainAxisSpacing: 0.001,
+                        crossAxisSpacing: 0.001,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: getTFs(text).map((e) => GridTile(
+                          child: Box(isSelected: e["isSelected"]),
+                        ),
+                        ).toList()
                     ),
-                    ).toList()
+                    Center(
+                      child: Row(
+                        children: [
+                          Text(
+                              "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
+                          ),
+                          Text(
+                              name
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                Center(
-                  child: Row(
-                    children: [
-                      Text(
-                          "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
-                      ),
-                      Text(
-                          name
-                      ),
-                    ],
-                  ),
-                )
               ],
             ) ,
           );
@@ -180,6 +180,58 @@ class GraphList extends StatelessWidget {
   }
 }
 
+class GraphRowLabel extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: GridView.count(
+            crossAxisCount: 13,
+            mainAxisSpacing: 0.001,
+            crossAxisSpacing: 0.001,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: labelList.map((e) => GridTile(
+              child: LabelBox(num: e["num"],),
+            ),
+            ).toList()
+        ),
+      );
+  }
+}
+
+class GraphColumnLabel extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: GridView.count(
+            crossAxisCount: 1,
+            mainAxisSpacing: 0.001,
+            crossAxisSpacing: 0.001,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: ColumnLabelList.map((e) => GridTile(
+              child: LabelBox(num: e["num"],),
+            ),
+            ).toList()
+        ),
+      );
+  }
+}
+
+class LabelBox extends StatelessWidget {
+  LabelBox( {Key key, this.num}) : super(key: key);
+  String num;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+        Container(
+          child: Text(num),
+        );
+  }
+}
 
 class Box extends StatelessWidget {
   Box( {Key key,  this.isSelected }) : super(key: key);

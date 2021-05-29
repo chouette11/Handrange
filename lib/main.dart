@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
+import 'package:handrange/creategraph.dart';
 import 'package:handrange/drawer.dart';
 import 'package:handrange/initsql.dart';
 import 'package:handrange/savepage.dart';
@@ -218,6 +219,7 @@ class _TextFiledState extends State<TextField> {
           child:Consumer<Light>(builder: (context, model, child) {
             return
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
