@@ -140,7 +140,7 @@ class MyHomePage extends StatelessWidget{
                                           String name;
                                           name = myController.text;
                                           myController.clear();
-                                          saveGraph(model.status, name, model.count);
+                                          await saveGraph(model.status, name, model.count);
                                           Navigator.pop(context);
                                         },
                                       ),
