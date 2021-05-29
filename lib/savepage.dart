@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:loading_gifs/loading_gifs.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -100,7 +99,8 @@ class GraphList extends StatelessWidget {
             onTap: () =>{
               model.onGet(num,name,count),
               Navigator.pushNamed(context, '/'),
-              print(text)
+              print(text),
+              print(count)
             },
             onLongPress: () => {
               showDialog(

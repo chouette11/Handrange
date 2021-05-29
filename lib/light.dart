@@ -78,64 +78,33 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-  onUTG(){
-    final List check = status.where(
-            (element) =>
-      (element["hand"].contains("A") && element["hand"].contains("s")) || ((element["hand"].contains("K") && element["hand"].contains("s")) && !element["hand"].contains("0"))
-    ).toList();
-    print(check);
-    notifyListeners();
-  }
-
-  onHJ(){
-    status.forEach((element) {
-      onHand(0, "A","s", element);
-      onHand(8, "K","s", element);
-      onHand(8, "Q","s", element);
-      onHand(8, "J","s", element);
-      onHand(8, "T","s", element);
-      onHand(9, "A","o", element);
-      onHand(9, "K","o", element);
-      onHand(10, "Q","o", element);
-      onHand(10, "J","o", element);
-    });
-    notifyListeners();
-  }
-
-  onCO(){
-    status.forEach((element) {
-      onHand(0, "A","s", element);
-      onHand(5, "K","s", element);
-      onHand(7, "Q","s", element);
-      onHand(8, "J","s", element);
-      onHand(7, "T","s", element);
-      onHand(7, "9","s", element);
-      onHand(8, "A","o", element);
-      onHand(9, "K","o", element);
-      onHand(9, "Q","o", element);
-      onHand(9, "J","o", element);
-      onConnect(4, "s", element);
-    });
-    notifyListeners();
-  }
-
-  onBTN(){
-    status.forEach((element) {
-      onHand(1, "A","s", element);
-      onHand(1, "K","s", element);
-      onHand(4, "Q","s", element);
-
-    });
-    notifyListeners();
-  }
-
-  bool onHand(int exNum, String mainNum, String isSuit, element) {
+  getInitGraph(int id) async {
+    final  initGraphs = await InitGraph.getInitGraph();
+    String TFText = initGraphs[id].text;
+    count = initGraphs[id].count;
     int i;
-    for (i = 1; i <= exNum; i++) {
-       return
-      (element["hand"].contains("$mainNum$isSuit") && !element["hand"].contains("$i"));
+    for(i = 0; i <= 168; i++){
+      String isTF = TFText[i];
+      if(isTF == "T"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,bool>{
+              "isSelected": true,
+            }
+        );
+      }
+      else if (isTF == "F"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,dynamic>{
+              "isSelected": false,
+            }
+        );
+      }
     }
+    notifyListeners();
   }
+
   onConnect(int minNum, String isSuit, element){
     int i;
     for(i = 9; i > minNum; i--){
@@ -179,32 +148,6 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-  oninitGet(int id, ) async {
-    final graphs = await InitGraph.getInitGraph();
-    String TFText = graphs[id].text;
-    int i;
-    for(i = 0; i <= 168; i++){
-      String isTF = TFText[i];
-      if(isTF == "T"){
-        status[i].removeWhere((key, value) => value == false || value == true);
-        status[i].addAll(
-            <String,bool>{
-              "isSelected": true,
-            }
-        );
-      }
-      else if (isTF == "F"){
-        status[i].removeWhere((key, value) => value == false || value == true);
-        status[i].addAll(
-            <String,dynamic>{
-              "isSelected": false,
-            }
-        );
-      }
-    }
-
-    notifyListeners();
-  }
 }
 
 lightButton(String name, function){

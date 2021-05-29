@@ -47,6 +47,32 @@ class InitGraph {
   static Future<List<InitGraph>> getInitGraph() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('initGraph');
+    if(maps.length == 0){
+      insertInitGraph(InitGraph(
+          id:0,
+          text:"TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTFFFFFFFFTTFTTTFFFFFFFTFFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+          name: "UTG",
+          count: 234)
+      );
+      insertInitGraph(InitGraph(
+          id:1,
+          text:"TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTTFFFFFFFTTTTTTFFFFFFFTTFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+          name: "HJ",
+          count: 250)
+      );
+      insertInitGraph(InitGraph(
+          id:2,
+          text:"TTTTTTTTTTTTTTTTTTTTTTFFFFTTTTTTTFFFFFFTTTTTTFFFFFFFTTTTTTTFFFFFFTFFFFTTTFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFT",
+          name: "UTG",
+          count: 342)
+      );
+      insertInitGraph(InitGraph(
+          id:3,
+          text:"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTFFFTTTTTTTTFFFFFTTTTTTTTFFFFFTFFFFTTTTFFFFTFFFFFTTTTFFFTFFFFFFTTTFFFTFFFFFFFTTTFFTFFFFFFFFTTFFTFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFT",
+          name: "BTN",
+          count: 462)
+      );
+    }
     return List.generate(maps.length, (i) {
       return InitGraph(
           id: maps[i]['id'],

@@ -11,11 +11,7 @@ import 'package:handrange/light.dart';
 import 'package:handrange/calculatepage.dart';
 import 'package:handrange/selectcardpage.dart';
 
-void main() {
-  if( InitGraph.getInitGraph() == null) {
-    InitGraph hjGraph = InitGraph(id: 0, text: "TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTTFFFFFFFTTTTTTFFFFFFFTTFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFF", name: "HJ", count: 180);
-    InitGraph.insertInitGraph(hjGraph);
-  } runApp(MyApp());}
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -28,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     return
       Container(
           child:ChangeNotifierProvider<Light>(
-              create: (_) => Light(),
+              create: (_) => Light(),//TODO load setting
               child:ChangeNotifierProvider<Calculation>(
                 create: (_) => Calculation(),
                 child:  MaterialApp(
@@ -151,24 +147,24 @@ class MyHomePage extends StatelessWidget{
                   Row(
                     children: [
                       RaisedButton(
-                          onPressed: (){
-                            model.onUTG();
+                          onPressed: () async{
+                           await model.getInitGraph(0);
                           },
                           child: Text("UTG")
                       ),
                       RaisedButton(
-                          onPressed: (){
-                            model.oninitGet(0);
+                          onPressed: () async {
+                            await model.getInitGraph(1);
                           },
                           child: Text("HJ")),
                       RaisedButton(
-                          onPressed: (){
-                            model.onCO();
+                          onPressed: () async {
+                            await model.getInitGraph(2);
                           },
                           child: Text("CO")),
                       RaisedButton(
-                          onPressed: (){
-                            model.onBTN();
+                          onPressed: () async {
+                            await model.getInitGraph(3);
                           },
                           child: Text("BTN")),
                     ],
