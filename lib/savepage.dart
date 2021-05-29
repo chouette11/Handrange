@@ -144,37 +144,33 @@ class GraphList extends StatelessWidget {
                   }
               )
             },
-            child:Row(
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    GridView.count(
-                        crossAxisCount: 13,
-                        mainAxisSpacing: 0.001,
-                        crossAxisSpacing: 0.001,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: getTFs(text).map((e) => GridTile(
-                          child: Box(isSelected: e["isSelected"]),
-                        ),
-                        ).toList()
+                GridView.count(
+                    crossAxisCount: 13,
+                    mainAxisSpacing: 0.001,
+                    crossAxisSpacing: 0.001,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: getTFs(text).map((e) => GridTile(
+                      child: Box(isSelected: e["isSelected"]),
                     ),
-                    Center(
-                      child: Row(
-                        children: [
-                          Text(
-                              "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
-                          ),
-                          Text(
-                              name
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                    ).toList()
                 ),
+                Center(
+                  child: Row(
+                    children: [
+                      Text(
+                          "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
+                      ),
+                      Text(
+                          name
+                      ),
+                    ],
+                  ),
+                )
               ],
-            ) ,
+            ),
           );
       });
   }
@@ -227,9 +223,9 @@ class LabelBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        Container(
-          child: Text(num),
-        );
+      Container(
+        child: Text(num),
+      );
   }
 }
 
