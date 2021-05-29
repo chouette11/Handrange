@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/drawer.dart';
+import 'package:handrange/initsql.dart';
 import 'package:handrange/savepage.dart';
 import 'package:handrange/sql.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +25,18 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return
       Container(
           child:ChangeNotifierProvider<Light>(
-              create: (_) => Light(),
+              create: (_) => Light(),//TODO load setting
               child:ChangeNotifierProvider<Calculation>(
                 create: (_) => Calculation(),
                 child:  MaterialApp(
@@ -111,9 +117,9 @@ class MyHomePage extends StatelessWidget{
                             model.onPocket();
                           }),
                       RaisedButton(
-                          child: Text('All'),
+                          child: Text('クリア'),
                           onPressed: () {
-                            model.onAll();
+                            model.onClear();
                           }),
                       RaisedButton(
                           child: Text('保存'),
@@ -148,6 +154,31 @@ class MyHomePage extends StatelessWidget{
                           },
                           child: Text("更新")
                       )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      RaisedButton(
+                          onPressed: () async{
+                           await model.getInitGraph(0);
+                          },
+                          child: Text("UTG")
+                      ),
+                      RaisedButton(
+                          onPressed: () async {
+                            await model.getInitGraph(1);
+                          },
+                          child: Text("HJ")),
+                      RaisedButton(
+                          onPressed: () async {
+                            await model.getInitGraph(2);
+                          },
+                          child: Text("CO")),
+                      RaisedButton(
+                          onPressed: () async {
+                            await model.getInitGraph(3);
+                          },
+                          child: Text("BTN")),
                     ],
                   ),
                   TextField(),
@@ -254,10 +285,10 @@ class TapBox extends StatelessWidget {
           model.onTapped(hand);
         },
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: Colors.white),
-            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-          ),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.white),
+              color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+            ),
             child:Center(
               child:
               Text(
@@ -268,8 +299,8 @@ class TapBox extends StatelessWidget {
                 ),
               ),
             )
-          ),
-        );
+        ),
+      );
     });
   }
 }

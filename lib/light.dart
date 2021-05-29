@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/combination.dart';
+import 'package:handrange/initsql.dart';
 import 'package:handrange/sql.dart';
 
 class Light extends ChangeNotifier {
@@ -12,6 +13,7 @@ class Light extends ChangeNotifier {
   }).toList();
 
   bool isPocket = false;
+  bool isButton = false;
   Map highs = {
     'A': false,
     'K': false,
@@ -50,29 +52,66 @@ class Light extends ChangeNotifier {
   onPocket() {
     isPocket= !isPocket;
     status.forEach((element) {
-      if (element["hand"].contains( RegExp(r"(.)\1") )) {
-        if(element["isSelected"] == true && isPocket == true){
-          count -= element["value"];
-        }
-        if(element["isSelected"] == false && isPocket == false){
-          count += element["value"];
-        }
-        element["isSelected"] = isPocket;
-      }
-    }
-    );
+      pocketHand(element, isPocket);
+    });
     isPocket ? count += 78 : count -= 78;
     notifyListeners();
   }
 
-  onAll() {
-    isAll = !isAll;
-    status.forEach((element) {
-      element["isSelected"] = isAll;
+  pocketHand(element,bool name){
+    if (element["hand"].contains( RegExp(r"(.)\1") )) {
+      if(element["isSelected"] == true && name == true){
+        count -= element["value"];
+      }
+      if(element["isSelected"] == false && name == false){
+        count += element["value"];
+      }
+      element["isSelected"] = name;
     }
-    );
-    isAll ? count = 1326 : count = 0;
+  }
+
+  onClear() {
+    status.forEach((element) {
+      element["isSelected"] = false;
+    });
+    count = 0;
     notifyListeners();
+  }
+
+  getInitGraph(int id) async {
+    final  initGraphs = await InitGraph.getInitGraph();
+    String TFText = initGraphs[id].text;
+    count = initGraphs[id].count;
+    int i;
+    for(i = 0; i <= 168; i++){
+      String isTF = TFText[i];
+      if(isTF == "T"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,bool>{
+              "isSelected": true,
+            }
+        );
+      }
+      else if (isTF == "F"){
+        status[i].removeWhere((key, value) => value == false || value == true);
+        status[i].addAll(
+            <String,dynamic>{
+              "isSelected": false,
+            }
+        );
+      }
+    }
+    notifyListeners();
+  }
+
+  onConnect(int minNum, String isSuit, element){
+    int i;
+    for(i = 9; i > minNum; i--){
+      if(element["hand"].contains("${i}${i - 1}${isSuit}")){
+        element["isSelected"] = true;
+      }
+    }
   }
 
 //sqlからgraphのリストを受け取ってタップ時に読み込み
@@ -108,6 +147,7 @@ class Light extends ChangeNotifier {
     count = inputCount;
     notifyListeners();
   }
+
 }
 
 lightButton(String name, function){
