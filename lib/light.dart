@@ -147,7 +147,6 @@ class Light extends ChangeNotifier {
     count = inputCount;
     notifyListeners();
   }
-
 }
 
 lightButton(String name, function){
