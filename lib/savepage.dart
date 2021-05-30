@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/light.dart';
-import 'package:loading_gifs/loading_gifs.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -54,7 +53,6 @@ class _SaveGraphsState extends State<SaveGraphs>{
       FutureBuilder(
           future: graphs,
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
-            Widget gridView;
             if (snapshot.hasData){
               return
                 Container(
@@ -78,12 +76,10 @@ class _SaveGraphsState extends State<SaveGraphs>{
                     CircularProgressIndicator()
                 );
             }
-
           }
       );
   }
 }
-
 class GraphList extends StatelessWidget {
   int id;
   int num;
@@ -100,7 +96,7 @@ class GraphList extends StatelessWidget {
           GestureDetector(
             onTap: () =>{
               model.onGet(num,name,count),
-              Navigator.pushNamed(context, '/')
+              Navigator.pushNamed(context, '/'),
             },
             onLongPress: () => {
               showDialog(
@@ -131,7 +127,7 @@ class GraphList extends StatelessWidget {
                                       RaisedButton(
                                         child: Text('実行'),
                                         onPressed: () async {
-                                          await Graph.updateGraph(Graph(name: myController.text));
+                                          await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
                                           myController.clear();
                                           Navigator.pop(context);
                                         },
@@ -148,7 +144,7 @@ class GraphList extends StatelessWidget {
                   }
               )
             },
-            child:Column(
+            child: Column(
               children: [
                 GridView.count(
                     crossAxisCount: 13,
@@ -174,12 +170,64 @@ class GraphList extends StatelessWidget {
                   ),
                 )
               ],
-            ) ,
+            ),
           );
       });
   }
 }
 
+class GraphRowLabel extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: GridView.count(
+            crossAxisCount: 13,
+            mainAxisSpacing: 0.001,
+            crossAxisSpacing: 0.001,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: labelList.map((e) => GridTile(
+              child: LabelBox(num: e["num"],),
+            ),
+            ).toList()
+        ),
+      );
+  }
+}
+
+class GraphColumnLabel extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: GridView.count(
+            crossAxisCount: 1,
+            mainAxisSpacing: 0.001,
+            crossAxisSpacing: 0.001,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: ColumnLabelList.map((e) => GridTile(
+              child: LabelBox(num: e["num"],),
+            ),
+            ).toList()
+        ),
+      );
+  }
+}
+
+class LabelBox extends StatelessWidget {
+  LabelBox( {Key key, this.num}) : super(key: key);
+  String num;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      Container(
+        child: Text(num),
+      );
+  }
+}
 
 class Box extends StatelessWidget {
   Box( {Key key,  this.isSelected }) : super(key: key);
