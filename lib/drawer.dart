@@ -47,38 +47,3 @@ Drawer returnDrawer(BuildContext context,) {
   );
 }
 
-class BottomAd extends StatefulWidget{
-  @override
-  _BottomAdState createState() => _BottomAdState();
-}
-
-class _BottomAdState extends State<BottomAd> {
-  BannerAd _ad;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _ad = BannerAd(
-        adUnitId: AdState.bannerAdUnitId,
-        size: AdSize.banner,
-        request: AdRequest(),
-        listener: AdState.listener
-    );
-
-    _ad.load();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if(_ad == null)
-      return
-      SizedBox(height: 50,);
-    else
-      return
-      Container(
-          width: _ad.size.width.toDouble(),
-          height: _ad.size.height.toDouble(),
-          child: AdWidget(ad: _ad)
-      );
-  }
-}
