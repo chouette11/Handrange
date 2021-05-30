@@ -164,22 +164,6 @@ class TextField extends StatefulWidget {
   _TextFiledState createState() => _TextFiledState();
 }
 class _TextFiledState extends State<TextField> {
-
- BannerAd _ad;
-
-  @override
-  void initState(){
-    super.initState();
-
-    _ad = BannerAd(
-      adUnitId: AdState.bannerAdUnitId,
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: AdState.listener
-    );
-
-    _ad.load();
-  }
   @override
   Widget build(BuildContext context) {
     return
@@ -199,14 +183,7 @@ class _TextFiledState extends State<TextField> {
                       ),
                     ],
                   ),
-                  if(_ad == null)
-                    SizedBox(height: 50,)
-                  else
-                    Container(
-                      width: _ad.size.width.toDouble(),
-                      height: _ad.size.height.toDouble(),
-                      child: AdWidget(ad: _ad)
-                    )
+                  BottomAd()
                 ],
               );
           }
