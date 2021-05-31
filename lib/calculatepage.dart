@@ -60,9 +60,7 @@ class Calculate extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                            content: SaveGraphs(),
-                          )
+                          builder: (_) => PopAdPage()
                       );
                       model.graphJudge();
                       model.createComboList();
@@ -87,7 +85,9 @@ class Calculate extends StatelessWidget {
                       await model.createComboList();
                       showDialog(
                           context: context,
-                          builder: (_) => PopAdPage()
+                          builder: (_) => AlertDialog(
+                            content: SaveGraphs(),
+                          )
                       );
                     }),
                 Result(),

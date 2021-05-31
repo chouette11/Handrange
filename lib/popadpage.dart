@@ -27,7 +27,10 @@ class PopAdPage extends StatelessWidget {
         return
           Scaffold(
             backgroundColor: Colors.transparent,
-            body: PopAdDisplay(),
+            body:WillPopScope(
+              onWillPop: () async => false,
+              child: PopAdDisplay(),
+            )
           );
       });
   }
@@ -36,14 +39,19 @@ class PopAdPage extends StatelessWidget {
 class PopAdDisplay extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    final double screenSizeWidth = MediaQuery.of(context).size.width;
     return
       Consumer<Light>(builder: (context, model, child) {
         return
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PopAdWidget(),
-            ],
+          Container(
+            width: screenSizeWidth,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                PopAdWidget(),
+              ],
+            ),
           );
       });
   }
@@ -57,26 +65,49 @@ class PopAdWidget extends StatelessWidget {
       Consumer<Calculation>(builder: (context, model, child) {
         double screenSizeWidth = MediaQuery.of(context).size.width;
         final Future<String> _calculation = Future<String>.delayed(
-            Duration(seconds: model.sum ~/ 100 + 4 ),
+            Duration(seconds: model.sum ~/ 100 + 3 ),
                 () => '計算が終わりました'
         );
         return
-          Container(
-            color: Colors.white,
-            height: 180,
-            child: Column(
-              children: [
-                PopAd(),
-                Text("計算が終わりました"),
-                ElevatedButton(
-                    onPressed: () => Navigator.pushNamed(context, '/calculate')
-                    , child: Text("表示")
-                )
-              ],
-            ),
-          );
-
-      });
+        FutureBuilder(
+          future: _calculation,
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if(snapshot.hasData){
+              return
+                Container(
+                  color: Colors.white,
+                  height: 180,
+                  child: Column(
+                    children: [
+                      PopAd(),
+                      Text("計算が終わりました"),
+                      ElevatedButton(
+                          onPressed: () => Navigator.pushNamed(context, '/calculate')
+                          , child: Text("表示")
+                      )
+                    ],
+                  ),
+                );
+            }
+            else{
+              return
+              Container(
+                color: Colors.white,
+                height: 180,
+                child: Column(
+                  children: [
+                    PopAd(),
+                    Text("計算中です"),
+                    ElevatedButton(
+                        onPressed: () => Navigator.pushNamed(context, '/calculate')
+                        , child: Text("キャンセル")
+                    )
+                  ],
+                ),
+              );
+            }
+          }
+        );});
   }
 }
 
