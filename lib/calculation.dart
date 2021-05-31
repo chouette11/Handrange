@@ -113,8 +113,8 @@ class Calculation extends ChangeNotifier {
             break;
           }
         }
-        for (i = 0; i <= 2; i++) {
-          for (j = i + 3; j <= 5; j++) {
+        for (i = 0; i <= max - 5; i++) {
+          for (j = i + 3; j <= max - 2; j++) {
             if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
                 numbers[j] == numbers[j + 1]) {
               print("FullHouse");
@@ -124,7 +124,7 @@ class Calculation extends ChangeNotifier {
           }
           break;
         }
-        for (i = 2; i <= 4; i++) {
+        for (i = 2; i <= max - 3; i++) {
           for (j = i - 2; j >= 0; j--) {
             if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
                 numbers[j] == numbers[j + 1]) {
