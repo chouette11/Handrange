@@ -61,11 +61,15 @@ class _BarChart extends State<BarChart> {
 
   @override
   Widget build(BuildContext context) {
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return
-      Column(
-        children: [
-          _buildGrafik(barData),
-        ],
+      Container(
+        width: screenSizeWidth,
+        child: Column(
+          children: [
+            _buildGrafik(barData),
+          ],
+        ),
       );
   }
 
