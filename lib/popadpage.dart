@@ -27,33 +27,20 @@ class PopAdPage extends StatelessWidget {
         return
           Scaffold(
             backgroundColor: Colors.transparent,
-            body: PopAdWidgetA(),
+            body: PopAdDisplay(),
           );
       });
   }
 }
 
-class AdDisplay extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PopAdWidget()
-          ],
-        );
-  }
-}
-
-class PopAdWidgetA extends StatelessWidget{
+class PopAdDisplay extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return
       Consumer<Light>(builder: (context, model, child) {
         return
           Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               PopAdWidget(),
             ],
@@ -74,27 +61,22 @@ class PopAdWidget extends StatelessWidget {
                 () => '計算が終わりました'
         );
         return
-            AWidget();
-                });}}
+          Container(
+            color: Colors.white,
+            height: 180,
+            child: Column(
+              children: [
+                PopAd(),
+                Text("計算が終わりました"),
+                ElevatedButton(
+                    onPressed: () => Navigator.pushNamed(context, '/calculate')
+                    , child: Text("表示")
+                )
+              ],
+            ),
+          );
 
-class AWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        color: Colors.white,
-        height: 180,
-        child: Column(
-          children: [
-            PopAd(),
-            Text("計算が終わりました"),
-            ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, '/calculate')
-                , child: Text("表示")
-            )
-          ],
-        ),
-      );
+      });
   }
-  }
+}
 
