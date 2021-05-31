@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/ad_state.dart';
 import 'package:handrange/bar_chart.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/creategraph.dart';
@@ -56,7 +55,18 @@ class Calculate extends StatelessWidget {
               children: [
                 Display(),
                 CardBoxes(),
-                CalculateButton(),
+                ElevatedButton(
+                    child: Text('計算'),
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: SaveGraphs(),
+                          )
+                      );
+                      model.graphJudge();
+                      model.createComboList();
+                    }),
                 RaisedButton(
                     child: Text('クリア'),
                     onPressed: () {
@@ -77,9 +87,7 @@ class Calculate extends StatelessWidget {
                       await model.createComboList();
                       showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                            content: SaveGraphs(),
-                          )
+                          builder: (_) => PopAdPage()
                       );
                     }),
                 Result(),
@@ -88,74 +96,6 @@ class Calculate extends StatelessWidget {
         }),
       );
   }
-}
-
-class CalculateButton extends StatelessWidget{
-
-  Container returnContainer(int n, String m){
-    return
-      Container(
-        color: n == null || m == null ? Colors.black26 : Colors.white,
-        child: Container(
-          width: 40,
-          height: 65,
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(5.0)
-          ),
-          child: returnCard(n, m),
-        ),
-      );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      Consumer<Calculation>(builder: (context, model, child) {
-        return
-          GestureDetector(
-            onTap: (){
-              showDialog(
-                  context: context,
-                  builder: (_) => PopAdWidget(),
-              );
-            },
-            child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    returnContainer(model.num1, model.mark1),
-                    returnContainer(model.num2, model.mark2),
-                    returnContainer(model.num3, model.mark3),
-                    returnContainer(model.num4, model.mark4),
-                    returnContainer(model.num5, model.mark5),
-                  ],
-                )
-            ),
-          );
-      });
-  }
-}
-
-class CalculateButtonA extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: Consumer<Calculation>(builder: (context, model, child){
-      return
-        ElevatedButton(
-            child: Text('計算'),
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) => PopAdWidget(),
-              );
-              model.graphJudge();
-              model.createComboList();
-            });
-    }));
-    }
 }
 
 class Display extends StatelessWidget{
@@ -198,20 +138,20 @@ class TapBox extends StatelessWidget {
           isSelected != isSelected;
         },
         child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(width: 0.5, color: Colors.white),
-              color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-            ),
-            child: Center(
-              child:
-              Text(
-                hand,
-                style: TextStyle(
-                    fontFamily: "Sans",
-                    fontSize: boxWidth
-                ),
+          decoration: BoxDecoration(
+            border: Border.all(width: 0.5, color: Colors.white),
+            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+          ),
+          child: Center(
+            child:
+            Text(
+              hand,
+              style: TextStyle(
+                  fontFamily: "Sans",
+                  fontSize: boxWidth
               ),
-            )
+            ),
+          )
         ),
       );
     });
@@ -350,6 +290,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
       FutureBuilder(
           future: graphs,
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
+            Widget gridView;
             if (snapshot.hasData){
               return
                 Container(
