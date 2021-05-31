@@ -31,15 +31,20 @@ dependencies:
   loading_gifs: ^0.3.0
   google_mobile_ads: ^0.13.0
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
-  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -77,9 +82,6 @@ flutter:
         - asset: assets/fonts/MerriweatherSans-Bold.ttf
           weight: 700
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/pictures/icon.png"
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
