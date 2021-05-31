@@ -98,7 +98,7 @@ class _PopAdState extends State<PopAd> {
 
     _ad = BannerAd(
         adUnitId: AdState.bannerAdUnitId,
-        size: AdSize.mediumRectangle,
+        size: AdSize.largeBanner,
         request: AdRequest(),
         listener: AdState.bannerListener
     );
@@ -109,10 +109,14 @@ class _PopAdState extends State<PopAd> {
   Widget build(BuildContext context) {
     if(_ad == null)
       return
-          SizedBox(height: 250);
+          SizedBox(height: 100);
     else
       return
-          AdWidget(ad: _ad);
+         Container(
+           width: _ad.size.width.toDouble(),
+           height: _ad.size.height.toDouble(),
+           child: AdWidget(ad: _ad),
+         );
   }
 }
 
