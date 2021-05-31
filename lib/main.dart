@@ -85,28 +85,28 @@ class MyHomePage extends StatelessWidget{
                   ),
                   DisplayGraph(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       RaisedButton(
-                          child: Text('A'),
-                          onPressed: () {
-                            model.onHighs('A');
-                          }),
+                          onPressed: () async{
+                            await model.getInitGraph(0);
+                          },
+                          child: Text("UTG")
+                      ),
                       RaisedButton(
-                          child: Text('K'),
-                          onPressed: () {
-                            model.onHighs('K');
-                          }),
+                          onPressed: () async {
+                            await model.getInitGraph(1);
+                          },
+                          child: Text("HJ")),
                       RaisedButton(
-                          child: Text('Q'),
-                          onPressed: () {
-                            model.onHighs('Q');
-                          }),
+                          onPressed: () async {
+                            await model.getInitGraph(2);
+                          },
+                          child: Text("CO")),
                       RaisedButton(
-                          child: Text('J'),
-                          onPressed: () {
-                            model.onHighs('J');
-                          }),
+                          onPressed: () async {
+                            await model.getInitGraph(3);
+                          },
+                          child: Text("BTN")),
                     ],
                   ),
                   Row(
@@ -157,31 +157,6 @@ class MyHomePage extends StatelessWidget{
                       )
                     ],
                   ),
-                  Row(
-                    children: [
-                      RaisedButton(
-                          onPressed: () async{
-                           await model.getInitGraph(0);
-                          },
-                          child: Text("UTG")
-                      ),
-                      RaisedButton(
-                          onPressed: () async {
-                            await model.getInitGraph(1);
-                          },
-                          child: Text("HJ")),
-                      RaisedButton(
-                          onPressed: () async {
-                            await model.getInitGraph(2);
-                          },
-                          child: Text("CO")),
-                      RaisedButton(
-                          onPressed: () async {
-                            await model.getInitGraph(3);
-                          },
-                          child: Text("BTN")),
-                    ],
-                  ),
                   TextField(),
                 ],
               )
@@ -205,16 +180,23 @@ class _TextFiledState extends State<TextField> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
-                        style: TextStyle(
-                          fontSize: 20.0,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   BottomAd()
                 ],
