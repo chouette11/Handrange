@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/ad_state.dart';
 import 'package:handrange/bar_chart.dart';
 import 'package:handrange/calculation.dart';
 import 'package:handrange/creategraph.dart';
@@ -59,6 +60,12 @@ class Calculate extends StatelessWidget {
                     onPressed: () {
                       model.graphJudge();
                       model.createComboList();
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: PopAd(),
+                          )
+                      );
                     }),
                 RaisedButton(
                     child: Text('クリア'),
