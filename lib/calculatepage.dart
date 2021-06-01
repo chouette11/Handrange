@@ -69,13 +69,24 @@ class Calculate extends StatelessWidget {
                 ElevatedButton(
                     child: Text('計算'),
                     onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (_) => PopAdPage()
-                      );
-                      model.graphJudge();
-                      model.createComboList();
-                    }),
+                      if (model.card3 == null) {
+                        showDialog(context: context,
+                            builder: (_) => AlertDialog(),
+                        );
+                      }
+                      else if (model.status.every((element) => element["isSelected"] == false)){
+                        showDialog(context: context,
+                            builder: (_) => AlertDialog(),
+                        );
+                      }
+                      else {
+                        showDialog(
+                            context: context,
+                            builder: (_) => PopAdPage(),
+                        );
+                        model.graphJudge();
+                        model.createComboList();
+                      }}),
                 Result(),
               ],
             );
