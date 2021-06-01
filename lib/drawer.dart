@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:handrange/ad_state.dart';
 
 Drawer returnDrawer(BuildContext context,) {
   return
@@ -22,22 +20,22 @@ Drawer returnDrawer(BuildContext context,) {
           ),
         ),
         ListTile(
-          leading: Icon(Icons.home),
-          title: Text('Home'),
+          leading: Icon(Icons.border_color),
+          title: Text('レンジ作成'),
           onTap: () {
             Navigator.pushNamed(context, '/');
           },
         ),
         ListTile(
-          leading: Icon(Icons.graphic_eq_sharp),
-          title: Text('Graphs'),
+          leading: Icon(Icons.apps_rounded),
+          title: Text('レンジ一覧'),
           onTap: ()  {
              Navigator.pushNamed(context, '/save');
           },
         ),
         ListTile(
-          leading: Icon(Icons.file_copy),
-          title: Text('Calculate'),
+          leading: Icon(Icons.analytics),
+          title: Text('計算'),
           onTap: ()  {
             Navigator.pushNamed(context, '/calculate');
           },

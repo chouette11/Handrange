@@ -29,7 +29,7 @@ class SavePage extends StatelessWidget{
           return
             Scaffold(
                 appBar: AppBar(
-                  title: Text('Save'),
+                  title: Text('一覧'),
                 ),
                 drawer: returnDrawer(context),
                 body:SaveGraphs()
@@ -56,18 +56,25 @@ class _SaveGraphsState extends State<SaveGraphs>{
             if (snapshot.hasData){
               return
                 Container(
+                  margin: EdgeInsets.only(left: 2.5,right: 2.5,top: 2),
                   width: screenSizeWidth,
                   child: GridView.count(
                       crossAxisCount: 2,
                       mainAxisSpacing: 0.001,
-                      crossAxisSpacing: 0.001,
-                      childAspectRatio: 0.8,
+                      crossAxisSpacing: 2.5,
+                      childAspectRatio: 0.83,
                       children: getIds(snapshot).map((e) => GridTile(
                         child: GraphList(id: e["id"],num: e["num"], text: e["text"], name: e["name"], count: e["count"]),
                       ),
                       ).toList()
                   ),
                 );
+            }
+            else if(snapshot.hasError){
+              return
+                  Center(
+                    child: Text("Error"),
+                  );
             }
             else{
               return
@@ -118,11 +125,11 @@ class GraphList extends StatelessWidget {
                             await showDialog(
                                 context: context,
                                 builder: (_) => AlertDialog(
-                                  title: Text("新規メモ作成"),
+                                  title: Text("名前の変更"),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                      Text('名前を入力してね'),
+                                      Text('名前の入力'),
                                       TextFormField(controller: myController),
                                       RaisedButton(
                                         child: Text('実行'),
@@ -158,7 +165,7 @@ class GraphList extends StatelessWidget {
                     ).toList()
                 ),
                 Center(
-                  child: Row(
+                  child: Column(
                     children: [
                       Text(
                           "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
