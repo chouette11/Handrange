@@ -80,8 +80,8 @@ class PopAdWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       PopAd(),
-                      Text("計算が終わりました"),
-                      ElevatedButton(
+                      Container(padding:EdgeInsets.only(top: 3),child: Text("計算が完了しました")),
+                      RaisedButton(
                           onPressed: () => Navigator.pushNamed(context, '/calculate')
                           , child: Text("表示")
                       )
@@ -93,12 +93,19 @@ class PopAdWidget extends StatelessWidget {
               return
               Container(
                 color: Colors.white,
-                height: 180,
+                height: 200,
                 child: Column(
                   children: [
                     PopAd(),
-                    Text("計算中です"),
-                    ElevatedButton(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("計算中です"),
+                        Container(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 1.5,))
+                      ],
+                    ),
+                    Text("ご利用ありがとうございます"),
+                    RaisedButton(
                         onPressed: () => Navigator.pushNamed(context, '/calculate')
                         , child: Text("キャンセル")
                     )
