@@ -10,8 +10,8 @@ class AdState {
   AdState(this.initialization);
 
   static String get bannerAdUnitId => Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/6300978111'
-      : 'ca-app-pub-3443545166967285/8508933181';
+      ? 'ca-app-pub-3443545166967285/6738424627'
+      : 'ca-app-pub-3940256099942544/6300978111';
 
   static final BannerAdListener bannerListener = BannerAdListener(
     // Called when an ad is successfully received.
@@ -97,7 +97,7 @@ class _PopAdState extends State<PopAd> {
     super.initState();
 
     _ad = BannerAd(
-        adUnitId: AdState.bannerAdUnitId,
+        adUnitId: "ca-app-pub-3940256099942544/6300978111",
         size: AdSize.largeBanner,
         request: AdRequest(),
         listener: AdState.bannerListener
@@ -133,7 +133,7 @@ class _BottomAdState extends State<BottomAd> {
     super.initState();
 
     _ad = BannerAd(
-        adUnitId: AdState.bannerAdUnitId,
+        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
         size: AdSize.banner,
         request: AdRequest(),
         listener: AdState.bannerListener
