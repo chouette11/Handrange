@@ -175,7 +175,6 @@ class TapBox extends StatelessWidget {
 }
 
 class CardBoxes extends StatelessWidget {
-
   Container returnContainer(int n, String m){
     return Container(
       color: n == null || m == null ? Colors.black26 : Colors.white,
@@ -370,13 +369,14 @@ class _SaveGraphsState extends State<SaveGraphs>{
 }
 
 class GraphList extends StatelessWidget {
-  int id;
-  int num;
-  String name;
-  int count;
-  String text;
   GraphList({Key key, this.id, this.num, this.name, this.count, this.text}) : super(key: key);
+  final int id;
+  final int num;
+  final String name;
+  final int count;
+  final String text;
   final myController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<Calculation>(builder: (context, model, child) {
@@ -404,24 +404,25 @@ class GraphList extends StatelessWidget {
                       onPressed: () async {
                         await showDialog(
                           context: context,
-                          builder: (_) => AlertDialog(
-                            title: Text("新規メモ作成"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('名前を入力してね'),
-                                TextFormField(controller: myController),
-                                RaisedButton(
-                                  child: Text('実行'),
-                                  onPressed: () async {
-                                    await Graph.updateGraph(Graph(name: myController.text));
-                                    myController.clear();
-                                    Navigator.pop(context);
-                                  },
+                          builder: (_) =>
+                              AlertDialog(
+                                title: Text("新規メモ作成"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text('名前を入力してね'),
+                                    TextFormField(controller: myController),
+                                    RaisedButton(
+                                      child: Text('実行'),
+                                      onPressed: () async {
+                                        await Graph.updateGraph(Graph(name: myController.text));
+                                        myController.clear();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
+                              ),
                         );
                         Navigator.pop(context);
                       },
@@ -461,7 +462,7 @@ class GraphList extends StatelessWidget {
 
 class Box extends StatelessWidget {
   Box( {Key key,  this.isSelected }) : super(key: key);
-  bool isSelected;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
