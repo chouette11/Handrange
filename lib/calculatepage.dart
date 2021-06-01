@@ -71,18 +71,39 @@ class Calculate extends StatelessWidget {
                     onPressed: () {
                       if (model.card3 == null) {
                         showDialog(context: context,
-                            builder: (_) => AlertDialog(),
+                          builder: (_) =>
+                              SimpleDialog(
+                                  title:Text("エラー"),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      child: Text('ボードのカードを３枚以上選択してください'),
+                                      onPressed: () {
+                                        Navigator.pop(context, "/calculate");
+                                      },
+                                    ),
+                                  ]
+                              ),
                         );
                       }
-                      else if (model.status.every((element) => element["isSelected"] == false)){
+                      else if (model.status.every((element) => element["isSelected"] == false)) {
                         showDialog(context: context,
-                            builder: (_) => AlertDialog(),
+                          builder: (_) => SimpleDialog(
+                            title: Text("エラー"),
+                            children:[
+                              SimpleDialogOption(
+                                child: Text('レンジを選択してください'),
+                                onPressed: ()  {
+                                  Navigator.pop(context, "/calculate");
+                                },
+                              ),
+                            ],
+                          ),
                         );
                       }
                       else {
                         showDialog(
-                            context: context,
-                            builder: (_) => PopAdPage(),
+                          context: context,
+                          builder: (_) => PopAdPage(),
                         );
                         model.graphJudge();
                         model.createComboList();
@@ -135,20 +156,20 @@ class TapBox extends StatelessWidget {
           isSelected != isSelected;
         },
         child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: Colors.white),
-            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-          ),
-          child: Center(
-            child:
-            Text(
-              hand,
-              style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: boxWidth
-              ),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.white),
+              color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
             ),
-          )
+            child: Center(
+              child:
+              Text(
+                hand,
+                style: TextStyle(
+                    fontFamily: "Sans",
+                    fontSize: boxWidth
+                ),
+              ),
+            )
         ),
       );
     });
@@ -331,9 +352,9 @@ class _SaveGraphsState extends State<SaveGraphs>{
             }
             else if(snapshot.hasError){
               return
-                  Center(
-                    child: Text("Error"),
-                  );
+                Center(
+                  child: Text("Error"),
+                );
             }
             else{
               return
