@@ -1,4 +1,4 @@
-import 'package:handrange/combination.dart';
+import '../datas/combination.dart';
 
 List<Map<String, dynamic>> getTFs(String tfText,) {
   int i;

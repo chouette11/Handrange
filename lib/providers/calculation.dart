@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/combination.dart';
+import '../datas/combination.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/sql.dart';
+import '../sqls/sql.dart';
 
 class Calculation extends ChangeNotifier {
   int num1;

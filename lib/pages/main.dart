@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/calculation.dart';
-import 'package:handrange/creategraph.dart';
-import 'package:handrange/drawer.dart';
-import 'package:handrange/initsql.dart';
-import 'package:handrange/savepage.dart';
-import 'package:handrange/sql.dart';
+import '../providers/calculation.dart';
+import '../functions/creategraph.dart';
+import '../compornents/drawer.dart';
+import '../sqls/initsql.dart';
+import 'savepage.dart';
+import '../sqls/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/light.dart';
-import 'package:handrange/calculatepage.dart';
-import 'package:handrange/selectcardpage.dart';
+import '../providers/light.dart';
+import 'calculatepage.dart';
+import 'selectcardpage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:handrange/ad_state.dart';
+import '../compornents/ad_state.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

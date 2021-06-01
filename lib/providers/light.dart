@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/combination.dart';
-import 'package:handrange/initsql.dart';
-import 'package:handrange/sql.dart';
+import '../datas/combination.dart';
+import '../sqls/initsql.dart';
+import '../sqls/sql.dart';
 
 class Light extends ChangeNotifier {
   List<Map<String, dynamic>> status = CONBI.map((e) => {

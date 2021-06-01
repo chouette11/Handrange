@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/bar_chart.dart';
-import 'package:handrange/calculation.dart';
-import 'package:handrange/creategraph.dart';
-import 'package:handrange/drawer.dart';
-import 'package:handrange/popadpage.dart';
-import 'package:handrange/selectcardpage.dart';
-import 'package:handrange/sql.dart';
+import '../compornents/bar_chart.dart';
+import 'package:handrange/datas/sql.dart';
+import '../providers/calculation.dart';
+import '../functions/creategraph.dart';
+import '../compornents/drawer.dart';
+import 'popadpage.dart';
+import 'selectcardpage.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/light.dart';
+import '../providers/light.dart';
 
 
 class MyApp extends StatelessWidget {

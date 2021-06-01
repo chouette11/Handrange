@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/light.dart';
+import '../providers/light.dart';
 import 'package:provider/provider.dart';
 
-import 'ad_state.dart';
-import 'calculation.dart';
+import '../compornents/ad_state.dart';
+import '../providers/calculation.dart';
 
 class MyApp extends StatelessWidget {
   @override

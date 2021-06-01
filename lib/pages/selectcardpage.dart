@@ -3,9 +3,9 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/light.dart';
-import 'package:handrange/combination.dart';
-import 'calculation.dart';
+import '../providers/light.dart';
+import '../datas/combination.dart';
+import '../providers/calculation.dart';
 
 class MyApp extends StatelessWidget {
   @override
