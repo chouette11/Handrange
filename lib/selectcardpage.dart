@@ -46,13 +46,21 @@ class SelectCards extends StatelessWidget{
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  DeleteButton()
+                  BackButton()
                 ],
               ),
               Buttons(),
             ],
           );
       });
+  }
+}
+
+class BackButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return
+        ElevatedButton(onPressed: () => Navigator.pushNamed(context, '/calculate'), child: Text("戻る"));
   }
 }
 
