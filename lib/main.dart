@@ -68,7 +68,7 @@ class MyHomePage extends StatelessWidget{
         return
           Scaffold(
               appBar: AppBar(
-                title: Text('HandRange'),
+                title: Text('レンジ作成'),
               ),
               drawer: returnDrawer(context),
               body: Column(
@@ -122,7 +122,7 @@ class MyHomePage extends StatelessWidget{
                           onPressed: () {
                             model.onClear();
                           }),
-                      RaisedButton(
+                      ElevatedButton(
                           child: Text('保存'),
                           onPressed: () async {
                             await showDialog(
@@ -149,7 +149,7 @@ class MyHomePage extends StatelessWidget{
                                 )
                             );
                           }),
-                      RaisedButton(
+                      ElevatedButton(
                           onPressed: (){
                             updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
                           },
