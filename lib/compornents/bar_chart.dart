@@ -15,8 +15,9 @@ class _BarChart extends State<BarChart> {
   List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];
-    int i;
     List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+
+    int i;
     for(i = 0; i <= 8; i++){
       inputBarData.add(
           VBarChartModel(
@@ -31,8 +32,9 @@ class _BarChart extends State<BarChart> {
   }
   List<VBarChartModel> initBarData(){
     List<VBarChartModel> barData = [];
-    int i;
     List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+
+    int i;
     for(i = 0; i <= 8; i++){
       barData.add(
           VBarChartModel(
@@ -59,8 +61,7 @@ class _BarChart extends State<BarChart> {
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
-    return
-      Container(width: screenSizeWidth, child: _buildGrafik(barData));
+    return Container(width: screenSizeWidth, child: _buildGrafik(barData));
   }
 
   Widget _buildGrafik(List<VBarChartModel> barData) {
