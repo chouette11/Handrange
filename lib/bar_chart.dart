@@ -13,6 +13,7 @@ class BarChart extends StatefulWidget {
 }
 
 class _BarChart extends State<BarChart> {
+
   List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];
@@ -23,8 +24,8 @@ class _BarChart extends State<BarChart> {
           VBarChartModel(
               index: i,
               label: labelName[i],
-              jumlah: ((widget.comboList[i] / widget.comboList[9]) * 100),
-              tooltip: "${((widget.comboList[i] / widget.comboList[9]) * 100).toStringAsFixed(2)}% combo:${widget.comboList[i].toInt()}"
+              jumlah: ((widget.comboList[i] / (widget.comboList[9])) * 100),
+              tooltip: "${((widget.comboList[i] / (widget.comboList[9]) * 100).toStringAsFixed(2))}% combo:${widget.comboList[i].toInt()}"
           )
       );
     }
@@ -60,13 +61,9 @@ class _BarChart extends State<BarChart> {
 
   @override
   Widget build(BuildContext context) {
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return
-       SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildGrafik(barData),
-            ],
-          ));
+      Container(width: screenSizeWidth,child: _buildGrafik(barData));
   }
 
   Widget _buildGrafik(List<VBarChartModel> barData) {
