@@ -107,7 +107,10 @@ class Calculate extends StatelessWidget {
                         );
                         model.graphJudge();
                         model.createComboList();
-                      }}),
+                        model.onVisible();
+                      }
+                    }
+                ),
                 Result(),
               ],
             );
@@ -256,7 +259,10 @@ class Result extends StatelessWidget {
         width: screenSizeWidth,
         child:Consumer<Calculation>(builder: (context, model, child) {
           return
-            BarChart(comboList:model.comboList);
+            Visibility(
+                visible: model.isVisible,
+                child: BarChart(comboList:model.comboList)
+            );
         }),
       );
 

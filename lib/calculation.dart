@@ -371,6 +371,12 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool isVisible = false;
+  onVisible() {
+    isVisible = true;
+    notifyListeners();
+  }
+
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],
     "value": e["value"],
