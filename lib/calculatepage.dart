@@ -34,7 +34,7 @@ class CalculatePage extends StatelessWidget {
             return
               Scaffold(
                 appBar: AppBar(
-                  title: Text('Calculate'),
+                  title: Text('計算'),
                 ),
                 drawer: returnDrawer(context),
                 body: Calculate(),
@@ -55,6 +55,17 @@ class Calculate extends StatelessWidget {
               children: [
                 Display(),
                 CardBoxes(),
+                RaisedButton(
+                    child: Text('レンジ読み込み'),
+                    onPressed: ()async{
+                      await model.createComboList();
+                      showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: SaveGraphs(),
+                          )
+                      );
+                    }),
                 ElevatedButton(
                     child: Text('計算'),
                     onPressed: () {
@@ -64,31 +75,6 @@ class Calculate extends StatelessWidget {
                       );
                       model.graphJudge();
                       model.createComboList();
-                    }),
-                RaisedButton(
-                    child: Text('クリア'),
-                    onPressed: () {
-                      model.num1 = null;
-                      model.num2 = null;
-                      model.num3 = null;
-                      model.num4 = null;
-                      model.num5 = null;
-                      model.mark1 = null;
-                      model.mark2 = null;
-                      model.mark3 = null;
-                      model.mark4 = null;
-                      model.mark5 = null;
-                    }),
-                RaisedButton(
-                    child: Text('グラフ読み込み'),
-                    onPressed: ()async{
-                      await model.createComboList();
-                      showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            content: SaveGraphs(),
-                          )
-                      );
                     }),
                 Result(),
               ],
@@ -181,25 +167,49 @@ class CardBoxes extends StatelessWidget{
     return
       Consumer<Calculation>(builder: (context, model, child) {
         return
-          GestureDetector(
-            onTap: (){
-              showDialog(
-                  context: context,
-                  builder: (_) => SelectPage()
-              );
-            },
-            child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    returnContainer(model.num1, model.mark1),
-                    returnContainer(model.num2, model.mark2),
-                    returnContainer(model.num3, model.mark3),
-                    returnContainer(model.num4, model.mark4),
-                    returnContainer(model.num5, model.mark5),
-                  ],
-                )
-            ),
+          Column(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  showDialog(
+                      context: context,
+                      builder: (_) => SelectPage()
+                  );
+                },
+                child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        returnContainer(model.num1, model.mark1),
+                        returnContainer(model.num2, model.mark2),
+                        returnContainer(model.num3, model.mark3),
+                        returnContainer(model.num4, model.mark4),
+                        returnContainer(model.num5, model.mark5),
+                      ],
+                    )
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RaisedButton(
+                      child: Text('クリア'),
+                      onPressed: () {
+                        model.num1 = null;
+                        model.num2 = null;
+                        model.num3 = null;
+                        model.num4 = null;
+                        model.num5 = null;
+                        model.mark1 = null;
+                        model.mark2 = null;
+                        model.mark3 = null;
+                        model.mark4 = null;
+                        model.mark5 = null;
+                        Navigator.pushNamed(context, '/calculate');
+                      }),
+                ],
+              ),
+            ],
           );
       });
   }
@@ -208,8 +218,10 @@ class CardBoxes extends StatelessWidget{
 class Result extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double screenSizeWidth = MediaQuery.of(context).size.width;
     return
       Container(
+        width: screenSizeWidth,
         child:Consumer<Calculation>(builder: (context, model, child) {
           return
             BarChart(comboList:model.comboList);
@@ -290,22 +302,27 @@ class _SaveGraphsState extends State<SaveGraphs>{
       FutureBuilder(
           future: graphs,
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
-            Widget gridView;
             if (snapshot.hasData){
               return
                 Container(
                   width: screenSizeWidth,
                   child: GridView.count(
                       crossAxisCount: 2,
-                      mainAxisSpacing: 0.001,
-                      crossAxisSpacing: 0.001,
-                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 0.5,
+                      crossAxisSpacing: 1,
+                      childAspectRatio: 0.75,
                       children: getIds(snapshot).map((e) => GridTile(
                         child: GraphList(id: e["id"],num: e["num"], text: e["text"], name: e["name"], count: e["count"]),
                       ),
                       ).toList()
                   ),
                 );
+            }
+            else if(snapshot.hasError){
+              return
+                  Center(
+                    child: Text("Error"),
+                  );
             }
             else{
               return
@@ -397,7 +414,7 @@ class GraphList extends StatelessWidget {
                     ).toList()
                 ),
                 Center(
-                  child: Row(
+                  child: Column(
                     children: [
                       Text(
                           "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"
