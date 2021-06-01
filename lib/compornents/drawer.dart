@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Drawer returnDrawer(BuildContext context,) {
-  return
-  Drawer(
+  return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
@@ -29,14 +28,14 @@ Drawer returnDrawer(BuildContext context,) {
         ListTile(
           leading: Icon(Icons.apps_rounded),
           title: Text('レンジ一覧'),
-          onTap: ()  {
-             Navigator.pushNamed(context, '/save');
+          onTap: () {
+            Navigator.pushNamed(context, '/save');
           },
         ),
         ListTile(
           leading: Icon(Icons.analytics),
           title: Text('計算'),
-          onTap: ()  {
+          onTap: () {
             Navigator.pushNamed(context, '/calculate');
           },
         ),

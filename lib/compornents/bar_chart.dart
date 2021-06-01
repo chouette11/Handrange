@@ -4,16 +4,14 @@ import 'package:vertical_barchart/vertical-barchartmodel.dart';
 
 class BarChart extends StatefulWidget {
   BarChart({Key key, this.title, this.comboList}) : super(key: key);
-
   final String title;
-  List<int> comboList;
+  final List<int> comboList;
 
   @override
   _BarChart createState() => _BarChart();
 }
 
 class _BarChart extends State<BarChart> {
-
   List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];
@@ -31,7 +29,6 @@ class _BarChart extends State<BarChart> {
     }
     barData = inputBarData;
   }
-
   List<VBarChartModel> initBarData(){
     List<VBarChartModel> barData = [];
     int i;
@@ -63,7 +60,7 @@ class _BarChart extends State<BarChart> {
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
     return
-      Container(width: screenSizeWidth,child: _buildGrafik(barData));
+      Container(width: screenSizeWidth, child: _buildGrafik(barData));
   }
 
   Widget _buildGrafik(List<VBarChartModel> barData) {
