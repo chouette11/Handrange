@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/datas/sql.dart';
 import '../providers/calculation.dart';
 import '../functions/creategraph.dart';
 import '../compornents/drawer.dart';
-import '../sqls/initsql.dart';
 import 'savepage.dart';
-import '../sqls/sql.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
