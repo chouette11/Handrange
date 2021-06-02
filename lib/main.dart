@@ -37,6 +37,15 @@ class _MyAppState extends State<MyApp> {
         child:ChangeNotifierProvider<Calculation>(
           create: (_) => Calculation(),
           child:  MaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('jp', ''), //日本語
+              const Locale('en', ''), //英語
+            ],
             title: 'HandRange',
             theme: ThemeData(
               primarySwatch: Colors.lightBlue,
