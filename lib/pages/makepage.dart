@@ -1,63 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:handrange/datas/sql.dart';
-import '../providers/calculation.dart';
-import '../functions/creategraph.dart';
-import '../compornents/drawer.dart';
-import 'savepage.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import '../providers/light.dart';
-import 'calculatepage.dart';
-import 'selectcardpage.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../compornents/ad_state.dart';
+import 'package:flutter/material.dart';
+import 'package:handrange/compornents/ad_state.dart';
+import 'package:handrange/compornents/drawer.dart';
+import 'package:handrange/datas/sql.dart';
+import 'package:handrange/providers/light.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  final initFuture = MobileAds.instance.initialize();
-  final adState = AdState(initFuture);
-  runApp(
-    Provider.value(
-      value: adState,
-      builder: (context, child) => MyApp(),
-    ),
-  );
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:ChangeNotifierProvider<Light>(
-        create: (_) => Light(),//TODO load setting
-        child:ChangeNotifierProvider<Calculation>(
-          create: (_) => Calculation(),
-          child:  MaterialApp(
-            title: 'HandRange',
-            theme: ThemeData(
-              primarySwatch: Colors.lightBlue,
-            ),
-            initialRoute: '/',
-            routes: {
-              '/': (context) => MyHomePage(),
-              '/save': (context) => SavePage(),
-              '/calculate': (context) => CalculatePage(),
-              '/select': (context) => SelectPage(),
-            },
-          ),
-        ),
+    return MaterialApp(
+      title: 'レンジ作成',
+      theme: ThemeData(
+        primarySwatch: Colors.lightBlue,
       ),
+      home: MakeRangePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget{
+class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -262,4 +224,3 @@ class TapBox extends StatelessWidget {
     });
   }
 }
-
