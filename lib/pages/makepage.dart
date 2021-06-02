@@ -5,12 +5,22 @@ import 'package:handrange/compornents/drawer.dart';
 import 'package:handrange/datas/sql.dart';
 import 'package:handrange/providers/light.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'レンジ作成',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('jp', ''), //日本語
+        const Locale('en', ''), //英語
+      ],
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
@@ -28,7 +38,7 @@ class MakeRangePage extends StatelessWidget{
         return
           Scaffold(
             appBar: AppBar(
-              title: Text('レンジ作成'),
+              title: Text(AppLocalizations.of(context)!.title,),
             ),
             drawer: returnDrawer(context),
             body: Column(
@@ -194,8 +204,8 @@ class DisplayGraph extends StatelessWidget {
 
 class TapBox extends StatelessWidget {
   TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
-  String hand;
-  bool isSelected;
+  final String hand;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
