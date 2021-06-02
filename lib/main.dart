@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:handrange/datas/sql.dart';
 import 'package:handrange/pages/makepage.dart';
 import 'providers/calculation.dart';
@@ -40,6 +41,15 @@ class _MyAppState extends State<MyApp> {
         child:ChangeNotifierProvider<Calculation>(
           create: (_) => Calculation(),
           child:  MaterialApp(
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('jp', ''), //日本語
+              const Locale('en', ''), //英語
+            ],
             title: 'HandRange',
             theme: ThemeData(
               primarySwatch: Colors.lightBlue,
