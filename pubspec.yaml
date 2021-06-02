@@ -30,6 +30,8 @@ dependencies:
   vertical_barchart: ^2.0.0+2
   loading_gifs: ^0.3.0
   google_mobile_ads: ^0.13.0
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
