@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../compornents/bar_chart.dart';
+import '../components/bar_chart.dart';
 import 'package:handrange/datas/sql.dart';
 import '../providers/calculation.dart';
 import '../functions/creategraph.dart';
-import '../compornents/drawer.dart';
+import '../components/drawer.dart';
 import 'popadpage.dart';
 import 'selectcardpage.dart';
 import 'package:provider/provider.dart';

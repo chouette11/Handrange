@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../providers/light.dart';
 import 'package:provider/provider.dart';
-
-import '../compornents/ad_state.dart';
+import '../components/ad_state.dart';
 import '../providers/calculation.dart';
 
 class MyApp extends StatelessWidget {
