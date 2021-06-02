@@ -1,7 +1,216 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:handrange/light.dart';
-import 'package:provider/provider.dart';
+const CARDS =[
+  {
+    "num": 1,
+    "mark": "s",
+    "card": "1s"
+  },{
+    "num": 2,
+    "mark": "s",
+    "card": "2s"
+  },{
+    "num": 3,
+    "mark": "s",
+    "card": "3s"
+  },{
+    "num": 4,
+    "mark": "s",
+    "card": "4s"
+  },{
+    "num": 5,
+    "mark": "s",
+    "card": "5s"
+  },{
+    "num": 6,
+    "mark": "s",
+    "card": "6s"
+  },{
+    "num": 7,
+    "mark": "s",
+    "card": "7s"
+  },{
+    "num": 8,
+    "mark": "s",
+    "card": "8s"
+  },{
+    "num": 9,
+    "mark": "s",
+    "card": "9s"
+  },{
+    "num": 10,
+    "mark": "s",
+    "card": "10s"
+  },{
+    "num": 11,
+    "mark": "s",
+    "card": "11s"
+  },{
+    "num": 12,
+    "mark": "s",
+    "card": "12s"
+  },{
+    "num": 13,
+    "mark": "s",
+    "card": "13s"
+  },
+  {
+    "num": 1,
+    "mark": "c",
+    "card": "1c"
+  },{
+    "num": 2,
+    "mark": "c",
+    "card": "2c"
+  },{
+    "num": 3,
+    "mark": "c",
+    "card": "3c"
+  },{
+    "num": 4,
+    "mark": "c",
+    "card": "4c"
+  },{
+    "num": 5,
+    "mark": "c",
+    "card": "5c"
+  },{
+    "num": 6,
+    "mark": "c",
+    "card": "6c"
+  },{
+    "num": 7,
+    "mark": "c",
+    "card": "7c"
+  },{
+    "num": 8,
+    "mark": "c",
+    "card": "8c"
+  },{
+    "num": 9,
+    "mark": "c",
+    "card": "9c"
+  },{
+    "num": 10,
+    "mark": "c",
+    "card": "10c"
+  },{
+    "num": 11,
+    "mark": "c",
+    "card": "11c"
+  },{
+    "num": 12,
+    "mark": "c",
+    "card": "12c"
+  },{
+    "num": 13,
+    "mark": "c",
+    "card": "13c"
+  },{
+    "num": 1,
+    "mark": "h",
+    "card": "1h"
+  },{
+    "num": 2,
+    "mark": "h",
+    "card": "2h"
+  },{
+    "num": 3,
+    "mark": "h",
+    "card": "3h"
+  },{
+    "num": 4,
+    "mark": "h",
+    "card": "4h"
+  },{
+    "num": 5,
+    "mark": "h",
+    "card": "5h"
+  },{
+    "num": 6,
+    "mark": "h",
+    "card": "6h"
+  },{
+    "num": 7,
+    "mark": "h",
+    "card": "7h"
+  },{
+    "num": 8,
+    "mark": "h",
+    "card": "8h"
+  },{
+    "num": 9,
+    "mark": "h",
+    "card": "9h"
+  },{
+    "num": 10,
+    "mark": "h",
+    "card": "10h"
+  },{
+    "num": 11,
+    "mark": "h",
+    "card": "11h"
+  },{
+    "num": 12,
+    "mark": "h",
+    "card": "12h"
+  },{
+    "num": 13,
+    "mark": "h",
+    "card": "13h"
+  },{
+    "num": 1,
+    "mark": "d",
+    "card": "1d"
+  },{
+    "num": 2,
+    "mark": "d",
+    "card": "2d"
+  },{
+    "num": 3,
+    "mark": "d",
+    "card": "3d"
+  },{
+    "num": 4,
+    "mark": "d",
+    "card": "4d"
+  },{
+    "num": 5,
+    "mark": "d",
+    "card": "5d"
+  },{
+    "num": 6,
+    "mark": "d",
+    "card": "6d"
+  },{
+    "num": 7,
+    "mark": "d",
+    "card": "7d"
+  },{
+    "num": 8,
+    "mark": "d",
+    "card": "8d"
+  },{
+    "num": 9,
+    "mark": "d",
+    "card": "9d"
+  },{
+    "num": 10,
+    "mark": "d",
+    "card": "10d"
+  },{
+    "num": 11,
+    "mark": "d",
+    "card": "11d"
+  },{
+    "num": 12,
+    "mark": "d",
+    "card": "12d"
+  },{
+    "num": 13,
+    "mark": "d",
+    "card": "13d"
+  },
+];
+
 const CONBI =[{
   "hand": 'AA',
   "value":6,
@@ -303,7 +512,7 @@ const CONBI =[{
     "value":6,
   },{
     "hand": '76s',
-    "value":6,
+    "value":4,
   },{
     "hand": '75s',
     "value":4,
