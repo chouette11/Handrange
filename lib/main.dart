@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/pages/makepage.dart';
-import 'package:handrange/providers/fixrange.dart';
 import 'providers/calculation.dart';
 import 'pages/savepage.dart';
 import 'package:provider/provider.dart';
