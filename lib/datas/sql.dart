@@ -67,12 +67,12 @@ class Graph {
     );
   }
 
-  static Future<void> deleteGraph(Graph graph) async {
+  static Future<void> deleteGraph(int id) async {
     final db = await database;
     await db.delete(
       'graph',
       where: "id = ?",
-      whereArgs: [graph.id],
+      whereArgs: [id],
     );
   }
 }
