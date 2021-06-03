@@ -114,7 +114,7 @@ class GraphList extends StatelessWidget {
                       child: const Text('削除'),
                       onPressed: () async {
                         await Graph.deleteGraph(id);
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/save');
                       },
                     ),
                     SimpleDialogOption(
@@ -134,7 +134,7 @@ class GraphList extends StatelessWidget {
                                   onPressed: () async {
                                     await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
                                     myController.clear();
-                                    Navigator.pop(context);
+                                    Navigator.pushNamed(context, '/save');
                                   },
                                 ),
                               ],
@@ -184,8 +184,7 @@ class LabelBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
+    return Container(
         child: Text(num),
       );
   }
@@ -197,8 +196,7 @@ class Box extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
+    return Container(
         decoration: BoxDecoration(
           border: Border.all(width: 0.5, color: Colors.white),
           color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
