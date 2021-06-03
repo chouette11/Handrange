@@ -159,7 +159,6 @@ class _TextFiledState extends State<TextField> {
                 ],
               ),
             ),
-            BottomAd()
           ],
         );
       }),

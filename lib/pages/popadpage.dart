@@ -69,25 +69,26 @@ class PopAdWidget extends StatelessWidget {
             future: _calculation,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
-                return
-                  Container(
-                    color: Colors.white,
-                    height: 180,
-                    child: Column(
-                      children: [
-                        PopAd(),
-                        Container(
-                            padding:EdgeInsets.only(top: 3),
-                            child: Text("計算が完了しました")
-                        ),
-                        RaisedButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, '/calculate'),
-                          child: Text("表示"),
-                        ),
-                      ],
-                    ),
-                  );
+                return Container(
+                  color: Colors.white,
+                  height: 180,
+                  child: Column(
+                    children: [
+                      PopAd(),
+                      Container(
+                        padding:EdgeInsets.only(top: 3),
+                        child: Text("計算が完了しました"),
+                      ),
+                      RaisedButton(
+                        onPressed: () {
+                          model.onVisible();
+                          Navigator.pushNamed(context, '/calculate');
+                        },
+                        child: Text("表示"),
+                      ),
+                    ],
+                  ),
+                );
               }
               else{
                 return Container(
@@ -101,8 +102,8 @@ class PopAdWidget extends StatelessWidget {
                         children: [
                           Text("計算中です"),
                           Container(
-                              width: 20, height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 1.5,)
+                            width: 20, height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 1.5,),
                           ),
                         ],
                       ),

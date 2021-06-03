@@ -66,7 +66,7 @@ class Calculate extends StatelessWidget {
             ElevatedButton(
                 child: Text('計算'),
                 onPressed: () {
-                  if (model.card3 == null) {
+                  if (model.card3 == "") {
                     showDialog(context: context,
                       builder: (_) => SimpleDialog(
                         title:Text("エラー"),
@@ -103,7 +103,6 @@ class Calculate extends StatelessWidget {
                     );
                     model.graphJudge();
                     model.createComboList();
-                    model.onVisible();
                   }
                 }
             ),
