@@ -53,33 +53,33 @@ class InitGraph {
           id:0,
           text:"TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTFFFFFFFFTTFTTTFFFFFFFTFFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
           name: "UTG",
-          count: 234)
+          count: 234),
       );
       await insertInitGraph(InitGraph(
           id:1,
           text:"TTTTTTTTTTTTTTTTTTTFFFFFFFTTTTTTFFFFFFFTTTTTTFFFFFFFTTFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
           name: "HJ",
-          count: 250)
+          count: 250),
       );
       await insertInitGraph(InitGraph(
           id:2,
           text:"TTTTTTTTTTTTTTTTTTTTTTFFFFTTTTTTTFFFFFFTTTTTTFFFFFFFTTTTTTTFFFFFFTFFFFTTTFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTTFFFFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFT",
           name: "UTG",
-          count: 342)
+          count: 342),
       );
       await insertInitGraph(InitGraph(
           id:3,
           text:"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTFFFTTTTTTTTFFFFFTTTTTTTTFFFFFTTTTTTTTTFFFFTFFFFFTTTTFFFTFFFFFFTTTFFFTFFFFFFFTTTFFTFFFFFFFFTTFFTFFFFFFFFFTFFFFFFFFFFFFFTFFFFFFFFFFFFFT",
           name: "BTN",
-          count: 462)
+          count: 462),
       );
     }
     return List.generate(maps.length, (i) {
       return InitGraph(
-          id: maps[i]['id'],
-          text: maps[i]['text'],
-          name: maps[i]['name'],
-          count: maps[i]['count']
+        id: maps[i]['id'],
+        text: maps[i]['text'],
+        name: maps[i]['name'],
+        count: maps[i]['count'],
       );
     });
   }
