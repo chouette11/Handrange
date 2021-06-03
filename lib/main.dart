@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Container(
       child:ChangeNotifierProvider<Light>(
-        create: (_) => Light(),//TODO load setting
+        create: (_) => Light(),
         child:ChangeNotifierProvider<Calculation>(
           create: (_) => Calculation(),
           child:  MaterialApp(

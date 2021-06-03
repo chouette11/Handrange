@@ -23,16 +23,12 @@ class MyApp extends StatelessWidget {
 class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<Light>(builder: (context, model, child) {
-        return Scaffold(
-            appBar: AppBar(
-              title: Text('一覧'),
-            ),
-            drawer: returnDrawer(context),
-            body:SaveGraphs()
-        );
-      }),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('一覧'),
+        ),
+        drawer: returnDrawer(context),
+        body:SaveGraphs()
     );
   }
 }
@@ -178,18 +174,6 @@ class GraphList extends StatelessWidget {
   }
 }
 
-class LabelBox extends StatelessWidget {
-  LabelBox( {Key? key, required this.num}) : super(key: key);
-  final String num;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Text(num),
-      );
-  }
-}
-
 class Box extends StatelessWidget {
   Box( {Key? key,  required this.isSelected }) : super(key: key);
   final bool isSelected;
@@ -197,10 +181,10 @@ class Box extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: Colors.white),
-          color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-        ),
-      );
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.5, color: Colors.white),
+        color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
+      ),
+    );
   }
 }

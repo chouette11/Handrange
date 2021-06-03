@@ -23,107 +23,105 @@ class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return
-      Consumer<Light>(builder: (context, model, child) {
-        return
-          Scaffold(
-            appBar: AppBar(
-              title: Text("レンジ作成"),
+    return Consumer<Light>(builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("レンジ作成"),
+        ),
+        drawer: returnDrawer(context),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                model.graphName,
+                style: TextStyle(
+                  fontFamily: "Sans",
+                ),
+              ),
             ),
-            drawer: returnDrawer(context),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+            DisplayGraph(),
+            Row(
               children: [
-                Center(
-                  child: Text(
-                    model.graphName,
-                    style: TextStyle(
-                      fontFamily: "Sans",
-                    ),
-                  ),
+                RaisedButton(
+                    onPressed: () async{
+                      await model.getInitGraph(0);
+                    },
+                    child: Text("UTG")
                 ),
-                DisplayGraph(),
-                Row(
-                  children: [
-                    RaisedButton(
-                        onPressed: () async{
-                          await model.getInitGraph(0);
-                        },
-                        child: Text("UTG")
-                    ),
-                    RaisedButton(
-                        onPressed: () async {
-                          await model.getInitGraph(1);
-                        },
-                        child: Text("HJ")),
-                    RaisedButton(
-                        onPressed: () async {
-                          await model.getInitGraph(2);
-                        },
-                        child: Text("CO")),
-                    RaisedButton(
-                        onPressed: () async {
-                          await model.getInitGraph(3);
-                        },
-                        child: Text("BTN")),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    RaisedButton(
-                        child: Text('Pockets'),
-                        onPressed: () {
-                          model.onPocket();
-                        }
-                    ),
-                    RaisedButton(
-                        child: Text('クリア'),
-                        onPressed: () {
-                          model.onClear();
-                        }
-                    ),
-                    ElevatedButton(
-                        child: Text('保存'),
-                        onPressed: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (_) => AlertDialog(
-                              title: Text("新規ハンドレンジ作成"),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text('名前を入力してね'),
-                                  TextFormField(controller: myController),
-                                  RaisedButton(
-                                    child: Text('実行'),
-                                    onPressed: () async {
-                                      String name;
-                                      name = myController.text;
-                                      myController.clear();
-                                      await saveGraph(model.status, name, model.count);
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
-                        },
-                        child: Text("更新")
-                    ),
-                  ],
-                ),
-                TextField(),
+                RaisedButton(
+                    onPressed: () async {
+                      await model.getInitGraph(1);
+                    },
+                    child: Text("HJ")),
+                RaisedButton(
+                    onPressed: () async {
+                      await model.getInitGraph(2);
+                    },
+                    child: Text("CO")),
+                RaisedButton(
+                    onPressed: () async {
+                      await model.getInitGraph(3);
+                    },
+                    child: Text("BTN")),
               ],
             ),
-          );
-      });
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                RaisedButton(
+                    child: Text('Pockets'),
+                    onPressed: () {
+                      model.onPocket();
+                    }
+                ),
+                RaisedButton(
+                    child: Text('クリア'),
+                    onPressed: () {
+                      model.onClear();
+                    }
+                ),
+                ElevatedButton(
+                    child: Text('保存'),
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text("新規ハンドレンジ作成"),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text('名前を入力してね'),
+                              TextFormField(controller: myController),
+                              RaisedButton(
+                                child: Text('実行'),
+                                onPressed: () async {
+                                  String name;
+                                  name = myController.text;
+                                  myController.clear();
+                                  await saveGraph(model.status, name, model.count);
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
+                    },
+                    child: Text("更新")
+                ),
+              ],
+            ),
+            TextField(),
+          ],
+        ),
+      );
+    });
   }
 }
 //=============================================================================
@@ -174,8 +172,7 @@ class DisplayGraph extends StatelessWidget {
       width: screenSizeWidth,
       height: screenSizeWidth,
       color: Colors.white,
-      child: Consumer<Light>(
-        builder: (context, model, child) {
+      child: Consumer<Light>(builder: (context, model, child) {
           return GridView.count(
             crossAxisCount: 13,
             mainAxisSpacing: 0.001,

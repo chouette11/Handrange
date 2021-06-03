@@ -22,32 +22,28 @@ class MyApp extends StatelessWidget {
 class SelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Light>(builder: (context, model, child) {
-      return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SelectCards(),
-      );
-    });
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SelectCards(),
+    );
   }
 }
 
 class SelectCards extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Consumer<Light>(builder: (context, model, child) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              BackButton(),
-            ],
-          ),
-          Buttons(),
-        ],
-      );
-    });
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            BackButton(),
+          ],
+        ),
+        Buttons(),
+      ],
+    );
   }
 }
 
@@ -81,22 +77,18 @@ class DeleteButton extends StatelessWidget {
 class Buttons extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Consumer<Light>(builder: (context, model, child) {
-        return GridView.count(
-          crossAxisCount: 13,
-          mainAxisSpacing: 0.001,
-          crossAxisSpacing: 0.001,
-          childAspectRatio: 0.78,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          children: CARDS.map((e) =>
-              GridTile(
-                child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
-              ),
-          ).toList(),
-        );
-      }),
+    return GridView.count(
+      crossAxisCount: 13,
+      mainAxisSpacing: 0.001,
+      crossAxisSpacing: 0.001,
+      childAspectRatio: 0.78,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: CARDS.map((e) =>
+          GridTile(
+            child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
+          ),
+      ).toList(),
     );
   }
 }
@@ -144,6 +136,9 @@ class Button extends StatelessWidget{
                     model.card5 = card,
                     Navigator.pushNamed(context, '/calculate'),
                   }
+                  else{
+                      Navigator.pushNamed(context, '/calculate'),
+                    },
           },
           child: Container(
             decoration: BoxDecoration(

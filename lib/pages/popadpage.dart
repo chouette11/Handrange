@@ -37,19 +37,16 @@ class PopAdDisplay extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final double screenSizeWidth = MediaQuery.of(context).size.width;
-
-    return Consumer<Light>(builder: (context, model, child) {
-      return Container(
-        width: screenSizeWidth,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            PopAdWidget(),
-          ],
-        ),
-      );
-    });
+    return Container(
+      width: screenSizeWidth,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          PopAdWidget(),
+        ],
+      ),
+    );
   }
 }
 
