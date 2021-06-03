@@ -81,21 +81,6 @@ class Calculate extends StatelessWidget {
                       ),
                     );
                   }
-                  else if (model.status.every((element) => element["isSelected"] == false)) {
-                    showDialog(context: context,
-                      builder: (_) => SimpleDialog(
-                        title: Text("エラー"),
-                        children:[
-                          SimpleDialogOption(
-                            child: Text('レンジを選択してください'),
-                            onPressed: () {
-                              Navigator.pop(context, "/calculate");
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  }
                   else {
                     showDialog(
                       context: context,

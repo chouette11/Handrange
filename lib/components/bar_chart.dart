@@ -14,32 +14,47 @@ class _BarChart extends State<BarChart> {
   late List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];
-    List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+    //List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+    List<String> labelNameJ = ["ロイヤル", "ストフラ", "クワッズ", "フルハウス", "フラッシュ", "ストレート", "スリーカード", "ツーペア", "ワンペア"];
 
     int i;
     for(i = 0; i <= 8; i++){
-      inputBarData.add(
+      if(widget.comboList[9] == 0){
+        inputBarData.add(
           VBarChartModel(
               index: i,
-              label: labelName[i],
+              label: labelNameJ[i],
+              jumlah: 0,
+              tooltip: "0.00% コンボ:0"
+          ),
+        );
+      }
+      else {
+        inputBarData.add(
+          VBarChartModel(
+              index: i,
+              label: labelNameJ[i],
               jumlah: ((widget.comboList[i] / (widget.comboList[9])) * 100),
-              tooltip: "${((widget.comboList[i] / (widget.comboList[9]) * 100).toStringAsFixed(2))}% combo:${widget.comboList[i].toInt()}"
-          )
-      );
+              tooltip: "${((widget.comboList[i] / (widget.comboList[9]) * 100)
+                  .toStringAsFixed(2))}% コンボ:${widget.comboList[i].toInt()}"
+          ),
+        );
+      }
     }
     barData = inputBarData;
   }
   List<VBarChartModel> initBarData(){
     List<VBarChartModel> barData = [];
-    List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+    //List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];
+    List<String> labelNameJ = ["ロイヤル", "ストフラ", "クワッズ", "フルハウス", "フラッシュ", "ストレート", "スリーカード", "ツーペア", "ワンペア"];
 
     int i;
     for(i = 0; i <= 8; i++){
       barData.add(
           VBarChartModel(
-              index: i,
-              label: labelName[i],
-              jumlah: 0,
+            index: i,
+            label: labelNameJ[i],
+            jumlah: 0,
           )
       );
     }
@@ -49,7 +64,7 @@ class _BarChart extends State<BarChart> {
   @override
   void initState() {
     super.initState();
-    if(widget.comboList == [] || widget.comboList == null){
+    if (widget.comboList == []) {
       barData = initBarData();
     }
     else{
@@ -67,8 +82,8 @@ class _BarChart extends State<BarChart> {
     return VerticalBarchart(
       maxX: 100,
       data: barData,
-      showLegend: true,
-      showBackdrop: true,
+      showLegend: false,
+      showBackdrop: false,
       barStyle: BarStyle.DEFAULT,
       alwaysShowDescription: true,
     );

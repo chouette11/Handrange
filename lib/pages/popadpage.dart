@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../providers/light.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:provider/provider.dart' show Consumer;
+import 'package:provider/provider.dart';
 import '../components/ad_state.dart';
 import '../providers/calculation.dart';
 
