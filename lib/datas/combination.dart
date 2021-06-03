@@ -1,4 +1,4 @@
-const CARDS =[
+const List<Map<String, dynamic>> CARDS =[
   {
     "num": 1,
     "mark": "s",

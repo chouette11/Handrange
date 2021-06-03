@@ -56,7 +56,7 @@ class NativeAdWidget extends StatefulWidget {
 }
 
 class _NativeAdWidgetState extends State<NativeAdWidget> {
-  NativeAd _ad;
+  late NativeAd _ad;
 
   void initState() {
     super.initState();
@@ -88,7 +88,7 @@ class PopAd extends StatefulWidget {
 }
 
 class _PopAdState extends State<PopAd> {
-  BannerAd _ad;
+  late BannerAd _ad;
 
   @override
   void initState(){
@@ -104,6 +104,7 @@ class _PopAdState extends State<PopAd> {
   }
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     if(_ad == null)
       return SizedBox(height: 100);
     else
@@ -121,7 +122,7 @@ class BottomAd extends StatefulWidget {
 }
 
 class _BottomAdState extends State<BottomAd> {
-  BannerAd _ad;
+  late BannerAd _ad;
 
   @override
   void initState(){
@@ -137,6 +138,7 @@ class _BottomAdState extends State<BottomAd> {
   }
   @override
   Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     if(_ad == null)
       return SizedBox(height: 50);
     else

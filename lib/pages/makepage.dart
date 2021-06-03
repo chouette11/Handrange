@@ -6,7 +6,6 @@ import 'package:handrange/datas/sql.dart';
 import 'package:handrange/providers/light.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -38,7 +37,7 @@ class MakeRangePage extends StatelessWidget{
         return
           Scaffold(
             appBar: AppBar(
-              title: Text(AppLocalizations.of(context)!.title,),
+              title: Text("レンジ作成"),
             ),
             drawer: returnDrawer(context),
             body: Column(
@@ -203,7 +202,7 @@ class DisplayGraph extends StatelessWidget {
 }
 
 class TapBox extends StatelessWidget {
-  TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
+  TapBox( {Key? key, required this.hand, required this.isSelected }) : super(key: key);
   final String hand;
   final bool isSelected;
 

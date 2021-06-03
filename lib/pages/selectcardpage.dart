@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -106,7 +108,7 @@ class Buttons extends StatelessWidget{
 }
 
 class Button extends StatelessWidget{
-  Button( {Key key,  this.num, this.mark,  this.card }) : super(key: key);
+  Button( {Key? key,  required this.num, required this.mark,  required this.card }) : super(key: key);
   final int num;
   final String mark;
   final String card;
@@ -118,31 +120,31 @@ class Button extends StatelessWidget{
       child: Consumer<Calculation>(builder: (context, model, child) {
         return GestureDetector(
           onTap: () => {
-            if (model.num1 == null) {
+            if (model.num1 == 0) {
               model.num1 = num,
               model.mark1 = mark,
               model.card1 = card,
               Navigator.pushNamed(context, '/calculate'),
             }
-            else if (model.num2 == null && model.card1 != card) {
+            else if (model.num2 == 0 && model.card1 != card) {
               model.num2 = num,
               model.mark2 = mark,
               model.card2 = card,
               Navigator.pushNamed(context, '/calculate'),
             }
-            else if (model.num3 == null && model.card1 != card && model.card2 != card) {
+            else if (model.num3 == 0 && model.card1 != card && model.card2 != card) {
                 model.num3 = num,
                 model.mark3 = mark,
                 model.card3 = card,
                 Navigator.pushNamed(context, '/calculate'),
               }
-              else if (model.num4 == null && model.card1 != card && model.card2 != card && model.card3 != card ) {
+              else if (model.num4 == 0 && model.card1 != card && model.card2 != card && model.card3 != card ) {
                   model.num4 = num,
                   model.mark4 = mark,
                   model.card4 = card,
                   Navigator.pushNamed(context, '/calculate'),
                 }
-                else if (model.num5 == null && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
+                else if (model.num5 == 0 && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
                     model.num5 = num,
                     model.mark5 = mark,
                     model.card5 = card,
@@ -163,7 +165,7 @@ class Button extends StatelessWidget{
 
 Column returnCards(int number, String selectedMark){
   String returnText(int n) {
-    if (n == null) {
+    if (n == 0) {
       return "";
     }
     else if (n == 13) {
@@ -178,12 +180,15 @@ Column returnCards(int number, String selectedMark){
     else if (n == 10) {
       return "T";
     }
+    else if (n == 1) {
+      return "A";
+    }
     else{
-      return "${n}";
+      return "$n";
     }
   }
   String returnMark(String m) {
-    if (m == null) {
+    if (m == "") {
       return "";
     }
     else if (m == "s") {

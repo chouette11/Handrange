@@ -3,8 +3,7 @@ import 'package:vertical_barchart/vertical-barchart.dart';
 import 'package:vertical_barchart/vertical-barchartmodel.dart';
 
 class BarChart extends StatefulWidget {
-  BarChart({Key key, this.title, this.comboList}) : super(key: key);
-  final String title;
+  BarChart({Key? key,  required this.comboList}) : super(key: key);
   final List<int> comboList;
 
   @override
@@ -12,7 +11,7 @@ class BarChart extends StatefulWidget {
 }
 
 class _BarChart extends State<BarChart> {
-  List<VBarChartModel> barData;
+  late List<VBarChartModel> barData;
   createBarData(){
     List<VBarChartModel> inputBarData = [];
     List<String> labelName = ["Royal", "StraightFlush", "FourCards", "FullHouse", "Flush", "Straight", "ThreeCards", "TwoPair", "OnePair"];

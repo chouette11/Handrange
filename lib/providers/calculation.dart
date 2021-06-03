@@ -5,25 +5,25 @@ import '../datas/combination.dart';
 import 'package:flutter/material.dart';
 
 class Calculation extends ChangeNotifier {
-  int num1;
-  int num2;
-  int num3;
-  int num4;
-  int num5;
-  int num6;
-  int num7;
+  int num1 = 0;
+  int num2 = 0;
+  int num3 = 0;
+  int num4 = 0;
+  int num5 = 0;
+  int num6 = 0;
+  int num7 = 0;
 
-  String mark1;
-  String mark2;
-  String mark3;
-  String mark4;
-  String mark5;
+  String mark1 = "";
+  String mark2 = "";
+  String mark3 = "";
+  String mark4 = "";
+  String mark5 = "";
 
-  String card1;
-  String card2;
-  String card3;
-  String card4;
-  String card5;
+  String card1 = "";
+  String card2 = "";
+  String card3 = "";
+  String card4 = "";
+  String card5 = "";
 
   int royal = 0;
   int straightFlush = 0;
@@ -54,11 +54,11 @@ class Calculation extends ChangeNotifier {
       numbers.add(num2);
       numbers.add(num3);
 
-      if(num4 != null){
+      if(num4 != 0){
         numbers.add(num4);
       }
 
-      if(num5 != null){
+      if(num5 != 0){
         numbers.add(num5);
       }
 
@@ -71,11 +71,11 @@ class Calculation extends ChangeNotifier {
       marks.add(mark2);
       marks.add(mark3);
 
-      if(mark4 != null) {
+      if(mark4 != "") {
         marks.add(mark4);
       }
 
-      if(mark5 != null){
+      if(mark5 != ""){
         marks.add(mark5);
       }
 
@@ -84,11 +84,11 @@ class Calculation extends ChangeNotifier {
       cards.add(card2);
       cards.add(card3);
 
-      if(card4 != null){
+      if(card4 != ""){
         cards.add(card4);
       }
 
-      if(card5 != null){
+      if(card5 != ""){
         cards.add(card5);
       }
 
@@ -100,7 +100,7 @@ class Calculation extends ChangeNotifier {
       onCalculate() {
         for(i = 0; i <= 3; i++){
           String doubleMark = "${mark[i]}${mark[i]}";
-          if((cards.contains("13${mark[i]}") || cards.contains("13${doubleMark}")) && (cards.contains("12${mark[i]}") || cards.contains("12${doubleMark}")) && (cards.contains("11${mark[i]}") || cards.contains("11${doubleMark}")) && (cards.contains("10${mark[i]}") || cards.contains("10${doubleMark}")) && (cards.contains("1${mark[i]}") || cards.contains("1${doubleMark}"))){
+          if((cards.contains("13${mark[i]}") || cards.contains("13$doubleMark")) && (cards.contains("12${mark[i]}") || cards.contains("12$doubleMark")) && (cards.contains("11${mark[i]}") || cards.contains("11$doubleMark")) && (cards.contains("10${mark[i]}") || cards.contains("10$doubleMark")) && (cards.contains("1${mark[i]}") || cards.contains("1$doubleMark"))){
             print("Royal");
             inputRoyalStraightFlash++;
           }
@@ -108,9 +108,9 @@ class Calculation extends ChangeNotifier {
         for(i = 0; i <= max - 5; i++){
           for(j = 0; j <= 3; j++){
             String doubleMark = "${mark[i]}${mark[i]}";
-            if ((cards.contains("${i}${mark[j]}") || cards.contains("${i}${doubleMark}")) && (cards.contains("${i + 1}${mark[j]}") || cards.contains("${i + 1}${doubleMark}")) &&
-                (cards.contains("${i + 2}${mark[j]}") || cards.contains("${i + 2}${doubleMark}")) && (cards.contains("${i + 3}${mark[j]}") || cards.contains("${i + 3}${doubleMark}")) &&
-                (cards.contains("${i + 4}${mark[j]}") || cards.contains("${i + 4}${doubleMark}"))) {
+            if ((cards.contains("$i${mark[j]}") || cards.contains("$i$doubleMark")) && (cards.contains("${i + 1}${mark[j]}") || cards.contains("${i + 1}$doubleMark")) &&
+                (cards.contains("${i + 2}${mark[j]}") || cards.contains("${i + 2}$doubleMark")) && (cards.contains("${i + 3}${mark[j]}") || cards.contains("${i + 3}$doubleMark")) &&
+                (cards.contains("${i + 4}${mark[j]}") || cards.contains("${i + 4}$doubleMark"))) {
               print("StraightFlush");
               inputStraightFlush++;
               break;
@@ -201,8 +201,8 @@ class Calculation extends ChangeNotifier {
           String mark6 = mark[l];
           String mark6_2 = selectedMark[l];
 
-          String card1 = "${num6}${mark6}";
-          String card2 = "${num7}${mark6}";
+          String card1 = "$num6$mark6";
+          String card2 = "$num7$mark6";
           marks.add(mark6_2);
           marks.add(mark6_2);
 
@@ -222,8 +222,8 @@ class Calculation extends ChangeNotifier {
             String mark6_2 = selectedMark[l];
             String mark7_2 = selectedMark[m];
 
-            String card1 = "${num6}${mark6}";
-            String card2 = "${num7}${mark7}";
+            String card1 = "$num6$mark6";
+            String card2 = "$num7$mark7";
             marks.add(mark6_2);
             marks.add(mark7_2);
 
@@ -247,8 +247,8 @@ class Calculation extends ChangeNotifier {
             String mark6_2 = selectedMark[l];
             String mark7_2 = selectedMark[m];
 
-            String card1 = "${num6}${mark6}";
-            String card2 = "${num7}${mark7}";
+            String card1 = "$num6$mark6";
+            String card2 = "$num7$mark7";
             marks.add(mark6_2);
             marks.add(mark7_2);
 
@@ -374,7 +374,7 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<int> comboList;
+  late List<int> comboList;
   createComboList() {
     List<int> inputComboList = [];
 
@@ -408,10 +408,10 @@ class Calculation extends ChangeNotifier {
   String graphName = "";
   onGet(int id,String name) async {
     final graphs = await Graph.getGraph();
-    String TFText = graphs[id].text;
+    String tfText = graphs[id].text;
     int i;
     for (i = 0; i <= 168; i++) {
-      String isTF = TFText[i];
+      String isTF = tfText[i];
       if (isTF == "T") {
         status[i].removeWhere((key, value) => value == false || value == true);
         status[i].addAll(

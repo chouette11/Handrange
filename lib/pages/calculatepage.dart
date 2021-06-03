@@ -141,7 +141,7 @@ class Display extends StatelessWidget {
 }
 
 class TapBox extends StatelessWidget {
-  TapBox( {Key key, this.hand, this.isSelected }) : super(key: key);
+  TapBox( {Key? key, required this.hand, required this.isSelected }) : super(key: key);
   final String hand;
   final bool isSelected;
 
@@ -177,7 +177,7 @@ class TapBox extends StatelessWidget {
 class CardBoxes extends StatelessWidget {
   Container returnContainer(int n, String m){
     return Container(
-      color: n == null || m == null ? Colors.black26 : Colors.white,
+      color: n == 0 ? Colors.black26 : Colors.white,
       child: Container(
         width: 40,
         height: 65,
@@ -221,16 +221,21 @@ class CardBoxes extends StatelessWidget {
               RaisedButton(
                   child: Text('クリア'),
                   onPressed: () {
-                    model.num1 = null;
-                    model.num2 = null;
-                    model.num3 = null;
-                    model.num4 = null;
-                    model.num5 = null;
-                    model.mark1 = null;
-                    model.mark2 = null;
-                    model.mark3 = null;
-                    model.mark4 = null;
-                    model.mark5 = null;
+                    model.num1 = 0;
+                    model.num2 = 0;
+                    model.num3 = 0;
+                    model.num4 = 0;
+                    model.num5 = 0;
+                    model.mark1 = "";
+                    model.mark2 = "";
+                    model.mark3 = "";
+                    model.mark4 = "";
+                    model.mark5 = "";
+                    model.card1 = "";
+                    model.card2 = "";
+                    model.card3 = "";
+                    model.card4 = "";
+                    model.card5 = "";
                     Navigator.pushNamed(context, '/calculate');
                   }),
             ],
@@ -259,6 +264,7 @@ class Result extends StatelessWidget {
 
 Column returnCard(int number, String selectedMark) {
   String returnText(int n) {
+    // ignore: unnecessary_null_comparison
     if (n == null) {
       return "";
     }
@@ -279,6 +285,7 @@ Column returnCard(int number, String selectedMark) {
     }
   }
   String returnMark(String m) {
+    // ignore: unnecessary_null_comparison
     if (m == null) {
       return "";
     }
@@ -369,7 +376,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
 }
 
 class GraphList extends StatelessWidget {
-  GraphList({Key key, this.id, this.num, this.name, this.count, this.text}) : super(key: key);
+  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
   final int id;
   final int num;
   final String name;
@@ -461,7 +468,7 @@ class GraphList extends StatelessWidget {
 }
 
 class Box extends StatelessWidget {
-  Box( {Key key,  this.isSelected }) : super(key: key);
+  Box( {Key? key,  required this.isSelected }) : super(key: key);
   final bool isSelected;
 
   @override

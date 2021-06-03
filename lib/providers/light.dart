@@ -25,13 +25,16 @@ class Light extends ChangeNotifier {
 
   onHighs(String num){
     highs[num] = !highs[num];
+
     status.forEach((element) {
+      int value = element["value"];
+
       if (element["hand"].contains(num)) {
         if (element["isSelected"] == true && highs[num] == true) {
-          count -= element["value"];
+          count -= value;
         }
         if (element["isSelected"] == false && highs[num] == false) {
-          count += element["value"];
+          count += value;
         }
         element["isSelected"] = highs[num];
       }
@@ -42,9 +45,10 @@ class Light extends ChangeNotifier {
 
   onTapped(String hand) {
     final tappedBox = status.firstWhere((e) => e["hand"] == hand);
+    int value = tappedBox["value"];
 
     tappedBox["isSelected"] = !tappedBox["isSelected"];
-    tappedBox["isSelected"] ? count += tappedBox["value"] : count -= tappedBox["value"];
+    tappedBox["isSelected"] ? count += value : count -= value;
     notifyListeners();
   }
 
@@ -58,12 +62,14 @@ class Light extends ChangeNotifier {
   }
 
   pocketHand(element,bool name){
+    int value = element["value"];
+
     if (element["hand"].contains( RegExp(r"(.)\1") )) {
       if (element["isSelected"] == true && name == true) {
-        count -= element["value"];
+        count -= value;
       }
       if (element["isSelected"] == false && name == false) {
-        count += element["value"];
+        count += value;
       }
       element["isSelected"] = name;
     }
@@ -79,12 +85,12 @@ class Light extends ChangeNotifier {
 
   getInitGraph(int id) async {
     final  initGraphs = await InitGraph.getInitGraph();
-    String TFText = initGraphs[id].text;
+    String tfText = initGraphs[id].text;
     count = initGraphs[id].count;
 
     int i;
     for (i = 0; i <= 168; i++) {
-      String isTF = TFText[i];
+      String isTF = tfText[i];
       if (isTF == "T") {
         status[i].removeWhere((key, value) => value == false || value == true);
         status[i].addAll(
@@ -108,22 +114,22 @@ class Light extends ChangeNotifier {
   onConnect(int minNum, String isSuit, element){
     int i;
     for (i = 9; i > minNum; i--) {
-      if (element["hand"].contains("${i}${i - 1}${isSuit}")) {
+      if (element["hand"].contains("$i${i - 1}$isSuit")) {
         element["isSelected"] = true;
       }
     }
   }
 //sqlからgraphのリストを受け取ってタップ時に読み込み
   String graphName = "";
-  int graphId;
-  int graphCount;
+  late int graphId;
+  late int graphCount;
   onGet(int id, String name, int inputCount) async {
     final graphs = await Graph.getGraph();
-    String TFText = graphs[id].text;
+    String tfText = graphs[id].text;
 
     int i;
     for (i = 0; i <= 168; i++) {
-      String isTF = TFText[i];
+      String isTF = tfText[i];
 
       if (isTF == "T") {
         status[i].removeWhere((key, value) => value == false || value == true);

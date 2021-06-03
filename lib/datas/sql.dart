@@ -8,7 +8,7 @@ class Graph {
   final String name;
   final int count;
 
-  Graph({this.id, this.text, this.name, this.count});
+  Graph({required this.id, required this.text, required this.name, required this.count});
   Map<String, dynamic> toMap() {
     return {
       'id': id,

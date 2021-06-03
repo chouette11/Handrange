@@ -87,7 +87,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
 }
 
 class GraphList extends StatelessWidget {
-  GraphList({Key key, this.id, this.num, this.name, this.count, this.text}) : super(key: key);
+  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
   final int id;
   final int num;
   final String name;
@@ -178,49 +178,8 @@ class GraphList extends StatelessWidget {
   }
 }
 
-class GraphRowLabel extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: GridView.count(
-        crossAxisCount: 13,
-        mainAxisSpacing: 0.001,
-        crossAxisSpacing: 0.001,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        children: labelList.map((e) =>
-            GridTile(
-              child: LabelBox(num: e["num"],),
-            ),
-        ).toList(),
-      ),
-    );
-  }
-}
-
-class GraphColumnLabel extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: GridView.count(
-          crossAxisCount: 1,
-          mainAxisSpacing: 0.001,
-          crossAxisSpacing: 0.001,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          children: ColumnLabelList.map((e) =>
-              GridTile(
-                child: LabelBox(num: e["num"],),
-              ),
-          ).toList(),
-        ),
-      );
-  }
-}
-
 class LabelBox extends StatelessWidget {
-  LabelBox( {Key key, this.num}) : super(key: key);
+  LabelBox( {Key? key, required this.num}) : super(key: key);
   final String num;
 
   @override
@@ -233,7 +192,7 @@ class LabelBox extends StatelessWidget {
 }
 
 class Box extends StatelessWidget {
-  Box( {Key key,  this.isSelected }) : super(key: key);
+  Box( {Key? key,  required this.isSelected }) : super(key: key);
   final bool isSelected;
 
   @override
