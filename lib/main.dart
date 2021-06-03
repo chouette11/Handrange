@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/pages/equitypage.dart';
 import 'package:handrange/pages/makepage.dart';
+import 'package:handrange/providers/eqcalculation.dart';
 import 'providers/calculation.dart';
 import 'pages/savepage.dart';
 import 'package:provider/provider.dart';
@@ -37,19 +38,22 @@ class _MyAppState extends State<MyApp> {
         create: (_) => Light(),
         child:ChangeNotifierProvider<Calculation>(
           create: (_) => Calculation(),
-          child:  MaterialApp(
-            title: 'HandRange',
-            theme: ThemeData(
-              primarySwatch: Colors.lightBlue,
+          child:ChangeNotifierProvider<EqCalculation>(
+            create: (_) => EqCalculation(),
+            child:MaterialApp(
+              title: 'HandRange',
+              theme: ThemeData(
+                primarySwatch: Colors.lightBlue,
+              ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => MakeRangePage(),
+                '/save': (context) => SavePage(),
+                '/calculate': (context) => CalculatePage(),
+                '/select': (context) => SelectPage(),
+                '/equity' : (context) => EquityPage(),
+              },
             ),
-            initialRoute: '/',
-            routes: {
-              '/': (context) => MakeRangePage(),
-              '/save': (context) => SavePage(),
-              '/calculate': (context) => CalculatePage(),
-              '/select': (context) => SelectPage(),
-              '/equity' : (context) => EquityPage(),
-            },
           ),
         ),
       ),

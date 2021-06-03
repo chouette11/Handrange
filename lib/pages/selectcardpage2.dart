@@ -85,16 +85,16 @@ class Button extends StatelessWidget{
               model.num1 = num,
               model.mark1 = mark,
               model.card1 = card,
-              Navigator.pushNamed(context, '/calculate'),
+              Navigator.pushNamed(context, '/equity'),
             }
             else if (model.num2 == 0 && model.card1 != card) {
               model.num2 = num,
               model.mark2 = mark,
               model.card2 = card,
-              Navigator.pushNamed(context, '/calculate'),
+              Navigator.pushNamed(context, '/equity'),
             }
             else{
-                Navigator.pushNamed(context, '/calculate'),
+                Navigator.pushNamed(context, '/equity'),
               },
           },
           child: Container(

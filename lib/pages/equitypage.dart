@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:handrange/components/drawer.dart';
 import 'package:handrange/functions/elements.dart';
 import 'package:handrange/pages/calculatepage.dart';
-import 'package:handrange/pages/selectcardpage.dart';
-import 'package:handrange/providers/calculation.dart';
+import 'package:handrange/pages/selectcardpage2.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
 
@@ -60,10 +59,7 @@ class Calculate extends StatelessWidget {
                   },
                   child: Text("レンジ")
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text("ハンド")
-              ),
+              CardBoxes(),
             ],
           ),
           Row(
@@ -79,10 +75,7 @@ class Calculate extends StatelessWidget {
                   onPressed: () {},
                   child: Text("レンジ")
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text("ハンド")
-              ),
+              CardBoxes(),
             ],
           ),
         ],
