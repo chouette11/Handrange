@@ -211,7 +211,7 @@ const List<Map<String, dynamic>> CARDS =[
   },
 ];
 
-const CONBI =[{
+const List<Map<String, dynamic>> CONBI =[{
   "hand": 'AA',
   "value":6,
 },

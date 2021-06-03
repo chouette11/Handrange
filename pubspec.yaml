@@ -23,10 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: 4.3.3
-  sqflite:
+  provider: 5.0.0
+  sqflite: 2.0.0
   path:
-  flutter_custom_clippers:
   vertical_barchart: ^2.0.0+2
   loading_gifs: ^0.3.0
   google_mobile_ads: ^0.13.0

@@ -23,8 +23,9 @@ class InitGraph {
   }
 
   static Future<Database> get database async {
+    String? path = await getDatabasesPath();
     final Future<Database> _database = openDatabase(
-      join(await getDatabasesPath(), 'initGraph_database.db'),
+      join(path!, 'initGraph_database.db'),
       onCreate: (db, version) {
         return db.execute(
             "CREATE TABLE initGraph(id INTEGER PRIMARY KEY, text TEXT, name TEXT, count INTEGER)"

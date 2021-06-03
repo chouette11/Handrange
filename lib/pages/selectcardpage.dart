@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -69,15 +66,12 @@ class DeleteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      child: ClipPath(
-        clipper: OvalLeftBorderClipper(),
-        child: Container(
-          width: 60,
-          height: 40,
-          color: Colors.blueGrey,
-          child: Center(
-            child: Text("削除"),
-          ),
+      child: Container(
+        width: 60,
+        height: 40,
+        color: Colors.blueGrey,
+        child: Center(
+          child: Text("削除"),
         ),
       ),
     );

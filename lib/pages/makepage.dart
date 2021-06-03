@@ -11,15 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('jp', ''), //日本語
-        const Locale('en', ''), //英語
-      ],
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
