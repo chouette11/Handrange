@@ -26,8 +26,8 @@ class EqCalculation extends ChangeNotifier {
     "isSelected": false,
   }).toList();
 
-  String graphName = "";
-  onGet(int id,String name) async {
+  String graphName1 = "";
+  onGet1(int id,String name) async {
     final graphs = await Graph.getGraph();
     String tfText = graphs[id].text;
     int i;
@@ -50,7 +50,35 @@ class EqCalculation extends ChangeNotifier {
         );
       }
     }
-    graphName = name;
+    graphName1 = name;
+    notifyListeners();
+  }
+
+  String graphName2 = "";
+  onGet2(int id,String name) async {
+    final graphs = await Graph.getGraph();
+    String tfText = graphs[id].text;
+    int i;
+    for (i = 0; i <= 168; i++) {
+      String isTF = tfText[i];
+      if (isTF == "T") {
+        status2[i].removeWhere((key, value) => value == false || value == true);
+        status2[i].addAll(
+            <String,bool>{
+              "isSelected": true,
+            }
+        );
+      }
+      else if (isTF == "F") {
+        status2[i].removeWhere((key, value) => value == false || value == true);
+        status2[i].addAll(
+            <String,dynamic>{
+              "isSelected": false,
+            }
+        );
+      }
+    }
+    graphName2 = name;
     notifyListeners();
   }
 }

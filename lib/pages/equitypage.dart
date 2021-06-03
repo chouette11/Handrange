@@ -61,7 +61,7 @@ class Calculate extends StatelessWidget {
                   },
                   child: Text("レンジ")
               ),
-              DisplayGraph(),
+              DisplayGraph1(),
               CardBoxes(),
             ],
           ),
@@ -94,7 +94,7 @@ class Calculate extends StatelessWidget {
   }
 }
 
-class DisplayGraph extends StatelessWidget {
+class DisplayGraph1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width / 4;
@@ -121,32 +121,30 @@ class DisplayGraph extends StatelessWidget {
   }
 }
 
-class CardBoxes extends StatelessWidget {
+class DisplayGraph2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<EqCalculation>(builder: (context, model, child) {
-      return Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => SelectPage(),
-              );
-            },
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CardBox(model.num1_1, model.mark1_1),
-                  CardBox(model.num1_2, model.mark1_2),
-                ],
+    double screenSizeWidth = MediaQuery.of(context).size.width / 4;
+    return Container(
+      width: screenSizeWidth,
+      height: screenSizeWidth,
+      color: Colors.white,
+      child: Consumer<EqCalculation>(builder: (context, model, child) {
+        return GridView.count(
+          crossAxisCount: 13,
+          mainAxisSpacing: 0.001,
+          crossAxisSpacing: 0.001,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          children: model.status2.map((e) =>
+              GridTile(
+                child: Box(isSelected: e["isSelected"]),
               ),
-            ),
-          ),
-        ],
-      );
-    });
+          ).toList(),
+        );
+      },
+      ),
+    );
   }
 }
 
@@ -213,7 +211,7 @@ class GraphList extends StatelessWidget {
     return Consumer<EqCalculation>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () => {
-          model.onGet(num,name,),
+          model.onGet1(num,name,),
           Navigator.pushNamed(context, '/equity'),
         },
         child: Column(
@@ -257,5 +255,34 @@ class Box extends StatelessWidget {
         color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
       ),
     );
+  }
+}
+
+class CardBoxes extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<EqCalculation>(builder: (context, model, child) {
+      return Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => SelectPage(),
+              );
+            },
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CardBox(model.num1_1, model.mark1_1),
+                  CardBox(model.num1_2, model.mark1_2),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
