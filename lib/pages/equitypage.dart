@@ -61,6 +61,7 @@ class Calculate extends StatelessWidget {
                   },
                   child: Text("レンジ")
               ),
+              DisplayGraph(),
               CardBoxes(),
             ],
           ),
@@ -74,13 +75,47 @@ class Calculate extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        content: SaveGraphs(),
+                      ),
+                    );
+                  },
                   child: Text("レンジ")
               ),
               CardBoxes(),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DisplayGraph extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double screenSizeWidth = MediaQuery.of(context).size.width / 4;
+    return Container(
+      width: screenSizeWidth,
+      height: screenSizeWidth,
+      color: Colors.white,
+      child: Consumer<EqCalculation>(builder: (context, model, child) {
+        return GridView.count(
+          crossAxisCount: 13,
+          mainAxisSpacing: 0.001,
+          crossAxisSpacing: 0.001,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          children: model.status1.map((e) =>
+              GridTile(
+                child: Box(isSelected: e["isSelected"]),
+              ),
+          ).toList(),
+        );
+      },
       ),
     );
   }
@@ -136,9 +171,9 @@ class _SaveGraphsState extends State<SaveGraphs>{
               width: screenSizeWidth,
               child: GridView.count(
                 crossAxisCount: 2,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 2.5,
-                childAspectRatio: 0.83,
+                mainAxisSpacing: 0.5,
+                crossAxisSpacing: 1,
+                childAspectRatio: 0.75,
                 children: getIds(snapshot).map((e) =>
                     GridTile(
                       child: GraphList(
