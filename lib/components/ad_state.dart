@@ -130,7 +130,7 @@ class _BottomAdState extends State<BottomAd> {
   void initState(){
     super.initState();
     _ad = BannerAd(
-        adUnitId: 'ca-app-pub-3443545166967285/6738424627',
+        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
         //release ca-app-pub-3443545166967285/6738424627
         //debug  ca-app-pub-3940256099942544/6300978111
         size: AdSize.banner,
