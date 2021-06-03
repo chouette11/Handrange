@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/providers/fixrange.dart';
 import '../components/bar_chart.dart';
 import 'package:handrange/datas/sql.dart';
 import '../providers/calculation.dart';
@@ -335,43 +336,44 @@ class _SaveGraphsState extends State<SaveGraphs>{
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
-    return FutureBuilder(
-        future: graphs,
-        builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              width: screenSizeWidth,
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 0.5,
-                crossAxisSpacing: 1,
-                childAspectRatio: 0.75,
-                children: getIds(snapshot).map((e) =>
-                    GridTile(
-                      child: GraphList(
-                          id: e["id"],
-                          num: e["num"],
-                          text: e["text"],
-                          name: e["name"],
-                          count: e["count"]),
-                    ),
-                ).toList(),
-              ),
-            );
+    return Consumer<FixRange>(builder: (context, fix, child) {
+      return FutureBuilder(
+          future: graphs,
+          builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                width: screenSizeWidth,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 0.5,
+                  crossAxisSpacing: 1,
+                  childAspectRatio: 0.75,
+                  children: getIds(snapshot).map((e) =>
+                      GridTile(
+                        child: GraphList(
+                            id: e["id"],
+                            num: e["num"],
+                            text: e["text"],
+                            name: e["name"],
+                            count: e["count"]),
+                      ),
+                  ).toList(),
+                ),
+              );
+            }
+            else if (snapshot.hasError) {
+              return Center(
+                child: Text("Error"),
+              );
+            }
+            else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           }
-          else if (snapshot.hasError) {
-            return Center(
-              child: Text("Error"),
-            );
-          }
-          else{
-            return Center(
-              child:
-              CircularProgressIndicator(),
-            );
-          }
-        }
-    );
+      );
+    });
   }
 }
 
@@ -387,82 +389,87 @@ class GraphList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Calculation>(builder: (context, model, child) {
-      return GestureDetector(
-        onTap: () => {
-          model.onGet(num,name,),
-          Navigator.pushNamed(context, '/calculate'),
-        },
-        onLongPress: () => {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SimpleDialog(
-                  title: Text(name),
-                  children: <Widget>[
-                    SimpleDialogOption(
-                      child: const Text('削除'),
-                      onPressed: () async {
-                        await Graph.deleteGraph(Graph(id:id));
-                        Navigator.pop(context);
-                      },
-                    ),
-                    SimpleDialogOption(
-                      child: const Text('名前の変更'),
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (_) =>
-                              AlertDialog(
-                                title: Text("新規メモ作成"),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text('名前を入力してね'),
-                                    TextFormField(controller: myController),
-                                    RaisedButton(
-                                      child: Text('実行'),
-                                      onPressed: () async {
-                                        await Graph.updateGraph(Graph(name: myController.text));
-                                        myController.clear();
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                  ],
+      return Consumer<FixRange>(builder: (context, fix, child) {
+        return GestureDetector(
+          onTap: () =>
+          {
+            model.onGet(num, name,),
+            Navigator.pushNamed(context, '/calculate'),
+          },
+          onLongPress: () =>
+          {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SimpleDialog(
+                    title: Text(name),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        child: const Text('削除'),
+                        onPressed: () async {
+                          await fix.deleteRange(id);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      SimpleDialogOption(
+                        child: const Text('名前の変更'),
+                        onPressed: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (_) =>
+                                AlertDialog(
+                                  title: Text("新規メモ作成"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text('名前を入力してね'),
+                                      TextFormField(controller: myController),
+                                      RaisedButton(
+                                        child: Text('実行'),
+                                        onPressed: () async {
+                                          fix.renameRange(id, myController.text, name, count);
+                                          myController.clear();
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                        );
-                        Navigator.pop(context);
-                      },
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                }
+            ),
+          },
+          child: Column(
+            children: [
+              GridView.count(
+                crossAxisCount: 13,
+                mainAxisSpacing: 0.001,
+                crossAxisSpacing: 0.001,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: getTFs(text).map((e) =>
+                    GridTile(
+                      child: Box(isSelected: e["isSelected"]),
                     ),
+                ).toList(),
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
+                    Text(name),
                   ],
-                );
-              }
+                ),
+              ),
+            ],
           ),
-        },
-        child:Column(
-          children: [
-            GridView.count(
-              crossAxisCount: 13,
-              mainAxisSpacing: 0.001,
-              crossAxisSpacing: 0.001,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: getTFs(text).map((e) => GridTile(
-                child: Box(isSelected: e["isSelected"]),
-              ),
-              ).toList(),
-            ),
-            Center(
-              child: Column(
-                children: [
-                  Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
-                  Text(name),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+        );
+      });
     });
   }
 }

@@ -113,7 +113,7 @@ class GraphList extends StatelessWidget {
                     SimpleDialogOption(
                       child: const Text('削除'),
                       onPressed: () async {
-                        await Graph.deleteGraph(Graph(id:id));
+                        await Graph.deleteGraph(id);
                         Navigator.pop(context);
                       },
                     ),
