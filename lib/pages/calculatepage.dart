@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/providers/fixrange.dart';
 import '../components/bar_chart.dart';
 import 'package:handrange/datas/sql.dart';
 import '../providers/calculation.dart';
@@ -265,8 +264,7 @@ class Result extends StatelessWidget {
 
 Column returnCard(int number, String selectedMark) {
   String returnText(int n) {
-    // ignore: unnecessary_null_comparison
-    if (n == null) {
+    if (n == 0) {
       return "";
     }
     else if (n == 13) {
@@ -281,13 +279,15 @@ Column returnCard(int number, String selectedMark) {
     else if (n == 10) {
       return "T";
     }
+    else if (n == 1) {
+      return "A";
+    }
     else{
-      return "${n}";
+      return "$n";
     }
   }
   String returnMark(String m) {
-    // ignore: unnecessary_null_comparison
-    if (m == null) {
+    if (m == "") {
       return "";
     }
     else if (m == "s") {
@@ -336,7 +336,6 @@ class _SaveGraphsState extends State<SaveGraphs>{
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
-    return Consumer<FixRange>(builder: (context, fix, child) {
       return FutureBuilder(
           future: graphs,
           builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
@@ -373,7 +372,6 @@ class _SaveGraphsState extends State<SaveGraphs>{
             }
           }
       );
-    });
   }
 }
 
@@ -389,60 +387,10 @@ class GraphList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Calculation>(builder: (context, model, child) {
-      return Consumer<FixRange>(builder: (context, fix, child) {
         return GestureDetector(
-          onTap: () =>
-          {
-            model.onGet(num, name,),
+          onTap: () => {
+            model.onGet(num, name),
             Navigator.pushNamed(context, '/calculate'),
-          },
-          onLongPress: () =>
-          {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return SimpleDialog(
-                    title: Text(name),
-                    children: <Widget>[
-                      SimpleDialogOption(
-                        child: const Text('削除'),
-                        onPressed: () async {
-                          await fix.deleteRange(id);
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SimpleDialogOption(
-                        child: const Text('名前の変更'),
-                        onPressed: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (_) =>
-                                AlertDialog(
-                                  title: Text("新規メモ作成"),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Text('名前を入力してね'),
-                                      TextFormField(controller: myController),
-                                      RaisedButton(
-                                        child: Text('実行'),
-                                        onPressed: () async {
-                                          fix.renameRange(id, myController.text, name, count);
-                                          myController.clear();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                          );
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  );
-                }
-            ),
           },
           child: Column(
             children: [
@@ -470,7 +418,6 @@ class GraphList extends StatelessWidget {
           ),
         );
       });
-    });
   }
 }
 
