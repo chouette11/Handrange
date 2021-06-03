@@ -374,7 +374,7 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
-  late List<int> comboList;
+  List<int> comboList = [];
   createComboList() {
     List<int> inputComboList = [];
 
