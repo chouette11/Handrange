@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:handrange/functions/elements.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import '../providers/light.dart';
-import '../datas/combination.dart';
-import '../providers/calculation.dart';
+import 'package:flutter/material.dart';
+import 'package:handrange/datas/combination.dart';
+import 'package:handrange/functions/elements.dart';
+import 'package:handrange/providers/eqcalculation.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -39,38 +37,14 @@ class SelectCards extends StatelessWidget{
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            BackButton(),
+            ElevatedButton(onPressed: () =>
+                Navigator.pushNamed(context, '/equity'),
+              child: Text("戻る"),
+            ),
           ],
         ),
         Buttons(),
       ],
-    );
-  }
-}
-
-class BackButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () =>
-        Navigator.pushNamed(context, '/calculate'),
-      child: Text("戻る"),
-    );
-  }
-}
-
-class DeleteButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 60,
-        height: 40,
-        color: Colors.blueGrey,
-        child: Center(
-          child: Text("削除"),
-        ),
-      ),
     );
   }
 }
@@ -104,42 +78,36 @@ class Button extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Consumer<Calculation>(builder: (context, model, child) {
+      child: Consumer<EqCalculation>(builder: (context, model, child) {
         return GestureDetector(
           onTap: () => {
-            if (model.num1 == 0) {
-              model.num1 = num,
-              model.mark1 = mark,
-              model.card1 = card,
-              Navigator.pushNamed(context, '/calculate'),
+            if (model.num1_1 == 0) {
+              model.num1_1 = num,
+              model.mark1_1 = mark,
+              model.card1_1 = card,
+              Navigator.pushNamed(context, '/equity'),
             }
-            else if (model.num2 == 0 && model.card1 != card) {
-              model.num2 = num,
-              model.mark2 = mark,
-              model.card2 = card,
-              Navigator.pushNamed(context, '/calculate'),
+            else if (model.num1_2 == 0 && model.card1_1 != card) {
+              model.num1_2 = num,
+              model.mark1_2 = mark,
+              model.card1_2 = card,
+              Navigator.pushNamed(context, '/equity'),
             }
-            else if (model.num3 == 0 && model.card1 != card && model.card2 != card) {
-                model.num3 = num,
-                model.mark3 = mark,
-                model.card3 = card,
+            else if (model.num2_1 == 0 && model.card1_1 != card && model.card1_2 != card) {
+                model.num2_1 = num,
+                model.mark2_1 = mark,
+                model.card2_1 = card,
                 Navigator.pushNamed(context, '/calculate'),
               }
-              else if (model.num4 == 0 && model.card1 != card && model.card2 != card && model.card3 != card ) {
-                  model.num4 = num,
-                  model.mark4 = mark,
-                  model.card4 = card,
+              else if (model.num2_2 == 0 && model.card1_1 != card && model.card1_2 != card && model.card2_1 != card ) {
+                  model.num2_2 = num,
+                  model.mark2_2 = mark,
+                  model.card2_2 = card,
                   Navigator.pushNamed(context, '/calculate'),
                 }
-                else if (model.num5 == 0 && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
-                    model.num5 = num,
-                    model.mark5 = mark,
-                    model.card5 = card,
-                    Navigator.pushNamed(context, '/calculate'),
-                  }
-                  else{
-                      Navigator.pushNamed(context, '/calculate'),
-                    },
+            else{
+                Navigator.pushNamed(context, '/equity'),
+              },
           },
           child: Container(
             decoration: BoxDecoration(

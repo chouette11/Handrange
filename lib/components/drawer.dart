@@ -39,6 +39,13 @@ Drawer returnDrawer(BuildContext context,) {
             Navigator.pushNamed(context, '/calculate');
           },
         ),
+        ListTile(
+          leading: Icon(Icons.analytics),
+          title: Text('エクイティ計算'),
+          onTap: () {
+            Navigator.pushNamed(context, '/equity');
+          },
+        ),
       ],
     ),
   );
