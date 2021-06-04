@@ -154,6 +154,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
                                   model.changeButtonName(0, name);
+                                  Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
@@ -161,6 +162,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
                                   model.changeButtonName(1, name);
+                                  Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
@@ -168,6 +170,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
                                   model.changeButtonName(2, name);
+                                  Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
@@ -175,6 +178,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
                                   model.changeButtonName(3, name);
+                                  Navigator.pushNamed(context, '/');
                                 },
                               ),
                             ],
