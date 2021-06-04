@@ -46,23 +46,43 @@ class MakeRangePage extends StatelessWidget{
                     onPressed: () async{
                       await model.getInitGraph(0);
                     },
-                    child: Text(model.initRangeNames[0])
+                    child: Text("UTG")
                 ),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(1);
                     },
-                    child: Text(model.initRangeNames[1])),
+                    child: Text("HJ")),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(2);
                     },
-                    child: Text(model.initRangeNames[2])),
+                    child: Text("CO")),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(3);
                     },
-                    child: Text(model.initRangeNames[3])),
+                    child: Text("BTN")),
+              ],
+            ),
+            Row(
+              children: [
+                RaisedButton(
+                    onPressed: () async{
+                      await model.getInitGraph(0);
+                    },
+                    child: Text("UTG")
+                ),
+                RaisedButton(
+                    onPressed: () async {
+                      await model.getInitGraph(1);
+                    },
+                    child: Text("HJ")),
+                RaisedButton(
+                    onPressed: () async {
+                      await model.getInitGraph(2);
+                    },
+                    child: Text("CO")),
               ],
             ),
             Row(

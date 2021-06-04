@@ -142,7 +142,7 @@ class GraphList extends StatelessWidget {
                     },
                   ),
                   SimpleDialogOption(
-                    child: const Text('レンジをボタンに保存'),
+                    child: const Text('ポジションボタンのレンジ変更'),
                     onPressed: () async {
                       showDialog(
                         context: context,
@@ -150,34 +150,30 @@ class GraphList extends StatelessWidget {
                           return SimpleDialog(
                             children: [
                               SimpleDialogOption(
-                                child:Text("ボタン1"),
+                                child:Text("UTG"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
-                                  model.changeButtonName(0, name);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
-                                child:Text("ボタン2"),
+                                child:Text("HJ"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
-                                  model.changeButtonName(1, name);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
-                                child:Text("ボタン3"),
+                                child:Text("CO"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
-                                  model.changeButtonName(2, name);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
-                                child:Text("ボタン4"),
+                                child:Text("BTN"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
-                                  model.changeButtonName(3, name);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
