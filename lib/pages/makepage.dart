@@ -1,6 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/drawer.dart';
+import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
 import 'package:handrange/providers/light.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +24,8 @@ class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final initGraphs = Provider.of<dynamic>(context);
+    final names = initGraphs[1];
     return Consumer<Light>(builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(
@@ -71,18 +75,18 @@ class MakeRangePage extends StatelessWidget{
                     onPressed: () async{
                       await model.getInitGraph(0);
                     },
-                    child: Text("UTG")
+                    child: Text(names[4].name)
                 ),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(1);
                     },
-                    child: Text("HJ")),
+                    child: Text(names[5].name)),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(2);
                     },
-                    child: Text("CO")),
+                    child: Text(names[6].name)),
               ],
             ),
             Row(

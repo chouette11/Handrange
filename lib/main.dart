@@ -33,8 +33,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child:ChangeNotifierProvider<Light>(
+    return ChangeNotifierProvider<Light>(
         create: (_) => Light(),
         child:ChangeNotifierProvider<Calculation>(
           create: (_) => Calculation(),
@@ -56,7 +55,6 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
