@@ -83,6 +83,11 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
+  List <String> initRangeNames = ["UTG", "HJ", "CO", "BTN"];
+  changeButtonName(int id, String name) {
+    initRangeNames[id] = name;
+  }
+
   getInitGraph(int id) async {
     final  initGraphs = await InitGraph.getInitGraph();
     String tfText = initGraphs[id].text;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
 import '../functions/creategraph.dart';
 import '../components/drawer.dart';
@@ -101,48 +102,90 @@ class GraphList extends StatelessWidget {
         },
         onLongPress: () => {
           showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return SimpleDialog(
-                  title: Text(name),
-                  children: <Widget>[
-                    SimpleDialogOption(
-                      child: const Text('削除'),
-                      onPressed: () async {
-                        await Graph.deleteGraph(id);
-                        Navigator.pushNamed(context, '/save');
-                      },
-                    ),
-                    SimpleDialogOption(
-                      child: const Text('名前の変更'),
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            title: Text("名前の変更"),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text('名前の入力'),
-                                TextFormField(controller: myController),
-                                RaisedButton(
-                                  child: Text('実行'),
-                                  onPressed: () async {
-                                    await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
-                                    myController.clear();
-                                    Navigator.pushNamed(context, '/save');
-                                  },
-                                ),
-                              ],
-                            ),
+            context: context,
+            builder: (BuildContext context) {
+              return SimpleDialog(
+                title: Text(name),
+                children: <Widget>[
+                  SimpleDialogOption(
+                    child: const Text('削除'),
+                    onPressed: () async {
+                      await Graph.deleteGraph(id);
+                      Navigator.pushNamed(context, '/save');
+                    },
+                  ),
+                  SimpleDialogOption(
+                    child: const Text('名前の変更'),
+                    onPressed: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text("名前の変更"),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text('名前の入力'),
+                              TextFormField(controller: myController),
+                              RaisedButton(
+                                child: Text('実行'),
+                                onPressed: () async {
+                                  await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
+                                  myController.clear();
+                                  Navigator.pushNamed(context, '/save');
+                                },
+                              ),
+                            ],
                           ),
-                        );
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                );
-              }
+                        ),
+                      );
+                      Navigator.pop(context);
+                    },
+                  ),
+                  SimpleDialogOption(
+                    child: const Text('レンジをボタンに保存'),
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SimpleDialog(
+                            children: [
+                              SimpleDialogOption(
+                                child:Text("ボタン1"),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
+                                  model.changeButtonName(0, name);
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child:Text("ボタン2"),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
+                                  model.changeButtonName(1, name);
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child:Text("ボタン3"),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
+                                  model.changeButtonName(2, name);
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child:Text("ボタン4"),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
+                                  model.changeButtonName(3, name);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         },
         child: Column(
