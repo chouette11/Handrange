@@ -1,4 +1,4 @@
-import '../datas/combination.dart';
+import '../../datas/combination.dart';
 
 List<Map<String, dynamic>> getTFs(String tfText,) {
   List<Map<String, dynamic>> TF = CONBI.map((e) => {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/functions/elements.dart';
+import '../components/functions/elements.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

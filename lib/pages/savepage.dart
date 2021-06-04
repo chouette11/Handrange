@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
-import '../functions/creategraph.dart';
+import '../components/functions/creategraph.dart';
 import '../components/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
