@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../components/widget/drawer.dart';
+import 'package:handrange/components/widgets/drawer.dart';
 import 'package:handrange/datas/sql.dart';
 import '../components/functions/creategraph.dart';
 import '../components/functions/elements.dart';
-import 'package:handrange/pages/calculatepage.dart';
 import 'package:handrange/pages/selectcardpage2.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
