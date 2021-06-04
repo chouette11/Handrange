@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../components/functions/elements.dart';
-import '../components/bar_chart.dart';
+import '../components/widget/bar_chart.dart';
 import 'package:handrange/datas/sql.dart';
 import '../providers/calculation.dart';
 import '../components/functions/creategraph.dart';
-import '../components/drawer.dart';
+import '../components/widget/drawer.dart';
 import 'popadpage.dart';
 import 'selectcardpage.dart';
 import 'package:provider/provider.dart';

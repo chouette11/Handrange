@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/components/ad_state.dart';
-import 'package:handrange/components/drawer.dart';
+import '../components/widget/ad_state.dart';
+import '../components/widget/drawer.dart';
 import 'package:handrange/datas/sql.dart';
 import 'package:handrange/providers/light.dart';
 import 'package:provider/provider.dart';

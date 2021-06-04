@@ -10,7 +10,7 @@ import 'providers/light.dart';
 import 'pages/calculatepage.dart';
 import 'pages/selectcardpage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'components/ad_state.dart';
+import 'components/widget/ad_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
