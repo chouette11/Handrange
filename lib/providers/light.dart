@@ -83,6 +83,17 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
+  Map isNames = {
+    0: false,
+    1: false,
+    2: false,
+  };
+  List<String> initGraphName = ["1","2","3"];
+  changeName(String name, int id) {
+    isNames[id] = true;
+    initGraphName[id] = name;
+  }
+
   getInitGraph(int id) async {
     final  initGraphs = await InitGraph.getInitGraph();
     String tfText = initGraphs[id].text;

@@ -180,23 +180,32 @@ class GraphList extends StatelessWidget {
                           return SimpleDialog(
                             children: [
                               SimpleDialogOption(
-                                child:Text(initGraphs![0].name),
+                                child:Text(
+                                    model.isNames[0] ? model.initGraphName[0] : initGraphs![0].name
+                                ),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
+                                  model.changeName(name, 0);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
-                                child:Text(initGraphs[1].name),
+                                child:Text(
+                                    model.isNames[1] ? model.initGraphName[1] : initGraphs![1].name
+                                ),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
+                                  model.changeName(name, 1);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
-                                child:Text(initGraphs[2].name),
+                                child:Text(
+                                    model.isNames[2] ? model.initGraphName[2] : initGraphs![2].name
+                                ),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
+                                  model.changeName(name, 2);
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),

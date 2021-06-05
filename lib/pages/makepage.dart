@@ -11,6 +11,7 @@ class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final initGraphs = Provider.of<List<InitGraph>?>(context);
     return Consumer<Light>(builder: (context, model, child) {
       return Scaffold(
           appBar: AppBar(
@@ -60,7 +61,8 @@ class MakeRangePage extends StatelessWidget{
                   children: [
                     RaisedButton(
                       onPressed: () async{
-                        if (initGraphs![0].name == "noName1" && initGraphs[0].count == 0) {
+                        final initGraphs = await InitGraph.getInitGraph();
+                        if (initGraphs[0].name == "noName1" && initGraphs[0].count == 0) {
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -76,11 +78,14 @@ class MakeRangePage extends StatelessWidget{
                         }
                         await model.getInitGraph(0);
                       },
-                      child: Text(initGraphs![0].name),
+                      child: Text(
+                          model.isNames[0] ? model.initGraphName[0] : initGraphs![0].name
+                      ),
                     ),
                     RaisedButton(
-                      onPressed: () async {
-                        if (initGraphs[1].name == "noName2" && initGraphs[1].count == 0) {
+                      onPressed: () async{
+                        final initGraphs = await InitGraph.getInitGraph();
+                        if (initGraphs[1].name == "noName1" && initGraphs[1].count == 0) {
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -96,11 +101,14 @@ class MakeRangePage extends StatelessWidget{
                         }
                         await model.getInitGraph(1);
                       },
-                      child: Text(initGraphs[1].name),
+                      child: Text(
+                          model.isNames[1] ? model.initGraphName[1] : initGraphs![1].name
+                      ),
                     ),
                     RaisedButton(
-                      onPressed: () async {
-                        if (initGraphs[2].name == "noName3" && initGraphs[2].count == 0) {
+                      onPressed: () async{
+                        final initGraphs = await InitGraph.getInitGraph();
+                        if (initGraphs[2].name == "noName1" && initGraphs[2].count == 0) {
                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
@@ -116,7 +124,9 @@ class MakeRangePage extends StatelessWidget{
                         }
                         await model.getInitGraph(2);
                       },
-                      child: Text(initGraphs[2].name),
+                      child: Text(
+                          model.isNames[2] ? model.initGraphName[2] : initGraphs![2].name
+                      ),
                     ),
                   ],
                 ),
