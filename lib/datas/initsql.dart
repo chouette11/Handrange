@@ -76,7 +76,7 @@ class InitGraph {
       await insertInitGraph(InitGraph(
           id: 4,
           text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-          name: "フリー1",
+          name: "noName1",
           count: 0),
       );
       await insertInitGraph(InitGraph(
