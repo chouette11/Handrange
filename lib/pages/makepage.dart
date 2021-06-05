@@ -11,169 +11,170 @@ class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final initGraphs = Provider.of<List<InitGraph>?>(context);
     return Consumer<Light>(builder: (context, model, child) {
       return Scaffold(
-        appBar: AppBar(
-          title: Text("レンジ作成"),
-        ),
-        drawer: returnDrawer(context),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Center(
-              child: Text(
-                model.graphName,
-                style: TextStyle(
-                  fontFamily: "Sans",
-                ),
-              ),
-            ),
-            DisplayGraph(),
-            Row(
+          appBar: AppBar(
+            title: Text("レンジ作成"),
+          ),
+          drawer: returnDrawer(context),
+          body:Consumer<Light>(builder: (context, model, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                RaisedButton(
-                    onPressed: () async{
-                      await model.getInitGraph(3);
-                    },
-                    child: Text("UTG")
+                Center(
+                  child: Text(
+                    model.graphName,
+                    style: TextStyle(
+                      fontFamily: "Sans",
+                    ),
+                  ),
                 ),
-                RaisedButton(
-                    onPressed: () async {
-                      await model.getInitGraph(4);
-                    },
-                    child: Text("HJ")),
-                RaisedButton(
-                    onPressed: () async {
-                      await model.getInitGraph(5);
-                    },
-                    child: Text("CO")),
-                RaisedButton(
-                    onPressed: () async {
-                      await model.getInitGraph(6);
-                    },
-                    child: Text("BTN")),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                RaisedButton(
-                  onPressed: () async{
-                    if (initGraphs![0].name == "noName1" && initGraphs[0].count == 0) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                            title: Text("エラー"),
-                            content:Column(
-                              children: [
-                                Text("レンジがボタンに保存されていません"),
-                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                              ],
-                            )
-                        ),
-                      );
-                    }
-                    await model.getInitGraph(0);
-                  },
-                  child: Text(initGraphs![0].name),
+                DisplayGraph(),
+                Row(
+                  children: [
+                    RaisedButton(
+                        onPressed: () async{
+                          await model.getInitGraph(3);
+                        },
+                        child: Text("UTG")
+                    ),
+                    RaisedButton(
+                        onPressed: () async {
+                          await model.getInitGraph(4);
+                        },
+                        child: Text("HJ")),
+                    RaisedButton(
+                        onPressed: () async {
+                          await model.getInitGraph(5);
+                        },
+                        child: Text("CO")),
+                    RaisedButton(
+                        onPressed: () async {
+                          await model.getInitGraph(6);
+                        },
+                        child: Text("BTN")),
+                  ],
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    if (initGraphs[1].name == "noName2" && initGraphs[1].count == 0) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                            title: Text("エラー"),
-                            content:Column(
-                              children: [
-                                Text("レンジがボタンに保存されていません"),
-                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                              ],
-                            )
-                        ),
-                      );
-                    }
-                    await model.getInitGraph(1);
-                  },
-                  child: Text(initGraphs[1].name),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    RaisedButton(
+                      onPressed: () async{
+                        if (initGraphs![0].name == "noName1" && initGraphs[0].count == 0) {
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                title: Text("エラー"),
+                                content:Column(
+                                  children: [
+                                    Text("レンジがボタンに保存されていません"),
+                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                                  ],
+                                )
+                            ),
+                          );
+                        }
+                        await model.getInitGraph(0);
+                      },
+                      child: Text(initGraphs![0].name),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        if (initGraphs[1].name == "noName2" && initGraphs[1].count == 0) {
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                title: Text("エラー"),
+                                content:Column(
+                                  children: [
+                                    Text("レンジがボタンに保存されていません"),
+                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                                  ],
+                                )
+                            ),
+                          );
+                        }
+                        await model.getInitGraph(1);
+                      },
+                      child: Text(initGraphs[1].name),
+                    ),
+                    RaisedButton(
+                      onPressed: () async {
+                        if (initGraphs[2].name == "noName3" && initGraphs[2].count == 0) {
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                title: Text("エラー"),
+                                content:Column(
+                                  children: [
+                                    Text("レンジがボタンに保存されていません"),
+                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                                  ],
+                                )
+                            ),
+                          );
+                        }
+                        await model.getInitGraph(2);
+                      },
+                      child: Text(initGraphs[2].name),
+                    ),
+                  ],
                 ),
-                RaisedButton(
-                  onPressed: () async {
-                    if (initGraphs[2].name == "noName3" && initGraphs[2].count == 0) {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                            title: Text("エラー"),
-                            content:Column(
-                              children: [
-                                Text("レンジがボタンに保存されていません"),
-                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                              ],
-                            )
-                        ),
-                      );
-                    }
-                    await model.getInitGraph(2);
-                  },
-                  child: Text(initGraphs[2].name),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                RaisedButton(
-                    child: Text('Pockets'),
-                    onPressed: () {
-                      model.onPocket();
-                    }
-                ),
-                RaisedButton(
-                    child: Text('クリア'),
-                    onPressed: () {
-                      model.onClear();
-                    }
-                ),
-                ElevatedButton(
-                    child: Text('保存'),
-                    onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: Text("新規ハンドレンジ作成"),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text('名前を入力してね'),
-                              TextFormField(controller: myController),
-                              RaisedButton(
-                                child: Text('実行'),
-                                onPressed: () async {
-                                  String name;
-                                  name = myController.text;
-                                  myController.clear();
-                                  await saveGraph(model.status, name, model.count);
-                                  Navigator.pop(context);
-                                },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    RaisedButton(
+                        child: Text('Pockets'),
+                        onPressed: () {
+                          model.onPocket();
+                        }
+                    ),
+                    RaisedButton(
+                        child: Text('クリア'),
+                        onPressed: () {
+                          model.onClear();
+                        }
+                    ),
+                    ElevatedButton(
+                        child: Text('保存'),
+                        onPressed: () async {
+                          await showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text("新規ハンドレンジ作成"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text('名前を入力してね'),
+                                  TextFormField(controller: myController),
+                                  RaisedButton(
+                                    child: Text('実行'),
+                                    onPressed: () async {
+                                      String name;
+                                      name = myController.text;
+                                      myController.clear();
+                                      await saveGraph(model.status, name, model.count);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
+                            ),
+                          );
+                        }
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
+                        },
+                        child: Text("更新")
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
-                    },
-                    child: Text("更新")
-                ),
+                TextField(),
               ],
-            ),
-            TextField(),
-          ],
-        ),
+            );
+          })
       );
     });
   }

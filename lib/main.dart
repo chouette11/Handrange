@@ -26,81 +26,32 @@ void main() {
   );
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   final Future<List<InitGraph>> initGraphs = InitGraph.getInitGraph();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: initGraphs,
-        builder: (BuildContext context, AsyncSnapshot<List<InitGraph>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.length == 0) {
-              snapshot.data!.add(
-                InitGraph(
-                    id: 0,
-                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                    name: "noName1",
-                    count: 0),
-              );
-              snapshot.data!.add(
-                InitGraph(
-                    id: 1,
-                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                    name: "noName2",
-                    count: 0),
-              );
-              snapshot.data!.add(
-                InitGraph(
-                    id: 2,
-                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                    name: "noName5",
-                    count: 0),
-              );
-              print(snapshot.data);
-            }
-            return Provider<List<InitGraph>?>.value(
-              value: snapshot.data,
-              child: ChangeNotifierProvider<Light>(
-                create: (_) => Light(),
-                child: ChangeNotifierProvider<Calculation>(
-                  create: (_) => Calculation(),
-                  child: ChangeNotifierProvider<EqCalculation>(
-                    create: (_) => EqCalculation(),
-                    child: MaterialApp(
-                      title: 'HandRange',
-                      theme: ThemeData(
-                        primarySwatch: Colors.lightBlue,
-                      ),
-                      initialRoute: '/',
-                      routes: {
-                        '/': (context) => MakeRangePage(),
-                        '/save': (context) => SavePage(),
-                        '/calculate': (context) => CalculatePage(),
-                        '/select': (context) => SelectPage(),
-                        '/equity': (context) => EquityPage(),
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }
-          else {
-            return MaterialApp(
-              home: Scaffold(
-                body: Container(
-                  child:Center(
-                      child:CircularProgressIndicator()
-                  ),
-                ),
-              ),
-            );
-          }
-        });
+    return ChangeNotifierProvider<Light>(
+      create: (_) => Light(),
+      child: ChangeNotifierProvider<Calculation>(
+        create: (_) => Calculation(),
+        child: ChangeNotifierProvider<EqCalculation>(
+          create: (_) => EqCalculation(),
+          child: MaterialApp(
+            title: 'HandRange',
+            theme: ThemeData(
+              primarySwatch: Colors.lightBlue,
+            ),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => MakeRangePage(),
+              '/save': (context) => SavePage(),
+              '/calculate': (context) => CalculatePage(),
+              '/select': (context) => SelectPage(),
+              '/equity': (context) => EquityPage(),
+            },
+          ),
+        ),
+      ),
+    );
   }
 }
