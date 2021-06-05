@@ -60,21 +60,60 @@ class MakeRangePage extends StatelessWidget{
               children: [
                 RaisedButton(
                   onPressed: () async{
-                    await model.getInitGraph(0);
                     if (initGraphs![0].name == "noName1" && initGraphs[0].count == 0) {
-
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                            title: Text("エラー"),
+                            content:Column(
+                              children: [
+                                Text("レンジがボタンに保存されていません"),
+                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                              ],
+                            )
+                        ),
+                      );
                     }
+                    await model.getInitGraph(0);
                   },
                   child: Text(initGraphs![0].name),
                 ),
                 RaisedButton(
                   onPressed: () async {
+                    if (initGraphs[1].name == "noName2" && initGraphs[1].count == 0) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                            title: Text("エラー"),
+                            content:Column(
+                              children: [
+                                Text("レンジがボタンに保存されていません"),
+                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                              ],
+                            )
+                        ),
+                      );
+                    }
                     await model.getInitGraph(1);
                   },
                   child: Text(initGraphs[1].name),
                 ),
                 RaisedButton(
                   onPressed: () async {
+                    if (initGraphs[2].name == "noName3" && initGraphs[2].count == 0) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                            title: Text("エラー"),
+                            content:Column(
+                              children: [
+                                Text("レンジがボタンに保存されていません"),
+                                Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
+                              ],
+                            )
+                        ),
+                      );
+                    }
                     await model.getInitGraph(2);
                   },
                   child: Text(initGraphs[2].name),

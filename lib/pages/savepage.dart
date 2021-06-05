@@ -81,6 +81,7 @@ class GraphList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final initGraphs = Provider.of<List<InitGraph>?>(context);
     return Consumer<Light>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () => {
@@ -139,28 +140,63 @@ class GraphList extends StatelessWidget {
                               SimpleDialogOption(
                                 child:Text("UTG"),
                                 onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
+                                  await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("HJ"),
                                 onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
+                                  await InitGraph.insertInitGraph(InitGraph(id:4, text: text, name: name, count: count));
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("CO"),
                                 onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
+                                  await InitGraph.insertInitGraph(InitGraph(id:5, text: text, name: name, count: count));
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("BTN"),
                                 onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
+                                  await InitGraph.insertInitGraph(InitGraph(id:6, text: text, name: name, count: count));
+                                  Navigator.pushNamed(context, '/');
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  SimpleDialogOption(
+                    child: const Text('ボタンにレンジを保存'),
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return SimpleDialog(
+                            children: [
+                              SimpleDialogOption(
+                                child:Text(initGraphs![0].name),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
+                                  Navigator.pushNamed(context, '/');
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child:Text(initGraphs[1].name),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
+                                  Navigator.pushNamed(context, '/');
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child:Text(initGraphs[2].name),
+                                onPressed: () async {
+                                  await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
                                   Navigator.pushNamed(context, '/');
                                 },
                               ),
