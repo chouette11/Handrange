@@ -34,23 +34,23 @@ class MakeRangePage extends StatelessWidget{
               children: [
                 RaisedButton(
                     onPressed: () async{
-                      await model.getInitGraph(0);
+                      await model.getInitGraph(3);
                     },
                     child: Text("UTG")
                 ),
                 RaisedButton(
                     onPressed: () async {
-                      await model.getInitGraph(1);
+                      await model.getInitGraph(4);
                     },
                     child: Text("HJ")),
                 RaisedButton(
                     onPressed: () async {
-                      await model.getInitGraph(2);
+                      await model.getInitGraph(5);
                     },
                     child: Text("CO")),
                 RaisedButton(
                     onPressed: () async {
-                      await model.getInitGraph(3);
+                      await model.getInitGraph(6);
                     },
                     child: Text("BTN")),
               ],
@@ -61,20 +61,23 @@ class MakeRangePage extends StatelessWidget{
                 RaisedButton(
                   onPressed: () async{
                     await model.getInitGraph(0);
+                    if (initGraphs![0].name == "noName1" && initGraphs[0].count == 0) {
+
+                    }
                   },
-                  child: Text(initGraphs![4].name),
+                  child: Text(initGraphs![0].name),
                 ),
                 RaisedButton(
                   onPressed: () async {
                     await model.getInitGraph(1);
                   },
-                  child: Text(initGraphs[5].name),
+                  child: Text(initGraphs[1].name),
                 ),
                 RaisedButton(
                   onPressed: () async {
                     await model.getInitGraph(2);
                   },
-                  child: Text(initGraphs[6].name),
+                  child: Text(initGraphs[2].name),
                 ),
               ],
             ),

@@ -39,6 +39,30 @@ class _MyAppState extends State<MyApp> {
         future: initGraphs,
         builder: (BuildContext context, AsyncSnapshot<List<InitGraph>> snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data!.length == 0) {
+              snapshot.data!.add(
+                InitGraph(
+                    id: 0,
+                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                    name: "noName1",
+                    count: 0),
+              );
+              snapshot.data!.add(
+                InitGraph(
+                    id: 1,
+                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                    name: "noName2",
+                    count: 0),
+              );
+              snapshot.data!.add(
+                InitGraph(
+                    id: 2,
+                    text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+                    name: "noName5",
+                    count: 0),
+              );
+              print(snapshot.data);
+            }
             return Provider<List<InitGraph>?>.value(
               value: snapshot.data,
               child: ChangeNotifierProvider<Light>(
