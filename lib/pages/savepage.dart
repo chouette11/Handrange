@@ -8,19 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../providers/light.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Handrange',
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-        home: SavePage()
-    );
-  }
-}
-
 class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {

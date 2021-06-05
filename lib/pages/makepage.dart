@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/drawer.dart';
@@ -7,18 +6,6 @@ import 'package:handrange/datas/sql.dart';
 import 'package:handrange/providers/light.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: MakeRangePage(),
-    );
-  }
-}
 
 class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
@@ -72,22 +59,22 @@ class MakeRangePage extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 RaisedButton(
-                    onPressed: () async{
-                      await model.getInitGraph(0);
-                    },
-                    child: Text(initGraphs![4].name),
+                  onPressed: () async{
+                    await model.getInitGraph(0);
+                  },
+                  child: Text(initGraphs![4].name),
                 ),
                 RaisedButton(
-                    onPressed: () async {
-                      await model.getInitGraph(1);
-                    },
-                    child: Text(initGraphs[5].name),
+                  onPressed: () async {
+                    await model.getInitGraph(1);
+                  },
+                  child: Text(initGraphs[5].name),
                 ),
                 RaisedButton(
-                    onPressed: () async {
-                      await model.getInitGraph(2);
-                    },
-                    child: Text(initGraphs[6].name),
+                  onPressed: () async {
+                    await model.getInitGraph(2);
+                  },
+                  child: Text(initGraphs[6].name),
                 ),
               ],
             ),
@@ -198,16 +185,16 @@ class DisplayGraph extends StatelessWidget {
       height: screenSizeWidth,
       color: Colors.white,
       child: Consumer<Light>(builder: (context, model, child) {
-          return GridView.count(
-            crossAxisCount: 13,
-            mainAxisSpacing: 0.001,
-            crossAxisSpacing: 0.001,
-            children: model.status.map((e) => GridTile(
-              child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
-            ),
-            ).toList(),
-          );
-        },
+        return GridView.count(
+          crossAxisCount: 13,
+          mainAxisSpacing: 0.001,
+          crossAxisSpacing: 0.001,
+          children: model.status.map((e) => GridTile(
+            child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
+          ),
+          ).toList(),
+        );
+      },
       ),
     );
   }

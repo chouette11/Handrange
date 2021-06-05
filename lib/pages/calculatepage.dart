@@ -13,20 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import '../providers/light.dart';
 
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Calculation',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: CalculatePage(),
-    );
-  }
-}
-
 class CalculatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

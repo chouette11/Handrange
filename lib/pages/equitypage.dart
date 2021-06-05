@@ -8,19 +8,6 @@ import 'package:handrange/pages/selectcardpage2.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Handrange',
-        theme: ThemeData(
-          primarySwatch: Colors.lightBlue,
-        ),
-        home: EquityPage()
-    );
-  }
-}
-
 class EquityPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
