@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:handrange/pages/equitypage.dart';
 import 'package:handrange/pages/makepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
+import 'datas/initsql.dart';
 import 'providers/calculation.dart';
 import 'pages/savepage.dart';
 import 'package:provider/provider.dart';
@@ -31,30 +32,51 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Future<List<InitGraph>> initGraphs = InitGraph.getInitGraph();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Light>(
-        create: (_) => Light(),
-        child:ChangeNotifierProvider<Calculation>(
-          create: (_) => Calculation(),
-          child:ChangeNotifierProvider<EqCalculation>(
-            create: (_) => EqCalculation(),
-            child:MaterialApp(
-              title: 'HandRange',
-              theme: ThemeData(
-                primarySwatch: Colors.lightBlue,
+    return FutureBuilder(
+        future: initGraphs,
+        builder: (BuildContext context, AsyncSnapshot<List<InitGraph>> snapshot) {
+          if (snapshot.hasData) {
+            return Provider<List<InitGraph>?>.value(
+              value: snapshot.data,
+              child: ChangeNotifierProvider<Light>(
+                create: (_) => Light(),
+                child: ChangeNotifierProvider<Calculation>(
+                  create: (_) => Calculation(),
+                  child: ChangeNotifierProvider<EqCalculation>(
+                    create: (_) => EqCalculation(),
+                    child: MaterialApp(
+                      title: 'HandRange',
+                      theme: ThemeData(
+                        primarySwatch: Colors.lightBlue,
+                      ),
+                      initialRoute: '/',
+                      routes: {
+                        '/': (context) => MakeRangePage(),
+                        '/save': (context) => SavePage(),
+                        '/calculate': (context) => CalculatePage(),
+                        '/select': (context) => SelectPage(),
+                        '/equity': (context) => EquityPage(),
+                      },
+                    ),
+                  ),
+                ),
               ),
-              initialRoute: '/',
-              routes: {
-                '/': (context) => MakeRangePage(),
-                '/save': (context) => SavePage(),
-                '/calculate': (context) => CalculatePage(),
-                '/select': (context) => SelectPage(),
-                '/equity' : (context) => EquityPage(),
-              },
-            ),
-          ),
-        ),
-      );
+            );
+          }
+          else {
+            return MaterialApp(
+              home: Scaffold(
+                body: Container(
+                  child:Center(
+                      child:CircularProgressIndicator()
+                  ),
+                ),
+              ),
+            );
+          }
+        });
   }
 }
