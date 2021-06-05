@@ -24,8 +24,7 @@ class MakeRangePage extends StatelessWidget{
   final myController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final initGraphs = Provider.of<dynamic>(context);
-    final names = initGraphs[1];
+    final initGraphs = Provider.of<List<InitGraph>?>(context);
     return Consumer<Light>(builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(
@@ -70,23 +69,26 @@ class MakeRangePage extends StatelessWidget{
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 RaisedButton(
                     onPressed: () async{
                       await model.getInitGraph(0);
                     },
-                    child: Text(names[4].name)
+                    child: Text(initGraphs![4].name),
                 ),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(1);
                     },
-                    child: Text(names[5].name)),
+                    child: Text(initGraphs[5].name),
+                ),
                 RaisedButton(
                     onPressed: () async {
                       await model.getInitGraph(2);
                     },
-                    child: Text(names[6].name)),
+                    child: Text(initGraphs[6].name),
+                ),
               ],
             ),
             Row(
