@@ -89,7 +89,7 @@ class PopAdWidget extends StatelessWidget {
               else{
                 return Container(
                   color: Colors.white,
-                  height: 200,
+                  height: 240,
                   child: Column(
                     children: [
                       PopAd(),
@@ -103,7 +103,13 @@ class PopAdWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text("ご利用ありがとうございます"),
+                      Column(
+                        children: [
+                          Text("ご利用ありがとうございます"),
+                          Text("現在レビューキャンペーンをやってます"),
+                          Text("詳しくはtwitter_@chouette11まで"),
+                        ],
+                      ),
                       RaisedButton(
                         onPressed: () =>
                             Navigator.pushNamed(context, '/calculate'),
