@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
                 InitGraph(
                     id: 2,
                     text:"FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
-                    name: "noName5",
+                    name: "noName3",
                     count: 0),
               );
               print(snapshot.data);
