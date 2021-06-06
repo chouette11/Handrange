@@ -65,14 +65,21 @@ class MakeRangePage extends StatelessWidget{
                         if (initGraphs[0].name == "noName1" && initGraphs[0].count == 0) {
                           showDialog(
                             context: context,
-                            builder: (_) => AlertDialog(
-                                title: Text("エラー"),
-                                content:Column(
-                                  children: [
-                                    Text("レンジがボタンに保存されていません"),
-                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                                  ],
-                                )
+                            builder: (_) => SimpleDialog(
+                              title:Text("エラー"),
+                              children: <Widget>[
+                                SimpleDialogOption(
+                                  child: Column(
+                                    children: [
+                                      Text('レンジが保存されていません'),
+                                      Text("レンジ一覧から長押しでボタンに保存してください"),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context, "/calculate");
+                                  },
+                                ),
+                              ],
                             ),
                           );
                         }
@@ -85,17 +92,24 @@ class MakeRangePage extends StatelessWidget{
                     RaisedButton(
                       onPressed: () async{
                         final initGraphs = await InitGraph.getInitGraph();
-                        if (initGraphs[1].name == "noName1" && initGraphs[1].count == 0) {
+                        if (initGraphs[1].name == "noName2" && initGraphs[1].count == 0) {
                           showDialog(
                             context: context,
-                            builder: (_) => AlertDialog(
-                                title: Text("エラー"),
-                                content:Column(
-                                  children: [
-                                    Text("レンジがボタンに保存されていません"),
-                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                                  ],
-                                )
+                            builder: (_) => SimpleDialog(
+                              title:Text("エラー"),
+                              children: <Widget>[
+                                SimpleDialogOption(
+                                  child: Column(
+                                    children: [
+                                      Text('レンジが保存されていません'),
+                                      Text("レンジ一覧から長押しでボタンに保存してください"),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context, "/calculate");
+                                  },
+                                ),
+                              ],
                             ),
                           );
                         }
@@ -108,17 +122,24 @@ class MakeRangePage extends StatelessWidget{
                     RaisedButton(
                       onPressed: () async{
                         final initGraphs = await InitGraph.getInitGraph();
-                        if (initGraphs[2].name == "noName1" && initGraphs[2].count == 0) {
+                        if (initGraphs[2].name == "noName3" && initGraphs[2].count == 0) {
                           showDialog(
                             context: context,
-                            builder: (_) => AlertDialog(
-                                title: Text("エラー"),
-                                content:Column(
-                                  children: [
-                                    Text("レンジがボタンに保存されていません"),
-                                    Text("レンジを保存し、レンジ一覧から長押ししてボタンに保存してください")
-                                  ],
-                                )
+                            builder: (_) => SimpleDialog(
+                              title:Text("エラー"),
+                              children: <Widget>[
+                                SimpleDialogOption(
+                                  child: Column(
+                                    children: [
+                                      Text('レンジが保存されていません'),
+                                      Text("レンジ一覧から長押しでボタンに保存してください"),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context, "/calculate");
+                                  },
+                                ),
+                              ],
                             ),
                           );
                         }
