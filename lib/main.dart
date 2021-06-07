@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/pages/equitypage.dart';
 import 'package:handrange/pages/makepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'datas/initsql.dart';
@@ -82,7 +81,6 @@ class _MyAppState extends State<MyApp> {
                         '/save': (context) => SavePage(),
                         '/calculate': (context) => CalculatePage(),
                         '/select': (context) => SelectPage(),
-                        '/equity': (context) => EquityPage(),
                       },
                     ),
                   ),
