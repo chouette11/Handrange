@@ -34,7 +34,7 @@ class Calculation extends ChangeNotifier {
   int threeCards = 0;
   int twoPair = 0;
   int onePair = 0;
-  int sum = 1;
+  int sum = 0;
 
   graphJudge() {
     int inputSum = 0;

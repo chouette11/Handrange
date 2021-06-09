@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:handrange/components/widgets/ad_state.dart';
 import 'package:handrange/components/widgets/drawer.dart';
 import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
@@ -31,7 +32,9 @@ class MakeRangePage extends StatelessWidget{
                   ),
                 ),
                 DisplayGraph(),
+                TextField(),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     RaisedButton(
                         onPressed: () async{
@@ -202,7 +205,14 @@ class MakeRangePage extends StatelessWidget{
                     ),
                   ],
                 ),
-                TextField(),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      BottomAd(),
+                    ],
+                  ),
+                ),
               ],
             );
           })
@@ -220,22 +230,26 @@ class TextField extends StatefulWidget {
 class _TextFiledState extends State<TextField> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+      height: 27,
       child:Consumer<Light>(builder: (context, model, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
-                        style: TextStyle(
-                          fontSize: 20.0,
+                      Container(
+                        padding: EdgeInsets.only(right: 13),
+                        child: Text(
+                          'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                     ],
