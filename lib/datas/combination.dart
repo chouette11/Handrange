@@ -58,52 +58,52 @@ const List<Map<String, dynamic>> CARDS =[
     "card": "1c"
   },{
     "num": 13,
-    "mark": "s",
-    "card": "13s"
+    "mark": "c",
+    "card": "13c"
   },{
     "num": 12,
-    "mark": "s",
-    "card": "12s"
+    "mark": "c",
+    "card": "12c"
   },{
     "num": 11,
-    "mark": "s",
-    "card": "11s"
+    "mark": "c",
+    "card": "11c"
   },{
     "num": 10,
-    "mark": "s",
-    "card": "10s"
+    "mark": "c",
+    "card": "10c"
   },{
     "num": 9,
-    "mark": "s",
-    "card": "9s"
+    "mark": "c",
+    "card": "9c"
   },{
     "num": 8,
-    "mark": "s",
-    "card": "8s"
+    "mark": "c",
+    "card": "8c"
   },{
     "num": 7,
-    "mark": "s",
-    "card": "7s"
+    "mark": "c",
+    "card": "7c"
   },{
     "num": 6,
-    "mark": "s",
-    "card": "6s"
+    "mark": "c",
+    "card": "6c"
   },{
     "num": 5,
-    "mark": "s",
-    "card": "5s"
+    "mark": "c",
+    "card": "5c"
   },{
     "num": 4,
-    "mark": "s",
-    "card": "4s"
+    "mark": "c",
+    "card": "4c"
   },{
     "num": 3,
-    "mark": "s",
-    "card": "3s"
+    "mark": "c",
+    "card": "3c"
   },{
     "num": 2,
-    "mark": "s",
-    "card": "2s"
+    "mark": "c",
+    "card": "2c"
   },{
     "num": 1,
     "mark": "h",

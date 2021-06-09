@@ -48,7 +48,7 @@ class Calculate extends StatelessWidget {
           ),
           ElevatedButton(
             child: Text('計算'),
-            onPressed: () {
+            onPressed: () async {
               if (model.card3 == "") {
                 showDialog(context: context,
                   builder: (_) => SimpleDialog(
