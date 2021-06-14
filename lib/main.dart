@@ -93,7 +93,13 @@ class _MyAppState extends State<MyApp> {
               home: Scaffold(
                 body: Container(
                   child:Center(
-                      child:CircularProgressIndicator()
+                      child:Column(
+                        children: [
+                          CircularProgressIndicator(),
+                          Text("読み込み中です"),
+                          Text("しばらくお待ち下さい"),
+                        ],
+                      )
                   ),
                 ),
               ),
