@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/ad_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //selectCard
 Container CardBox(int n, String m){
@@ -141,5 +142,14 @@ String unitId(String AdunitId) {
     return AdunitId;
   } else {
     return "ca-app-pub-3940256099942544/6300978111";
+  }
+}
+
+launchURL() async {
+  const url = "https://twitter.com/chouette111";
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not Launch $url';
   }
 }

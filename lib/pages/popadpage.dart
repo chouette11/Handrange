@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:handrange/components/functions/elements.dart';
 import '../providers/light.dart';
 import 'package:provider/provider.dart';
 import '../components/widgets/ad_state.dart';
@@ -107,7 +108,18 @@ class PopAdWidget extends StatelessWidget {
                         children: [
                           Text("ご利用ありがとうございます"),
                           Text("現在レビューキャンペーンをやってます"),
-                          Text("詳しくはtwitter_@chouette11まで"),
+                          Container(
+                            padding: EdgeInsets.only(top: 4,bottom: 4),
+                            child: InkWell(
+                              child: Text(
+                                  "詳しくはtwitter_@chouette111まで",
+                                style: TextStyle(color: Colors.lightBlue),
+                              ),
+                              onTap: () async {
+                                launchURL();
+                              },
+                            ),
+                          )
                         ],
                       ),
                       RaisedButton(

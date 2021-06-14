@@ -93,13 +93,15 @@ class _MyAppState extends State<MyApp> {
               home: Scaffold(
                 body: Container(
                   child:Center(
-                      child:Column(
-                        children: [
-                          CircularProgressIndicator(),
-                          Text("読み込み中です"),
-                          Text("しばらくお待ち下さい"),
-                        ],
-                      )
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        Text("読み込み中です"),
+                        Text("しばらくお待ち下さい"),
+                      ],
+                    ),
                   ),
                 ),
               ),
