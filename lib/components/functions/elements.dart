@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:handrange/components/widgets/ad_state.dart';
 
+//selectCard
 Container CardBox(int n, String m){
   return Container(
     color: n == 0 ? Colors.black26 : Colors.white,
@@ -129,4 +131,15 @@ Column smallCard(int number, String selectedMark){
       Expanded(child: Text(returnMark(selectedMark))),
     ],
   );
+}
+
+//AdState
+String unitId(String AdunitId) {
+  var isRelease = const bool.fromEnvironment('dart.vm.project');
+
+  if (isRelease) {
+    return AdunitId;
+  } else {
+    return "ca-app-pub-3940256099942544/6300978111";
+  }
 }

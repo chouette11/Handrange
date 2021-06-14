@@ -52,7 +52,7 @@ class BackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(onPressed: () =>
-        Navigator.pushNamed(context, '/calculate'),
+        Navigator.pop(context),
       child: Text("戻る"),
     );
   }
@@ -111,34 +111,39 @@ class Button extends StatelessWidget{
               model.num1 = num,
               model.mark1 = mark,
               model.card1 = card,
-              Navigator.pushNamed(context, '/calculate'),
+              model.notifyListeners(),
+              Navigator.pop(context),
             }
             else if (model.num2 == 0 && model.card1 != card) {
               model.num2 = num,
               model.mark2 = mark,
               model.card2 = card,
-              Navigator.pushNamed(context, '/calculate'),
+              model.notifyListeners(),
+              Navigator.pop(context),
             }
             else if (model.num3 == 0 && model.card1 != card && model.card2 != card) {
                 model.num3 = num,
                 model.mark3 = mark,
                 model.card3 = card,
-                Navigator.pushNamed(context, '/calculate'),
+                model.notifyListeners(),
+                Navigator.pop(context),
               }
               else if (model.num4 == 0 && model.card1 != card && model.card2 != card && model.card3 != card ) {
                   model.num4 = num,
                   model.mark4 = mark,
                   model.card4 = card,
-                  Navigator.pushNamed(context, '/calculate'),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
                 }
                 else if (model.num5 == 0 && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
                     model.num5 = num,
                     model.mark5 = mark,
                     model.card5 = card,
-                    Navigator.pushNamed(context, '/calculate'),
+                    model.notifyListeners(),
+                    Navigator.pop(context),
                   }
                   else{
-                      Navigator.pushNamed(context, '/calculate'),
+                      Navigator.pop(context),
                     },
           },
           child: Container(

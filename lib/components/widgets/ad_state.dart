@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:handrange/components/functions/elements.dart';
 
 class AdState {
   Future<InitializationStatus> initialization;
@@ -50,74 +51,6 @@ class AdState {
   );
 }
 
-class NativeAdWidget extends StatefulWidget {
-  @override
-  _NativeAdWidgetState createState() => _NativeAdWidgetState();
-}
-
-class _NativeAdWidgetState extends State<NativeAdWidget> {
-  late NativeAd _ad;
-
-  void initState() {
-    super.initState();
-    // TODO: Create a NativeAd instance
-    _ad = NativeAd(
-        adUnitId: AdState.nativeAdUnitId,
-        factoryId: 'listTile',
-        request: AdRequest(),
-        listener: AdState.nativeListener
-    );
-
-    _ad.load();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return
-      Container(
-        child: AdWidget(ad: _ad),
-        height: 72.0,
-        alignment: Alignment.center,
-      );
-  }
-}
-
-class PopAd extends StatefulWidget {
-  @override
-  _PopAdState createState() => _PopAdState();
-}
-
-class _PopAdState extends State<PopAd> {
-  late BannerAd _ad;
-
-  @override
-  void initState(){
-    super.initState();
-    _ad = BannerAd(
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",
-      //release ca-app-pub-3443545166967285/6264083224
-      //debug  ca-app-pub-3940256099942544/6300978111
-      size: AdSize.largeBanner,
-      request: AdRequest(),
-      listener: AdState.bannerListener,
-    );
-
-    _ad.load();
-  }
-  @override
-  Widget build(BuildContext context) {
-    // ignore: unnecessary_null_comparison
-    if(_ad == null)
-      return SizedBox(height: 100);
-    else
-      return Container(
-        width: _ad.size.width.toDouble(),
-        height: _ad.size.height.toDouble(),
-        child: AdWidget(ad: _ad),
-      );
-  }
-}
-
 class BottomAd extends StatefulWidget {
   @override
   _BottomAdState createState() => _BottomAdState();
@@ -130,9 +63,7 @@ class _BottomAdState extends State<BottomAd> {
   void initState(){
     super.initState();
     _ad = BannerAd(
-        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-        //release ca-app-pub-3443545166967285/6738424627
-        //debug  ca-app-pub-3940256099942544/6300978111
+        adUnitId: unitId(AdState.bannerAdUnitId),
         size: AdSize.banner,
         request: AdRequest(),
         listener: AdState.bannerListener
@@ -142,9 +73,43 @@ class _BottomAdState extends State<BottomAd> {
   }
   @override
   Widget build(BuildContext context) {
+    double screenSizeHeight = MediaQuery.of(context).size.height;
     // ignore: unnecessary_null_comparison
     if(_ad == null)
       return SizedBox(height: 50);
+    else
+      return Container(
+          width: _ad.size.width.toDouble(),
+          height: _ad.size.height.toDouble(),
+          child: AdWidget(ad: _ad),
+        );
+  }
+}
+
+class PopAd extends StatefulWidget {
+  @override
+  _PopAdState createState() => _PopAdState();
+}
+
+class _PopAdState extends State<PopAd> {
+  late BannerAd _ad;
+  @override
+  void initState(){
+    super.initState();
+    _ad = BannerAd(
+      adUnitId: unitId(AdState.bannerAdUnitId),
+      size: AdSize.largeBanner,
+      request: AdRequest(),
+      listener: AdState.bannerListener,
+    );
+
+    _ad.load();
+  }
+  @override
+  Widget build(BuildContext context) {
+    // ignore: unnecessary_null_comparison
+    if(_ad == null)
+      return SizedBox(height: 100);
     else
       return Container(
         width: _ad.size.width.toDouble(),

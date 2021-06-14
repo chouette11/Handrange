@@ -22,7 +22,7 @@ Drawer returnDrawer(BuildContext context,) {
           leading: Icon(Icons.border_color),
           title: Text('レンジ作成'),
           onTap: () {
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
           },
         ),
         ListTile(
@@ -36,7 +36,7 @@ Drawer returnDrawer(BuildContext context,) {
           leading: Icon(Icons.analytics),
           title: Text('計算'),
           onTap: () {
-            Navigator.pushNamed(context, '/calculate');
+            Navigator.pushNamedAndRemoveUntil(context, '/calculate', (Route<dynamic> route) => false);
           },
         ),
       ],

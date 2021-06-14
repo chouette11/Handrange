@@ -185,7 +185,8 @@ class CardBoxes extends StatelessWidget {
                   model.card3 = "";
                   model.card4 = "";
                   model.card5 = "";
-                  Navigator.pushNamed(context, '/calculate');
+                  model.notifyListeners();
+                  Navigator.pop(context);
                 },
               ),
             ],
@@ -278,7 +279,7 @@ class GraphList extends StatelessWidget {
       return GestureDetector(
         onTap: () => {
           model.onGet(num, name),
-          Navigator.pushNamed(context, '/calculate'),
+          Navigator.pop(context),
         },
         child: Column(
           children: [

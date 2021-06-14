@@ -86,7 +86,7 @@ class GraphList extends StatelessWidget {
       return GestureDetector(
         onTap: () => {
           model.onGet(num,name,count),
-          Navigator.pushNamed(context, '/'),
+          Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false),
         },
         onLongPress: () => {
           showDialog(
