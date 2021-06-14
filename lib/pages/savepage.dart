@@ -99,7 +99,7 @@ class GraphList extends StatelessWidget {
                     child: const Text('削除'),
                     onPressed: () async {
                       await Graph.deleteGraph(id);
-                      Navigator.pushNamed(context, '/save');
+                      Navigator.pushNamedAndRemoveUntil(context, '/save', (Route<dynamic> route) => false);
                     },
                   ),
                   SimpleDialogOption(
@@ -119,7 +119,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await Graph.updateGraph(Graph(id:id,text:text,name: myController.text,count:count));
                                   myController.clear();
-                                  Navigator.pushNamed(context, '/save');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/save', (Route<dynamic> route) => false);
                                 },
                               ),
                             ],
@@ -141,28 +141,28 @@ class GraphList extends StatelessWidget {
                                 child:Text("UTG"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("HJ"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:4, text: text, name: name, count: count));
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("CO"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:5, text: text, name: name, count: count));
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                               SimpleDialogOption(
                                 child:Text("BTN"),
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:6, text: text, name: name, count: count));
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                             ],
@@ -186,7 +186,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:0, text: text, name: name, count: count));
                                   model.changeName(name, 0);
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                               SimpleDialogOption(
@@ -196,7 +196,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:1, text: text, name: name, count: count));
                                   model.changeName(name, 1);
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                               SimpleDialogOption(
@@ -206,7 +206,7 @@ class GraphList extends StatelessWidget {
                                 onPressed: () async {
                                   await InitGraph.insertInitGraph(InitGraph(id:2, text: text, name: name, count: count));
                                   model.changeName(name, 2);
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
                                 },
                               ),
                             ],

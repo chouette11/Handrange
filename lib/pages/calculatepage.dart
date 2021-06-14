@@ -186,7 +186,6 @@ class CardBoxes extends StatelessWidget {
                   model.card4 = "";
                   model.card5 = "";
                   model.notifyListeners();
-                  Navigator.pop(context);
                 },
               ),
             ],

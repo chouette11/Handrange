@@ -79,7 +79,7 @@ class MakeRangePage extends StatelessWidget{
                                     ],
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context, "/calculate");
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -109,7 +109,7 @@ class MakeRangePage extends StatelessWidget{
                                     ],
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context, "/calculate");
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],
@@ -139,7 +139,7 @@ class MakeRangePage extends StatelessWidget{
                                     ],
                                   ),
                                   onPressed: () {
-                                    Navigator.pop(context, "/calculate");
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ],

@@ -78,7 +78,7 @@ class PopAdWidget extends StatelessWidget {
                       RaisedButton(
                         onPressed: () {
                           model.onVisible();
-                          Navigator.pushNamed(context, '/calculate');
+                          Navigator.pop(context);
                         },
                         child: Text("表示"),
                       ),
@@ -112,7 +112,7 @@ class PopAdWidget extends StatelessWidget {
                       ),
                       RaisedButton(
                         onPressed: () =>
-                            Navigator.pushNamed(context, '/calculate'),
+                            Navigator.pop(context),
                         child: Text("キャンセル"),
                       ),
                     ],
