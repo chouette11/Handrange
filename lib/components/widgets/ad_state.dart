@@ -46,7 +46,7 @@ class _BottomAdState extends State<BottomAd> {
   void initState(){
     super.initState();
     _ad = BannerAd(
-        adUnitId: unitId(AdState.bannerAdUnitId),
+        adUnitId: "ca-app-pub-3940256099942544/2934735716",
         size: AdSize.banner,
         request: AdRequest(),
         listener: AdState.bannerListener
@@ -80,7 +80,7 @@ class _PopAdState extends State<PopAd> {
   void initState(){
     super.initState();
     _ad = BannerAd(
-      adUnitId: unitId(AdState.popAdUnitId),
+      adUnitId: "ca-app-pub-3940256099942544/2934735716",
       size: AdSize.largeBanner,
       request: AdRequest(),
       listener: AdState.bannerListener,
