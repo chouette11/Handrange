@@ -58,26 +58,26 @@ class _MakeRangePageState extends State<MakeRangePage> {
       await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('Dear User'),
+          title: const Text('ユーザーの皆様へ'),
           content: const Text(
-            'We care about your privacy and data security. We keep this app free by showing ads. '
-                'Can we continue to use your data to tailor ads for you?\n\nYou can change your choice anytime in the app settings. '
-                'Our partners will collect data and use a unique identifier on your device to show you ads.',
+            "この度は”ポーカー計算 ハンドレンジ”をダウンロードしていただきありがとうございます。\n"
+                "申し訳ないのですがこのアプリでは広告が表示されます。\n"
+                "トラッキングを許可すると某サイトのおすすめのようにあなた様にあった広告が表示されやすくなります\n"
+                "(許可しなくともアプリのすべての機能を利用することができます)",
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text("I'll decide later"),
+              child: const Text("トラッキングをしないように要求"),
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('Allow tracking'),
+              child: const Text('許可'),
             ),
           ],
         ),
       ) ??
           false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -273,14 +273,6 @@ class _MakeRangePageState extends State<MakeRangePage> {
                         child: Text("更新")
                     ),
                   ],
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      BottomAd(),
-                    ],
-                  ),
                 ),
               ],
             );

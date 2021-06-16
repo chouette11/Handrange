@@ -68,10 +68,12 @@ class PopAdWidget extends StatelessWidget {
               if (snapshot.hasData) {
                 return Container(
                   color: Colors.white,
-                  height: 180,
                   child: Column(
                     children: [
-                      PopAd(),
+                      SizedBox(
+                        height: 3,
+                        width: 320,
+                      ),
                       Container(
                         padding:EdgeInsets.only(top: 3),
                         child: Text("計算が完了しました"),
@@ -90,10 +92,12 @@ class PopAdWidget extends StatelessWidget {
               else{
                 return Container(
                   color: Colors.white,
-                  height: 240,
                   child: Column(
                     children: [
-                      PopAd(),
+                      SizedBox(
+                        height: 3,
+                        width: 320,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -107,12 +111,12 @@ class PopAdWidget extends StatelessWidget {
                       Column(
                         children: [
                           Text("ご利用ありがとうございます"),
-                          Text("現在レビューキャンペーンをやってます"),
+                          Text("不具合・改善点がありましたらお問い合わせください"),
                           Container(
                             padding: EdgeInsets.only(top: 4,bottom: 4),
                             child: InkWell(
                               child: Text(
-                                  "詳しくはtwitter_@chouette111まで",
+                                  "twitter_@chouette111まで",
                                 style: TextStyle(color: Colors.lightBlue),
                               ),
                               onTap: () async {

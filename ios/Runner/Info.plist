@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>NSUserTrackingUsageDescription</key>
-    	<string>This app uses tracking data to show you personalized ads.</string>
+    	<string>広告を最適化するためのみに使用させていただきます。</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
