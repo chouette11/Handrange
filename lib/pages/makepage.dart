@@ -67,12 +67,8 @@ class _MakeRangePageState extends State<MakeRangePage> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: const Text("トラッキングをしないように要求"),
-            ),
-            TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('許可'),
+              child: const Text('次へ'),
             ),
           ],
         ),
