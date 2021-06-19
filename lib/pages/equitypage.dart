@@ -38,58 +38,71 @@ class EquityPage extends StatelessWidget{
 class Calculate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Column(
             children: [
-              Text("プレイヤー１")
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        content: SaveGraphs(),
-                      ),
-                    );
-                  },
-                  child: Text("レンジ")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("プレイヤー１")
+                ],
               ),
-              DisplayGraph1(),
-              CardBoxes(),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text("プレイヤー２")
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                  onPressed: () async {
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        content: SaveGraphs(),
-                      ),
-                    );
-                  },
-                  child: Text("レンジ")
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: SaveGraphs(player: 1),
+                          ),
+                        );
+                      },
+                      child: Text("レンジ")
+                  ),
+                  DisplayGraph1(),
+                  CardBoxes(),
+                ],
               ),
-              CardBoxes(),
             ],
           ),
-        ],
-      ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("プレイヤー２")
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            content: SaveGraphs(player: 2,),
+                          ),
+                        );
+                      },
+                      child: Text("レンジ")
+                  ),
+                  DisplayGraph2(),
+                  CardBoxes(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
@@ -149,6 +162,8 @@ class DisplayGraph2 extends StatelessWidget {
 }
 
 class SaveGraphs extends StatefulWidget {
+  SaveGraphs({Key? key, required this.player}) : super(key: key);
+  final int player;
   @override
   _SaveGraphsState createState() => _SaveGraphsState();
 }
@@ -179,7 +194,8 @@ class _SaveGraphsState extends State<SaveGraphs>{
                           num: e["num"],
                           text: e["text"],
                           name: e["name"],
-                          count: e["count"]
+                          count: e["count"],
+                          player: widget.player,
                       ),
                     ),
                 ).toList(),
@@ -198,12 +214,13 @@ class _SaveGraphsState extends State<SaveGraphs>{
 }
 
 class GraphList extends StatelessWidget {
-  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
+  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text, required this.player}) : super(key: key);
   final int id;
   final int num;
   final String name;
   final int count;
   final String text;
+  final int player;
   final myController = TextEditingController();
 
   @override
@@ -211,8 +228,13 @@ class GraphList extends StatelessWidget {
     return Consumer<EqCalculation>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () => {
-          model.onGet1(num,name,),
-          Navigator.pushNamed(context, '/equity'),
+          if (player == 1) {
+            model.onGet1(num,name)
+          }
+          else if (player == 2) {
+            model.onGet2(num,name)
+          },
+          Navigator.pop(context),
         },
         child: Column(
           children: [

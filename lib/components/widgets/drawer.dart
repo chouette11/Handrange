@@ -39,6 +39,13 @@ Drawer returnDrawer(BuildContext context,) {
             Navigator.pushNamedAndRemoveUntil(context, '/calculate', (Route<dynamic> route) => false);
           },
         ),
+        ListTile(
+          leading: Icon(Icons.analytics),
+          title: Text('エクイティ計算'),
+          onTap: () {
+            Navigator.pushNamedAndRemoveUntil(context, '/equity', (Route<dynamic> route) => false);
+          },
+        ),
       ],
     ),
   );
