@@ -222,17 +222,23 @@ class GraphList extends StatelessWidget {
         },
         child: Column(
           children: [
-            GridView.count(
-              crossAxisCount: 13,
-              mainAxisSpacing: 0.001,
-              crossAxisSpacing: 0.001,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: getTFs(text).map((e) =>
-                  GridTile(
-                    child: Box(isSelected: e["isSelected"]),
-                  ),
-              ).toList(),
+            Container(
+              decoration: BoxDecoration(
+                  border:Border.all(width: 1.5, color: Colors.black45),
+                  borderRadius: BorderRadius.circular(3)
+              ),
+              child: GridView.count(
+                crossAxisCount: 13,
+                mainAxisSpacing: 0.001,
+                crossAxisSpacing: 0.001,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: getTFs(text).map((e) =>
+                    GridTile(
+                      child: Box(isSelected: e["isSelected"]),
+                    ),
+                ).toList(),
+              ),
             ),
             Center(
               child: Column(

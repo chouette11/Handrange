@@ -328,7 +328,6 @@ class DisplayGraph extends StatelessWidget {
     return Container(
       width: screenSizeWidth,
       height: screenSizeWidth,
-      color: Colors.white,
       child: Consumer<Light>(builder: (context, model, child) {
         return GridView.count(
           crossAxisCount: 13,
@@ -360,6 +359,7 @@ class TapBox extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(1),
             border: Border.all(width: 0.5, color: Colors.white),
             color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
           ),
