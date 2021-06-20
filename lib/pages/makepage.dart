@@ -270,6 +270,14 @@ class _MakeRangePageState extends State<MakeRangePage> {
                     ),
                   ],
                 ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      BottomAd(),
+                    ],
+                  ),
+                )
               ],
             );
           })

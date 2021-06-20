@@ -70,10 +70,7 @@ class PopAdWidget extends StatelessWidget {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 3,
-                        width: 320,
-                      ),
+                      PopAd(),
                       Container(
                         padding:EdgeInsets.only(top: 3),
                         child: Text("計算が完了しました"),
@@ -94,10 +91,7 @@ class PopAdWidget extends StatelessWidget {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 3,
-                        width: 320,
-                      ),
+                      PopAd(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
