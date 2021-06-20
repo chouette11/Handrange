@@ -25,6 +25,8 @@ class Calculation extends ChangeNotifier {
   String card4 = "";
   String card5 = "";
 
+  bool isColor = true;
+
   int royal = 0;
   int straightFlush = 0;
   int fourCards = 0;
@@ -397,6 +399,24 @@ class Calculation extends ChangeNotifier {
   onVisible() {
     isVisible = true;
     notifyListeners();
+  }
+
+  List<Map<String, dynamic>> cards = CARDS.map((e) => {
+    "num": e["num"],
+    "mark": e["mark"],
+    "card": e["card"],
+    "isColor": true,
+  }).toList();
+
+  onTapped(String hand) {
+    final tappedBox = cards.firstWhere((e) => e["card"] == hand);
+    tappedBox["isColor"] = false;
+  }
+
+  onReset() {
+    cards.forEach((element) {
+      element["isColor"] = true;
+    });
   }
 
   List<Map<String, dynamic>> status = CONBI.map((e) => {
