@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/pages/equitypage.dart';
 import 'package:handrange/pages/makepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'datas/initsql.dart';
@@ -81,6 +82,7 @@ class _MyAppState extends State<MyApp> {
                         '/save': (context) => SavePage(),
                         '/calculate': (context) => CalculatePage(),
                         '/select': (context) => SelectPage(),
+                        '/equity': (context) => EquityPage(),
                       },
                     ),
                   ),
@@ -98,8 +100,18 @@ class _MyAppState extends State<MyApp> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircularProgressIndicator(),
-                        Text("読み込み中です"),
-                        Text("しばらくお待ち下さい"),
+                        Text(
+                            "読み込み中です",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                            "しばらくお待ち下さい",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
                       ],
                     ),
                   ),
