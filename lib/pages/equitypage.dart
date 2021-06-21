@@ -5,7 +5,7 @@ import 'package:handrange/datas/sql.dart';
 import 'package:handrange/components//functions/creategraph.dart';
 import 'package:handrange/components//functions/elements.dart';
 import 'package:handrange/pages/calculatepage.dart';
-import 'package:handrange/pages/selectcardpage2.dart';
+import 'package:handrange/pages/selectholepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +42,10 @@ class Calculate extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
+          child: HoleBoxes(),
+        ),
+        Expanded(
+          flex: 3,
           child: Column(
             children: [
               Row(
@@ -65,14 +69,14 @@ class Calculate extends StatelessWidget {
                       child: Text("レンジ")
                   ),
                   DisplayGraph1(),
-                  CardBoxes(),
+                  HoleBoxes(),
                 ],
               ),
             ],
           ),
         ),
         Expanded(
-          flex: 1,
+          flex: 3,
           child: Column(
             children: [
               Row(
@@ -96,11 +100,106 @@ class Calculate extends StatelessWidget {
                       child: Text("レンジ")
                   ),
                   DisplayGraph2(),
-                  CardBoxes(),
+                  HoleBoxes(),
                 ],
               ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+}
+
+class CardBoxes extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<EqCalculation>(builder: (context, model, child) {
+      return Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => SelectPage(),
+              );
+            },
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CardBox(model.num1, model.mark1),
+                  CardBox(model.num2, model.mark2),
+                  CardBox(model.num3, model.mark3),
+                  CardBox(model.num4, model.mark4),
+                  CardBox(model.num5, model.mark5),
+                ],
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              RaisedButton(
+                child: Text('クリア'),
+                onPressed: () {
+                  model.num1 = 0;
+                  model.num2 = 0;
+                  model.num3 = 0;
+                  model.num4 = 0;
+                  model.num5 = 0;
+                  model.mark1 = "";
+                  model.mark2 = "";
+                  model.mark3 = "";
+                  model.mark4 = "";
+                  model.mark5 = "";
+                  model.card1 = "";
+                  model.card2 = "";
+                  model.card3 = "";
+                  model.card4 = "";
+                  model.card5 = "";
+                  model.notifyListeners();
+                },
+              ),
+            ],
+          ),
+        ],
+      );
+    });
+  }
+}
+
+class Players extends StatelessWidget {
+  Players({Key? key, required this.num}) : super(key: key);
+  final int num;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text("プレイヤー$num")
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      content: SaveGraphs(player: num),
+                    ),
+                  );
+                },
+                child: Text("レンジ")
+            ),
+            num == 1 ? DisplayGraph1() : DisplayGraph2(),
+            HoleBoxes(),
+          ],
         ),
       ],
     );
@@ -190,12 +289,12 @@ class _SaveGraphsState extends State<SaveGraphs>{
                 children: getIds(snapshot).map((e) =>
                     GridTile(
                       child: GraphList(
-                          id: e["id"],
-                          num: e["num"],
-                          text: e["text"],
-                          name: e["name"],
-                          count: e["count"],
-                          player: widget.player,
+                        id: e["id"],
+                        num: e["num"],
+                        text: e["text"],
+                        name: e["name"],
+                        count: e["count"],
+                        player: widget.player,
                       ),
                     ),
                 ).toList(),
@@ -280,7 +379,7 @@ class Box extends StatelessWidget {
   }
 }
 
-class CardBoxes extends StatelessWidget {
+class HoleBoxes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<EqCalculation>(builder: (context, model, child) {

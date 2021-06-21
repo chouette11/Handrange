@@ -7,7 +7,7 @@ import '../providers/calculation.dart';
 import '../components/functions/creategraph.dart';
 import '../components/widgets/drawer.dart';
 import 'popadpage.dart';
-import 'selectcardpage.dart';
+import 'selectboardpage1.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';

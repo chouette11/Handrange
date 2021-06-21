@@ -207,7 +207,7 @@ class EqCalculation extends ChangeNotifier {
       int num7 = num1_2;
       numbers.add(num6);
       numbers.add(num7);
-      numbers.sort;
+      numbers.sort((a, b) => a.compareTo(b));
 
       String mark6 = mark1_1;
       String mark7 = mark1_2;
@@ -222,8 +222,7 @@ class EqCalculation extends ChangeNotifier {
         onCalculate();
         inputSum++;
       }
-      marks.remove(mark6);
-      marks.remove(mark7);
+
     }
     royal = inputRoyalStraightFlash;
     straightFlush = inputStraightFlush;

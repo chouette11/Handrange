@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'providers/light.dart';
 import 'pages/calculatepage.dart';
-import 'pages/selectcardpage.dart';
+import 'pages/selectboardpage1.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'components/widgets/ad_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
