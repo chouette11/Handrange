@@ -68,7 +68,7 @@ class CardBoxes extends StatelessWidget {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (_) => SelectPageEq(name: "board"qq),
+                builder: (_) => SelectPageEq(name: "board"),
               );
             },
             child: Container(
@@ -122,33 +122,36 @@ class Players extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text("プレイヤー$num")
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-                onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      content: SaveGraphs(player: num),
-                    ),
-                  );
-                },
-                child: Text("レンジ")
-            ),
-            num == 1 ? DisplayGraph1() : DisplayGraph2(),
-            HoleBoxes(),
-          ],
-        ),
-      ],
+    return Provider<int>.value(
+      value: num,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("プレイヤー$num")
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        content: SaveGraphs(player: num),
+                      ),
+                    );
+                  },
+                  child: Text("レンジ")
+              ),
+              num == 1 ? DisplayGraph1() : DisplayGraph2(),
+              HoleBoxes(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -156,14 +159,24 @@ class Players extends StatelessWidget {
 class HoleBoxes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final num = Provider.of<int>(context);
     return Consumer<EqCalculation>(builder: (context, model, child) {
+      returnCardBoxes(int num1, int num2, String mark1, String mark2) {
+        return
+            Row(
+              children: [
+                CardBox(model.num1, model.mark1_1),
+                CardBox(model.num1_2, model.mark1_2),
+              ],
+            );
+      }
       return Column(
         children: [
           GestureDetector(
             onTap: () {
               showDialog(
                 context: context,
-                builder: (_) => HoleSelectPage(),
+                builder: (_) => SelectPageEq(name: "hole$num"),
               );
             },
             child: Container(
