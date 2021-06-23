@@ -147,7 +147,7 @@ class Players extends StatelessWidget {
                   child: Text("レンジ")
               ),
               num == 1 ? DisplayGraph1() : DisplayGraph2(),
-              HoleBoxes(),
+              HoleBoxes(num: num),
             ],
           ),
         ],
@@ -157,19 +157,33 @@ class Players extends StatelessWidget {
 }
 
 class HoleBoxes extends StatelessWidget {
+  HoleBoxes({Key? key, required this.num}) : super(key: key);
+  final int num;
   @override
   Widget build(BuildContext context) {
-    final num = Provider.of<int>(context);
     return Consumer<EqCalculation>(builder: (context, model, child) {
-      returnCardBoxes(int num1, int num2, String mark1, String mark2) {
-        return
-            Row(
-              children: [
-                CardBox(model.num1, model.mark1_1),
-                CardBox(model.num1_2, model.mark1_2),
-              ],
-            );
+      Row returnCardBoxes() {
+        if (num == 1) {
+          return Row(
+            children: [
+              CardBox(model.num1_1, model.mark1_1),
+              CardBox(model.num1_2, model.mark1_2),
+            ],
+          );
+        } else if (num == 2) {
+          return Row(
+            children: [
+              CardBox(model.num2_1, model.mark2_1),
+              CardBox(model.num2_2, model.mark2_2),
+            ],
+          );
+        } else {
+          return Row(
+            children: [],
+          );
+        }
       }
+
       return Column(
         children: [
           GestureDetector(
@@ -180,13 +194,7 @@ class HoleBoxes extends StatelessWidget {
               );
             },
             child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CardBox(model.num1_1, model.mark1_1),
-                  CardBox(model.num1_2, model.mark1_2),
-                ],
-              ),
+              child: returnCardBoxes(),
             ),
           ),
         ],
