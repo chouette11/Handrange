@@ -114,48 +114,70 @@ class Button extends StatelessWidget{
                   model.onTapped(card),
                   model.notifyListeners(),
                   Navigator.pop(context),
-                }
-                else if (model.num2 == 0 && model.card1 != card) {
+                } else if (model.num2 == 0 && model.card1 != card) {
                   model.num2 = num,
                   model.mark2 = mark,
                   model.card2 = card,
                   model.onTapped(card),
                   model.notifyListeners(),
                   Navigator.pop(context),
-                }
-                else if (model.num3 == 0 && model.card1 != card &&
-                      model.card2 != card) {
-                    model.num3 = num,
-                    model.mark3 = mark,
-                    model.card3 = card,
-                    model.onTapped(card),
-                    model.notifyListeners(),
-                    Navigator.pop(context),
-                  }
-                  else if (model.num4 == 0 && model.card1 != card &&
-                        model.card2 != card && model.card3 != card ) {
-                      model.num4 = num,
-                      model.mark4 = mark,
-                      model.card4 = card,
-                      model.onTapped(card),
-                      model.notifyListeners(),
-                      Navigator.pop(context),
-                    }
-                    else if (model.num5 == 0 && model.card1 != card && model
-                          .card2 != card && model.card3 != card &&
-                          model.card4 != card) {
-                        model.num5 = num,
-                        model.mark5 = mark,
-                        model.card5 = card,
-                        model.onTapped(card),
-                        model.notifyListeners(),
-                        Navigator.pop(context),
-                      }
-                      else
-                        {
-                          Navigator.pop(context),
-                        },
-              },
+                } else if (model.num3 == 0 && model.card1 != card &&
+                    model.card2 != card) {
+                  model.num3 = num,
+                  model.mark3 = mark,
+                  model.card3 = card,
+                  model.onTapped(card),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
+                } else if (model.num4 == 0 && model.card1 != card &&
+                    model.card2 != card && model.card3 != card ) {
+                  model.num4 = num,
+                  model.mark4 = mark,
+                  model.card4 = card,
+                  model.onTapped(card),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
+                } else if (model.num5 == 0 && model.card1 != card && model
+                    .card2 != card && model.card3 != card &&
+                    model.card4 != card) {
+                  model.num5 = num,
+                  model.mark5 = mark,
+                  model.card5 = card,
+                  model.onTapped(card),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
+                } else {
+                  Navigator.pop(context),
+                },
+              } else if (name == "hole1") {
+                if (model.num1_1 == 0) {
+                  model.num1_1 = num,
+                  model.mark1_1 = mark,
+                  model.card1_1 = card,
+                  Navigator.pushNamed(context, '/equity'),
+                } else if (model.num1_2 == 0 && model.card1_1 != card) {
+                  model.num1_2 = num,
+                  model.mark1_2 = mark,
+                  model.card1_2 = card,
+                  Navigator.pushNamed(context, '/equity'),
+                } else {
+                  Navigator.pushNamed(context, '/equity'),
+                },
+              } else if (name == "hole2") {
+                if (model.num2_1 == 0 && model.card1_1 != card && model.card1_2 != card) {
+                  model.num2_1 = num,
+                  model.mark2_1 = mark,
+                  model.card2_1 = card,
+                  Navigator.pushNamed(context, '/calculate'),
+                } else if (model.num2_2 == 0 && model.card1_1 != card && model.card1_2 != card && model.card2_1 != card ) {
+                  model.num2_2 = num,
+                  model.mark2_2 = mark,
+                  model.card2_2 = card,
+                  Navigator.pushNamed(context, '/calculate'),
+                } else{
+                  Navigator.pushNamed(context, '/equity'),
+                },
+              }
             },
             child: Container(
               decoration: BoxDecoration(
