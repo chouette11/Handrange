@@ -154,28 +154,32 @@ class Button extends StatelessWidget{
                   model.num1_1 = num,
                   model.mark1_1 = mark,
                   model.card1_1 = card,
-                  Navigator.pushNamed(context, '/equity'),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
                 } else if (model.num1_2 == 0 && model.card1_1 != card) {
                   model.num1_2 = num,
                   model.mark1_2 = mark,
                   model.card1_2 = card,
-                  Navigator.pushNamed(context, '/equity'),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
                 } else {
-                  Navigator.pushNamed(context, '/equity'),
+                  Navigator.pop(context),
                 },
               } else if (name == "hole2") {
                 if (model.num2_1 == 0 && model.card1_1 != card && model.card1_2 != card) {
                   model.num2_1 = num,
                   model.mark2_1 = mark,
                   model.card2_1 = card,
-                  Navigator.pushNamed(context, '/calculate'),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
                 } else if (model.num2_2 == 0 && model.card1_1 != card && model.card1_2 != card && model.card2_1 != card ) {
                   model.num2_2 = num,
                   model.mark2_2 = mark,
                   model.card2_2 = card,
-                  Navigator.pushNamed(context, '/calculate'),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
                 } else{
-                  Navigator.pushNamed(context, '/equity'),
+                  Navigator.pop(context),
                 },
               }
             },
