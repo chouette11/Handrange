@@ -376,10 +376,10 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
+  //result
   List<int> comboList = [];
   createComboList() {
     List<int> inputComboList = [];
-
     inputComboList.add(royal);
     inputComboList.add(straightFlush);
     inputComboList.add(fourCards);
@@ -401,6 +401,7 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
+  //selectBoard
   List<Map<String, dynamic>> cards = CARDS.map((e) => {
     "num": e["num"],
     "mark": e["mark"],
@@ -419,6 +420,7 @@ class Calculation extends ChangeNotifier {
     });
   }
 
+  //GraphList
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],
     "value": e["value"],

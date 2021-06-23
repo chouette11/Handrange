@@ -100,8 +100,8 @@ class EqCalculation extends ChangeNotifier {
       }
 
       List <String> mark = ["s", "c", "h", "d"];
-      List <String> selectedMark = ["ss","cc","hh","dd"];
-      int i, j, l, m;
+      // List <String> selectedMark = ["ss","cc","hh","dd"];
+      int i, j;
       int max = numbers.length;
 
       onCalculate() {
@@ -215,8 +215,8 @@ class EqCalculation extends ChangeNotifier {
       marks.add(mark7);
       marks.sort((a, b) => a.compareTo(b));
 
-      String card6 = "$num6$mark6";
-      String card7 = "$num7$mark7";
+      // String card6 = "$num6$mark6";
+      // String card7 = "$num7$mark7";
 
       if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
         onCalculate();
@@ -235,6 +235,25 @@ class EqCalculation extends ChangeNotifier {
     onePair = inputOnePair;
     sum = inputSum;
     notifyListeners();
+  }
+
+  //selectBoard
+  List<Map<String, dynamic>> cards = CARDS.map((e) => {
+    "num": e["num"],
+    "mark": e["mark"],
+    "card": e["card"],
+    "isColor": true,
+  }).toList();
+
+  onTapped(String hand) {
+    final tappedBox = cards.firstWhere((e) => e["card"] == hand);
+    tappedBox["isColor"] = false;
+  }
+
+  onReset() {
+    cards.forEach((element) {
+      element["isColor"] = true;
+    });
   }
 
   List<Map<String, dynamic>> status1 = CONBI.map((e) => {

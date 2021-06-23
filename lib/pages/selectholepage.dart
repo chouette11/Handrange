@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: SelectPage(),
+      home: HoleSelectPage(),
     );
   }
 }
 
-class SelectPage extends StatelessWidget {
+class HoleSelectPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +61,7 @@ class Buttons extends StatelessWidget{
       physics: NeverScrollableScrollPhysics(),
       children: CARDS.map((e) =>
           GridTile(
-            child: Button(num: e["num"], mark: e["mark"], card: e["card"]),
+            child: Button(num: e["num"], mark: e["mark"], card: e["card"],),
           ),
       ).toList(),
     );
@@ -69,7 +69,7 @@ class Buttons extends StatelessWidget{
 }
 
 class Button extends StatelessWidget{
-  Button( {Key? key,  required this.num, required this.mark,  required this.card }) : super(key: key);
+  Button( {Key? key,  required this.num, required this.mark,  required this.card,}) : super(key: key);
   final int num;
   final String mark;
   final String card;
