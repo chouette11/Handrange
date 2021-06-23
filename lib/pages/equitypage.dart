@@ -5,6 +5,7 @@ import 'package:handrange/datas/sql.dart';
 import 'package:handrange/components//functions/creategraph.dart';
 import 'package:handrange/components//functions/elements.dart';
 import 'package:handrange/pages/calculatepage.dart';
+import 'package:handrange/pages/selectboardpageEq.dart';
 import 'package:handrange/pages/selectholepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
@@ -42,69 +43,15 @@ class Calculate extends StatelessWidget {
       children: [
         Expanded(
           flex: 1,
-          child: HoleBoxes(),
+          child: CardBoxes(),
         ),
         Expanded(
-          flex: 3,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("プレイヤー１")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            content: SaveGraphs(player: 1),
-                          ),
-                        );
-                      },
-                      child: Text("レンジ")
-                  ),
-                  DisplayGraph1(),
-                  HoleBoxes(),
-                ],
-              ),
-            ],
-          ),
+          flex: 2,
+          child: Players(num: 1),
         ),
         Expanded(
-          flex: 3,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("プレイヤー２")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            content: SaveGraphs(player: 2,),
-                          ),
-                        );
-                      },
-                      child: Text("レンジ")
-                  ),
-                  DisplayGraph2(),
-                  HoleBoxes(),
-                ],
-              ),
-            ],
-          ),
+          flex: 2,
+          child: Players(num: 2),
         ),
       ],
     );
@@ -121,7 +68,7 @@ class CardBoxes extends StatelessWidget {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (_) => SelectPage(),
+                builder: (_) => SelectPageEq(name: "board"qq),
               );
             },
             child: Container(
@@ -203,6 +150,35 @@ class Players extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class HoleBoxes extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<EqCalculation>(builder: (context, model, child) {
+      return Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (_) => HoleSelectPage(),
+              );
+            },
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  CardBox(model.num1_1, model.mark1_1),
+                  CardBox(model.num1_2, model.mark1_2),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    });
   }
 }
 
@@ -379,31 +355,4 @@ class Box extends StatelessWidget {
   }
 }
 
-class HoleBoxes extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<EqCalculation>(builder: (context, model, child) {
-      return Column(
-        children: [
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (_) => SelectPage(),
-              );
-            },
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CardBox(model.num1_1, model.mark1_1),
-                  CardBox(model.num1_2, model.mark1_2),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-    });
-  }
-}
+
