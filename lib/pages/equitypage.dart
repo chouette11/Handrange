@@ -6,7 +6,6 @@ import 'package:handrange/components//functions/creategraph.dart';
 import 'package:handrange/components//functions/elements.dart';
 import 'package:handrange/pages/calculatepage.dart';
 import 'package:handrange/pages/selectboardpageEq.dart';
-import 'package:handrange/pages/selectholepage.dart';
 import 'package:handrange/providers/eqcalculation.dart';
 import 'package:provider/provider.dart';
 
