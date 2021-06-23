@@ -8,25 +8,18 @@ import '../providers/light.dart';
 import '../datas/combination.dart';
 import '../providers/calculation.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Handrange',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: SelectPageEq(),
-    );
-  }
-}
-
 class SelectPageEq extends StatelessWidget {
+  SelectPageEq({Key? key,  required this.name}) : super(key: key);
+  final String name;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SelectCards(),
+      body: Provider<String>.value(
+        child: SelectCards(),
+        value: name,
+      ),
     );
   }
 }
@@ -79,7 +72,7 @@ class DeleteButton extends StatelessWidget {
 class Buttons extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Consumer<Calculation>(builder: (context, model, child) {
+    return Consumer<EqCalculation>(builder: (context, model, child) {
       return GridView.count(
         crossAxisCount: 13,
         mainAxisSpacing: 0.001,
@@ -98,13 +91,14 @@ class Buttons extends StatelessWidget{
 }
 
 class Button extends StatelessWidget{
-  Button( {Key? key,  required this.num, required this.mark,  required this.card, required this.isColor }) : super(key: key);
+  Button({Key? key,  required this.num, required this.mark,  required this.card, required this.isColor }) : super(key: key);
   final int num;
   final String mark;
   final String card;
   final bool isColor;
   @override
   Widget build(BuildContext context) {
+    final name = Provider.of<String>(context);
     return Consumer<EqCalculation>(builder: (context, model, child) {
       return Container(
         color: Colors.white,
@@ -112,49 +106,56 @@ class Button extends StatelessWidget{
           color: isColor ? Colors.white70 : Colors.black38,
           child: GestureDetector(
             onTap: () => {
-              if (model.num1 == 0) {
-                model.num1 = num,
-                model.mark1 = mark,
-                model.card1 = card,
-                model.onTapped(card),
-                model.notifyListeners(),
-                Navigator.pop(context),
-              }
-              else if (model.num2 == 0 && model.card1 != card) {
-                model.num2 = num,
-                model.mark2 = mark,
-                model.card2 = card,
-                model.onTapped(card),
-                model.notifyListeners(),
-                Navigator.pop(context),
-              }
-              else if (model.num3 == 0 && model.card1 != card && model.card2 != card) {
-                  model.num3 = num,
-                  model.mark3 = mark,
-                  model.card3 = card,
+              if (name == "board") {
+                if (model.num1 == 0) {
+                  model.num1 = num,
+                  model.mark1 = mark,
+                  model.card1 = card,
                   model.onTapped(card),
                   model.notifyListeners(),
                   Navigator.pop(context),
                 }
-                else if (model.num4 == 0 && model.card1 != card && model.card2 != card && model.card3 != card ) {
-                    model.num4 = num,
-                    model.mark4 = mark,
-                    model.card4 = card,
+                else if (model.num2 == 0 && model.card1 != card) {
+                  model.num2 = num,
+                  model.mark2 = mark,
+                  model.card2 = card,
+                  model.onTapped(card),
+                  model.notifyListeners(),
+                  Navigator.pop(context),
+                }
+                else if (model.num3 == 0 && model.card1 != card &&
+                      model.card2 != card) {
+                    model.num3 = num,
+                    model.mark3 = mark,
+                    model.card3 = card,
                     model.onTapped(card),
                     model.notifyListeners(),
                     Navigator.pop(context),
                   }
-                  else if (model.num5 == 0 && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
-                      model.num5 = num,
-                      model.mark5 = mark,
-                      model.card5 = card,
+                  else if (model.num4 == 0 && model.card1 != card &&
+                        model.card2 != card && model.card3 != card ) {
+                      model.num4 = num,
+                      model.mark4 = mark,
+                      model.card4 = card,
                       model.onTapped(card),
                       model.notifyListeners(),
                       Navigator.pop(context),
                     }
-                    else{
+                    else if (model.num5 == 0 && model.card1 != card && model
+                          .card2 != card && model.card3 != card &&
+                          model.card4 != card) {
+                        model.num5 = num,
+                        model.mark5 = mark,
+                        model.card5 = card,
+                        model.onTapped(card),
+                        model.notifyListeners(),
                         Navigator.pop(context),
-                      },
+                      }
+                      else
+                        {
+                          Navigator.pop(context),
+                        },
+              },
             },
             child: Container(
               decoration: BoxDecoration(
