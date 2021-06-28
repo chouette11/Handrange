@@ -38,24 +38,33 @@ class _SaveGraphsState extends State<SaveGraphs>{
         builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
           if (snapshot.hasData) {
             return Container(
-              margin: EdgeInsets.only(left: 2.5,right: 2.5,top: 2),
-              width: screenSizeWidth,
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 2.5,
-                childAspectRatio: 0.83,
-                children: getIds(snapshot).map((e) =>
-                    GridTile(
-                      child: GraphList(
-                          id: e["id"],
-                          num: e["num"],
-                          text: e["text"],
-                          name: e["name"],
-                          count: e["count"]
-                      ),
-                    ),
-                ).toList(),
+              decoration: BoxDecoration(
+                border: Border.all(width: 3,color: Colors.black12)
+              ),
+              child: Container(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                  ),
+                  width: screenSizeWidth,
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4.5,
+                    crossAxisSpacing: 1.5,
+                    childAspectRatio: 0.83,
+                    children: getIds(snapshot).map((e) =>
+                        GridTile(
+                          child: GraphList(
+                              id: e["id"],
+                              num: e["num"],
+                              text: e["text"],
+                              name: e["name"],
+                              count: e["count"]
+                          ),
+                        ),
+                    ).toList(),
+                  ),
+                ),
               ),
             );
           }
@@ -220,36 +229,47 @@ class GraphList extends StatelessWidget {
             },
           ),
         },
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  border:Border.all(width: 1.5, color: Colors.black45),
-                  borderRadius: BorderRadius.circular(3)
-              ),
-              child: GridView.count(
-                crossAxisCount: 13,
-                mainAxisSpacing: 0.001,
-                crossAxisSpacing: 0.001,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                children: getTFs(text).map((e) =>
-                    GridTile(
-                      child: Box(isSelected: e["isSelected"]),
+          child: Material(
+            elevation: 0.4,
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    border:Border.all(width: 1.5, color: Colors.black45),
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  child: GridView.count(
+                    crossAxisCount: 13,
+                    mainAxisSpacing: 0.001,
+                    crossAxisSpacing: 0.001,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    children: getTFs(text).map((e) =>
+                        GridTile(
+                          child: Box(isSelected: e["isSelected"]),
+                        ),
+                    ).toList(),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border:Border.all(width: 1.5, color: Colors.black12),
+                    borderRadius: BorderRadius.circular(3),
+                    color: Colors.white70,
+                  ),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
+                        Text(name),
+                        SizedBox(width: 4, height: 1.09,)
+                      ],
                     ),
-                ).toList(),
-              ),
+                  ),
+                ),
+              ],
             ),
-            Center(
-              child: Column(
-                children: [
-                  Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
-                  Text(name),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
       );
     });
   }
