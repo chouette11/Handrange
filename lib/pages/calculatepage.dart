@@ -57,7 +57,7 @@ class Calculate extends StatelessWidget {
                       SimpleDialogOption(
                         child: Text('ボードのカードを３枚以上選択してください'),
                         onPressed: () {
-                          Navigator.pop(context, "/calculate");
+                          Navigator.pop(context);
                         },
                       ),
                     ],
