@@ -33,18 +33,43 @@ class SelectPage extends StatelessWidget {
 class SelectCards extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            BackButton(),
-          ],
-        ),
-        Buttons(),
-      ],
-    );
+    return  Consumer<Calculation>(builder: (context, model, child) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              RaisedButton(
+                child: Text('クリア'),
+                onPressed: () {
+                  model.num1 = 0;
+                  model.num2 = 0;
+                  model.num3 = 0;
+                  model.num4 = 0;
+                  model.num5 = 0;
+                  model.mark1 = "";
+                  model.mark2 = "";
+                  model.mark3 = "";
+                  model.mark4 = "";
+                  model.mark5 = "";
+                  model.card1 = "";
+                  model.card2 = "";
+                  model.card3 = "";
+                  model.card4 = "";
+                  model.card5 = "";
+                  model.onReset();
+                  model.notifyListeners();
+                },
+              ),
+              SizedBox(width: 5, height: 3),
+              BackButton(),
+            ],
+          ),
+          Buttons(),
+        ],
+      );
+    });
   }
 }
 
@@ -117,7 +142,6 @@ class Button extends StatelessWidget{
                 model.card1 = card,
                 model.onTapped(card),
                 model.notifyListeners(),
-                Navigator.pop(context),
               }
               else if (model.num2 == 0 && model.card1 != card) {
                 model.num2 = num,
@@ -125,7 +149,6 @@ class Button extends StatelessWidget{
                 model.card2 = card,
                 model.onTapped(card),
                 model.notifyListeners(),
-                Navigator.pop(context),
               }
               else if (model.num3 == 0 && model.card1 != card && model.card2 != card) {
                   model.num3 = num,
@@ -133,7 +156,6 @@ class Button extends StatelessWidget{
                   model.card3 = card,
                   model.onTapped(card),
                   model.notifyListeners(),
-                  Navigator.pop(context),
                 }
                 else if (model.num4 == 0 && model.card1 != card && model.card2 != card && model.card3 != card ) {
                     model.num4 = num,
@@ -141,7 +163,6 @@ class Button extends StatelessWidget{
                     model.card4 = card,
                     model.onTapped(card),
                     model.notifyListeners(),
-                    Navigator.pop(context),
                   }
                   else if (model.num5 == 0 && model.card1 != card && model.card2 != card && model.card3 != card && model.card4 != card) {
                       model.num5 = num,
