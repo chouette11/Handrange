@@ -67,7 +67,7 @@ class Calculation extends ChangeNotifier {
       numbers.add(num6);
       numbers.add(num7);
       numbers.sort();
-      print(numbers);
+
       List<String> marks = [];
       marks.add(mark1);
       marks.add(mark2);
@@ -80,7 +80,6 @@ class Calculation extends ChangeNotifier {
       if(mark5 != ""){
         marks.add(mark5);
       }
-
       List<String> cards = [];
       cards.add(card1);
       cards.add(card2);
@@ -95,24 +94,23 @@ class Calculation extends ChangeNotifier {
       }
 
       List <String> mark = ["s", "c", "h", "d"];
-      List <String> selectedMark = ["ss","cc","hh","dd"];
       int i, j, l, m;
       int max = numbers.length;
 
       onCalculate() {
+        int judge = 0;
         for(i = 0; i <= 3; i++){
-          String doubleMark = "${mark[i]}${mark[i]}";
-          if((cards.contains("13${mark[i]}") || cards.contains("13$doubleMark")) && (cards.contains("12${mark[i]}") || cards.contains("12$doubleMark")) && (cards.contains("11${mark[i]}") || cards.contains("11$doubleMark")) && (cards.contains("10${mark[i]}") || cards.contains("10$doubleMark")) && (cards.contains("1${mark[i]}") || cards.contains("1$doubleMark"))){
+          if(cards.contains("13${mark[i]}") && cards.contains("12${mark[i]}")
+              && cards.contains("11${mark[i]}") && cards.contains("10${mark[i]}") && cards.contains("1${mark[i]}")){
             print("Royal");
             inputRoyalStraightFlash++;
           }
         }
-        for(i = 0; i <= max - 5; i++){
+        for(i = 0; i <= 8; i++){
           for(j = 0; j <= 3; j++){
-            String doubleMark = "${mark[i]}${mark[i]}";
-            if ((cards.contains("$i${mark[j]}") || cards.contains("$i$doubleMark")) && (cards.contains("${i + 1}${mark[j]}") || cards.contains("${i + 1}$doubleMark")) &&
-                (cards.contains("${i + 2}${mark[j]}") || cards.contains("${i + 2}$doubleMark")) && (cards.contains("${i + 3}${mark[j]}") || cards.contains("${i + 3}$doubleMark")) &&
-                (cards.contains("${i + 4}${mark[j]}") || cards.contains("${i + 4}$doubleMark"))) {
+            if (cards.contains("$i${mark[j]}") && cards.contains("${i + 1}${mark[j]}") &&
+                cards.contains("${i + 2}${mark[j]}") && cards.contains("${i + 3}${mark[j]}") &&
+                cards.contains("${i + 4}${mark[j]}")) {
               print("StraightFlush");
               inputStraightFlush++;
               break;
@@ -132,22 +130,21 @@ class Calculation extends ChangeNotifier {
             if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
                 numbers[j] == numbers[j + 1]) {
               print("FullHouse");
+              judge = 6;
               inputFullHouse++;
               break;
             }
           }
-          break;
         }
         for (i = 2; i <= max - 3; i++) {
           for (j = i - 2; j >= 0; j--) {
             if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
                 numbers[j] == numbers[j + 1]) {
               print("FullHouse");
-              inputFullHouse++;
+              judge == 6 ? inputFullHouse = inputFullHouse : inputFullHouse++;
               break;
             }
           }
-          break;
         }
         for (i = 0; i <= max - 5; i++) {
           for(j = 0; j <= 3; j++){
@@ -164,6 +161,7 @@ class Calculation extends ChangeNotifier {
               numbers.contains(i + 4)) {
             print("Straight");
             inputStraight++;
+            judge = 4;
             break;
           }
         }
@@ -171,7 +169,7 @@ class Calculation extends ChangeNotifier {
             numbers.contains(11) && numbers.contains(12) &&
             numbers.contains(13)){
           print("Straight");
-          inputStraight++;
+          judge == 4 ? inputStraight = inputStraight : inputStraight++;
         }
         for (i = 0; i <= max - 3; i++) {
           if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) {
@@ -184,7 +182,8 @@ class Calculation extends ChangeNotifier {
           for (j = i + 2; j <= max - 2; j++) {
             if (numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]) {
               print("TwoPair");
-              inputTwoPair++;
+              judge == 2 ? inputTwoPair = inputTwoPair : inputTwoPair++;
+              judge = 2;
               break;
             }
           }
@@ -201,19 +200,21 @@ class Calculation extends ChangeNotifier {
       if (isSuit == "s") {
         for(l = 0; l <= 3; l++){
           String mark6 = mark[l];
-          String mark6_2 = selectedMark[l];
 
-          String card1 = "$num6$mark6";
-          String card2 = "$num7$mark6";
-          marks.add(mark6_2);
-          marks.add(mark6_2);
+          String card6 = "$num6$mark6";
+          String card7 = "$num7$mark6";
 
+          marks.add(mark6);
+          marks.add(mark6);
           marks.sort((a, b) => a.compareTo(b));
-          if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
+          print(cards);
+          if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
+            cards.add(card6);
+            cards.add(card7);
             onCalculate();
             inputSum++;
           }
-          marks.remove(mark6);marks.remove(mark6);
+          marks.remove(mark6);marks.remove(mark6);cards.remove(card6);cards.remove(card7);
         }
       }
       else if(isSuit =="o"){
@@ -221,23 +222,23 @@ class Calculation extends ChangeNotifier {
           for(l = m + 1; l <= 3; l++){
             String mark6 = mark[l];
             String mark7 = mark[m];
-            String mark6_2 = selectedMark[l];
-            String mark7_2 = selectedMark[m];
 
-            String card1 = "$num6$mark6";
-            String card2 = "$num7$mark7";
-            marks.add(mark6_2);
-            marks.add(mark7_2);
+            String card6 = "$num6$mark6";
+            String card7 = "$num7$mark6";
 
+            marks.add(mark6);
+            marks.add(mark7);
             marks.sort((a, b) => a.compareTo(b));
-            if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
+
+            if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
+              cards.add(card6);
+              cards.add(card7);
               onCalculate();
               inputSum++;
               onCalculate();
               inputSum++;
             }
-            marks.remove(mark6);
-            marks.remove(mark7);
+            marks.remove(mark6);marks.remove(mark7);cards.remove(card6);cards.remove(card7);
           }
         }
       }
@@ -246,21 +247,21 @@ class Calculation extends ChangeNotifier {
           for(l = m + 1; l <= 3; l++) {
             String mark6 = mark[l];
             String mark7 = mark[m];
-            String mark6_2 = selectedMark[l];
-            String mark7_2 = selectedMark[m];
 
-            String card1 = "$num6$mark6";
-            String card2 = "$num7$mark7";
-            marks.add(mark6_2);
-            marks.add(mark7_2);
+            String card6 = "$num6$mark6";
+            String card7 = "$num7$mark6";
 
+            marks.add(mark6);
+            marks.add(mark7);
             marks.sort((a, b) => a.compareTo(b));
-            if((cards.every((hand) => hand != card1)) && (cards.every((hand) => hand != card2))){
+
+            if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
+              cards.add(card6);
+              cards.add(card7);
               onCalculate();
               inputSum++;
             }
-            marks.remove(mark6);
-            marks.remove(mark7);
+            marks.remove(mark6);marks.remove(mark7);cards.remove(card6);cards.remove(card7);
           }
         }
       }
