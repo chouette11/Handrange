@@ -67,7 +67,7 @@ class Calculation extends ChangeNotifier {
       numbers.add(num6);
       numbers.add(num7);
       numbers.sort();
-
+      print(numbers);
       List<String> marks = [];
       marks.add(mark1);
       marks.add(mark2);
@@ -377,7 +377,7 @@ class Calculation extends ChangeNotifier {
   }
 
   //result
-  List<int> comboList = [];
+  List<int> comboList = [0,0,0,0,0,0,0,0,0,0];
   createComboList() {
     List<int> inputComboList = [];
     inputComboList.add(royal);
