@@ -189,6 +189,8 @@ class EqCalculation extends ChangeNotifier {
 
     int ver1 = 0;
     int ver2 = 0;
+    hole1.sort((a, b) => a.compareTo(b));
+    hole2.sort((a, b) => a.compareTo(b));
 
     List<int> numbers1 = List.from(numbers);
     int num6 = hole1[0];
@@ -249,7 +251,11 @@ class EqCalculation extends ChangeNotifier {
         } else if (result1 == 8) {
 
         } else if (result1 == 7) {
-          numbers1[3] > numbers2[3] ? player1 = 1 : player2 = 1;
+          if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[0] == numbers[3]) || (numbers[1] == numbers[2] && numbers[1] == numbers[3] && numbers[1] == numbers[4]) ){
+            hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+          } else {
+            numbers1[3] > numbers2[3] ? player1 = 1 : player2 = 1;
+          }
         } else if (result1 == 6) {
             if (ver1 == 1 && ver2 == 1) {
               numbers1[2] > numbers2[2] ? player1 = 1 : player2 = 1;
@@ -265,16 +271,19 @@ class EqCalculation extends ChangeNotifier {
         } else if (result1 == 4) {
           ver1 > ver2 ? player1 = 1 : player2 = 1;
         } else if (result1 == 3) {
-          int sum1 = 0; int sum2 = 0;
-          numbers1.forEach((element) {
-            element == 1 ? element = 14 : element = element;
-            sum1 += element;
-          });
-          numbers2.forEach((element) {
-            element == 1 ? element = 14 : element = element;
-            sum2 += element;
-          });
-          sum1 > sum2 ? player1 = 1 : player2 = 1;
+          for (i = 0; i <= 4; i++) {
+            if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) { //board ThreeCards
+              if (hole1[0] != hole2[0]) {
+                hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+              } else if (hole1[0] == hole2[0]) {
+                hole1[1] > hole2[1] ? player1 = 1 : player2 = 1;
+              }
+            } else if (numbers[i] == numbers[i + 1]) { //board onePair
+
+            } else {
+              hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+            }
+          }
         } else if (result1 == 2) {
 
         } else if (result1 == 1) {
