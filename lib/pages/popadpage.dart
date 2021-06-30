@@ -78,6 +78,7 @@ class PopAdWidget extends StatelessWidget {
                       RaisedButton(
                         onPressed: () {
                           model.onVisible();
+                          model.notifyListeners();
                           Navigator.pop(context);
                         },
                         child: Text("表示"),
