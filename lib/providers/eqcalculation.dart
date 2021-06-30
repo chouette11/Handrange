@@ -3,10 +3,8 @@ import 'package:handrange/datas/combination.dart';
 import 'package:handrange/datas/sql.dart';
 
 class EqCalculation extends ChangeNotifier {
-  int num1_1 = 0;
-  int num1_2 = 0;
-  int num2_1 = 0;
-  int num2_2 = 0;
+  List<int> hole1 = [];
+  List<int> hole2 = [];
 
   String mark1_1 = "";
   String mark1_2 = "";
@@ -193,8 +191,8 @@ class EqCalculation extends ChangeNotifier {
     int ver2 = 0;
 
     List<int> numbers1 = List.from(numbers);
-    int num6 = num1_1;
-    int num7 = num1_2;
+    int num6 = hole1[0];
+    int num7 = hole1[1];
     numbers1.add(num6);
     numbers1.add(num7);
     numbers1.sort((a, b) => a.compareTo(b));
@@ -216,8 +214,8 @@ class EqCalculation extends ChangeNotifier {
     onCalculate(numbers1,marks1,cards1,result1,ver1);
 
     List<int> numbers2 = List.from(numbers);
-    num6 = num2_1;
-    num7 = num2_2;
+    num6 = hole2[0];
+    num7 = hole2[1];
     numbers2.add(num6);
     numbers2.add(num7);
     numbers2.sort((a, b) => a.compareTo(b));

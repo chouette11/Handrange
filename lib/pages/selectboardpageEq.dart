@@ -151,15 +151,15 @@ class Button extends StatelessWidget{
                     Navigator.pop(context),
                   },
                 } else if (name == "hole1") {
-                  if (model.num1_1 == 0) {
-                    model.num1_1 = num,
+                  if (model.hole1[0] == 0) {
+                    model.hole1[0] = num,
                     model.mark1_1 = mark,
                     model.card1_1 = card,
                     model.onTapped(card),
                     model.notifyListeners(),
                     Navigator.pop(context),
-                  } else if (model.num1_2 == 0 && model.card1_1 != card) {
-                    model.num1_2 = num,
+                  } else if (model.hole1[1] == 0 && model.card1_1 != card) {
+                    model.hole1[1] = num,
                     model.mark1_2 = mark,
                     model.card1_2 = card,
                     model.onTapped(card),
@@ -169,15 +169,15 @@ class Button extends StatelessWidget{
                     Navigator.pop(context),
                   },
                 } else if (name == "hole2") {
-                  if (model.num2_1 == 0 && model.card1_1 != card && model.card1_2 != card) {
-                    model.num2_1 = num,
+                  if (model.hole2[0] == 0 && model.card1_1 != card && model.card1_2 != card) {
+                    model.hole2[0] = num,
                     model.mark2_1 = mark,
                     model.card2_1 = card,
                     model.onTapped(card),
                     model.notifyListeners(),
                     Navigator.pop(context),
-                  } else if (model.num2_2 == 0 && model.card1_1 != card && model.card1_2 != card && model.card2_1 != card ) {
-                    model.num2_2 = num,
+                  } else if (model.hole2[1] == 0 && model.card1_1 != card && model.card1_2 != card && model.card2_1 != card ) {
+                    model.hole2[1] = num,
                     model.mark2_2 = mark,
                     model.card2_2 = card,
                     model.onTapped(card),

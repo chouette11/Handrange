@@ -166,15 +166,15 @@ class HoleBoxes extends StatelessWidget {
         if (num == 1) {
           return Row(
             children: [
-              CardBox(model.num1_1, model.mark1_1),
-              CardBox(model.num1_2, model.mark1_2),
+              CardBox(model.hole1[0], model.mark1_1),
+              CardBox(model.hole1[1], model.mark1_2),
             ],
           );
         } else if (num == 2) {
           return Row(
             children: [
-              CardBox(model.num2_1, model.mark2_1),
-              CardBox(model.num2_2, model.mark2_2),
+              CardBox(model.hole2[0], model.mark2_1),
+              CardBox(model.hole2[0], model.mark2_2),
             ],
           );
         } else {
