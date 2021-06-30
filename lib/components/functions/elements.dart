@@ -69,13 +69,15 @@ Column bigCard(int number, String selectedMark) {
       Center(
         child: Text(
           returnNumber(number),
-          style: TextStyle(fontSize: 23,fontFamily: "PTS",color: Colors.grey[850]),
+          style: TextStyle(fontSize: 23,fontFamily: "PTS",color: Colors.grey[800]),
         ),
       ),
       Center(
         child: Text(
           returnMark(selectedMark),
-          style: TextStyle(fontSize: 23,fontFamily: "PTS"),
+          style: selectedMark == "♠" || selectedMark == "♣" ?
+          TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.grey[700]) :
+          TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.red[900]),
         ),
       ),
     ],
@@ -129,7 +131,13 @@ Column smallCard(int number, String selectedMark){
   return Column(
     children: [
       Expanded(child: Text(returnText(number))),
-      Expanded(child: Text(returnMark(selectedMark))),
+      Expanded(
+        child: Text(returnMark(selectedMark),
+          style: selectedMark == "♠" || selectedMark == "♣" ?
+          TextStyle(color: Colors.grey[700]) :
+          TextStyle(color: Colors.red[900]),
+        ),
+      ),
     ],
   );
 }
