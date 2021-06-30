@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/ad_state.dart';
+import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //selectCard
@@ -11,7 +12,7 @@ Container CardBox(int n, String m){
       width: 40,
       height: 65,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
+        border: Border.all(color: Colors.black54),
         borderRadius: BorderRadius.circular(5.0),
       ),
       child: bigCard(n, m),
@@ -21,7 +22,7 @@ Container CardBox(int n, String m){
 
 // ignore: non_constant_identifier_names
 Column bigCard(int number, String selectedMark) {
-  String returnText(int n) {
+  String returnName(int n) {
     if (n == 0) {
       return "";
     }
@@ -68,14 +69,14 @@ Column bigCard(int number, String selectedMark) {
     children: [
       Center(
         child: Text(
-          returnText(number),
-          style: TextStyle(fontSize: 23,fontFamily: "PTS"),
+          returnName(number),
+          style: TextStyle(fontSize: 23,fontFamily: "PTS",color: Colors.black38),
         ),
       ),
       Center(
         child: Text(
           returnMark(selectedMark),
-          style: TextStyle(fontSize: 23,fontFamily: "PTS"),
+          style: selectedMark == "♦" || selectedMark == "♥"  ? TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.redAccent) : TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.black38),
         ),
       ),
     ],
@@ -128,8 +129,18 @@ Column smallCard(int number, String selectedMark){
   }
   return Column(
     children: [
-      Expanded(child: Text(returnText(number))),
-      Expanded(child: Text(returnMark(selectedMark))),
+      Expanded(
+        child: Text(
+          returnText(number),
+          style: TextStyle(color: Colors.black38),
+        ),
+      ),
+      Expanded(
+        child: Text(
+          returnMark(selectedMark),
+          style: selectedMark == "♦" || selectedMark == "♥"  ? TextStyle(fontFamily: "PTS", color: Colors.redAccent) : TextStyle(fontFamily: "PTS", color: Colors.black38) ,
+        ),
+      ),
     ],
   );
 }
