@@ -224,7 +224,7 @@ class Calculation extends ChangeNotifier {
             String mark7 = mark[m];
 
             String card6 = "$num6$mark6";
-            String card7 = "$num7$mark6";
+            String card7 = "$num7$mark7";
 
             marks.add(mark6);
             marks.add(mark7);
@@ -249,7 +249,7 @@ class Calculation extends ChangeNotifier {
             String mark7 = mark[m];
 
             String card6 = "$num6$mark6";
-            String card7 = "$num7$mark6";
+            String card7 = "$num7$mark7";
 
             marks.add(mark6);
             marks.add(mark7);
