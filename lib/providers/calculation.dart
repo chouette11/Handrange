@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:handrange/components/functions/elements.dart';
 import 'package:handrange/datas/sql.dart';
 import '../datas/combination.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class Calculation extends ChangeNotifier {
   int twoPair = 0;
   int onePair = 0;
   int sum = 0;
+  List<int> onePairCombo = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
   graphJudge() {
     int inputSum = 0;
@@ -49,6 +51,7 @@ class Calculation extends ChangeNotifier {
     int inputThreeCards = 0;
     int inputTwoPair = 0;
     int inputOnePair = 0;
+    List<int> inputOnePairCombo = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     handJudge(String isSuit) {
       List<int> numbers = [];
@@ -63,6 +66,9 @@ class Calculation extends ChangeNotifier {
       if(num5 != 0){
         numbers.add(num5);
       }
+
+      List<int> board = List.from(numbers);
+      board.sort();
 
       numbers.add(num6);
       numbers.add(num7);
@@ -95,6 +101,7 @@ class Calculation extends ChangeNotifier {
 
       List <String> mark = ["s", "c", "h", "d"];
       int i, j, l, m;
+      int k = 0;
       int max = numbers.length;
 
       onCalculate() {
@@ -182,6 +189,11 @@ class Calculation extends ChangeNotifier {
           for (j = i + 2; j <= max - 2; j++) {
             if (numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]) {
               print("TwoPair");
+              for (l = 0; l <= 3; l++) {
+                if (board[l] == board[l + 1]) {
+                  judge == 2 ? inputOnePairCombo = inputOnePairCombo : inputOnePairCombo[numbers[i]]++;
+                }
+              }
               judge == 2 ? inputTwoPair = inputTwoPair : inputTwoPair++;
               judge = 2;
               break;
@@ -191,6 +203,9 @@ class Calculation extends ChangeNotifier {
         for (i = 0; i <= max - 2; i++) {
           if (numbers[i] == numbers[i + 1]) {
             print("OnePair");
+              if (board[k] != board[k + 1] && board[k] != board[k + 2] && board[k] != board[k + 3] && board[k] != board[k + 4]) {
+                inputOnePairCombo[numbers[i]]++;
+              }
             inputOnePair++;
             break;
           }
@@ -373,13 +388,16 @@ class Calculation extends ChangeNotifier {
     threeCards = inputThreeCards;
     twoPair = inputTwoPair;
     onePair = inputOnePair;
+    onePairCombo = inputOnePairCombo;
     sum = inputSum;
     notifyListeners();
   }
 
   //result
+  List<String> onePairList = [];
   List<int> comboList = [0,0,0,0,0,0,0,0,0,0];
   createComboList() {
+    int i;
     List<int> inputComboList = [];
     inputComboList.add(royal);
     inputComboList.add(straightFlush);
@@ -391,8 +409,17 @@ class Calculation extends ChangeNotifier {
     inputComboList.add(twoPair);
     inputComboList.add(onePair);
     inputComboList.add(sum);
-
     comboList = inputComboList;
+
+    List<String> inputOnePairList = [];
+    for (i = 0; i <= 12; i++) {
+      if(onePairCombo[i] > 6) {
+        inputOnePairList.add(
+            "${returnNumber(i)}ペア:${((onePairCombo[i] / onePair) * 100).toStringAsFixed(2)}%"
+        );
+      }
+    }
+    onePairList = inputOnePairList;
     notifyListeners();
   }
 
