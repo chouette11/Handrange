@@ -106,7 +106,7 @@ class Calculation extends ChangeNotifier {
             inputRoyalStraightFlash++;
           }
         }
-        for(i = 0; i <= 8; i++){
+        for(i = 1; i <= 9; i++){
           for(j = 0; j <= 3; j++){
             if (cards.contains("$i${mark[j]}") && cards.contains("${i + 1}${mark[j]}") &&
                 cards.contains("${i + 2}${mark[j]}") && cards.contains("${i + 3}${mark[j]}") &&
