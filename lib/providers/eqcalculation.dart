@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:handrange/components/functions/elements.dart';
 import 'package:handrange/datas/combination.dart';
 import 'package:handrange/datas/sql.dart';
 
@@ -36,17 +37,19 @@ class EqCalculation extends ChangeNotifier {
 
   graphJudge() {
     List<int> numbers = [];
-    numbers.add(num1);
-    numbers.add(num2);
-    numbers.add(num3);
+    numbers.add(aceTo14(num1));
+    numbers.add(aceTo14(num2));
+    numbers.add(aceTo14(num3));
 
     if(num4 != 0){
-      numbers.add(num4);
+      numbers.add(aceTo14(num4));
     }
 
     if(num5 != 0){
-      numbers.add(num5);
+      numbers.add(aceTo14(num5));
     }
+    numbers.sort();
+    List<int> board = List.from(numbers);
 
     List<String> marks = [];
     marks.add(mark1);
@@ -79,7 +82,7 @@ class EqCalculation extends ChangeNotifier {
     int i, j;
     int max = numbers.length;
 
-    onCalculate(List<int> numbers, List<String> marks, List<String> cards, int result, int ver) {
+    onCalculate(List<int> numbers, List<String> marks, List<String> cards, int result, int ver, String flushMark) {
       for(i = 0; i <= 3; i++){
         String doubleMark = "${mark[i]}${mark[i]}";
         if((cards.contains("13${mark[i]}") || cards.contains("13$doubleMark")) && (cards.contains("12${mark[i]}") || cards.contains("12$doubleMark")) && (cards.contains("11${mark[i]}") || cards.contains("11$doubleMark")) && (cards.contains("10${mark[i]}") || cards.contains("10$doubleMark")) && (cards.contains("1${mark[i]}") || cards.contains("1$doubleMark"))){
@@ -137,6 +140,7 @@ class EqCalculation extends ChangeNotifier {
           if (marks[i].contains(mark[j]) && marks[i + 1].contains(mark[j]) && marks[i + 2].contains(mark[j]) &&  marks[i + 3].contains(mark[j]) && marks[i + 4].contains(mark[j])) {
             print("flush");
             result = 5;
+            flushMark = mark[j];
             break;
           }
         }
@@ -180,7 +184,6 @@ class EqCalculation extends ChangeNotifier {
         if (numbers[i] == numbers[i + 1]) {
           print("OnePair");
           result = 1;
-          ver = numbers[i];
           break;
         }
       }
@@ -191,10 +194,11 @@ class EqCalculation extends ChangeNotifier {
     int ver2 = 0;
     hole1.sort((a, b) => a.compareTo(b));
     hole2.sort((a, b) => a.compareTo(b));
+    String flushMark = "";
 
     List<int> numbers1 = List.from(numbers);
-    int num6 = hole1[0];
-    int num7 = hole1[1];
+    int num6 = aceTo14(hole1[0]);
+    int num7 = aceTo14(hole1[1]);
     numbers1.add(num6);
     numbers1.add(num7);
     numbers1.sort((a, b) => a.compareTo(b));
@@ -212,12 +216,23 @@ class EqCalculation extends ChangeNotifier {
     cards1.add(card6);
     cards1.add(card7);
 
+    List<String> nums1 = [];
+    List<List<String>> numm1 = [];
+    List<int> strFlush1 = [];
+    cards1.forEach((element) {element.contains(flushMark) ? nums1.add(element) : nums1 = nums1;});
+    nums1.forEach((element) {numm1.add(element.split(""));});
+    numm1.forEach((element) {element.removeLast();});
+    numm1.forEach((element) {
+      element.length == 2 ? strFlush1.add(int.parse(element.join(""))) : strFlush1.add(int.parse(element[0]));
+    });
+    strFlush1.sort();
+
     int result1 = 0;
-    onCalculate(numbers1,marks1,cards1,result1,ver1);
+    onCalculate(numbers1,marks1,cards1,result1,ver1,flushMark);
 
     List<int> numbers2 = List.from(numbers);
-    num6 = hole2[0];
-    num7 = hole2[1];
+    num6 = aceTo14(hole2[0]);
+    num7 = aceTo14(hole2[1]);
     numbers2.add(num6);
     numbers2.add(num7);
     numbers2.sort((a, b) => a.compareTo(b));
@@ -235,8 +250,20 @@ class EqCalculation extends ChangeNotifier {
     cards2.add(card6);
     cards2.add(card7);
 
+    List<String> nums2 = [];
+    List<List<String>> numm2 = [];
+    List<int> strFlush2 = [];
+    cards2.forEach((element) {element.contains(flushMark) ? nums2.add(element) : nums1 = nums1;});
+    nums2.forEach((element) {numm2.add(element.split(""));});
+    numm2.forEach((element) {element.removeLast();});
+    numm2.forEach((element) {
+      element.length == 2 ? strFlush2.add(int.parse(element.join(""))) : strFlush2.add(int.parse(element[0]));
+    });
+    strFlush2.sort();
+
+
     int result2 = 0;
-    onCalculate(numbers2, marks2, cards2, result2, ver2);
+    onCalculate(numbers2, marks2, cards2, result2, ver2,flushMark);
 
     double player1 = 0;
     double player2 = 0;
@@ -250,47 +277,100 @@ class EqCalculation extends ChangeNotifier {
 
         } else if (result1 == 8) {
 
-        } else if (result1 == 7) {
-          if ((numbers[0] == numbers[1] && numbers[0] == numbers[2] && numbers[0] == numbers[3]) || (numbers[1] == numbers[2] && numbers[1] == numbers[3] && numbers[1] == numbers[4]) ){
-            hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
-          } else {
-            numbers1[3] > numbers2[3] ? player1 = 1 : player2 = 1;
-          }
-        } else if (result1 == 6) {
-            if (ver1 == 1 && ver2 == 1) {
-              numbers1[2] > numbers2[2] ? player1 = 1 : player2 = 1;
-            } else if (ver1 == 1 && ver2 == 2) {
-              numbers1[2] > numbers2[4] ? player1 = 1 : player2 = 1;
-            } else if (ver1 == 2 && ver2 == 1) {
-              numbers1[4] > numbers2[2] ? player1 = 1 : player2 = 1;
-            } else if (ver1 == 2 && ver2 == 2) {
-              numbers1[4] > numbers2[4] ? player1 = 1 : player2 = 1;
+        } else if (result1 == 7) { //fourCards
+          for (i = 0; i <= 1; i++) {
+            if ((board[i] == board[i + 1] && board[i] == board[i + 2] && board[i] == board[i + 3])){ //board fourCards
+              if (i == 0) {
+                if (hole1[0] > board[4] || hole2[0] > board[4]) {
+                  hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+                }
+              } else if (i == 1) {
+                if (hole1[0] > board[0] || hole2[0] > board[0]) {
+                  hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+                }
+              }
+            } else {
+              numbers1[3] > numbers2[3] ? player1 = 1 : player2 = 1;
             }
-        } else if (result1 == 5) {
-
-        } else if (result1 == 4) {
+          }
+        } else if (result1 == 6) { //fullHouse
+          if (ver1 == 1 && ver2 == 1) {
+            numbers1[2] > numbers2[2] ? player1 = 1 : player2 = 1;
+          } else if (ver1 == 1 && ver2 == 2) {
+            numbers1[2] > numbers2[4] ? player1 = 1 : player2 = 1;
+          } else if (ver1 == 2 && ver2 == 1) {
+            numbers1[4] > numbers2[2] ? player1 = 1 : player2 = 1;
+          } else if (ver1 == 2 && ver2 == 2) {
+            numbers1[4] > numbers2[4] ? player1 = 1 : player2 = 1;
+          }
+        } else if (result1 == 5) { // flush
+          if (strFlush1[0] == 1 || strFlush2[0] == 1) { //A flush
+            strFlush1[0] > strFlush2[0] ? player2 = 1 : player1 = 1;
+          } else {
+            for (i = st) {
+              if (strFlush1[i] > strFlush2[i]) {
+                player1 = 1;
+              } else if (strFlush2[i] > strFlush1[i]) {
+                player2 = 1;
+              }
+            }
+          }
+        } else if (result1 == 4) { //straight
           ver1 > ver2 ? player1 = 1 : player2 = 1;
-        } else if (result1 == 3) {
-          for (i = 0; i <= 4; i++) {
-            if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) { //board ThreeCards
+        } else if (result1 == 3) { //threeCards
+          for (i = 0; i <= 2; i++) {
+            if (board[i] == board[i + 1] && board[i] == board[i + 2]) { //board ThreeCards
               if (hole1[0] != hole2[0]) {
-                hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+                if (i == 0) {
+                  if (hole1[0] > board[3] || hole2[0] > board[3]) {
+                    
+                  }
+                }
               } else if (hole1[0] == hole2[0]) {
                 hole1[1] > hole2[1] ? player1 = 1 : player2 = 1;
               }
-            } else if (numbers[i] == numbers[i + 1]) { //board onePair
-
-            } else {
+            } else if (board[i] == board[i + 1]) { //board onePair
+              if (hole1[0] == board[i] && hole2[0] == board[i]) {
+                hole1[1] > hole2[1] ? player1 = 1 : player2 = 1;
+              } else if (hole1[1] == board[i] && hole2[0] == board[i]) {
+                hole1[0] > hole2[1] ? player1 = 1 : player2 = 1;
+              } else if (hole1[0] == board[i] && hole2[1] == board[i]) {
+                hole1[1] > hole2[0] ? player1 = 1 : player2 = 1;
+              } else if (hole1[1] == board[i] && hole2[1] == board[i]) {
+                hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+              }
+            } else { // set vs set
               hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
             }
           }
-        } else if (result1 == 2) {
-
+        } else if (result1 == 2) { // twoPair
+          for (i = 0; i < 5; i++) {
+            if ((board[0] == board[1] && board[2] == board[3]) ||
+                (board[0] == board[1] && board[3] == board[4]) ||
+                (board[1] == board[2] && board[3] == board[4])) { //board twoPair
+              if (hole1[0] != hole2[0]) {
+                hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+                break;
+              } else if (hole1[0] == hole2[0]) {
+                hole1[1] > hole2[1] ? player1 = 1 : player2 = 1;
+                break;
+              }
+            } else if (board[i] == board[i + 1]) { //board onePair
+              if (hole1[0] != hole2[0]) {
+                hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
+                break;
+              } else if (hole1[0] == hole2[0]) {
+                hole1[1] > hole2[1] ? player1 = 1 : player2 = 1;
+                break;
+              }
+            }
+          }
         } else if (result1 == 1) {
-          if (ver1 != ver2) {
-            ver1 > ver2 ? player1 = 1 : player2 = 1;
+          if (board[0] == board[1] || board[1] == board[2] ||
+              board[2] == board[3] || board[3] == board[4]) { //board onePair
+            hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
           } else {
-
+            hole1[0] > hole2[0] ? player1 = 1 : player2 = 1;
           }
         }
       }
