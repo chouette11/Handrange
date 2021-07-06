@@ -3,6 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/ad_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+String returnNumber(int n) {
+  if (n == 0) {
+    return "";
+  }
+  else if (n == 13) {
+    return "K";
+  }
+  else if (n == 12) {
+    return "Q";
+  }
+  else if (n == 11) {
+    return "J";
+  }
+  else if (n == 10) {
+    return "T";
+  }
+  else if (n == 1) {
+    return "A";
+  }
+  else{
+    return "$n";
+  }
+}
+
 //selectCard
 Container CardBox(int n, String m){
   return Container(

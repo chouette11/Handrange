@@ -206,7 +206,7 @@ class Result extends StatelessWidget {
       child:Consumer<Calculation>(builder: (context, model, child) {
         return Visibility(
             visible: model.isVisible,
-            child: BarChart(comboList:model.comboList)
+            child: BarChart(comboList:model.comboList, onePairList: model.onePairList,)
         );
       }),
     );
