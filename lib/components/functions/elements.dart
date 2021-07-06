@@ -161,3 +161,11 @@ launchURL() async {
     throw 'Could not Launch $url';
   }
 }
+
+int aceTo14(int num) {
+  if (num == 1) {
+    return 14;
+  } else {
+    return num;
+  }
+}
