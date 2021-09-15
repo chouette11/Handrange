@@ -65,12 +65,12 @@ class _MyAppState extends State<MyApp> {
             }
             return Provider<List<InitGraph>?>.value(
               value: snapshot.data,
-              child: ChangeNotifierProvider<Light>(
-                create: (_) => Light(),
+              child: ChangeNotifierProvider<MakePageModel>(
+                create: (_) => MakePageModel(),
                 child: ChangeNotifierProvider<Calculation>(
                   create: (_) => Calculation(),
-                  child: ChangeNotifierProvider<EqCalculation>(
-                    create: (_) => EqCalculation(),
+                  child: ChangeNotifierProvider<EquityPageModel>(
+                    create: (_) => EquityPageModel(),
                     child: MaterialApp(
                       title: 'HandRange',
                       theme: ThemeData(
