@@ -1,160 +1,57 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/components/widgets/ad_state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-String returnNumber(int n) {
-  if (n == 0) {
+String returnNumber(int? n) {
+  if (n == null) {
     return "";
-  }
-  else if (n == 13) {
+  } else if (n == 0) {
+    return "";
+  } else if (n == 13) {
     return "K";
-  }
-  else if (n == 12) {
+  } else if (n == 12) {
     return "Q";
-  }
-  else if (n == 11) {
+  } else if (n == 11) {
     return "J";
-  }
-  else if (n == 10) {
+  } else if (n == 10) {
     return "T";
-  }
-  else if (n == 1) {
+  } else if (n == 14) {
     return "A";
-  }
-  else{
+  } else {
     return "$n";
   }
 }
 
-//selectCard
-Container CardBox(int n, String m){
-  return Container(
-    color: n == 0 ? Colors.black26 : Colors.white,
-    child: Container(
-      width: 40,
-      height: 65,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: bigCard(n, m),
-    ),
-  );
+String returnMark(String? m) {
+  if (m == null) {
+    return "";
+  } else if (m == "") {
+    return "";
+  }
+  else if (m == "s") {
+    return "♠";
+  }
+  else if (m == "c") {
+    return "♣";
+  }
+  else if (m == "h") {
+    return "♥";
+  }
+  else if (m == "d") {
+    return "♦";
+  }
+  else {
+    return "error";
+  }
 }
 
-// ignore: non_constant_identifier_names
-Column bigCard(int number, String selectedMark) {
-  String returnNumber(int n) {
-    if (n == 0) {
-      return "";
-    }
-    else if (n == 13) {
-      return "K";
-    }
-    else if (n == 12) {
-      return "Q";
-    }
-    else if (n == 11) {
-      return "J";
-    }
-    else if (n == 10) {
-      return "T";
-    }
-    else if (n == 1) {
-      return "A";
-    }
-    else{
-      return "$n";
-    }
-  }
-  String returnMark(String m) {
-    if (m == "") {
-      return "";
-    }
-    else if (m == "s") {
-      return "♠";
-    }
-    else if (m == "c") {
-      return "♣";
-    }
-    else if (m == "h") {
-      return "♥";
-    }
-    else if (m == "d") {
-      return "♦";
-    }
-    else {
-      return "error";
-    }
-  }
-  return Column(
-    children: [
-      Center(
-        child: Text(
-          returnNumber(number),
-          style: TextStyle(fontSize: 23,fontFamily: "PTS",color: Colors.grey[800]),
-        ),
-      ),
-      Center(
-        child: Text(
-          returnMark(selectedMark),
-          style: selectedMark == "♠" || selectedMark == "♣" ?
-          TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.grey[700]) :
-          TextStyle(fontSize: 23,fontFamily: "PTS", color: Colors.red[900]),
-        ),
-      ),
-    ],
-  );
-}
+//selectCard
+
 
 Column smallCard(int number, String selectedMark){
-  String returnText(int n) {
-    if (n == 0) {
-      return "";
-    }
-    else if (n == 13) {
-      return "K";
-    }
-    else if (n == 12) {
-      return "Q";
-    }
-    else if (n == 11) {
-      return "J";
-    }
-    else if (n == 10) {
-      return "T";
-    }
-    else if (n == 1) {
-      return "A";
-    }
-    else{
-      return "$n";
-    }
-  }
-  String returnMark(String m) {
-    if (m == "") {
-      return "";
-    }
-    else if (m == "s") {
-      return "♠";
-    }
-    else if (m == "c") {
-      return "♣";
-    }
-    else if (m == "h") {
-      return "♥";
-    }
-    else if (m == "d") {
-      return "♦";
-    }
-    else{
-      return "error";
-    }
-  }
   return Column(
     children: [
-      Expanded(child: Text(returnText(number))),
+      Expanded(child: Text(returnNumber(number))),
       Expanded(
         child: Text(returnMark(selectedMark),
           style: selectedMark == "♠" || selectedMark == "♣" ?
