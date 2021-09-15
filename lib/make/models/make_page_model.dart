@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
-import '../datas/combination.dart';
+import '../../datas/combination.dart';
 
-class Light extends ChangeNotifier {
+class MakePageModel extends ChangeNotifier {
   List<Map<String, dynamic>> status = CONBI.map((e) => {
     "hand": e["hand"],
     "value": e["value"],
@@ -43,8 +43,8 @@ class Light extends ChangeNotifier {
     notifyListeners();
   }
 
-  onTapped(String hand) {
-    final tappedBox = status.firstWhere((e) => e["hand"] == hand);
+  onTapped(String hand, List<Map<String, dynamic>> range) {
+    final tappedBox = range.firstWhere((e) => e["hand"] == hand);
     int value = tappedBox["value"];
 
     tappedBox["isSelected"] = !tappedBox["isSelected"];
