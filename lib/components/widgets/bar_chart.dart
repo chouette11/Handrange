@@ -46,7 +46,6 @@ class _BarChart extends State<BarChart> {
             jumlah: ((widget.comboList[i] / (widget.comboList[9])) * 100),
             tooltip: "${((widget.comboList[i] / (widget.comboList[9]) * 100)
                 .toStringAsFixed(2))}% コンボ:${widget.comboList[i].toInt()}",
-            description: Text(sentence),
           ),
         );
       }
