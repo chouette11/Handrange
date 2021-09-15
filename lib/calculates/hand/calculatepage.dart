@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/calculates/components/cardbox.dart';
 import 'package:handrange/components/widgets/bar_chart.dart';
 import 'package:handrange/components/widgets/drawer.dart';
-import '../components/functions/elements.dart';
+import 'package:handrange/components/widgets/gridview.dart';
+import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/datas/sql.dart';
-import '../providers/calculation.dart';
-import '../components/functions/creategraph.dart';
-import '../components/widgets/drawer.dart';
-import 'popadpage.dart';
+import 'models/calculation.dart';
+import '../../components/functions/creategraph.dart';
+import '../../components/widgets/drawer.dart';
+import '../../ad/popadpage.dart';
 import 'selectboardpage1.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import '../providers/light.dart';
 
 class CalculatePage extends StatelessWidget {
   @override
@@ -32,7 +33,16 @@ class Calculate extends StatelessWidget {
     return Consumer<Calculation>(builder: (context, model, child) {
       return ListView(
         children: [
-          Display(),
+          HandRange(
+            children: model.status.map((e) => GridTile(
+              child: CustomTapBox(
+                name: e["hand"],
+                isSelected: e["isSelected"],
+                onPressed: () {},
+              ),
+            )).toList(),
+            size: 1,
+          ),
           CardBoxes(),
           RaisedButton(
             child: Text('レンジ読み込み'),
@@ -41,7 +51,7 @@ class Calculate extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                  content: SaveGraphs(),
+                  content: SaveGraphs(player: "",),
                 ),
               );
             },
@@ -81,63 +91,6 @@ class Calculate extends StatelessWidget {
   }
 }
 
-class Display extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    double screenSizeWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: screenSizeWidth,
-      height: screenSizeWidth,
-      color: Colors.white,
-      child: Consumer<Calculation>(
-        builder: (context, model, child) {
-          return GridView.count(
-            crossAxisCount: 13,
-            mainAxisSpacing: 0.001,
-            crossAxisSpacing: 0.001,
-            children: model.status.map((e) => GridTile(
-              child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
-            ),
-            ).toList(),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class TapBox extends StatelessWidget {
-  TapBox( {Key? key, required this.hand, required this.isSelected }) : super(key: key);
-  final String hand;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    double boxWidth = MediaQuery.of(context).size.width / 29;
-    return GestureDetector(
-      onTap: () {
-        //TODO
-        isSelected != isSelected;
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0.5, color: Colors.white),
-          color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-        ),
-        child: Center(
-          child: Text(
-            hand,
-            style: TextStyle(
-                fontFamily: "Sans",
-                fontSize: boxWidth
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class CardBoxes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -155,11 +108,11 @@ class CardBoxes extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CardBox(model.num1, model.mark1),
-                  CardBox(model.num2, model.mark2),
-                  CardBox(model.num3, model.mark3),
-                  CardBox(model.num4, model.mark4),
-                  CardBox(model.num5, model.mark5),
+                  cardBox(model.num1, model.mark1),
+                  cardBox(model.num2, model.mark2),
+                  cardBox(model.num3, model.mark3),
+                  cardBox(model.num4, model.mark4),
+                  cardBox(model.num5, model.mark5),
                 ],
               ),
             ),
@@ -214,6 +167,8 @@ class Result extends StatelessWidget {
 }
 
 class SaveGraphs extends StatefulWidget {
+  SaveGraphs({Key? key, required this.player}) : super(key: key);
+  final String player;
   @override
   _SaveGraphsState createState() => _SaveGraphsState();
 }
@@ -242,7 +197,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
                         id: e["id"],
                         num: e["num"],
                         text: e["text"],
-                        name: e["name"],
+                        name: widget.player,
                         count: e["count"]),
                   ),
               ).toList(),
@@ -251,7 +206,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
         }
         else if (snapshot.hasError) {
           return Center(
-            child: Text("Error"),
+            child: Text(widget.player),
           );
         }
         else {
@@ -291,7 +246,7 @@ class GraphList extends StatelessWidget {
               physics: NeverScrollableScrollPhysics(),
               children: getTFs(text).map((e) =>
                   GridTile(
-                    child: Box(isSelected: e["isSelected"]),
+                    child: CustomTapBox(isSelected: e["isSelected"]),
                   ),
               ).toList(),
             ),
