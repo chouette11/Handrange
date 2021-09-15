@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/components/functions/elements.dart';
 import 'package:handrange/datas/sql.dart';
-import '../datas/combination.dart';
+import '../../../datas/combination.dart';
 import 'package:flutter/material.dart';
 
 class Calculation extends ChangeNotifier {
