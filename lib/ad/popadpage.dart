@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/functions/elements.dart';
-import '../providers/light.dart';
+import '../make/models/make_page_model.dart';
 import 'package:provider/provider.dart';
-import '../components/widgets/ad_state.dart';
-import '../providers/calculation.dart';
+import 'ad_state.dart';
+import '../calculates/hand/models/calculation.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,15 +22,13 @@ class MyApp extends StatelessWidget {
 class PopAdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Light>(builder: (context, model, child) {
-      return Scaffold(
-        backgroundColor: Colors.transparent,
-        body:WillPopScope(
-          onWillPop: () async => false,
-          child: PopAdDisplay(),
-        ),
-      );
-    });
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body:WillPopScope(
+        onWillPop: () async => false,
+        child: PopAdDisplay(),
+      ),
+    );
   }
 }
 
@@ -110,7 +108,7 @@ class PopAdWidget extends StatelessWidget {
                             padding: EdgeInsets.only(top: 4,bottom: 4),
                             child: InkWell(
                               child: Text(
-                                  "twitter_@chouette111まで",
+                                "twitter_@chouette111まで",
                                 style: TextStyle(color: Colors.lightBlue),
                               ),
                               onTap: () async {
