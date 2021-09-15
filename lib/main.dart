@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/pages/equitypage.dart';
-import 'package:handrange/pages/makepage.dart';
-import 'package:handrange/providers/eqcalculation.dart';
+import 'calculates/equity/equity_page.dart';
+import 'make/make_page.dart';
+import 'calculates/equity/models/equity_page_model.dart';
 import 'datas/initsql.dart';
-import 'providers/calculation.dart';
-import 'pages/savepage.dart';
+import 'calculates/hand/models/calculation.dart';
+import 'save/save_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'providers/light.dart';
-import 'pages/calculatepage.dart';
-import 'pages/selectboardpage1.dart';
+import 'make/models/make_page_model.dart';
+import 'calculates/hand/calculatepage.dart';
+import 'calculates/hand/selectboardpage1.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'components/widgets/ad_state.dart';
+import 'ad/ad_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
