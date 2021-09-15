@@ -1,5 +1,29 @@
 import 'package:handrange/datas/combination.dart';
 
+onGetRange(int id, List<Map<String, dynamic>> status, dynamic graphs) async {
+  String tfText = graphs[id].text;
+  int i;
+  for (i = 0; i <= 168; i++) {
+    String isTF = tfText[i];
+    if (isTF == "T") {
+      status[i].removeWhere((key, value) => value == false || value == true);
+      status[i].addAll(
+          <String,bool>{
+            "isSelected": true,
+          }
+      );
+    }
+    else if (isTF == "F") {
+      status[i].removeWhere((key, value) => value == false || value == true);
+      status[i].addAll(
+          <String,dynamic>{
+            "isSelected": false,
+          }
+      );
+    }
+  }
+}
+
 List<Map<String, dynamic>> getTFs(String tfText,) {
   List<Map<String, dynamic>> TF = CONBI.map((e) => {
     "hand": e["hand"],
