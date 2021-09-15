@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/drawer.dart';
+import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/datas/initsql.dart';
 import 'package:handrange/datas/sql.dart';
 import '../components/functions/creategraph.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import '../providers/light.dart';
+import '../make/models/make_page_model.dart';
 
 class SavePage extends StatelessWidget{
   @override
@@ -91,7 +92,7 @@ class GraphList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final initGraphs = Provider.of<List<InitGraph>?>(context);
-    return Consumer<Light>(builder: (context, model, child) {
+    return Consumer<MakePageModel>(builder: (context, model, child) {
       return GestureDetector(
         onTap: () => {
           model.onGet(num,name,count),
@@ -246,7 +247,7 @@ class GraphList extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     children: getTFs(text).map((e) =>
                         GridTile(
-                          child: Box(isSelected: e["isSelected"]),
+                          child: CustomTapBox(isSelected: e["isSelected"]),
                         ),
                     ).toList(),
                   ),
@@ -272,20 +273,5 @@ class GraphList extends StatelessWidget {
           ),
       );
     });
-  }
-}
-
-class Box extends StatelessWidget {
-  Box( {Key? key,  required this.isSelected }) : super(key: key);
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 0.5, color: Colors.white),
-        color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-      ),
-    );
   }
 }
