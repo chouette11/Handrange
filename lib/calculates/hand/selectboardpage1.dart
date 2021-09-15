@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
-import '../components/functions/elements.dart';
+import '../../components/functions/elements.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import '../providers/light.dart';
-import '../datas/combination.dart';
-import '../providers/calculation.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Handrange',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: SelectPage(),
-    );
-  }
-}
+import '../../make/models/make_page_model.dart';
+import '../../datas/combination.dart';
+import 'models/calculation.dart';
 
 class SelectPage extends StatelessWidget {
   @override
@@ -63,23 +50,16 @@ class SelectCards extends StatelessWidget{
                 },
               ),
               SizedBox(width: 5, height: 3),
-              BackButton(),
+              ElevatedButton(onPressed: () =>
+                  Navigator.pop(context),
+                child: Text("戻る"),
+              ),
             ],
           ),
           Buttons(),
         ],
       );
     });
-  }
-}
-
-class BackButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: () =>
-        Navigator.pop(context),
-      child: Text("戻る"),
-    );
   }
 }
 
