@@ -1,32 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/components/functions/elements.dart';
-import 'package:handrange/datas/sql.dart';
-import '../../../datas/combination.dart';
+import 'package:handrange/data/sql.dart';
+import '../../../data/combination.dart';
 import 'package:flutter/material.dart';
 
 class Calculation extends ChangeNotifier {
-  int num1 = 0;
-  int num2 = 0;
-  int num3 = 0;
-  int num4 = 0;
-  int num5 = 0;
+
   int num6 = 0;
   int num7 = 0;
-
-  String mark1 = "";
-  String mark2 = "";
-  String mark3 = "";
-  String mark4 = "";
-  String mark5 = "";
-
-  String card1 = "";
-  String card2 = "";
-  String card3 = "";
-  String card4 = "";
-  String card5 = "";
-
+  List<int>board = [];
+  List<String>boardMark = [];
+  List<String>boardCard = [];
   bool isColor = true;
+  addBoard(int num, String mark, String card) {
+    if (boardCard.every((element) => element != card)) {
+      board.add(aceTo14(num));
+      boardMark.add(mark);
+      boardCard.add(card);
+      final selectedCard = cards.firstWhere((e) => e["card"] == card);
+      selectedCard["isColor"] = !selectedCard["isColor"];
+      notifyListeners();
+    }
+  }
 
   int royal = 0;
   int straightFlush = 0;
@@ -54,70 +50,25 @@ class Calculation extends ChangeNotifier {
     List<int> inputOnePairCombo = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
     handJudge(String isSuit) {
-      List<int> numbers = [];
-      numbers.add(num1);
-      numbers.add(num2);
-      numbers.add(num3);
-
-      if(num4 != 0){
-        numbers.add(num4);
-      }
-
-      if(num5 != 0){
-        numbers.add(num5);
-      }
-
-      List<int> board = List.from(numbers);
-      board.sort();
-
-      numbers.add(num6);
-      numbers.add(num7);
-      numbers.sort();
-
-      List<String> marks = [];
-      marks.add(mark1);
-      marks.add(mark2);
-      marks.add(mark3);
-
-      if(mark4 != "") {
-        marks.add(mark4);
-      }
-
-      if(mark5 != ""){
-        marks.add(mark5);
-      }
-      List<String> cards = [];
-      cards.add(card1);
-      cards.add(card2);
-      cards.add(card3);
-
-      if(card4 != ""){
-        cards.add(card4);
-      }
-
-      if(card5 != ""){
-        cards.add(card5);
-      }
-
       List <String> mark = ["s", "c", "h", "d"];
       int i, j, l, m;
       int k = 0;
-      int max = numbers.length;
+      int max = board.length;
 
       onCalculate() {
         int judge = 0;
         for(i = 0; i <= 3; i++){
-          if(cards.contains("13${mark[i]}") && cards.contains("12${mark[i]}")
-              && cards.contains("11${mark[i]}") && cards.contains("10${mark[i]}") && cards.contains("1${mark[i]}")){
+          if(boardCard.contains("13${mark[i]}") && boardCard.contains("12${mark[i]}")
+              && boardCard.contains("11${mark[i]}") && boardCard.contains("10${mark[i]}") && boardCard.contains("1${mark[i]}")){
             print("Royal");
             inputRoyalStraightFlash++;
           }
         }
         for(i = 1; i <= 9; i++){
           for(j = 0; j <= 3; j++){
-            if (cards.contains("$i${mark[j]}") && cards.contains("${i + 1}${mark[j]}") &&
-                cards.contains("${i + 2}${mark[j]}") && cards.contains("${i + 3}${mark[j]}") &&
-                cards.contains("${i + 4}${mark[j]}")) {
+            if (boardCard.contains("$i${mark[j]}") && boardCard.contains("${i + 1}${mark[j]}") &&
+                boardCard.contains("${i + 2}${mark[j]}") && boardCard.contains("${i + 3}${mark[j]}") &&
+                boardCard.contains("${i + 4}${mark[j]}")) {
               print("StraightFlush");
               inputStraightFlush++;
               break;
@@ -125,8 +76,8 @@ class Calculation extends ChangeNotifier {
           }
         }
         for (i = 0; i <= max - 4; i++) {
-          if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2] &&
-              numbers[i] == numbers[i + 3])) {
+          if ((board[i] == board[i + 1] && board[i] == board[i + 2] &&
+              board[i] == board[i + 3])) {
             print("FourCards");
             inputFourCards++;
             break;
@@ -134,8 +85,8 @@ class Calculation extends ChangeNotifier {
         }
         for (i = 0; i <= max - 5; i++) {
           for (j = i + 3; j <= max - 2; j++) {
-            if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
-                numbers[j] == numbers[j + 1]) {
+            if ((board[i] == board[i + 1] && board[i] == board[i + 2]) &&
+                board[j] == board[j + 1]) {
               print("FullHouse");
               judge = 6;
               inputFullHouse++;
@@ -145,8 +96,8 @@ class Calculation extends ChangeNotifier {
         }
         for (i = 2; i <= max - 3; i++) {
           for (j = i - 2; j >= 0; j--) {
-            if ((numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) &&
-                numbers[j] == numbers[j + 1]) {
+            if ((board[i] == board[i + 1] && board[i] == board[i + 2]) &&
+                board[j] == board[j + 1]) {
               print("FullHouse");
               judge == 6 ? inputFullHouse = inputFullHouse : inputFullHouse++;
               break;
@@ -155,7 +106,7 @@ class Calculation extends ChangeNotifier {
         }
         for (i = 0; i <= max - 5; i++) {
           for(j = 0; j <= 3; j++){
-            if (marks[i].contains(mark[j]) && marks[i + 1].contains(mark[j]) && marks[i + 2].contains(mark[j]) &&  marks[i + 3].contains(mark[j]) && marks[i + 4].contains(mark[j])) {
+            if (boardMark[i].contains(mark[j]) && boardMark[i + 1].contains(mark[j]) && boardMark[i + 2].contains(mark[j]) &&  boardMark[i + 3].contains(mark[j]) && boardMark[i + 4].contains(mark[j])) {
               print("flush");
               inputFlush++;
               break;
@@ -163,23 +114,23 @@ class Calculation extends ChangeNotifier {
           }
         }
         for (i = 1; i <= 8; i++) {
-          if (numbers.contains(i) && numbers.contains(i + 1) &&
-              numbers.contains(i + 2) && numbers.contains(i + 3) &&
-              numbers.contains(i + 4)) {
+          if (board.contains(i) && board.contains(i + 1) &&
+              board.contains(i + 2) && board.contains(i + 3) &&
+              board.contains(i + 4)) {
             print("Straight");
             inputStraight++;
             judge = 4;
             break;
           }
         }
-        if(numbers.contains(1) && numbers.contains(10) &&
-            numbers.contains(11) && numbers.contains(12) &&
-            numbers.contains(13)){
+        if(board.contains(1) && board.contains(10) &&
+            board.contains(11) && board.contains(12) &&
+            board.contains(13)){
           print("Straight");
           judge == 4 ? inputStraight = inputStraight : inputStraight++;
         }
         for (i = 0; i <= max - 3; i++) {
-          if (numbers[i] == numbers[i + 1] && numbers[i] == numbers[i + 2]) {
+          if (board[i] == board[i + 1] && board[i] == board[i + 2]) {
             print("ThreeCards");
             inputThreeCards++;
             break;
@@ -187,11 +138,11 @@ class Calculation extends ChangeNotifier {
         }
         for (i = 0; i <= max - 4; i++) {
           for (j = i + 2; j <= max - 2; j++) {
-            if (numbers[i] == numbers[i + 1] && numbers[j] == numbers[j + 1]) {
+            if (board[i] == board[i + 1] && board[j] == board[j + 1]) {
               print("TwoPair");
               for (l = 0; l <= 3; l++) {
                 if (board[l] == board[l + 1]) {
-                  judge == 2 ? inputOnePairCombo = inputOnePairCombo : inputOnePairCombo[numbers[i]]++;
+                  judge == 2 ? inputOnePairCombo = inputOnePairCombo : inputOnePairCombo[board[i]]++;
                 }
               }
               judge == 2 ? inputTwoPair = inputTwoPair : inputTwoPair++;
@@ -201,10 +152,10 @@ class Calculation extends ChangeNotifier {
           }
         }
         for (i = 0; i <= max - 2; i++) {
-          if (numbers[i] == numbers[i + 1]) {
+          if (board[i] == board[i + 1]) {
             print("OnePair");
               if (board[k] != board[k + 1] && board[k] != board[k + 2] && board[k] != board[k + 3] && board[k] != board[k + 4]) {
-                inputOnePairCombo[numbers[i]]++;
+                inputOnePairCombo[board[i]]++;
               }
             inputOnePair++;
             break;
@@ -219,17 +170,17 @@ class Calculation extends ChangeNotifier {
           String card6 = "$num6$mark6";
           String card7 = "$num7$mark6";
 
-          marks.add(mark6);
-          marks.add(mark6);
-          marks.sort((a, b) => a.compareTo(b));
-          print(cards);
-          if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
-            cards.add(card6);
-            cards.add(card7);
+          boardMark.add(mark6);
+          boardMark.add(mark6);
+          boardMark.sort((a, b) => a.compareTo(b));
+          print(boardCard);
+          if((boardCard.every((hand) => hand != card6)) && (boardCard.every((hand) => hand != card7))){
+            boardCard.add(card6);
+            boardCard.add(card7);
             onCalculate();
             inputSum++;
           }
-          marks.remove(mark6);marks.remove(mark6);cards.remove(card6);cards.remove(card7);
+          boardMark.remove(mark6);boardMark.remove(mark6);boardCard.remove(card6);boardCard.remove(card7);
         }
       }
       else if(isSuit =="o"){
@@ -241,19 +192,19 @@ class Calculation extends ChangeNotifier {
             String card6 = "$num6$mark6";
             String card7 = "$num7$mark6";
 
-            marks.add(mark6);
-            marks.add(mark7);
-            marks.sort((a, b) => a.compareTo(b));
+            boardMark.add(mark6);
+            boardMark.add(mark7);
+            boardMark.sort((a, b) => a.compareTo(b));
 
-            if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
-              cards.add(card6);
-              cards.add(card7);
+            if((boardCard.every((hand) => hand != card6)) && (boardCard.every((hand) => hand != card7))){
+              boardCard.add(card6);
+              boardCard.add(card7);
               onCalculate();
               inputSum++;
               onCalculate();
               inputSum++;
             }
-            marks.remove(mark6);marks.remove(mark7);cards.remove(card6);cards.remove(card7);
+            boardMark.remove(mark6);boardMark.remove(mark7);boardCard.remove(card6);boardCard.remove(card7);
           }
         }
       }
@@ -266,17 +217,17 @@ class Calculation extends ChangeNotifier {
             String card6 = "$num6$mark6";
             String card7 = "$num7$mark6";
 
-            marks.add(mark6);
-            marks.add(mark7);
-            marks.sort((a, b) => a.compareTo(b));
+            boardMark.add(mark6);
+            boardMark.add(mark7);
+            boardMark.sort((a, b) => a.compareTo(b));
 
-            if((cards.every((hand) => hand != card6)) && (cards.every((hand) => hand != card7))){
-              cards.add(card6);
-              cards.add(card7);
+            if((boardCard.every((hand) => hand != card6)) && (boardCard.every((hand) => hand != card7))){
+              boardCard.add(card6);
+              boardCard.add(card7);
               onCalculate();
               inputSum++;
             }
-            marks.remove(mark6);marks.remove(mark7);cards.remove(card6);cards.remove(card7);
+            boardMark.remove(mark6);boardMark.remove(mark7);boardCard.remove(card6);boardCard.remove(card7);
           }
         }
       }
