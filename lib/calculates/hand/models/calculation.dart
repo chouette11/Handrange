@@ -234,88 +234,7 @@ class Calculation extends ChangeNotifier {
     }
     status.forEach((element) {
       if (element["isSelected"] == true) {
-        switch (element["hand"][0]) {
-          case 'A':
-            num6 = 1;
-            break;
-          case 'K':
-            num6 = 13;
-            break;
-          case 'Q':
-            num6 = 12;
-            break;
-          case 'J':
-            num6 = 11;
-            break;
-          case 'T':
-            num6 = 10;
-            break;
-          case '9':
-            num6 = 9;
-            break;
-          case '8':
-            num6 = 8;
-            break;
-          case '7':
-            num6 = 7;
-            break;
-          case '6':
-            num6 = 6;
-            break;
-          case '5':
-            num6 = 5;
-            break;
-          case '4':
-            num6 = 4;
-            break;
-          case '3':
-            num6 = 3;
-            break;
-          case '2':
-            num6 = 2;
-            break;
-        }
-        switch (element["hand"][1]) {
-          case 'A':
-            num7 = 1;
-            break;
-          case 'K':
-            num7 = 13;
-            break;
-          case 'Q':
-            num7 = 12;
-            break;
-          case 'J':
-            num7 = 11;
-            break;
-          case 'T':
-            num7 = 10;
-            break;
-          case '9':
-            num7 = 9;
-            break;
-          case '8':
-            num7 = 8;
-            break;
-          case '7':
-            num7 = 7;
-            break;
-          case '6':
-            num7 = 6;
-            break;
-          case '5':
-            num7 = 5;
-            break;
-          case '4':
-            num7 = 4;
-            break;
-          case '3':
-            num7 = 3;
-            break;
-          case '2':
-            num7 = 2;
-            break;
-        }
+        addHand(element["hand"], board);
 
         String hand = element["hand"];
         if (hand.endsWith('s')) {
@@ -344,6 +263,90 @@ class Calculation extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addHand(String hand, List<int> numList) {
+    switch (hand[0]) {
+      case 'A':
+        numList.add(1);
+        break;
+      case 'K':
+        numList.add(13);
+        break;
+      case 'Q':
+        numList.add(12);
+        break;
+      case 'J':
+        numList.add(11);
+        break;
+      case 'T':
+        numList.add(10);
+        break;
+      case '9':
+        numList.add(9);
+        break;
+      case '8':
+        numList.add(8);
+        break;
+      case '7':
+        numList.add(7);
+        break;
+      case '6':
+        numList.add(6);
+        break;
+      case '5':
+        numList.add(5);
+        break;
+      case '4':
+        numList.add(4);
+        break;
+      case '3':
+        numList.add(3);
+        break;
+      case '2':
+        numList.add(2);
+        break;
+    }
+    switch (hand[1]) {
+      case 'A':
+        numList.add(1);
+        break;
+      case 'K':
+        numList.add(13);
+        break;
+      case 'Q':
+        numList.add(12);
+        break;
+      case 'J':
+        numList.add(11);
+        break;
+      case 'T':
+        numList.add(10);
+        break;
+      case '9':
+        numList.add(9);
+        break;
+      case '8':
+        numList.add(8);
+        break;
+      case '7':
+        numList.add(7);
+        break;
+      case '6':
+        numList.add(6);
+        break;
+      case '5':
+        numList.add(5);
+        break;
+      case '4':
+        numList.add(4);
+        break;
+      case '3':
+        numList.add(3);
+        break;
+      case '2':
+        numList.add(2);
+        break;
+    }
+  }
   //result
   List<String> onePairList = [];
   List<int> comboList = [0,0,0,0,0,0,0,0,0,0];
