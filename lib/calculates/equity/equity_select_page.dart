@@ -1,32 +1,51 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/functions/elements.dart';
-import '../models/equity_page_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'models/equity_page_model.dart';
 
-class Buttons extends StatelessWidget{
+class EquitySelectPage extends StatelessWidget {
+  EquitySelectPage({Key? key,  required this.name, required this.cardList}) : super(key: key);
+  final String name;
+  final List<Map<String, dynamic>> cardList;
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<EquityPageModel>(builder: (context, model, child) {
-      return GridView.count(
-        crossAxisCount: 13,
-        mainAxisSpacing: 0.001,
-        crossAxisSpacing: 0.001,
-        childAspectRatio: 0.78,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        children: model.cards.map((e) =>
-            GridTile(
-              child: Button(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Provider<String>.value(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ElevatedButton(onPressed: () =>
+                Navigator.pop(context),
+              child: Text("戻る"),
             ),
-        ).toList(),
-      );
-    });
+            GridView.count(
+              crossAxisCount: 13,
+              mainAxisSpacing: 0.001,
+              crossAxisSpacing: 0.001,
+              childAspectRatio: 0.78,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: cardList.map((e) =>
+                  GridTile(
+                    child: SelectButton(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
+                  ),
+              ).toList(),
+            ),
+          ],
+        ),
+        value: name,
+      ),
+    );
   }
 }
 
-class Button extends StatelessWidget{
-  Button({Key? key,  required this.num, required this.mark,  required this.card, required this.isColor }) : super(key: key);
+class SelectButton extends StatelessWidget{
+  SelectButton({Key? key,  required this.num, required this.mark,  required this.card, required this.isColor }) : super(key: key);
   final int num;
   final String mark;
   final String card;
