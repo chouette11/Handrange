@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
-
-import 'functions/creategraph.dart';
+import '../../components/functions/creategraph.dart';
 
 class SavedRange extends StatelessWidget {
   SavedRange({

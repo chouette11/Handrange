@@ -1,4 +1,4 @@
-import 'package:handrange/datas/combination.dart';
+import 'package:handrange/data/combination.dart';
 
 onGetRange(int id, List<Map<String, dynamic>> status, dynamic graphs) async {
   String tfText = graphs[id].text;

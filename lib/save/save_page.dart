@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/components/widgets/drawer.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
-import 'package:handrange/datas/initsql.dart';
-import 'package:handrange/datas/sql.dart';
+import 'package:handrange/data/initsql.dart';
+import 'package:handrange/data/sql.dart';
 import '../components/functions/creategraph.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
