@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:handrange/components/functions/elements.dart';
-import 'package:handrange/data/sql.dart';
 import '../../../data/combination.dart';
 import 'package:flutter/material.dart';
 
-class Calculation extends ChangeNotifier {
-
+class HandPageModel extends ChangeNotifier {
   int num6 = 0;
   int num7 = 0;
   List<int>board = [];
   List<String>boardMark = [];
   List<String>boardCard = [];
   bool isColor = true;
+
   addBoard(int num, String mark, String card) {
     if (boardCard.every((element) => element != card)) {
       board.add(aceTo14(num));
@@ -409,32 +408,5 @@ class Calculation extends ChangeNotifier {
     "isSelected": false,
   }).toList();
 
-  String graphName = "";
-  onGet(int id,String name) async {
-    final graphs = await Graph.getGraph();
-    String tfText = graphs[id].text;
-    int i;
-    for (i = 0; i <= 168; i++) {
-      String isTF = tfText[i];
-      if (isTF == "T") {
-        status[i].removeWhere((key, value) => value == false || value == true);
-        status[i].addAll(
-            <String,bool>{
-              "isSelected": true,
-            }
-        );
-      }
-      else if (isTF == "F") {
-        status[i].removeWhere((key, value) => value == false || value == true);
-        status[i].addAll(
-            <String,dynamic>{
-              "isSelected": false,
-            }
-        );
-      }
-    }
-    graphName = name;
-    notifyListeners();
-  }
 }
 
