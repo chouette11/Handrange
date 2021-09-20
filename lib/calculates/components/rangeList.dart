@@ -12,13 +12,13 @@ class RangeList extends StatefulWidget {
 }
 
 class _RangeListState extends State<RangeList>{
-  final Future<List<Graph>> graphs = Graph.getGraph();
+  final Future<List<Graph>> rangeList = Graph.getGraph();
 
   @override
   Widget build(BuildContext context) {
     double screenSizeWidth = MediaQuery.of(context).size.width;
     return FutureBuilder(
-        future: graphs,
+        future: rangeList,
         builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -29,7 +29,7 @@ class _RangeListState extends State<RangeList>{
                 mainAxisSpacing: 0.5,
                 crossAxisSpacing: 1,
                 childAspectRatio: 0.75,
-                children: getIds(snapshot).map((e) =>
+                children: getRangeListFromSQL(snapshot).map((e) =>
                     GridTile(
                       child: SavedRange(
                         num: e["num"],
@@ -37,7 +37,7 @@ class _RangeListState extends State<RangeList>{
                         name: e["name"],
                         count: e["count"],
                         onPressed: () {
-                          onGetRange(e['id'], widget.range, snapshot.data);
+                          getRangeFromSQL(e['id'], widget.range, snapshot.data);
                           Navigator.pop(context);
                         }
                       ),

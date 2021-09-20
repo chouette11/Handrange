@@ -53,7 +53,7 @@ class _SaveGraphsState extends State<SaveGraphs>{
                     mainAxisSpacing: 4.5,
                     crossAxisSpacing: 1.5,
                     childAspectRatio: 0.83,
-                    children: getIds(snapshot).map((e) =>
+                    children: getRangeListFromSQL(snapshot).map((e) =>
                         GridTile(
                           child: GraphList(
                               id: e["id"],
@@ -245,7 +245,7 @@ class GraphList extends StatelessWidget {
                     crossAxisSpacing: 0.001,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    children: getTFs(text).map((e) =>
+                    children: getIsSelected(text).map((e) =>
                         GridTile(
                           child: CustomTapBox(isSelected: e["isSelected"]),
                         ),

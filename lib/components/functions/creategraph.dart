@@ -1,21 +1,21 @@
 import 'package:handrange/data/combination.dart';
 
-onGetRange(int id, List<Map<String, dynamic>> status, dynamic graphs) async {
-  String tfText = graphs[id].text;
+getRangeFromSQL(int id, List<Map<String, dynamic>> range, dynamic sql) async {
+  String tfText = sql[id].text;
   int i;
   for (i = 0; i <= 168; i++) {
     String isTF = tfText[i];
     if (isTF == "T") {
-      status[i].removeWhere((key, value) => value == false || value == true);
-      status[i].addAll(
+      range[i].removeWhere((key, value) => value == false || value == true);
+      range[i].addAll(
           <String,bool>{
             "isSelected": true,
           }
       );
     }
     else if (isTF == "F") {
-      status[i].removeWhere((key, value) => value == false || value == true);
-      status[i].addAll(
+      range[i].removeWhere((key, value) => value == false || value == true);
+      range[i].addAll(
           <String,dynamic>{
             "isSelected": false,
           }
@@ -24,56 +24,50 @@ onGetRange(int id, List<Map<String, dynamic>> status, dynamic graphs) async {
   }
 }
 
-List<Map<String, dynamic>> getTFs(String tfText,) {
-  List<Map<String, dynamic>> TF = CONBI.map((e) => {
+List<Map<String, dynamic>> getIsSelected(String tfText) {
+  List<Map<String, dynamic>> isSelected = CONBI.map((e) => {
     "hand": e["hand"],
     "value": e["value"],
   }).toList();
 
   int i;
   for (i = 0; i <= 168; i++) {
-    String isTF = tfText[i];
-    if (isTF == "T") {
-      TF[i].addAll(
+    if (tfText[i] == "T") {
+      isSelected[i].addAll(
           <String, bool>{
             "isSelected": true,
           }
       );
     }
-    else if (isTF == "F") {
-      TF[i].addAll(
+    else if (tfText[i] == "F") {
+      isSelected[i].addAll(
           <String, bool>{
             "isSelected": false,
           }
       );
     }
   }
-  return TF;
+  return isSelected;
 }
 
-List <Map<String,dynamic>> getIds(snapshot) {
-  List <Map<String,dynamic>> Ids = [];
+List <Map<String,dynamic>> getRangeListFromSQL(snapshot) {
+  List <Map<String,dynamic>> ranges = [];
 
-  int i;
-  for (i = 0; i < snapshot.data.length; i++) {
-    int id = snapshot.data[i].id;
-    String text = snapshot.data[i].text;
-    String graphName = snapshot.data[i].name;
-    int count = snapshot.data[i].count;
-    Map <String,dynamic> ids_map = {};
+  for (int i = 0; i < snapshot.data.length; i++) {
+    Map <String,dynamic> rangesMap = {};
 
-    ids_map.addAll(
+    rangesMap.addAll(
         <String,dynamic>{
-          "id": id,
-          "num":i,
-          "text":text,
-          "name":graphName,
-          "count": count
+          "id": snapshot.data[i].id,
+          "num": i,
+          "text": snapshot.data[i].text,
+          "name": snapshot.data[i].name,
+          "count": snapshot.data[i].count,
         }
     );
-    Ids.add(ids_map);
+    ranges.add(rangesMap);
   }
-  return Ids;
+  return ranges;
 }
 
 List<Map<String,String>> labelList = [

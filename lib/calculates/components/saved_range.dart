@@ -28,7 +28,7 @@ class SavedRange extends StatelessWidget {
       child: Column(
         children: [
           HandRange(
-            children: getTFs(text).map((e) => GridTile(
+            children: getIsSelected(text).map((e) => GridTile(
               child: CustomTapBox(isSelected: e["isSelected"],),
             ),
             ).toList(),
