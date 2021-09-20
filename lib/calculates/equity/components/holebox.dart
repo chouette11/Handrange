@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/calculates/components/cardbox.dart';
-import '../select_page.dart';
+import '../equity_select_page.dart';
 
 class HoleBox extends StatelessWidget {
   HoleBox({Key? key, required this.num, required this.cardHole}) : super(key: key);
@@ -40,7 +40,7 @@ class HoleBox extends StatelessWidget {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (_) => SelectPageEq(name: "hole$num"),
+                builder: (_) => EquitySelectPage(name: "hole$num", cardList: []),
               );
             },
             child: Row(
