@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:handrange/components/functions/elements.dart';
-import 'package:handrange/datas/combination.dart';
-import 'package:handrange/datas/sql.dart';
+import 'package:handrange/data/combination.dart';
 
 class EquityPageModel extends ChangeNotifier {
   List<int> numHole1 = [];
