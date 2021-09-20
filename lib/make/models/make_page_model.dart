@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/datas/initsql.dart';
-import 'package:handrange/datas/sql.dart';
-import '../../datas/combination.dart';
+import 'package:handrange/data/combination.dart';
+import 'package:handrange/data/initsql.dart';
+import 'package:handrange/data/sql.dart';
 
 class MakePageModel extends ChangeNotifier {
   List<Map<String, dynamic>> status = CONBI.map((e) => {
