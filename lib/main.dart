@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'calculates/equity/equity_page.dart';
 import 'make/make_page.dart';
 import 'calculates/equity/models/equity_page_model.dart';
-import 'datas/initsql.dart';
-import 'calculates/hand/models/calculation.dart';
+import 'data/initsql.dart';
+import 'calculates/hand/models/hand_page_model.dart';
 import 'save/save_page.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'make/models/make_page_model.dart';
-import 'calculates/hand/calculatepage.dart';
-import 'calculates/hand/selectboardpage1.dart';
+import 'calculates/hand/hand_page.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'ad/ad_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -67,8 +66,8 @@ class _MyAppState extends State<MyApp> {
               value: snapshot.data,
               child: ChangeNotifierProvider<MakePageModel>(
                 create: (_) => MakePageModel(),
-                child: ChangeNotifierProvider<Calculation>(
-                  create: (_) => Calculation(),
+                child: ChangeNotifierProvider<HandPageModel>(
+                  create: (_) => HandPageModel(),
                   child: ChangeNotifierProvider<EquityPageModel>(
                     create: (_) => EquityPageModel(),
                     child: MaterialApp(
@@ -81,7 +80,6 @@ class _MyAppState extends State<MyApp> {
                         '/': (context) => MakeRangePage(),
                         '/save': (context) => SavePage(),
                         '/calculate': (context) => CalculatePage(),
-                        '/select': (context) => SelectPage(),
                         '/equity': (context) => EquityPage(),
                       },
                     ),
