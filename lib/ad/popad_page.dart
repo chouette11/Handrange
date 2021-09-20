@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/components/functions/elements.dart';
-import '../make/models/make_page_model.dart';
 import 'package:provider/provider.dart';
 import 'ad_state.dart';
-import '../calculates/hand/models/calculation.dart';
+import '../calculates/hand/models/hand_page_model.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -53,7 +52,7 @@ class PopAdDisplay extends StatelessWidget{
 class PopAdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Calculation>(builder: (context, model, child) {
+    return Consumer<HandPageModel>(builder: (context, model, child) {
       final Future<String> _calculation = Future<String>.delayed(
           Duration(seconds: model.sum ~/ 100 + 3 ),
               () => '計算が終わりました'
