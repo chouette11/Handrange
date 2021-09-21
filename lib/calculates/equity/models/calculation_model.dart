@@ -25,6 +25,97 @@ List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
   return list;
 }
 
+void addFromRange(List<String> cardList, List<Map<String, dynamic>> range) {
+  range.forEach((element) {
+    List<String> cardHole = [];
+    if (element["isSelected"] == true) {
+      switch (element["hand"][0]) {
+        case 'A':
+          cardHole.add("14");
+          break;
+        case 'K':
+          cardHole.add("13");
+          break;
+        case 'Q':
+          cardHole.add("12");
+          break;
+        case 'J':
+          cardHole.add("11");
+          break;
+        case 'T':
+          cardHole.add("10");
+          break;
+        case '9':
+          cardHole.add("9");
+          break;
+        case '8':
+          cardHole.add("8");
+          break;
+        case '7':
+          cardHole.add("7");
+          break;
+        case '6':
+          cardHole.add("6");
+          break;
+        case '5':
+          cardHole.add("5");
+          break;
+        case '4':
+          cardHole.add("4");
+          break;
+        case '3':
+          cardHole.add("3");
+          break;
+        case '2':
+          cardHole.add("2");
+          break;
+      }
+      switch (element["hand"][1]) {
+        case 'A':
+          cardHole.add("14");
+          break;
+        case 'K':
+          cardHole.add("13");
+          break;
+        case 'Q':
+          cardHole.add("12");
+          break;
+        case 'J':
+          cardHole.add("11");
+          break;
+        case 'T':
+          cardHole.add("10");
+          break;
+        case '9':
+          cardHole.add("9");
+          break;
+        case '8':
+          cardHole.add("8");
+          break;
+        case '7':
+          cardHole.add("7");
+          break;
+        case '6':
+          cardHole.add("6");
+          break;
+        case '5':
+          cardHole.add("5");
+          break;
+        case '4':
+          cardHole.add("4");
+          break;
+        case '3':
+          cardHole.add("3");
+          break;
+        case '2':
+          cardHole.add("2");
+          break;
+      }
+    }
+    addSuit(cardList, cardHole, element["hand"][3]);
+  });
+}
+
 List<int>? _isFourCard(List<int> numList) {
   for (int i = 0; i <= numList.length - 4; i++) {
     if ((numList[i] == numList[i + 1] && numList[i] == numList[i + 2] &&
