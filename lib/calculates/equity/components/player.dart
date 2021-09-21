@@ -29,7 +29,12 @@ class Player extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (_) => AlertDialog(
-                      content: RangeList(range: range),
+                      content: RangeList(
+                        range: range,
+                        mainAxisSpacing: 0.5,
+                        crossAxisSpacing: 1,
+                        childAspectRatio: 0.75,
+                      ),
                     ),
                   );
                 },

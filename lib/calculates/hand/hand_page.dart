@@ -43,7 +43,12 @@ class CalculatePage extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                    content: RangeList(range: model.status),
+                    content: RangeList(
+                      range: model.status,
+                      mainAxisSpacing: 0.5,
+                      crossAxisSpacing: 1,
+                      childAspectRatio: 0.75,
+                    ),
                   ),
                 );
               },

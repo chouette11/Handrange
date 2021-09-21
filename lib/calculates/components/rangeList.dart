@@ -9,12 +9,21 @@ class RangeList extends StatefulWidget {
     Key? key,
     required this.range,
     this.padding = const EdgeInsets.all(0),
-    this.margin = const EdgeInsets.all(0)
+    this.margin = const EdgeInsets.all(0),
+    this.crossAxisCount = 2,
+    required this.mainAxisSpacing,
+    required this.crossAxisSpacing,
+    required this.childAspectRatio,
   }) : super(key: key);
 
   final List<Map<String, dynamic>> range;
   final EdgeInsets padding;
   final EdgeInsets margin;
+  final int crossAxisCount;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
+  final double childAspectRatio;
+
   @override
   _RangeListState createState() => _RangeListState();
 }
@@ -34,10 +43,10 @@ class _RangeListState extends State<RangeList>{
               margin: widget.margin,
               width: screenSizeWidth,
               child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 0.5,
-                crossAxisSpacing: 1,
-                childAspectRatio: 0.75,
+                crossAxisCount: widget.crossAxisCount,
+                mainAxisSpacing: widget.mainAxisSpacing,
+                crossAxisSpacing: widget.crossAxisSpacing,
+                childAspectRatio: widget.childAspectRatio,
                 children: getRangeListFromSQL(snapshot).map((e) =>
                     GridTile(
                       child: SavedRange(
