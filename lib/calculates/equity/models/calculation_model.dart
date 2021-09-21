@@ -17,14 +17,23 @@ List<String> addHand(List<String> holeList, List<String> boardList) {
 }
 
 List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
-  List<String> list = [];
-  holeList.forEach((element) {list.add(element);});
-  boardList.forEach((element) {list.add(element);});
-  list.sort();
-  if (list.length == 5) {
-
+  List<String> cardList = [];
+  holeList.forEach((element) {cardList.add(element);});
+  boardList.forEach((element) {cardList.add(element);});
+  if (cardList.length == 5) {
+    CARDS.forEach((card1) {
+      if (cardList.every((element) => element != card1["card"])) {
+        cardList.add(card1["hand"]);
+        CONBI.forEach((card2) {
+          if (cardList.every((element) => element != card2["hand"])) {
+            cardList.add(card2["hand"]);
+              addFromRange(cardList, range)
+          }
+        });
+      }
+    });
   }
-  return list;
+  return cardList;
 }
 
 void addFromRange(List<String> cardList, List<Map<String, dynamic>> range) {
@@ -150,6 +159,27 @@ void addSuit(List<String> cardList, List<String> holeList, String isSuit) {
       }
     }
   }
+}
+
+List<int>? createList(List<String> cardList) {
+  List<int> numList = [];
+  List<String> markList = [];
+  List<List<String>> split = [];
+  cardList.forEach((element) { // マークと数字を分ける
+    split.add(element.split(""));
+  });
+  split.forEach((element) { // マークを代入
+    markList!.add(element.last);
+  });
+  split.forEach((element) { // マークを削除する
+    element.removeLast();
+  });
+  split.forEach((element) { // 10,11,12,13,14を処理して、代入
+    element.length == 2
+        ? numList.add(int.parse(element.join("")))
+        : numList.add(int.parse(element[0]));
+  });
+  return handJudge(numList, markList, cardList);
 }
 
 List<int>? _isFourCard(List<int> numList) {
