@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:handrange/calculates/components/rangeList.dart';
 import 'package:handrange/components/widgets/drawer.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/data/initsql.dart';
@@ -13,75 +14,25 @@ class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('一覧'),
-        ),
-        drawer: returnDrawer(context),
-        body:SaveGraphs()
+      appBar: AppBar(
+        title: Text('一覧'),
+      ),
+      drawer: returnDrawer(context),
+      backgroundColor: Colors.white,
+      body: RangeList(
+        range: context.select<MakePageModel, List<Map<String, dynamic>>>
+          ((MakePageModel model) => model.status),
+        padding: EdgeInsets.all(4),
+        mainAxisSpacing: 4.5,
+        crossAxisSpacing: 1.5,
+        childAspectRatio: 0.8,
+      ),
     );
   }
 }
 
-class SaveGraphs extends StatefulWidget {
-  @override
-  _SaveGraphsState createState() => _SaveGraphsState();
-}
-
-class _SaveGraphsState extends State<SaveGraphs>{
-  final myController = TextEditingController();
-  final Future<List<Graph>> graphs = Graph.getGraph();
-
-  @override
-  Widget build(BuildContext context) {
-    double screenSizeWidth = MediaQuery.of(context).size.width;
-    return FutureBuilder(
-        future: graphs,
-        builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(width: 3,color: Colors.black12)
-              ),
-              child: Container(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                  ),
-                  width: screenSizeWidth,
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 4.5,
-                    crossAxisSpacing: 1.5,
-                    childAspectRatio: 0.83,
-                    children: getRangeListFromSQL(snapshot).map((e) =>
-                        GridTile(
-                          child: GraphList(
-                              id: e["id"],
-                              num: e["num"],
-                              text: e["text"],
-                              name: e["name"],
-                              count: e["count"]
-                          ),
-                        ),
-                    ).toList(),
-                  ),
-                ),
-              ),
-            );
-          }
-          else if(snapshot.hasError){
-            return Center(child: Text("Error"));
-          }
-          else{
-            return Center(child: CircularProgressIndicator());
-          }
-        }
-    );
-  }
-}
-
-class GraphList extends StatelessWidget {
-  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
+class SavedRange extends StatelessWidget {
+  SavedRange({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
   final int id;
   final int num;
   final String name;
@@ -230,29 +181,30 @@ class GraphList extends StatelessWidget {
             },
           ),
         },
-          child: Material(
-            elevation: 0.4,
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border:Border.all(width: 1.5, color: Colors.black45),
-                    borderRadius: BorderRadius.circular(3),
-                  ),
-                  child: GridView.count(
-                    crossAxisCount: 13,
-                    mainAxisSpacing: 0.001,
-                    crossAxisSpacing: 0.001,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    children: getIsSelected(text).map((e) =>
-                        GridTile(
-                          child: CustomTapBox(isSelected: e["isSelected"]),
-                        ),
-                    ).toList(),
-                  ),
+        child: Material(
+          elevation: 0.4,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border:Border.all(width: 1.5, color: Colors.black45),
+                  borderRadius: BorderRadius.circular(3),
                 ),
-                Container(
+                child: GridView.count(
+                  crossAxisCount: 13,
+                  mainAxisSpacing: 0.001,
+                  crossAxisSpacing: 0.001,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: getIsSelected(text).map((e) =>
+                      GridTile(
+                        child: CustomTapBox(isSelected: e["isSelected"]),
+                      ),
+                  ).toList(),
+                ),
+              ),
+              Expanded(
+                child: Container(
                   decoration: BoxDecoration(
                     border:Border.all(width: 1.5, color: Colors.black12),
                     borderRadius: BorderRadius.circular(3),
@@ -263,14 +215,14 @@ class GraphList extends StatelessWidget {
                       children: [
                         Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
                         Text(name),
-                        SizedBox(width: 4, height: 1.09,)
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
       );
     });
   }
