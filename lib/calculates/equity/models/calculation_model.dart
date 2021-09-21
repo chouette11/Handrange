@@ -16,98 +16,26 @@ List<String> addHand(List<String> holeList, List<String> boardList) {
   return list;
 }
 
-List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
+List<String> addHandInfinity(List<String> heroHand, List<String> boardList) {
   List<String> cardList = [];
-  List<String> cardHole = [];
+  List<int> numList = [];
+  List<String> markList = [];
 
-  void addFromRange(List<String> cardList, List<Map<String, dynamic>> range) {
-    range.forEach((element) {
-      if (element["isSelected"] == true) {
-        switch (element["hand"][0]) {
-          case 'A':
-            cardHole.add("14");
-            break;
-          case 'K':
-            cardHole.add("13");
-            break;
-          case 'Q':
-            cardHole.add("12");
-            break;
-          case 'J':
-            cardHole.add("11");
-            break;
-          case 'T':
-            cardHole.add("10");
-            break;
-          case '9':
-            cardHole.add("9");
-            break;
-          case '8':
-            cardHole.add("8");
-            break;
-          case '7':
-            cardHole.add("7");
-            break;
-          case '6':
-            cardHole.add("6");
-            break;
-          case '5':
-            cardHole.add("5");
-            break;
-          case '4':
-            cardHole.add("4");
-            break;
-          case '3':
-            cardHole.add("3");
-            break;
-          case '2':
-            cardHole.add("2");
-            break;
-        }
-        switch (element["hand"][1]) {
-          case 'A':
-            cardHole.add("14");
-            break;
-          case 'K':
-            cardHole.add("13");
-            break;
-          case 'Q':
-            cardHole.add("12");
-            break;
-          case 'J':
-            cardHole.add("11");
-            break;
-          case 'T':
-            cardHole.add("10");
-            break;
-          case '9':
-            cardHole.add("9");
-            break;
-          case '8':
-            cardHole.add("8");
-            break;
-          case '7':
-            cardHole.add("7");
-            break;
-          case '6':
-            cardHole.add("6");
-            break;
-          case '5':
-            cardHole.add("5");
-            break;
-          case '4':
-            cardHole.add("4");
-            break;
-          case '3':
-            cardHole.add("3");
-            break;
-          case '2':
-            cardHole.add("2");
-            break;
-        }
-        addSuit(cardHole, element["hand"][2]);
-        print(cardHole);
-      }
+  void createList(List<String> cardList) {
+    List<List<String>> split = [];
+    cardList.forEach((element) { // マークと数字を分ける
+      split.add(element.split(""));
+    });
+    split.forEach((element) { // マークを代入
+      markList.add(element.last);
+    });
+    split.forEach((element) { // マークを削除する
+      element.removeLast();
+    });
+    split.forEach((element) { // 10,11,12,13,14を処理して、代入
+      element.length == 2
+          ? numList.add(int.parse(element.join("")))
+          : numList.add(int.parse(element[0]));
     });
   }
 
@@ -119,7 +47,9 @@ List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
         String card2 = holeList[1] + marks[i];
         cardList.add(card1);
         cardList.add(card2);
-        cardList.sort(); //todo
+        cardList.sort();//todo
+        createList(cardList);
+        handJudge(numList, markList, cardList);
       }
     } else if (isSuit == "o") { // todo
       for (int i = 0; i < 4; i++) {
@@ -144,28 +74,30 @@ List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
     }
   }
 
-  List<int>? createList(List<String> cardList) {
-    List<int> numList = [];
-    List<String> markList = [];
-    List<List<String>> split = [];
-    cardList.forEach((element) { // マークと数字を分ける
-      split.add(element.split(""));
+  void addFromRange(List<Map<String, dynamic>> range1) {
+    range1.forEach((element) {
+      if (element["isSelected"] == true) {
+        List<String> hole = [];
+        handToNum(element["hand"][0], hole);
+        handToNum(element["hand"][1], hole);
+        List<String> marks = ["s", "c", "h", "d"];
+        if (element["hand"][2] == "s") {
+          for (int i = 0; i < 4; i++) {
+            String card1 = holeList[0] + marks[i];
+            String card2 = holeList[1] + marks[i];
+            cardList.add(card1);
+            cardList.add(card2);
+            cardList.sort();//todo
+            createList(cardList);
+            handJudge(numList, markList, cardList);
+          }
+        }
+        addSuit(hole, element["hand"][2]);
+        print(hole);
+      }
     });
-    split.forEach((element) { // マークを代入
-      markList.add(element.last);
-    });
-    split.forEach((element) { // マークを削除する
-      element.removeLast();
-    });
-    split.forEach((element) { // 10,11,12,13,14を処理して、代入
-      element.length == 2
-          ? numList.add(int.parse(element.join("")))
-          : numList.add(int.parse(element[0]));
-    });
-    return handJudge(numList, markList, cardList);
   }
 
-  holeList.forEach((element) {cardList.add(element);});
   boardList.forEach((element) {cardList.add(element);});
   if (cardList.length == 5) {
     CARDS.forEach((card1) {
@@ -174,7 +106,7 @@ List<String> addHandInfinity(List<String> holeList, List<String> boardList) {
         CONBI.forEach((card2) {
           if (cardList.every((element) => element != card2["hand"])) {
             cardList.add(card2["hand"]);
-              addFromRange(cardList, range)
+              addFromRange(range)
           }
         });
       }
