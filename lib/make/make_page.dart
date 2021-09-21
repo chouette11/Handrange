@@ -87,7 +87,7 @@ class _MakeRangePageState extends State<MakeRangePage> {
             title: Text("レンジ作成"),
           ),
           drawer: returnDrawer(context),
-          body:Consumer<Light>(builder: (context, model, child) {
+          body:Consumer<MakePageModel>(builder: (context, model, child) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
