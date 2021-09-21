@@ -1,3 +1,5 @@
+import 'package:handrange/data/combination.dart';
+
 List<int> addInt(List<int> holeList, List<int> boardList) {
   List<int> list = [];
   holeList.forEach((element) {list.add(element);});
@@ -114,6 +116,40 @@ void addFromRange(List<String> cardList, List<Map<String, dynamic>> range) {
     }
     addSuit(cardList, cardHole, element["hand"][3]);
   });
+}
+
+void addSuit(List<String> cardList, List<String> holeList, String isSuit) {
+  List<String> marks = ["s", "c", "h", "d"];
+  if (isSuit == "s") {
+    for (int i = 0; i < 4; i++) {
+      String card1 = holeList[0] + marks[i];
+      String card2 = holeList[1] + marks[i];
+      cardList.add(card1);
+      cardList.add(card2);
+      cardList.sort(); //todo
+
+    }
+  } else if (isSuit == "o") { // todo
+    for (int i = 0; i < 4; i++) {
+      for (int j = i + 1; j < 4; j++) {
+        holeList[0] += marks[i];
+        holeList[1] += marks[j];
+      }
+    }
+    for (int i = 0; i < 4; i++) {
+      for (int j = i + 1; j < 4; j++) {
+        holeList[0] += marks[j];
+        holeList[1] += marks[i];
+      }
+    }
+  } else {
+    for (int i = 0; i < 4; i++) {
+      for (int j = i + 1; j < 4; j++) {
+        holeList[0] += marks[j];
+        holeList[1] += marks[i];
+      }
+    }
+  }
 }
 
 List<int>? _isFourCard(List<int> numList) {
@@ -304,14 +340,6 @@ int winPlayer(List<int>? player1, List<int>? player2){
     }
     return 0;
   }
-}
-
-void judgePlayer(List<int> numList, List<String> markList, List<String> cardList) {
-  List<String> list = [];
-  holeList.forEach((element) {list.add(element);});
-  boardList.forEach((element) {list.add(element);});
-  list.sort();
-  return list;
 }
 
 void addRange(List<Map<String, dynamic>> range, ) {
