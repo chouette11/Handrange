@@ -96,8 +96,17 @@ class _MakeRangePageState extends State<MakeRangePage> {
                     ),
                   ),
                 ),
-                DisplayGraph(),
-                TextField(),
+                HandRange(
+                  children: model.status.map((e) => GridTile(
+                      child: CustomTapBox(
+                        name: e['hand'],
+                        isSelected: e['isSelected'],
+                        onPressed: () { model.onTapped(e['hand'], model.status);}
+                      )
+                  )).toList(),
+                  size: 1,
+                ),
+                VPIPField(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
