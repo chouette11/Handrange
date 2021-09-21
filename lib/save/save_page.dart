@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculates/components/rangeList.dart';
 import 'package:handrange/components/widgets/drawer.dart';
+import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/data/initsql.dart';
 import 'package:handrange/data/sql.dart';
@@ -190,17 +191,11 @@ class SavedRange extends StatelessWidget {
                   border:Border.all(width: 1.5, color: Colors.black45),
                   borderRadius: BorderRadius.circular(3),
                 ),
-                child: GridView.count(
-                  crossAxisCount: 13,
-                  mainAxisSpacing: 0.001,
-                  crossAxisSpacing: 0.001,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: getIsSelected(text).map((e) =>
-                      GridTile(
-                        child: CustomTapBox(isSelected: e["isSelected"]),
-                      ),
+                child: HandRange(
+                  children:  getIsSelected(text).map((e) =>
+                      GridTile(child: CustomTapBox(isSelected: e["isSelected"])),
                   ).toList(),
+                  size: 1,
                 ),
               ),
               Expanded(
