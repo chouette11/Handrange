@@ -5,8 +5,16 @@ import 'package:handrange/components/functions/creategraph.dart';
 import 'package:handrange/data/sql.dart';
 
 class RangeList extends StatefulWidget {
-  RangeList({Key? key, required this.range}) : super(key: key);
+  RangeList({
+    Key? key,
+    required this.range,
+    this.padding = const EdgeInsets.all(0),
+    this.margin = const EdgeInsets.all(0)
+  }) : super(key: key);
+
   final List<Map<String, dynamic>> range;
+  final EdgeInsets padding;
+  final EdgeInsets margin;
   @override
   _RangeListState createState() => _RangeListState();
 }
@@ -22,7 +30,8 @@ class _RangeListState extends State<RangeList>{
         builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
           if (snapshot.hasData) {
             return Container(
-              margin: EdgeInsets.only(left: 2.5,right: 2.5,top: 2),
+              padding: widget.padding,
+              margin: widget.margin,
               width: screenSizeWidth,
               child: GridView.count(
                 crossAxisCount: 2,
