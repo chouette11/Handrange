@@ -81,7 +81,6 @@ class _MakeRangePageState extends State<MakeRangePage> {
   @override
   Widget build(BuildContext context) {
     final initGraphs = Provider.of<List<InitGraph>?>(context);
-    return Consumer<Light>(builder: (context, model, child) {
       return Scaffold(
           appBar: AppBar(
             title: Text("レンジ作成"),
@@ -294,106 +293,5 @@ class _MakeRangePageState extends State<MakeRangePage> {
             );
           })
       );
-    });
-  }
-}
-//=============================================================================
-// 表示
-class TextField extends StatefulWidget {
-  @override
-  _TextFiledState createState() => _TextFiledState();
-}
-
-class _TextFiledState extends State<TextField> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 27,
-      child:Consumer<Light>(builder: (context, model, child) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(right: 13),
-                        child: Text(
-                          'VPIP: ${((model.count / 1326) * 100).toStringAsFixed(2)}%',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      }),
-    );
-  }
-}
-
-class DisplayGraph extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    double screenSizeWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: screenSizeWidth,
-      height: screenSizeWidth,
-      child: Consumer<Light>(builder: (context, model, child) {
-        return GridView.count(
-          crossAxisCount: 13,
-          mainAxisSpacing: 0.001,
-          crossAxisSpacing: 0.001,
-          children: model.status.map((e) => GridTile(
-            child: TapBox(hand: e["hand"], isSelected: e["isSelected"]),
-          ),
-          ).toList(),
-        );
-      },
-      ),
-    );
-  }
-}
-
-class TapBox extends StatelessWidget {
-  TapBox( {Key? key, required this.hand, required this.isSelected }) : super(key: key);
-  final String hand;
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    double boxWidth = MediaQuery.of(context).size.width / 29;
-    return Consumer<Light>(builder: (context, model, child) {
-      return GestureDetector(
-        onTap: () {
-          model.onTapped(hand);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(1),
-            border: Border.all(width: 0.5, color: Colors.white),
-            color: isSelected ? Colors.green.shade600 : Colors.green.shade50,
-          ),
-          child:Center(
-            child: Text(
-              hand,
-              style: TextStyle(
-                  fontFamily: "Sans",
-                  fontSize: boxWidth
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 }
