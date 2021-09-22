@@ -159,6 +159,71 @@ void handToNum(String hand, List<String> hole,) {
   }
 }
 
+void winPlayer(List<int>? hero, List<int>? opponent, int heroSum, int oppSum){
+  if (hero![0] > opponent![0]) {
+    heroSum++;
+  } else if (hero[0] < opponent[0]) {
+    oppSum++;
+  } else {
+    for (int i = 0; i < hero.length; i++) {
+      if (hero[i] != opponent[i]) {
+        if (hero[i] > opponent[i]) {
+          heroSum++;
+        } else {
+          oppSum++;
+        }
+      }
+    }
+    heroSum++;
+    oppSum++;
+  }
+}
+
+List<int>? handJudge(List<String> cardList) {
+  List<int> numList = [];
+  List<String> markList = [];
+  List<List<String>> split = [];
+
+  cardList.forEach((element) { // マークと数字を分ける
+    split.add(element.split(""));
+  });
+  split.forEach((element) { // マークを代入
+    markList.add(element.last);
+  });
+  split.forEach((element) { // マークを削除する
+    element.removeLast();
+  });
+  split.forEach((element) { // 10,11,12,13,14を処理して、代入
+    element.length == 2
+        ? numList.add(int.parse(element.join("")))
+        : numList.add(int.parse(element[0]));
+  });
+
+  if (_isFourCard(numList) != null) {
+    return _isFourCard(numList);
+  }
+  if (_isFullHouse(numList) != null) {
+    return _isFullHouse(numList);
+  }
+  if (_isFlush(markList, cardList) != null) {
+    return _isFlush(markList, cardList);
+  }
+  if (_isStraight(numList) != null) {
+    return _isStraight(numList);
+  }
+  if (_isStraight(numList) != null) {
+    return _isThreeCards(numList);
+  }
+  if (_isTwoPair(numList) != null) {
+    return _isTwoPair(numList);
+  }
+  if (_isOnePair(numList) != null) {
+    return _isOnePair(numList);
+  }
+  return numList.reversed.toList();
+}
+
+
 List<int>? _isFourCard(List<int> numList) {
   for (int i = 0; i <= numList.length - 4; i++) {
     if ((numList[i] == numList[i + 1] && numList[i] == numList[i + 2] &&
@@ -301,195 +366,4 @@ List<int> _result(int handNum, List<int> numList, int i) {
   list.add(numList[i]);
   list.add(handNum);
   return list.reversed.toList();
-}
-
-List<int>? handJudge(List<int> numList, List<String> markList, List<String> cardList) {
-  if (_isFourCard(numList) != null) {
-    return _isFourCard(numList);
-  }
-  if (_isFullHouse(numList) != null) {
-    return _isFullHouse(numList);
-  }
-  if (_isFlush(markList, cardList) != null) {
-    return _isFlush(markList, cardList);
-  }
-  if (_isStraight(numList) != null) {
-    return _isStraight(numList);
-  }
-  if (_isStraight(numList) != null) {
-    return _isThreeCards(numList);
-  }
-  if (_isTwoPair(numList) != null) {
-    return _isTwoPair(numList);
-  }
-  if (_isOnePair(numList) != null) {
-    return _isOnePair(numList);
-  }
-  return numList.reversed.toList();
-}
-
-int winPlayer(List<int>? player1, List<int>? player2){
-  print(player1);
-  print(player2);
-  if (player1![0] > player2![0]) {
-    return 1;
-  } else if (player1[0] < player2[0]) {
-    return 2;
-  } else {
-    for (int i = 0; i < player1.length; i++) {
-      if (player1[i] != player2[i]) {
-        if (player1[i] > player2[i]) {
-          return 1;
-        } else {
-          return 2;
-        }
-      }
-    }
-    return 0;
-  }
-}
-
-void addRange(List<Map<String, dynamic>> range, ) {
-  range.forEach((element) {
-    List<int> numHole = [];
-    List<String> markHole = [];
-    List<String> cardHole = [];
-    if (element["isSelected"] == true) {
-      switch (element["hand"][0]) {
-        case 'A':
-          numHole.add(14);
-          cardHole.add(14.toString());
-          break;
-        case 'K':
-          numHole.add(13);
-          cardHole.add(13.toString());
-          break;
-        case 'Q':
-          numHole.add(12);
-          cardHole.add(12.toString());
-          break;
-        case 'J':
-          numHole.add(11);
-          cardHole.add(11.toString());
-          break;
-        case 'T':
-          numHole.add(10);
-          cardHole.add(10.toString());
-          break;
-        case '9':
-          numHole.add(9);
-          cardHole.add(9.toString());
-          break;
-        case '8':
-          numHole.add(8);
-          cardHole.add(8.toString());
-          break;
-        case '7':
-          numHole.add(7);
-          cardHole.add(7.toString());
-          break;
-        case '6':
-          numHole.add(6);
-          cardHole.add(6.toString());
-          break;
-        case '5':
-          numHole.add(5);
-          cardHole.add(5.toString());
-          break;
-        case '4':
-          numHole.add(4);
-          cardHole.add(4.toString());
-          break;
-        case '3':
-          numHole.add(3);
-          cardHole.add(3.toString());
-          break;
-        case '2':
-          numHole.add(2);
-          cardHole.add(2.toString());
-          break;
-      }
-      switch (element["hand"][1]) {
-        case 'A':
-          numHole.add(14);
-          cardHole.add(14.toString());
-          break;
-        case 'K':
-          numHole.add(13);
-          cardHole.add(13.toString());
-          break;
-        case 'Q':
-          numHole.add(12);
-          cardHole.add(12.toString());
-          break;
-        case 'J':
-          numHole.add(11);
-          cardHole.add(11.toString());
-          break;
-        case 'T':
-          numHole.add(10);
-          cardHole.add(10.toString());
-          break;
-        case '9':
-          numHole.add(9);
-          cardHole.add(9.toString());
-          break;
-        case '8':
-          numHole.add(8);
-          cardHole.add(8.toString());
-          break;
-        case '7':
-          numHole.add(7);
-          cardHole.add(7.toString());
-          break;
-        case '6':
-          numHole.add(6);
-          cardHole.add(6.toString());
-          break;
-        case '5':
-          numHole.add(5);
-          cardHole.add(5.toString());
-          break;
-        case '4':
-          numHole.add(4);
-          cardHole.add(4.toString());
-          break;
-        case '3':
-          numHole.add(3);
-          cardHole.add(3.toString());
-          break;
-        case '2':
-          numHole.add(2);
-          cardHole.add(2.toString());
-          break;
-      }
-    }
-    String hand = element['hand'];
-    List<String> marks = ['s', 'c', 'h', 'd'];
-
-    if (hand.endsWith('o')) {
-      for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 4; j++) {
-          markHole.add(marks[i]);
-          markHole.add(marks[j]);
-          cardHole.add(marks[i]);
-
-        }
-      }
-    } else if (hand.endsWith('s')) {
-      for (int i = 0; i < 4; i++) {
-        markHole.add(marks[i]);
-        markHole.add(marks[i]);
-      }
-    } else {
-      for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 4; j++) {
-          markHole.add(marks[i]);
-          markHole.add(marks[j]);
-          cardHole.add(marks[i]);
-
-        }
-      }
-    }
-  });
 }
