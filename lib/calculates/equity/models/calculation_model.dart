@@ -16,106 +16,90 @@ List<String> addHand(List<String> holeList, List<String> boardList) {
   return list;
 }
 
-List<String> addHandInfinity(List<String> heroHand, List<String> boardList) {
-  List<String> cardList = [];
-  List<int> numList = [];
-  List<String> markList = [];
-
-  void createList(List<String> cardList) {
-    List<List<String>> split = [];
-    cardList.forEach((element) { // マークと数字を分ける
-      split.add(element.split(""));
-    });
-    split.forEach((element) { // マークを代入
-      markList.add(element.last);
-    });
-    split.forEach((element) { // マークを削除する
-      element.removeLast();
-    });
-    split.forEach((element) { // 10,11,12,13,14を処理して、代入
-      element.length == 2
-          ? numList.add(int.parse(element.join("")))
-          : numList.add(int.parse(element[0]));
-    });
-  }
-
-  void addSuit(List<String> holeList, String isSuit) {
-    List<String> marks = ["s", "c", "h", "d"];
-    if (isSuit == "s") {
-      for (int i = 0; i < 4; i++) {
-        String card1 = holeList[0] + marks[i];
-        String card2 = holeList[1] + marks[i];
-        cardList.add(card1);
-        cardList.add(card2);
-        cardList.sort();//todo
-        createList(cardList);
-        handJudge(numList, markList, cardList);
-      }
-    } else if (isSuit == "o") { // todo
-      for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 4; j++) {
-          holeList[0] += marks[i];
-          holeList[1] += marks[j];
-        }
-      }
-      for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 4; j++) {
-          holeList[0] += marks[j];
-          holeList[1] += marks[i];
-        }
-      }
-    } else {
-      for (int i = 0; i < 4; i++) {
-        for (int j = i + 1; j < 4; j++) {
-          holeList[0] += marks[j];
-          holeList[1] += marks[i];
-        }
-      }
-    }
-  }
-
-  void addFromRange(List<Map<String, dynamic>> range1) {
-    range1.forEach((element) {
-      if (element["isSelected"] == true) {
-        List<String> hole = [];
-        handToNum(element["hand"][0], hole);
-        handToNum(element["hand"][1], hole);
-        List<String> marks = ["s", "c", "h", "d"];
-        if (element["hand"][2] == "s") {
-          for (int i = 0; i < 4; i++) {
-            String card1 = holeList[0] + marks[i];
-            String card2 = holeList[1] + marks[i];
-            cardList.add(card1);
-            cardList.add(card2);
-            cardList.sort();//todo
-            createList(cardList);
-            handJudge(numList, markList, cardList);
-          }
-        }
-        addSuit(hole, element["hand"][2]);
-        print(hole);
-      }
-    });
-  }
-
-  boardList.forEach((element) {cardList.add(element);});
-  if (cardList.length == 5) {
+List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRange, List<String> board) {
+  int heroSum = 0;
+  int oppSum = 0;
+  int sum = 0;
+  if (board.length == 3) {
     CARDS.forEach((card1) {
-      if (cardList.every((element) => element != card1["card"])) {
-        cardList.add(card1["hand"]);
-        CONBI.forEach((card2) {
-          if (cardList.every((element) => element != card2["hand"])) {
-            cardList.add(card2["hand"]);
-              addFromRange(range)
+      List<String> board3 = board;
+      if (board3.every((element) => element != card1["card"])) {
+        board3.add(card1["card"]);
+        CARDS.forEach((card2) {
+          if (board3.every((element) => element != card2["card"])) {
+            board3.add(card2["card"]);
+
+            List<String> heroBoard = board3;
+            heroBoard.add(heroHand[0]);
+            heroBoard.add(heroHand[1]);
+
+            oppRange.forEach((element) {
+              List<String> oppBoard = board3;
+
+              if (element["isSelected"] == true) {
+                List<String> hole = [];
+
+                handToNum(element["hand"][0], hole);
+                handToNum(element["hand"][1], hole);
+
+                List<String> marks = ["s", "c", "h", "d"];
+                if (element["hand"][2] == "s") {
+                  for (int i = 0; i < 4; i++) {
+                    List<String> ipOppBoard = oppBoard;
+                    List<String> ipHole = hole;
+                    ipOppBoard.add(ipHole[0] + marks[i]);
+                    ipOppBoard.add(ipHole[1] + marks[i]);
+                    ipOppBoard.sort();
+                    winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
+                  }
+                } else if (element["hand"][2] == "o") {
+                  for (int i = 0; i < 4; i++) {
+                    for (int j = i + 1; j < 4; j++) {
+                      List<String> ipOppBoard = oppBoard;
+                      List<String> ipHole = hole;
+                      ipOppBoard.add(ipHole[0] + marks[i]);
+                      ipOppBoard.add(ipHole[1] + marks[i]);
+                      ipOppBoard.sort();
+                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
+                    }
+                  }
+                  for (int i = 0; i < 4; i++) {
+                    for (int j = i + 1; j < 4; j++) {
+                      List<String> ipOppBoard = oppBoard;
+                      List<String> ipHole = hole;
+                      ipOppBoard.add(ipHole[0] + marks[i]);
+                      ipOppBoard.add(ipHole[1] + marks[i]);
+                      ipOppBoard.sort();
+                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
+                    }
+                  }
+                } else {
+                  for (int i = 0; i < 4; i++) {
+                    for (int j = i + 1; j < 4; j++) {
+                      List<String> ipOppBoard = oppBoard;
+                      List<String> ipHole = hole;
+                      ipOppBoard.add(ipHole[0] + marks[i]);
+                      ipOppBoard.add(ipHole[1] + marks[i]);
+                      ipOppBoard.sort();
+                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
+                    }
+                  }
+                }
+              }
+            });
           }
         });
       }
     });
   }
-  return cardList;
+  sum = heroSum + oppSum;
+  List<double> percent = [];
+  percent.add(heroSum/sum);
+  percent.add(oppSum/sum);
+  return percent;
 }
 
-void handToNum(String hand, List<String> hole,) {
+void handToNum(String hand, List<String> hole) {
   switch (hand) {
     case 'A':
       hole.add("14");
@@ -304,7 +288,7 @@ List<int>? _isStraight(List<int> numList) {
         numList.contains(i + 4)) {
       print("Straight");
       List<int> list = [4];
-      list.add(numList[i]);
+      list.add(i);
       return list;
     }
   }
