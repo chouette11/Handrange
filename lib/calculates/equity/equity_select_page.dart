@@ -62,20 +62,23 @@ class SelectButton extends StatelessWidget{
             onTap: () => {
               if (isColor == true) {
                 if (name == "board") {
-                  model.addBoard(num, mark, card),
-                  if (model.board.length == 5) {
+                  if (model.board.length < 5) {
+                    model.addBoard(num, mark, card),
+                  } else {
                     Navigator.pop(context),
-                  }
+                  },
                 } else if (name == "hole1") {
-                  model.addHole1(num, mark, card),
-                  if (model.board.length == 2) {
+                  if (model.cardHole1.length < 2) {
+                    model.addHole1(num, mark, card),
+                  } else {
                     Navigator.pop(context),
-                  }
+                  },
                 } else if (name == "hole2") {
-                  model.addHole2(num, mark, card),
-                  if (model.board.length == 2) {
+                  if (model.cardHole2.length < 2) {
+                    model.addHole2(num, mark, card),
+                  } else {
                     Navigator.pop(context),
-                  }
+                  },
                 },
               },
             },
