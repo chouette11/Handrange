@@ -64,18 +64,21 @@ class SelectButton extends StatelessWidget{
                 if (name == "board") {
                   if (model.board.length < 5) {
                     model.addBoard(num, mark, card),
+                    if (model.board.length == 5) {Navigator.pop(context)},
                   } else {
                     Navigator.pop(context),
                   },
                 } else if (name == "hole1") {
                   if (model.cardHole1.length < 2) {
                     model.addHole1(num, mark, card),
+                    if (model.board.length == 5) {Navigator.pop(context)},
                   } else {
                     Navigator.pop(context),
                   },
                 } else if (name == "hole2") {
                   if (model.cardHole2.length < 2) {
                     model.addHole2(num, mark, card),
+                    if (model.board.length == 5) {Navigator.pop(context)},
                   } else {
                     Navigator.pop(context),
                   },
