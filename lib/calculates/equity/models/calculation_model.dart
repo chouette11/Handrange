@@ -22,12 +22,13 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
   int sum = 0;
   if (board.length == 3) {
     CARDS.forEach((card1) {
-      List<String> board3 = board;
-      if (board3.every((element) => element != card1["card"])) {
-        board3.add(card1["card"]);
-        CARDS.forEach((card2) {
-          if (board3.every((element) => element != card2["card"])) {
-            board3.add(card2["card"]);
+      List<String> board4 = List.from(board);
+      if (board4.every((element) => element != card1["card"])) {
+        board4.add(card1["card"]);
+        CARDS.forEach((card1) {
+          List<String> board5 = List.from(board4);
+          if (board5.every((element) => element != card1["card"])) {
+            board5.add(card1["card"]);
 
             List<String> heroBoard = board3;
             heroBoard.add(heroHand[0]);
@@ -182,6 +183,8 @@ List<int>? handJudge(List<String> cardList) {
         ? numList.add(int.parse(element.join("")))
         : numList.add(int.parse(element[0]));
   });
+  numList.sort((a, b) => b - a); // 大きい順
+  markList.sort();
 
   if (_isFourCard(numList) != null) {
     return _isFourCard(numList);
@@ -272,7 +275,7 @@ List<int>? _isFlush(List<String> markList, List<String> cardList) {
               ? flushNum.add(int.parse(element.join("")))
               : flushNum.add(int.parse(element[0]));
         });
-        flushNum.sort();
+        flushNum.sort(); // 小さい順
         flushNum.add(5);
         print("flush");
         return flushNum.reversed.toList();
@@ -347,6 +350,7 @@ List<int> _result(int handNum, List<int> numList, int i) {
       list.add(numList[k]); // ThreeCard以外の場合、追加
     }
   }
+  list.sort(); // 小さい順
   list.add(numList[i]);
   list.add(handNum);
   return list.reversed.toList();
