@@ -322,9 +322,10 @@ List<int>? _isTwoPair(List<int> numList) {
         List<int> list = [];
         for (int k = 0; k < numList.length; k++) {
           if (numList[i] != numList[k] && numList[j] != numList[k]) {
-            list.add(numList[k]); // ThreeCard以外の場合、追加
+            list.add(numList[k]); // TwoPair以外の場合、追加
           }
         }
+        list.sort(); // 小さい順
         list.add(numList[j]);
         list.add(numList[i]);
         list.add(2);
