@@ -100,50 +100,6 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
   return percent;
 }
 
-void handToNum(String hand, List<String> hole) {
-  switch (hand) {
-    case 'A':
-      hole.add("14");
-      break;
-    case 'K':
-      hole.add("13");
-      break;
-    case 'Q':
-      hole.add("12");
-      break;
-    case 'J':
-      hole.add("11");
-      break;
-    case 'T':
-      hole.add("10");
-      break;
-    case '9':
-      hole.add("9");
-      break;
-    case '8':
-      hole.add("8");
-      break;
-    case '7':
-      hole.add("7");
-      break;
-    case '6':
-      hole.add("6");
-      break;
-    case '5':
-      hole.add("5");
-      break;
-    case '4':
-      hole.add("4");
-      break;
-    case '3':
-      hole.add("3");
-      break;
-    case '2':
-      hole.add("2");
-      break;
-  }
-}
-
 void winPlayer(List<int>? hero, List<int>? opponent, int heroSum, int oppSum){
   if (hero![0] > opponent![0]) {
     heroSum++;
@@ -210,6 +166,49 @@ List<int>? handJudge(List<String> cardList) {
   return numList.reversed.toList();
 }
 
+void handToNum(String hand, List<String> hole) {
+  switch (hand) {
+    case 'A':
+      hole.add("14");
+      break;
+    case 'K':
+      hole.add("13");
+      break;
+    case 'Q':
+      hole.add("12");
+      break;
+    case 'J':
+      hole.add("11");
+      break;
+    case 'T':
+      hole.add("10");
+      break;
+    case '9':
+      hole.add("9");
+      break;
+    case '8':
+      hole.add("8");
+      break;
+    case '7':
+      hole.add("7");
+      break;
+    case '6':
+      hole.add("6");
+      break;
+    case '5':
+      hole.add("5");
+      break;
+    case '4':
+      hole.add("4");
+      break;
+    case '3':
+      hole.add("3");
+      break;
+    case '2':
+      hole.add("2");
+      break;
+  }
+}
 
 List<int>? _isFourCard(List<int> numList) {
   for (int i = 0; i <= numList.length - 4; i++) {
