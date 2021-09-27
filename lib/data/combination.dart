@@ -2,7 +2,7 @@ const List<Map<String, dynamic>> CARDS =[
   {
     "num": 1,
     "mark": "s",
-    "card": "1s"
+    "card": "14s"
   },{
     "num": 13,
     "mark": "s",
@@ -55,7 +55,7 @@ const List<Map<String, dynamic>> CARDS =[
   {
     "num": 1,
     "mark": "c",
-    "card": "1c"
+    "card": "14c"
   },{
     "num": 13,
     "mark": "c",
@@ -107,7 +107,7 @@ const List<Map<String, dynamic>> CARDS =[
   },{
     "num": 1,
     "mark": "h",
-    "card": "1h"
+    "card": "14h"
   },{
     "num": 13,
     "mark": "h",
@@ -159,7 +159,7 @@ const List<Map<String, dynamic>> CARDS =[
   },{
     "num": 1,
     "mark": "d",
-    "card": "1d"
+    "card": "14d"
   },{
     "num": 13,
     "mark": "d",
