@@ -20,6 +20,29 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
   int heroSum = 0;
   int oppSum = 0;
   int sum = 0;
+
+  void winPlayer(List<int>? hero, List<int>? opponent){
+    if (hero![0] > opponent![0]) {
+      heroSum++;
+    } else if (hero[0] < opponent[0]) {
+      oppSum++;
+    } else {
+      for (int i = 0; i < hero.length; i++) {
+        print(hero);
+        print(opponent);
+        if (hero[i] != opponent[i]) {
+          if (hero[i] > opponent[i]) {
+            heroSum++;
+          } else {
+            oppSum++;
+          }
+        }
+      }
+      heroSum++;
+      oppSum++;
+    }
+  }
+
   if (board.length == 3) {
     CARDS.forEach((card1) {
       List<String> board4 = List.from(board);
@@ -100,25 +123,6 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
   return percent;
 }
 
-void winPlayer(List<int>? hero, List<int>? opponent, int heroSum, int oppSum){
-  if (hero![0] > opponent![0]) {
-    heroSum++;
-  } else if (hero[0] < opponent[0]) {
-    oppSum++;
-  } else {
-    for (int i = 0; i < hero.length; i++) {
-      if (hero[i] != opponent[i]) {
-        if (hero[i] > opponent[i]) {
-          heroSum++;
-        } else {
-          oppSum++;
-        }
-      }
-    }
-    heroSum++;
-    oppSum++;
-  }
-}
 
 List<int>? handJudge(List<String> cardList) {
   List<int> numList = [];
