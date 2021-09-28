@@ -158,7 +158,7 @@ List<int>? handJudge(List<String> cardList) {
   if (_isStraight(numList) != null) {
     return _isStraight(numList);
   }
-  if (_isStraight(numList) != null) {
+  if (_isThreeCards(numList) != null) {
     return _isThreeCards(numList);
   }
   if (_isTwoPair(numList) != null) {
