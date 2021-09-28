@@ -13,46 +13,44 @@ class Player extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text("プレイヤー$num")
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      content: RangeList(
-                        range: range,
-                        margin: EdgeInsets.only(top: 2, right: 2.5, left: 2.5),
-                        mainAxisSpacing: 0.5,
-                        crossAxisSpacing: 1,
-                        childAspectRatio: 0.75,
-                      ),
-                    ),
-                  );
-                },
-                child: Text("レンジ")
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 32, left: 16),
+            child: HoleBox(
+              num: num,
+              cardHole: cardHole,
             ),
-            HandRange(
-              children: range.map((e) => GridTile(
-                child: CustomTapBox(
-                  isSelected: e["isSelected"],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "あなた",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
-              )).toList(),
-              size: 4,
-            ),
-            HoleBox(num: num, cardHole: cardHole),
-          ],
-        ),
-      ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    "勝率",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text("0.00%"),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
