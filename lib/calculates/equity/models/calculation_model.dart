@@ -53,60 +53,24 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
           if (board5.every((element) => element != card1["card"])) {
             board5.add(card1["card"]);
 
-            List<String> heroBoard = board3;
+            List<String> heroBoard = List.from(board5);
             heroBoard.add(heroHand[0]);
             heroBoard.add(heroHand[1]);
 
             oppRange.forEach((element) {
-              List<String> oppBoard = board3;
-
-              if (element["isSelected"] == true) {
+              if(element['isSelected'] == true) {
                 List<String> hole = [];
+                handToNum(element['hand'][0], hole);
+                handToNum(element['hand'][1], hole);
 
-                handToNum(element["hand"][0], hole);
-                handToNum(element["hand"][1], hole);
-
-                List<String> marks = ["s", "c", "h", "d"];
-                if (element["hand"][2] == "s") {
+                List<String> marks = ['s', 'c', 'h', 'd'];
+                if (element['hand'][2] == 's') {
                   for (int i = 0; i < 4; i++) {
-                    List<String> ipOppBoard = oppBoard;
-                    List<String> ipHole = hole;
-                    ipOppBoard.add(ipHole[0] + marks[i]);
-                    ipOppBoard.add(ipHole[1] + marks[i]);
-                    ipOppBoard.sort();
-                    winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
-                  }
-                } else if (element["hand"][2] == "o") {
-                  for (int i = 0; i < 4; i++) {
-                    for (int j = i + 1; j < 4; j++) {
-                      List<String> ipOppBoard = oppBoard;
-                      List<String> ipHole = hole;
-                      ipOppBoard.add(ipHole[0] + marks[i]);
-                      ipOppBoard.add(ipHole[1] + marks[i]);
-                      ipOppBoard.sort();
-                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
-                    }
-                  }
-                  for (int i = 0; i < 4; i++) {
-                    for (int j = i + 1; j < 4; j++) {
-                      List<String> ipOppBoard = oppBoard;
-                      List<String> ipHole = hole;
-                      ipOppBoard.add(ipHole[0] + marks[i]);
-                      ipOppBoard.add(ipHole[1] + marks[i]);
-                      ipOppBoard.sort();
-                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
-                    }
-                  }
-                } else {
-                  for (int i = 0; i < 4; i++) {
-                    for (int j = i + 1; j < 4; j++) {
-                      List<String> ipOppBoard = oppBoard;
-                      List<String> ipHole = hole;
-                      ipOppBoard.add(ipHole[0] + marks[i]);
-                      ipOppBoard.add(ipHole[1] + marks[i]);
-                      ipOppBoard.sort();
-                      winPlayer(handJudge(heroBoard), handJudge(ipOppBoard), heroSum, oppSum);
-                    }
+                    List<String> oppBoard = List.from(board5);
+                    List<String> ipHole = List.from(hole);
+                    oppBoard.add(ipHole[0] + marks[i]);
+                    oppBoard.add(ipHole[1] + marks[i]);
+                    winPlayer(handJudge(heroBoard), handJudge(oppBoard));
                   }
                 }
               }
