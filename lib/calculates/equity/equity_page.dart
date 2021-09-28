@@ -19,8 +19,8 @@ class EquityPage extends StatelessWidget{
       body: Consumer<EquityPageModel>(builder: (context, model, child) {
         return Column(
           children: [
-            Expanded(
-              flex: 1,
+            Container(
+              margin: EdgeInsets.only(top: 16),
               child: BoardBoxes(
                 boardCard: model.boardCard,
                 selectPage: EquitySelectPage(cardList: model.cards, name: 'board'),
@@ -36,20 +36,12 @@ class EquityPage extends StatelessWidget{
                 RaisedButton(
                     child: Text('計算'),
                     onPressed: () {
-                      print('${winPlayer(handJudge(addInt(model.numHole1, model.board), addHand(model.markHole1, model.boardMark), addHand(model.cardHole1, model.boardCard)),
-                          handJudge(addInt(model.numHole2, model.board), addHand(model.markHole2, model.boardMark), addHand(model.cardHole2, model.boardCard)))}');
                     }
                 )
               ],
             ),
-            Expanded(
-              flex: 2,
-              child: Player(num: 1, cardHole: model.cardHole1, range: model.status1),
-            ),
-            Expanded(
-              flex: 2,
-              child: Player(num: 2, cardHole: model.cardHole2, range: model.status2),
-            ),
+            Player(num: 1, cardHole: model.cardHole1, range: model.status1),
+            Player(num: 2, cardHole: model.cardHole2, range: model.status2),
           ],
         );
       }),
