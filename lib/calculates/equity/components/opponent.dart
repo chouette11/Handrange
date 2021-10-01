@@ -74,7 +74,7 @@ class _OpponentState extends State<Opponent> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: 8),
                 Row(
                   children: [
                     Text(
