@@ -23,6 +23,7 @@ class User extends StatelessWidget {
             ),
           ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -32,6 +33,7 @@ class User extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              SizedBox(height: 24),
               Row(
                 children: [
                   Text(
@@ -43,7 +45,7 @@ class User extends StatelessWidget {
                   ),
                   Text("0.00%"),
                 ],
-              )
+              ),
             ],
           ),
         ],
