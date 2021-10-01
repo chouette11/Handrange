@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:handrange/data/combination.dart';
 
 List<int> addInt(List<int> holeList, List<int> boardList) {
@@ -16,7 +17,7 @@ List<String> addHand(List<String> holeList, List<String> boardList) {
   return list;
 }
 
-List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRange, List<String> board) {
+List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRange, List<String> board, BuildContext context) {
   int heroSum = 0;
   int oppSum = 0;
   int sum = 0;
@@ -77,6 +78,33 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
                   });
                 }
               });
+            } else if (board.length == 4) {
+              CARDS.forEach((card1) {
+                if (heroHand.every((element) => element != card1["card"]) &&
+                    oppBoard.every((element) => element != card1["card"])) {
+                  List<String> ipHeroBoard = List.from(heroBoard);
+                  List<String> ipOppBoard = List.from(oppBoard);
+                  ipHeroBoard.add(card1["card"]);
+                  ipOppBoard.add(card1["card"]);
+                  winPlayer(handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                }
+              });
+            } else if (board.length == 5) {
+              winPlayer(handJudge(heroBoard), handJudge(oppBoard));
+            } else {
+              showDialog(context: context,
+                builder: (_) => SimpleDialog(
+                  title:Text("エラー"),
+                  children: <Widget>[
+                    SimpleDialogOption(
+                      child: Text('ボードのカードを３枚以上選択してください'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              );
             }
           }
         }
