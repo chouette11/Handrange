@@ -114,26 +114,33 @@ List<int>? handJudge(List<String> cardList) {
   markList.sort();
 
   if (_isFourCard(numList) != null) {
-    return _isFourCard(numList);
+    List<int> _newIsFourCard = List.generate(3, (index) => _isFourCard(numList)![index]);
+    return _newIsFourCard;
   }
   if (_isFullHouse(numList) != null) {
     return _isFullHouse(numList);
   }
   if (_isFlush(markList, cardList) != null) {
-    return _isFlush(markList, cardList);
+    List<int> _newIsFlush = List.generate(6, (index) => _isFlush(markList, cardList)![index]);
+    return _newIsFlush;
   }
   if (_isStraight(numList) != null) {
     return _isStraight(numList);
   }
   if (_isThreeCards(numList) != null) {
-    return _isThreeCards(numList);
+    List<int> _newIsThreeCard = List.generate(4, (index) => _isThreeCards(numList)![index]);
+    return _newIsThreeCard;
   }
   if (_isTwoPair(numList) != null) {
-    return _isTwoPair(numList);
+    List<int> _newIsTwoPair = List.generate(4, (index) => _isTwoPair(numList)![index]);
+    return _newIsTwoPair;
   }
   if (_isOnePair(numList) != null) {
-    return _isOnePair(numList);
+    List<int> _newIsOnePair = List.generate(5, (index) => _isOnePair(numList)![index]);
+    return _newIsOnePair;
   }
+  numList.sort();
+  numList.add(0);
   return numList.reversed.toList();
 }
 
