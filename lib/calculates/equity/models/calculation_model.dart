@@ -43,43 +43,53 @@ List<double> calculate(List<String> heroHand, List<Map<String, dynamic>> oppRang
     }
   }
 
-  if (board.length == 3) {
-    CARDS.forEach((card1) {
-      List<String> board4 = List.from(board);
-      if (board4.every((element) => element != card1["card"])) {
-        board4.add(card1["card"]);
-        CARDS.forEach((card1) {
-          List<String> board5 = List.from(board4);
-          if (board5.every((element) => element != card1["card"])) {
-            board5.add(card1["card"]);
+  List<String> heroBoard = List.from(board);
+  heroBoard.add(heroHand[0]);
+  heroBoard.add(heroHand[1]);
 
-            List<String> heroBoard = List.from(board5);
-            heroBoard.add(heroHand[0]);
-            heroBoard.add(heroHand[1]);
+  oppRange.forEach((element) {
+    if(element['isSelected'] == true) {
+      List<String> hole = [];
+      handToNum(element['hand'][0], hole);
+      handToNum(element['hand'][1], hole);
 
-            oppRange.forEach((element) {
-              if(element['isSelected'] == true) {
-                List<String> hole = [];
-                handToNum(element['hand'][0], hole);
-                handToNum(element['hand'][1], hole);
+      List<String> marks = ['s', 'c', 'h', 'd'];
+      if (element['hand'][2] == 's') {
+        for (int i = 0; i < 4; i++) {
+          List<String> oppBoard = List.from(board);
 
-                List<String> marks = ['s', 'c', 'h', 'd'];
-                if (element['hand'][2] == 's') {
-                  for (int i = 0; i < 4; i++) {
-                    List<String> oppBoard = List.from(board5);
-                    List<String> ipHole = List.from(hole);
-                    oppBoard.add(ipHole[0] + marks[i]);
-                    oppBoard.add(ipHole[1] + marks[i]);
-                    winPlayer(handJudge(heroBoard), handJudge(oppBoard));
-                  }
+          String oppCard1 = hole[0] + marks[i];
+          String oppCard2 = hole[1] + marks[i];
+          if (heroBoard.every((element) =>
+          element != oppCard1 && element != oppCard2)) {
+            oppBoard.add(oppCard1);
+            oppBoard.add(oppCard2);
+
+            if (board.length == 3) {
+              CARDS.forEach((card1) {
+                if (heroHand.every((element) => element != card1["card"]) &&
+                    oppBoard.every((element) => element != card1["card"])) {
+                  CARDS.forEach((card2) {
+                    if (heroHand.every((element) => element != card2["card"]) &&
+                        oppBoard.every((element) => element != card2["card"]) &&
+                        card1["card"] != card2["card"]) {
+                      List<String> ipHeroBoard = List.from(heroBoard);
+                      List<String> ipOppBoard = List.from(oppBoard);
+                      ipHeroBoard.add(card1["card"]);
+                      ipOppBoard.add(card1["card"]);
+                      ipHeroBoard.add(card2["card"]);
+                      ipOppBoard.add(card2["card"]);
+                      winPlayer(handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                    }
+                  });
                 }
-              }
-            });
+              });
+            }
           }
-        });
+        }
       }
-    });
-  }
+    }
+  });
   sum = heroSum + oppSum;
   List<double> percent = [];
   percent.add(heroSum/sum);
