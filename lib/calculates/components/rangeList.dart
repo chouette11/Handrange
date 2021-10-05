@@ -4,31 +4,15 @@ import 'package:handrange/calculates/components/saved_range.dart';
 import 'package:handrange/components/functions/creategraph.dart';
 import 'package:handrange/data/sql.dart';
 
-class RangeList extends StatefulWidget {
-  RangeList({
-    Key? key,
-    required this.range,
-    this.padding = const EdgeInsets.all(0),
-    this.margin = const EdgeInsets.all(0),
-    this.crossAxisCount = 2,
-    required this.mainAxisSpacing,
-    required this.crossAxisSpacing,
-    required this.childAspectRatio,
-  }) : super(key: key);
-
+class AlertRangeList extends StatefulWidget {
+  AlertRangeList({Key? key, required this.range}) : super(key: key);
   final List<Map<String, dynamic>> range;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final int crossAxisCount;
-  final double mainAxisSpacing;
-  final double crossAxisSpacing;
-  final double childAspectRatio;
 
   @override
-  _RangeListState createState() => _RangeListState();
+  _AlertRangeListState createState() => _AlertRangeListState();
 }
 
-class _RangeListState extends State<RangeList>{
+class _AlertRangeListState extends State<AlertRangeList>{
   final Future<List<Graph>> rangeList = Graph.getGraph();
 
   @override
@@ -39,25 +23,23 @@ class _RangeListState extends State<RangeList>{
         builder: (BuildContext context, AsyncSnapshot<List<Graph>> snapshot) {
           if (snapshot.hasData) {
             return Container(
-              padding: widget.padding,
-              margin: widget.margin,
+              margin: EdgeInsets.only(top: 2, right: 2.5, left: 2.5),
               width: screenSizeWidth,
               child: GridView.count(
-                crossAxisCount: widget.crossAxisCount,
-                mainAxisSpacing: widget.mainAxisSpacing,
-                crossAxisSpacing: widget.crossAxisSpacing,
-                childAspectRatio: widget.childAspectRatio,
+                crossAxisCount: 2,
+                mainAxisSpacing: 0.5,
+                crossAxisSpacing: 1,
+                childAspectRatio: 0.75,
                 children: getRangeListFromSQL(snapshot).map((e) =>
                     GridTile(
-                      child: SavedRange(
-                        num: e["num"],
+                      child: AlertSavedRange(
                         text: e["text"],
                         name: e["name"],
                         count: e["count"],
                         onPressed: () {
                           getRangeFromSQL(e['id'], widget.range, snapshot.data);
                           Navigator.pop(context);
-                        }
+                        },
                       ),
                     ),
                 ).toList(),

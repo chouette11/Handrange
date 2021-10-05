@@ -4,10 +4,9 @@ import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
 import '../../components/functions/creategraph.dart';
 
-class SavedRange extends StatelessWidget {
-  SavedRange({
+class AlertSavedRange extends StatelessWidget {
+  AlertSavedRange({
     Key? key,
-    required this.num,
     required this.name,
     required this.count,
     required this.text,
@@ -15,7 +14,6 @@ class SavedRange extends StatelessWidget {
     this.onLongPress,
   }) : super(key: key);
 
-  final int num;
   final String name;
   final int count;
   final String text;
