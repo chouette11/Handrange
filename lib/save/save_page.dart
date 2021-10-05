@@ -5,6 +5,8 @@ import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/data/initsql.dart';
 import 'package:handrange/data/sql.dart';
+import 'package:handrange/save/components/savedRange.dart';
+import 'package:handrange/save/components/savedRangeList.dart';
 import '../components/functions/creategraph.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,32 +17,25 @@ class SavePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('一覧'),
-      ),
-      drawer: returnDrawer(context),
-      backgroundColor: Colors.white,
-      body: RangeList(
-        range: context.select<MakePageModel, List<Map<String, dynamic>>>
-          ((MakePageModel model) => model.status),
-        padding: EdgeInsets.all(4),
-        mainAxisSpacing: 4.5,
-        crossAxisSpacing: 1.5,
-        childAspectRatio: 0.8,
-      ),
+        appBar: AppBar(
+          title: Text('一覧'),
+        ),
+        drawer: returnDrawer(context),
+        backgroundColor: Colors.white70,
+        body: SavedRangeList()
     );
   }
 }
 
-class SavedRange extends StatelessWidget {
-  SavedRange({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
+class GraphList extends StatelessWidget {
+  GraphList({Key? key, required this.id, required this.num, required this.name, required this.count, required this.text}) : super(key: key);
+
   final int id;
   final int num;
   final String name;
   final int count;
   final String text;
   final myController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final initGraphs = Provider.of<List<InitGraph>?>(context);
@@ -182,41 +177,44 @@ class SavedRange extends StatelessWidget {
             },
           ),
         },
-        child: Material(
-          elevation: 0.4,
-          child: Column(
-            children: [
-              Container(
+        child: Column(
+          children: [
+            Material(
+              elevation: 0.4,
+              child: Container(
                 decoration: BoxDecoration(
-                  border:Border.all(width: 1.5, color: Colors.black45),
-                  borderRadius: BorderRadius.circular(3),
+                  border:Border.all(width: 2.0, color: Colors.black45),
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: HandRange(
-                  children:  getIsSelected(text).map((e) =>
-                      GridTile(child: CustomTapBox(isSelected: e["isSelected"])),
+                  children: getIsSelected(text).map((e) =>
+                      GridTile(
+                        child: CustomTapBox(isSelected: e["isSelected"]),
+                      ),
                   ).toList(),
-                  size: 1,
+                  size: 2.18,
                 ),
               ),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border:Border.all(width: 1.5, color: Colors.black12),
-                    borderRadius: BorderRadius.circular(3),
-                    color: Colors.white70,
-                  ),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
-                        Text(name),
-                      ],
-                    ),
-                  ),
+            ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width / 2.18,
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  )
+                ),
+                child: Column(
+                  children: [
+                    Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
+                    Text(name),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });
