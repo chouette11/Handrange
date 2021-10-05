@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:handrange/calculates/components/cardbox.dart';
-import 'package:handrange/calculates/equity/equity_select_page.dart';
-
 
 class BoardBoxes extends StatelessWidget {
   BoardBoxes({Key? key, required this.boardCard, required this.selectPage,}) : super (key: key);
@@ -45,6 +43,7 @@ class BoardBoxes extends StatelessWidget {
         );
       },
       child: Container(
+        margin: EdgeInsets.only(top: 8),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: cardBoxes
