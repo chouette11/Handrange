@@ -21,7 +21,7 @@ class SavePage extends StatelessWidget{
           title: Text('一覧'),
         ),
         drawer: returnDrawer(context),
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.grey[400],
         body: SavedRangeList()
     );
   }
