@@ -5,7 +5,6 @@ import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';
 import 'package:handrange/data/initsql.dart';
 import 'package:handrange/data/sql.dart';
-import 'package:handrange/save/components/savedRange.dart';
 import 'package:handrange/save/components/savedRangeList.dart';
 import '../components/functions/creategraph.dart';
 import 'package:provider/provider.dart';
@@ -92,37 +91,25 @@ class GraphList extends StatelessWidget {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
+                          List<Widget> positionRanges = [];
+
+                          Widget positionRange(String position, int id) {
+                            return SimpleDialogOption(
+                              child:Text(position),
+                              onPressed: () async {
+                                await InitGraph.insertInitGraph(InitGraph(id: id, text: text, name: name, count: count));
+                                Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
+                              },
+                            );
+                          }
+
+                          positionRanges.add(positionRange("UTG", 3));
+                          positionRanges.add(positionRange("HJ", 4));
+                          positionRanges.add(positionRange("CO", 5));
+                          positionRanges.add(positionRange("BTN", 6));
+
                           return SimpleDialog(
-                            children: [
-                              SimpleDialogOption(
-                                child:Text("UTG"),
-                                onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:3, text: text, name: name, count: count));
-                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-                                },
-                              ),
-                              SimpleDialogOption(
-                                child:Text("HJ"),
-                                onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:4, text: text, name: name, count: count));
-                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-                                },
-                              ),
-                              SimpleDialogOption(
-                                child:Text("CO"),
-                                onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:5, text: text, name: name, count: count));
-                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-                                },
-                              ),
-                              SimpleDialogOption(
-                                child:Text("BTN"),
-                                onPressed: () async {
-                                  await InitGraph.insertInitGraph(InitGraph(id:6, text: text, name: name, count: count));
-                                  Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-                                },
-                              ),
-                            ],
+                            children: positionRanges
                           );
                         },
                       );
