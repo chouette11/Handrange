@@ -11,7 +11,7 @@ class _TextFiledState extends State<VPIPField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 27,
+      height: 32,
       child:Consumer<MakePageModel>(builder: (context, model, child) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.end,
