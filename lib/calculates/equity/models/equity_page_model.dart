@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:handrange/components/functions/elements.dart';
+import 'package:handrange/calculates/equity/models/calculation_model.dart';
 import 'package:handrange/data/combination.dart';
 
 class EquityPageModel extends ChangeNotifier {
-  List<int> numHole1 = [];
-  List<int> numHole2 = [];
-
-  List<String> markHole1 = [];
-  List<String> markHole2 = [];
-
   List<String> cardHole1 = [];
   List<String> cardHole2 = [];
 

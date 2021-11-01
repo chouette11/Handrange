@@ -19,8 +19,7 @@ class EquitySelectPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            ElevatedButton(onPressed: () =>
-                Navigator.pop(context),
+            ElevatedButton(onPressed: () => Navigator.pop(context),
               child: Text("戻る"),
             ),
             GridView.count(
