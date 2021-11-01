@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:handrange/calculates/equity/components/holebox.dart';
+import 'package:handrange/calculates/equity/models/equity_page_model.dart';
 
 class User extends StatelessWidget {
-  User({Key? key, required this.num, required this.cardHole, required this.range}) : super(key: key);
+  User({Key? key, required this.num, required this.cardHole}) : super(key: key);
   final int num;
   final List<String> cardHole;
-  final List<Map<String, dynamic>> range;
 
   @override
   Widget build(BuildContext context) {
+    final percent = context.select<EquityPageModel, double> ((EquityPageModel model) => model.heroPercent);
     return Padding(
       padding: const EdgeInsets.only(left: 8, top: 16, bottom: 16),
       child: Row(
@@ -43,7 +45,12 @@ class User extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("0.00%"),
+                  Text(
+                      " ${(percent * 100).toStringAsFixed(2)}%",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
                 ],
               ),
             ],
