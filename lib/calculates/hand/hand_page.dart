@@ -36,47 +36,56 @@ class CalculatePage extends StatelessWidget {
               boardCard: model.boardCard,
               selectPage: HandSelectPage(cardList: model.cards),
             ),
-            RaisedButton(
-              child: Text('レンジ読み込み'),
-              onPressed: () async {
-                await model.createComboList();
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: AlertRangeList(
-                      range: model.status,
-                    ),
-                  ),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('計算'),
-              onPressed: () async {
-                if (model.boardCard.length == 2) {
-                  showDialog(context: context,
-                    builder: (_) => SimpleDialog(
-                      title:Text("エラー"),
-                      children: <Widget>[
-                        SimpleDialogOption(
-                          child: Text('ボードのカードを３枚以上選択してください'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
+            Padding(
+              padding: const EdgeInsets.only(top: 4, right: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RaisedButton(
+                    child: Text('レンジ読み込み'),
+                    onPressed: () async {
+                      await model.createComboList();
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          content: AlertRangeList(
+                            range: model.status,
+                          ),
                         ),
-                      ],
-                    ),
-                  );
-                }
-                else {
-                  showDialog(
-                    context: context,
-                    builder: (_) => PopAdPage(),
-                  );
-                  model.graphJudge();
-                  model.createComboList();
-                }
-              },
+                      );
+                    },
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    child: Text('計算'),
+                    onPressed: () async {
+                      if (model.boardCard.length == 2) {
+                        showDialog(context: context,
+                          builder: (_) => SimpleDialog(
+                            title:Text("エラー"),
+                            children: <Widget>[
+                              SimpleDialogOption(
+                                child: Text('ボードのカードを３枚以上選択してください'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      else {
+                        showDialog(
+                          context: context,
+                          builder: (_) => PopAdPage(),
+                        );
+                        model.graphJudge();
+                        model.createComboList();
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
             Visibility(
                 visible: model.isVisible,
