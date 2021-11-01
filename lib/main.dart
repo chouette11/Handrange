@@ -74,6 +74,7 @@ class _MyAppState extends State<MyApp> {
                       title: 'HandRange',
                       theme: ThemeData(
                         primarySwatch: Colors.lightBlue,
+                        fontFamily: 'NotoSans'
                       ),
                       initialRoute: '/',
                       routes: {
