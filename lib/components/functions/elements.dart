@@ -17,6 +17,8 @@ String returnNumber(int? n) {
     return "T";
   } else if (n == 14) {
     return "A";
+  } else if (n == 1) {
+    return "A";
   } else {
     return "$n";
   }
