@@ -34,7 +34,8 @@ class EquityPage extends StatelessWidget{
                     child: Text('クリア'),
                     onPressed: () => model.onClear(),
                   ),
-                  RaisedButton(
+                  SizedBox(width: 8),
+                  ElevatedButton(
                     child: Text('計算'),
                     onPressed: () => model.equity(context),
                   ),
