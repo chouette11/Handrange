@@ -5,10 +5,18 @@ import 'package:handrange/data/combination.dart';
 class EquityPageModel extends ChangeNotifier {
   List<String> cardHole1 = [];
   List<String> cardHole2 = [];
+  List<String> boardCard = [];
+  bool isRange = false;
+  List<double> percent = [];
+  double heroPercent = 0.00;
+  double oppPercent = 0.00;
 
-  List<int>board = [];
-  List<String>boardMark = [];
-  List<String>boardCard = [];
+  equity(BuildContext context) {
+    percent = calculate(cardHole1, cardHole2, status1, boardCard, context, isRange);
+    heroPercent = percent[0];
+    oppPercent = percent[1];
+    notifyListeners();
+  }
 
   onClear() {
     board.clear();
@@ -22,8 +30,6 @@ class EquityPageModel extends ChangeNotifier {
     if (boardCard.every((element) => element != card) &&
         cardHole1.every((element) => element != card) &&
         cardHole2.every((element) => element != card)) {
-      board.add(aceTo14(num));
-      boardMark.add(mark);
       boardCard.add(card);
       final selectedCard = cards.firstWhere((e) => e["card"] == card);
       selectedCard["isColor"] = !selectedCard["isColor"];
@@ -35,8 +41,6 @@ class EquityPageModel extends ChangeNotifier {
     if (boardCard.every((element) => element != card) &&
         cardHole1.every((element) => element != card) &&
         cardHole2.every((element) => element != card)) {
-      numHole1.add(aceTo14(num));
-      markHole1.add(mark);
       cardHole1.add(card);
       final selectedCard = cards.firstWhere((e) => e["card"] == card);
       selectedCard["isColor"] = !selectedCard["isColor"];
@@ -48,8 +52,6 @@ class EquityPageModel extends ChangeNotifier {
     if (boardCard.every((element) => element != card) &&
         cardHole1.every((element) => element != card) &&
         cardHole2.every((element) => element != card)) {
-      numHole2.add(aceTo14(num));
-      markHole2.add(mark);
       cardHole2.add(card);
       final selectedCard = cards.firstWhere((e) => e["card"] == card);
       selectedCard["isColor"] = !selectedCard["isColor"];
