@@ -31,14 +31,20 @@ class AlertSavedRange extends StatelessWidget {
           HandRange(
             children: getIsSelected(text).map((e) =>
                 GridTile(child: CustomTapBox(isSelected: e["isSelected"]),
-            )).toList(),
+                )).toList(),
             size: 3.3,
           ),
           Center(
             child: Column(
               children: [
-                Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
-                Text(name),
+                Text(
+                  "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%",
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  name,
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
           ),

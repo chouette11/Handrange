@@ -28,7 +28,7 @@ class _SavedRangeListState extends State<SavedRangeList>{
                 crossAxisCount: 2,
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
-                childAspectRatio: 0.82,
+                childAspectRatio: 0.81,
                 children: getRangeListFromSQL(snapshot).map((e) =>
                     GridTile(
                       child: GraphList(
