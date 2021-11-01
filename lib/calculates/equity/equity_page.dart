@@ -25,19 +25,21 @@ class EquityPage extends StatelessWidget{
                 selectPage: EquitySelectPage(cardList: model.cards, name: 'board'),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                RaisedButton(
-                  child: Text('クリア'),
-                  onPressed: () => model.onClear(),
-                ),
-                RaisedButton(
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RaisedButton(
+                    child: Text('クリア'),
+                    onPressed: () => model.onClear(),
+                  ),
+                  RaisedButton(
                     child: Text('計算'),
-                    onPressed: () {
-                    }
-                )
-              ],
+                    onPressed: () => model.equity(context),
+                  ),
+                ],
+              ),
             ),
             User(num: 1, cardHole: model.cardHole1, range: model.status1),
             Opponent(num: 2, cardHole: model.cardHole2, range: model.status2),
