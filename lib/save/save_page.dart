@@ -109,7 +109,7 @@ class GraphList extends StatelessWidget {
                           positionRanges.add(positionRange("BTN", 6));
 
                           return SimpleDialog(
-                            children: positionRanges
+                              children: positionRanges
                           );
                         },
                       );
@@ -191,12 +191,18 @@ class GraphList extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(4),
                     bottomRight: Radius.circular(4),
-                  )
+                  ),
                 ),
                 child: Column(
                   children: [
-                    Text("VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%"),
-                    Text(name),
+                    Text(
+                      "VPIP ${((count / 1326) * 100).toStringAsFixed(2)}%",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      name,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
