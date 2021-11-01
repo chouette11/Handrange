@@ -19,9 +19,9 @@ class EquityPageModel extends ChangeNotifier {
   }
 
   onClear() {
-    board.clear();
-    boardMark.clear();
     boardCard.clear();
+    cardHole1.clear();
+    cardHole2.clear();
     onReset();
     notifyListeners();
   }
