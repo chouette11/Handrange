@@ -6,8 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'models/hand_page_model.dart';
 
 class HandSelectPage extends StatelessWidget {
-  HandSelectPage({Key? key, required this.cardList}) : super(key: key);
-  final List<Map<String, dynamic>> cardList;
+  HandSelectPage({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +20,24 @@ class HandSelectPage extends StatelessWidget {
               Navigator.pop(context),
             child: Text("戻る"),
           ),
-          GridView.count(
-            crossAxisCount: 13,
-            mainAxisSpacing: 0.001,
-            crossAxisSpacing: 0.001,
-            childAspectRatio: 0.78,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            children: cardList.map((e) =>
-                GridTile(
-                  child: SelectButton(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
-                ),
-            ).toList(),
-          ),
+          Consumer<HandPageModel>(builder: (context, model, child) {
+            return GridView.count(
+              crossAxisCount: 13,
+              mainAxisSpacing: 0.001,
+              crossAxisSpacing: 0.001,
+              childAspectRatio: 0.78,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: model.cards.map((e) =>
+                  GridTile(
+                    child: SelectButton(num: e["num"],
+                        mark: e["mark"],
+                        card: e["card"],
+                        isColor: e["isColor"]),
+                  ),
+              ).toList(),
+            );
+          }),
         ],
       ),
     );

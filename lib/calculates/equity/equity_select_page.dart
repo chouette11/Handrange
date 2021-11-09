@@ -6,9 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'models/equity_page_model.dart';
 
 class EquitySelectPage extends StatelessWidget {
-  EquitySelectPage({Key? key,  required this.name, required this.cardList}) : super(key: key);
+  EquitySelectPage({Key? key,  required this.name}) : super(key: key);
   final String name;
-  final List<Map<String, dynamic>> cardList;
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +21,21 @@ class EquitySelectPage extends StatelessWidget {
             ElevatedButton(onPressed: () => Navigator.pop(context),
               child: Text("戻る"),
             ),
-            GridView.count(
-              crossAxisCount: 13,
-              mainAxisSpacing: 0.001,
-              crossAxisSpacing: 0.001,
-              childAspectRatio: 0.78,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: cardList.map((e) =>
-                  GridTile(
-                    child: SelectButton(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
-                  ),
-              ).toList(),
-            ),
+            Consumer<EquityPageModel>(builder: (context, model, child) {
+              return GridView.count(
+                crossAxisCount: 13,
+                mainAxisSpacing: 0.001,
+                crossAxisSpacing: 0.001,
+                childAspectRatio: 0.78,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                children: model.cards.map((e) =>
+                    GridTile(
+                      child: SelectButton(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
+                    ),
+                ).toList(),
+              );
+            }),
           ],
         ),
         value: name,
