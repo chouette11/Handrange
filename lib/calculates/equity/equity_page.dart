@@ -22,7 +22,7 @@ class EquityPage extends StatelessWidget{
             Container(
               child: BoardBoxes(
                 boardCard: model.boardCard,
-                selectPage: EquitySelectPage(cardList: model.cards, name: 'board'),
+                selectPage: EquitySelectPage(name: 'board'),
               ),
             ),
             Padding(

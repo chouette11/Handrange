@@ -11,10 +11,6 @@ class HoleBox extends StatelessWidget {
   final List<String> cardHole;
   @override
   Widget build(BuildContext context) {
-
-    List<Map<String, dynamic>> cards = context.select<EquityPageModel, List<Map<String, dynamic>>>
-      ((EquityPageModel model) => model.cards);
-
     List<int> numHole = [0, 0];
     List<String> markHole = ["", ""];
 
@@ -48,7 +44,7 @@ class HoleBox extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (_) => EquitySelectPage(name: "hole$num", cardList: cards),
+          builder: (_) => EquitySelectPage(name: "hole$num"),
         );
       },
       child: Row(
