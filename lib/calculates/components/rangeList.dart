@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:handrange/calculates/hand/models/hand_page_model.dart';
+import 'package:provider/provider.dart';
 import 'package:handrange/calculates/components/saved_range.dart';
 import 'package:handrange/components/functions/creategraph.dart';
 import 'package:handrange/data/sql.dart';
@@ -37,6 +39,7 @@ class _AlertRangeListState extends State<AlertRangeList>{
                         name: e["name"],
                         count: e["count"],
                         onPressed: () {
+                          context.read<HandPageModel>().notifyListeners();
                           getRangeFromSQL(e['id'], widget.range, snapshot.data);
                           Navigator.pop(context);
                         },
