@@ -172,7 +172,6 @@ class HandPageModel extends ChangeNotifier {
           boardMark.add(mark6);
           boardMark.add(mark6);
           boardMark.sort((a, b) => a.compareTo(b));
-          print(boardCard);
           if((boardCard.every((hand) => hand != card6)) && (boardCard.every((hand) => hand != card7))){
             boardCard.add(card6);
             boardCard.add(card7);
@@ -233,6 +232,7 @@ class HandPageModel extends ChangeNotifier {
     }
     status.forEach((element) {
       if (element["isSelected"] == true) {
+        List<int> ipBoard = List.from(board);
         addHand(element["hand"], board);
 
         String hand = element["hand"];
@@ -245,6 +245,7 @@ class HandPageModel extends ChangeNotifier {
         else {
           handJudge('p');
         }
+        board = ipBoard;
       }
     });
 
@@ -362,6 +363,7 @@ class HandPageModel extends ChangeNotifier {
     inputComboList.add(twoPair);
     inputComboList.add(onePair);
     inputComboList.add(sum);
+    print(inputComboList);
     comboList = inputComboList;
 
     List<String> inputOnePairList = [];
