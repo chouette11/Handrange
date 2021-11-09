@@ -34,7 +34,7 @@ class CalculatePage extends StatelessWidget {
             ),
             BoardBoxes(
               boardCard: model.boardCard,
-              selectPage: HandSelectPage(cardList: model.cards),
+              selectPage: HandSelectPage(),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 4, right: 16.0),
