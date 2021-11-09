@@ -42,6 +42,15 @@ class CalculatePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   RaisedButton(
+                    child: Text('クリア'),
+                    onPressed: () {
+                      model.board.clear();
+                      model.boardCard.clear();
+                      model.boardMark.clear();
+                    },
+                  ),
+                  SizedBox(width: 8),
+                  RaisedButton(
                     child: Text('レンジ読み込み'),
                     onPressed: () async {
                       await model.createComboList();
