@@ -17,8 +17,9 @@ class BoardBoxes extends StatelessWidget {
     ];
 
     var index = 0;
-    if (index < 5) {
-      boardCard.forEach((element) {
+
+    boardCard.forEach((element) {
+      if (index < 5) {
         int? num;
         String? mark;
         List<String> split = element.split('');
@@ -32,8 +33,8 @@ class BoardBoxes extends StatelessWidget {
         }
         cardBoxes[index] = cardBox(num, mark);
         index++;
-      });
-    }
+      }
+    });
 
     return GestureDetector(
       onTap: () {
