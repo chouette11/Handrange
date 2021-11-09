@@ -55,10 +55,15 @@ Column smallCard(int number, String selectedMark){
     children: [
       Expanded(child: Text(returnNumber(number))),
       Expanded(
-        child: Text(returnMark(selectedMark),
-          style: selectedMark == "♠" || selectedMark == "♣" ?
-          TextStyle(color: Colors.grey[700]) :
-          TextStyle(color: Colors.red[900]),
+        child: selectedMark == "c" || selectedMark == "s" ?
+        Text(
+          returnMark(selectedMark),
+          style: TextStyle(color: Colors.grey[700]),
+        )
+            :
+        Text(
+          returnMark(selectedMark),
+          style: TextStyle(color: Colors.red[900]),
         ),
       ),
     ],
