@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:handrange/calculates/equity/models/calculation_model.dart';
+import 'package:handrange/calculates/components/calculation_model.dart';
 import 'package:handrange/components/functions/elements.dart';
 import '../../../data/combination.dart';
 import 'package:flutter/material.dart';

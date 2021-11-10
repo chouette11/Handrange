@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:handrange/calculates/equity/models/calculation_model.dart';
+import 'package:handrange/calculates/components/calculation_model.dart';
 import 'package:handrange/data/combination.dart';
 
 class EquityPageModel extends ChangeNotifier {
