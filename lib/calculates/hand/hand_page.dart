@@ -44,9 +44,7 @@ class CalculatePage extends StatelessWidget {
                   RaisedButton(
                     child: Text('クリア'),
                     onPressed: () {
-                      model.board.clear();
                       model.boardCard.clear();
-                      model.boardMark.clear();
                       model.onReset();
                       model.notifyListeners();
                     },
@@ -55,7 +53,6 @@ class CalculatePage extends StatelessWidget {
                   RaisedButton(
                     child: Text('レンジ読み込み'),
                     onPressed: () async {
-                      await model.createComboList();
                       showDialog(
                         context: context,
                         builder: (_) => AlertDialog(
@@ -99,7 +96,7 @@ class CalculatePage extends StatelessWidget {
             ),
             Visibility(
                 visible: model.isVisible,
-                child: BarChart(comboList:model.comboList.reversed.toList(), onePairList: model.onePairList,)
+                child: BarChart(comboList:model.comboList.reversed.toList())
             ),
           ],
         );
