@@ -49,7 +49,203 @@ List<double> calculate(List<String> heroHand, List<String> oppHand, List<Map<Str
         handToNum(element['hand'][1], hole);
 
         List<String> marks = ['s', 'c', 'h', 'd'];
-        if (element['hand'][2] == 's') {
+        if (element['hand'].length == 2) {
+          for (int j = 0; j <= 2; j++) {
+            for (int k = j + 1; k <= 3; k++) {
+              List<String> oppBoard = List.from(board);
+
+              String oppCard1 = hole[0] + marks[j];
+              String oppCard2 = hole[1] + marks[k];
+              if (heroBoard.every((element) =>
+              element != oppCard1 && element != oppCard2)) {
+                oppBoard.add(oppCard1);
+                oppBoard.add(oppCard2);
+
+                if (board.length == 3) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard.every((element) => element != card1["card"])) {
+                      CARDS.forEach((card2) {
+                        if (heroHand.every((element) =>
+                        element != card2["card"]) &&
+                            oppBoard.every((element) =>
+                            element != card2["card"]) &&
+                            card1["card"] != card2["card"]) {
+                          List<String> ipHeroBoard = List.from(heroBoard);
+                          List<String> ipOppBoard = List.from(oppBoard);
+                          ipHeroBoard.add(card1["card"]);
+                          ipOppBoard.add(card1["card"]);
+                          ipHeroBoard.add(card2["card"]);
+                          ipOppBoard.add(card2["card"]);
+                          winPlayer(
+                              handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                        }
+                      });
+                    }
+                  });
+                } else if (board.length == 4) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard.every((element) => element != card1["card"])) {
+                      List<String> ipHeroBoard = List.from(heroBoard);
+                      List<String> ipOppBoard = List.from(oppBoard);
+                      ipHeroBoard.add(card1["card"]);
+                      ipOppBoard.add(card1["card"]);
+                      winPlayer(handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                    }
+                  });
+                } else if (board.length == 5) {
+                  winPlayer(handJudge(heroBoard), handJudge(oppBoard));
+                } else {
+                  showDialog(context: context,
+                    builder: (_) =>
+                        SimpleDialog(
+                          title: Text("エラー"),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              child: Text('ボードのカードを３枚以上選択してください'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                  );
+                }
+              }
+            }
+          }
+        } else if (element['hand'][2] == 'o') {
+          for (int j = 0; j <= 2; j++) {
+            for (int k = j + 1; k <= 3; k++) {
+              List<String> oppBoard = List.from(board);
+
+              String oppCard1 = hole[0] + marks[j];
+              String oppCard2 = hole[1] + marks[k];
+              if (heroBoard.every((element) =>
+              element != oppCard1 && element != oppCard2)) {
+                oppBoard.add(oppCard1);
+                oppBoard.add(oppCard2);
+
+                if (board.length == 3) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard.every((element) => element != card1["card"])) {
+                      CARDS.forEach((card2) {
+                        if (heroHand.every((element) =>
+                        element != card2["card"]) &&
+                            oppBoard.every((element) =>
+                            element != card2["card"]) &&
+                            card1["card"] != card2["card"]) {
+                          List<String> ipHeroBoard = List.from(heroBoard);
+                          List<String> ipOppBoard = List.from(oppBoard);
+                          ipHeroBoard.add(card1["card"]);
+                          ipOppBoard.add(card1["card"]);
+                          ipHeroBoard.add(card2["card"]);
+                          ipOppBoard.add(card2["card"]);
+                          winPlayer(
+                              handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                        }
+                      });
+                    }
+                  });
+                } else if (board.length == 4) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard.every((element) => element != card1["card"])) {
+                      List<String> ipHeroBoard = List.from(heroBoard);
+                      List<String> ipOppBoard = List.from(oppBoard);
+                      ipHeroBoard.add(card1["card"]);
+                      ipOppBoard.add(card1["card"]);
+                      winPlayer(handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                    }
+                  });
+                } else if (board.length == 5) {
+                  winPlayer(handJudge(heroBoard), handJudge(oppBoard));
+                } else {
+                  showDialog(context: context,
+                    builder: (_) =>
+                        SimpleDialog(
+                          title: Text("エラー"),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              child: Text('ボードのカードを３枚以上選択してください'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                  );
+                }
+              }
+
+              List<String> oppBoard2 = List.from(board);
+
+              String oppCard3 = hole[0] + marks[k];
+              String oppCard4 = hole[1] + marks[j];
+              if (heroBoard.every((element) =>
+              element != oppCard3 && element != oppCard4)) {
+                oppBoard2.add(oppCard3);
+                oppBoard2.add(oppCard4);
+
+                if (board.length == 3) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard2.every((element) => element != card1["card"])) {
+                      CARDS.forEach((card2) {
+                        if (heroHand.every((element) =>
+                        element != card2["card"]) &&
+                            oppBoard2.every((element) =>
+                            element != card2["card"]) &&
+                            card1["card"] != card2["card"]) {
+                          List<String> ipHeroBoard = List.from(heroBoard);
+                          List<String> ipOppBoard = List.from(oppBoard2);
+                          ipHeroBoard.add(card1["card"]);
+                          ipOppBoard.add(card1["card"]);
+                          ipHeroBoard.add(card2["card"]);
+                          ipOppBoard.add(card2["card"]);
+                          winPlayer(
+                              handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                        }
+                      });
+                    }
+                  });
+                } else if (board.length == 4) {
+                  CARDS.forEach((card1) {
+                    if (heroHand.every((element) => element != card1["card"]) &&
+                        oppBoard2.every((element) => element != card1["card"])) {
+                      List<String> ipHeroBoard = List.from(heroBoard);
+                      List<String> ipOppBoard = List.from(oppBoard2);
+                      ipHeroBoard.add(card1["card"]);
+                      ipOppBoard.add(card1["card"]);
+                      winPlayer(handJudge(ipHeroBoard), handJudge(ipOppBoard));
+                    }
+                  });
+                } else if (board.length == 5) {
+                  winPlayer(handJudge(heroBoard), handJudge(oppBoard2));
+                } else {
+                  showDialog(context: context,
+                    builder: (_) =>
+                        SimpleDialog(
+                          title: Text("エラー"),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              child: Text('ボードのカードを３枚以上選択してください'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        ),
+                  );
+                }
+              }
+
+
+            }
+          }
+        } else {
           for (int i = 0; i < 4; i++) {
             List<String> oppBoard = List.from(board);
 
