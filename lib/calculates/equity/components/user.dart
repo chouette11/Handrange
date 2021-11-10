@@ -35,7 +35,7 @@ class User extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: 16),
               Row(
                 children: [
                   Text(
