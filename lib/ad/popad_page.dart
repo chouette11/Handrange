@@ -54,7 +54,7 @@ class PopAdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HandPageModel>(builder: (context, model, child) {
       final Future<String> _calculation = Future<String>.delayed(
-          Duration(seconds: model.sum ~/ 100 + 3 ),
+          Duration(seconds: 2 ),
               () => '計算が終わりました'
       );
 
