@@ -47,6 +47,8 @@ class CalculatePage extends StatelessWidget {
                       model.board.clear();
                       model.boardCard.clear();
                       model.boardMark.clear();
+                      model.onReset();
+                      model.notifyListeners();
                     },
                   ),
                   SizedBox(width: 8),
@@ -88,8 +90,7 @@ class CalculatePage extends StatelessWidget {
                           context: context,
                           builder: (_) => PopAdPage(),
                         );
-                        model.graphJudge();
-                        model.createComboList();
+                        model.calculate(model.status, model.boardCard);
                       }
                     },
                   ),
@@ -98,7 +99,7 @@ class CalculatePage extends StatelessWidget {
             ),
             Visibility(
                 visible: model.isVisible,
-                child: BarChart(comboList:model.comboList, onePairList: model.onePairList,)
+                child: BarChart(comboList:model.comboList.reversed.toList(), onePairList: model.onePairList,)
             ),
           ],
         );
