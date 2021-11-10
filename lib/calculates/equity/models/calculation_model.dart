@@ -300,7 +300,6 @@ List<int>? _isFullHouse(List<int> numList) {
         return list;
       }
     }
-    break;
   }
   for (int i = 2; i <= numList.length - 3; i++) {
     for (int j = i - 2; j >= 0; j--) {
