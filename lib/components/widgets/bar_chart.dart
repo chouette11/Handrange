@@ -3,9 +3,8 @@ import 'package:vertical_barchart/vertical-barchart.dart';
 import 'package:vertical_barchart/vertical-barchartmodel.dart';
 
 class BarChart extends StatefulWidget {
-  BarChart({Key? key,  required this.comboList, required this.onePairList}) : super(key: key);
+  BarChart({Key? key,  required this.comboList}) : super(key: key);
   final List<int> comboList;
-  final List<String> onePairList;
 
   @override
   _BarChart createState() => _BarChart();
@@ -31,14 +30,6 @@ class _BarChart extends State<BarChart> {
         );
       }
       else {
-        String sentence = "";
-        if (i == 8) {
-          String inputSentence = "";
-          widget.onePairList.forEach((element) {
-            inputSentence += element + "\n";
-          });
-          sentence = inputSentence;
-        }
         inputBarData.add(
           VBarChartModel(
             index: i,
