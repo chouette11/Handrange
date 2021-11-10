@@ -100,7 +100,7 @@ List<Map<String,String>> labelList = [
   },
 ];
 
-List<Map<String,String>> ColumnLabelList = [
+List<Map<String,String>> columnLabelList = [
   {
     "num":""
   }, {

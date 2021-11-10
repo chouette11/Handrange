@@ -55,7 +55,6 @@ class _BottomAdState extends State<BottomAd> {
   }
   @override
   Widget build(BuildContext context) {
-    double screenSizeHeight = MediaQuery.of(context).size.height;
     // ignore: unnecessary_null_comparison
     if(_ad == null)
       return SizedBox(height: 50);

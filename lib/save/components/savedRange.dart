@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/components/functions/creategraph.dart';
-import 'package:handrange/components/widgets/gridview.dart';
-import 'package:handrange/components/widgets/tapbox.dart';
 
 class SavedRange extends StatelessWidget {
   SavedRange({

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:handrange/calculates/components/rangeList.dart';
 import 'package:handrange/components/widgets/drawer.dart';
 import 'package:handrange/components/widgets/gridview.dart';
 import 'package:handrange/components/widgets/tapbox.dart';

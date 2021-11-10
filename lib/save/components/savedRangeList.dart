@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/calculates/components/saved_range.dart';
 import 'package:handrange/components/functions/creategraph.dart';
 import 'package:handrange/data/sql.dart';
 import 'package:handrange/save/save_page.dart';

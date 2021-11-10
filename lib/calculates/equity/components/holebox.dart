@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:handrange/calculates/components/cardbox.dart';
 import 'package:handrange/calculates/equity/equity_select_page.dart';
-import 'package:handrange/calculates/equity/models/equity_page_model.dart';
 
 class HoleBox extends StatelessWidget {
   HoleBox({Key? key, required this.num, required this.cardHole}) : super(key: key);
