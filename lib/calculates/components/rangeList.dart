@@ -40,9 +40,9 @@ class _AlertRangeListState extends State<AlertRangeList>{
                         name: e["name"],
                         count: e["count"],
                         onPressed: () {
+                          getRangeFromSQL(e['num'], widget.range, snapshot.data);
                           context.read<HandPageModel>().notifyListeners();
                           context.read<EquityPageModel>().notifyListeners();
-                          getRangeFromSQL(e['id'], widget.range, snapshot.data);
                           Navigator.pop(context);
                         },
                       ),
