@@ -399,6 +399,14 @@ List<int>? handJudge(List<String> cardList) {
   numList.sort((a, b) => b - a); // 大きい順
   markList.sort();
 
+  if (_isRoyal(cardList) != null) {
+    return _isRoyal(cardList);
+  }
+
+  if (_isStraightFlush(cardList) != null) {
+    return _isStraightFlush(cardList);
+  }
+
   if (_isFourCard(numList) != null) {
     List<int> _newIsFourCard = List.generate(3, (index) => _isFourCard(numList)![index]);
     return _newIsFourCard;
@@ -471,6 +479,43 @@ void handToNum(String hand, List<String> hole) {
     case '2':
       hole.add("2");
       break;
+  }
+}
+
+List<int>? _isRoyal(List<String> cardList) {
+  List<String> mark = ["s","c","h","d"];
+  for (int i = 0; i < 4; i++) {
+    if (cardList.contains("14${mark[i]}") && cardList.contains("13${mark[i]}") &&
+        cardList.contains("12${mark[i]}") && cardList.contains("11${mark[i]}") &&
+        cardList.contains("10${mark[i]}")) {
+      print("Royal");
+      List<int> list = [9];
+      return list;
+    }
+  }
+}
+
+List<int>? _isStraightFlush(List<String> cardList) {
+  List<String> mark = ["s","c","h","d"];
+  for (int j = 0; j < 4; j++) {
+    for (int i = 10; i >= 2; i--) {
+      if (cardList.contains("$i${mark[j]}") && cardList.contains("${i + 1}${mark[j]}") &&
+          cardList.contains("${i + 2}${mark[j]}") && cardList.contains("${i + 3}${mark[j]}") &&
+          cardList.contains("${i + 4}${mark[j]}")) {
+        print("StraightFlush");
+        List<int> list = [8];
+        list.add(i);
+        return list;
+      }
+    }
+    if (cardList.contains("14${mark[j]}") && cardList.contains("2${mark[j]}") &&
+        cardList.contains("3${mark[j]}") && cardList.contains("4${mark[j]}") &&
+        cardList.contains("5${mark[j]}")) {
+      List<int> list = [8];
+      list.add(1);
+      print("StraightFlush");
+      return list;
+    }
   }
 }
 
