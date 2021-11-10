@@ -23,6 +23,11 @@ class EquityPageModel extends ChangeNotifier {
     cardHole1.clear();
     cardHole2.clear();
     percent.clear();
+    heroPercent = 0.00;
+    oppPercent = 0.00;
+    status1.forEach((element) {
+      element['isSelected'] = false;
+    });
     onReset();
     notifyListeners();
   }
