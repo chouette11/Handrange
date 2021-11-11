@@ -300,6 +300,8 @@ class _MakeRangePageState extends State<MakeRangePage> {
                                       name = myController.text;
                                       myController.clear();
                                       await updateGraph(model.status, model.rangeId, model.count, name);
+                                      model.rangeName = name;
+                                      model.notifyListeners();
                                       Navigator.pop(context);
                                     },
                                   ),
