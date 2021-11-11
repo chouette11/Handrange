@@ -14,15 +14,35 @@ class EquitySelectPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Provider<String>.value(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            ElevatedButton(onPressed: () => Navigator.pop(context),
-              child: Text("戻る"),
-            ),
-            Consumer<EquityPageModel>(builder: (context, model, child) {
-              return GridView.count(
+        child: Consumer<EquityPageModel>(builder: (context, model, child) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  RaisedButton(
+                    onPressed: () {
+                      if (name == "hole1") {
+                        model.onIndivClear(model.cardHole1);
+                      } else if (name == "hole2") {
+                        model.onIndivClear(model.cardHole2);
+                      } else if (name == "board") {
+                        model.onIndivClear(model.boardCard);
+                      }
+                    },
+                    child: Text("クリア"),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text("戻る"),
+                  ),
+                  SizedBox(width: 4),
+                ],
+              ),
+              GridView.count(
                 crossAxisCount: 13,
                 mainAxisSpacing: 0.001,
                 crossAxisSpacing: 0.001,
@@ -34,10 +54,10 @@ class EquitySelectPage extends StatelessWidget {
                       child: SelectButton(num: e["num"], mark: e["mark"], card: e["card"], isColor: e["isColor"]),
                     ),
                 ).toList(),
-              );
-            }),
-          ],
-        ),
+              ),
+            ],
+          );
+        }),
         value: name,
       ),
     );

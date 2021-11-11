@@ -32,6 +32,15 @@ class EquityPageModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  onIndivClear(List<String> cardList) {
+    cardList.forEach((card) {
+      final selectedCard = cards.firstWhere((e) => e["card"] == card);
+      selectedCard["isColor"] = true;
+    });
+    cardList.clear();
+    notifyListeners();
+  }
+
   addBoard(int num, String mark, String card) {
     if (boardCard.every((element) => element != card) &&
         cardHole1.every((element) => element != card) &&
