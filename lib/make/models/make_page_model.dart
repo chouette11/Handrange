@@ -99,9 +99,9 @@ class MakePageModel extends ChangeNotifier {
   }
 
 //sqlからgraphのリストを受け取ってタップ時に読み込み
-  String graphName = "";
-  late int graphId;
-  late int graphCount;
+  String rangeName = "";
+  late int rangeId;
+  late int rangeCount;
   onGet(int id, String name, int inputCount) async {
     final graphs = await Graph.getGraph();
     String tfText = graphs[id].text;
@@ -127,9 +127,9 @@ class MakePageModel extends ChangeNotifier {
         );
       }
     }
-    graphId = id;
-    graphName = name;
-    graphCount = inputCount;
+    rangeId = graphs[id].id;
+    rangeName = name;
+    rangeCount = inputCount;
     count = inputCount;
     notifyListeners();
   }

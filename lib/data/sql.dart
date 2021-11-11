@@ -19,7 +19,7 @@ class Graph {
   }
   @override
   String toString() {
-    return 'Graph{id: $id, text: $text, name: $name count: $count}';
+    return 'Graph{id: $id, text: $text, name: $name, count: $count}';
   }
 
   static Future<Database> get database async {
@@ -136,6 +136,9 @@ updateGraph(List<Map<String, dynamic>> status,int graphId, int graphCount, Strin
     print("TODO");
   }
   else{
+    final graphs = await Graph.getGraph();
+    print(graphs);
+    print(Graph(id: graphId, text: TFText, count: graphCount, name:graphName));
     await Graph.updateGraph(Graph(id: graphId, text: TFText, count: graphCount, name:graphName));
   }
 }

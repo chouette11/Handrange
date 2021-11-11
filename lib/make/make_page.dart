@@ -92,7 +92,7 @@ class _MakeRangePageState extends State<MakeRangePage> {
               children: [
                 Center(
                   child: Text(
-                    model.graphName,
+                    model.rangeName,
                     style: TextStyle(
                       fontFamily: "Sans",
                     ),
@@ -248,7 +248,7 @@ class _MakeRangePageState extends State<MakeRangePage> {
                     ElevatedButton(
                         child: Text('保存'),
                         onPressed: () async {
-                          await showDialog(
+                           showDialog(
                             context: context,
                             builder: (_) => AlertDialog(
                               title: Text("新規ハンドレンジ作成"),
@@ -264,6 +264,14 @@ class _MakeRangePageState extends State<MakeRangePage> {
                                       name = myController.text;
                                       myController.clear();
                                       await saveGraph(model.status, name, model.count);
+                                      final graphs = await Graph.getGraph();
+                                      int id = 0;
+                                      if(graphs.length != 0){
+                                        id = graphs.last.id + 1;
+                                      }
+                                      model.rangeId = id;
+                                      model.rangeName = name;
+                                      model.notifyListeners();
                                       Navigator.pop(context);
                                     },
                                   ),
@@ -274,8 +282,31 @@ class _MakeRangePageState extends State<MakeRangePage> {
                         }
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          updateGraph(model.status, model.graphId, model.graphCount, model.graphName);
+                        onPressed: () async {
+                          myController.text = model.rangeName;
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              title: Text("ハンドレンジの更新"),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text('名前を入力してね'),
+                                  TextFormField(controller: myController),
+                                  RaisedButton(
+                                    child: Text('実行'),
+                                    onPressed: () async {
+                                      String name;
+                                      name = myController.text;
+                                      myController.clear();
+                                      await updateGraph(model.status, model.rangeId, model.count, name);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
                         child: Text("更新")
                     ),
