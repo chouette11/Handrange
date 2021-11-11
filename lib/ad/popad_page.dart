@@ -1,53 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/components/functions/elements.dart';
+import 'package:handrange/ad/components/pop_ad.dart';
 import 'package:provider/provider.dart';
-import 'ad_state.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../calculates/hand/models/hand_page_model.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Handrange',
-      theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
-      ),
-      home: PopAdPage(),
-    );
-  }
-}
 
 class PopAdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final double screenSizeWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.transparent,
       body:WillPopScope(
         onWillPop: () async => false,
-        child: PopAdDisplay(),
+        child: Container(
+          width: screenSizeWidth,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              PopAdWidget(),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-
-class PopAdDisplay extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    final double screenSizeWidth = MediaQuery.of(context).size.width;
-    return Container(
-      width: screenSizeWidth,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          PopAdWidget(),
-        ],
-      ),
-    );
-  }
-}
-
 
 class PopAdWidget extends StatelessWidget {
   @override
@@ -111,7 +90,12 @@ class PopAdWidget extends StatelessWidget {
                                 style: TextStyle(color: Colors.lightBlue),
                               ),
                               onTap: () async {
-                                launchURL();
+                                const url = "https://twitter.com/chouette111";
+                                if (await canLaunch(url)) {
+                                  await launch(url);
+                                } else {
+                                  throw 'Could not Launch $url';
+                                }
                               },
                             ),
                           )

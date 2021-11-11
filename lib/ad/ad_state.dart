@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:handrange/components/functions/elements.dart';
 
 class AdState {
   Future<InitializationStatus> initialization;
@@ -33,69 +31,13 @@ class AdState {
   );
 }
 
-class BottomAd extends StatefulWidget {
-  @override
-  _BottomAdState createState() => _BottomAdState();
-}
+String unitId(String adUnitId) {
+  var isRelease = const bool.fromEnvironment('dart.vm.project');
 
-class _BottomAdState extends State<BottomAd> {
-  late BannerAd _ad;
-
-  @override
-  void initState(){
-    super.initState();
-    _ad = BannerAd(
-        adUnitId: unitId(AdState.bannerAdUnitId),
-        size: AdSize.banner,
-        request: AdRequest(),
-        listener: AdState.bannerListener
-    );
-
-    _ad.load();
-  }
-  @override
-  Widget build(BuildContext context) {
-    // ignore: unnecessary_null_comparison
-    if(_ad == null)
-      return SizedBox(height: 50);
-    else
-      return Container(
-          width: _ad.size.width.toDouble(),
-          height: _ad.size.height.toDouble(),
-          child: AdWidget(ad: _ad),
-        );
+  if (isRelease) {
+    return adUnitId;
+  } else {
+    return "ca-app-pub-3940256099942544/6300978111";
   }
 }
 
-class PopAd extends StatefulWidget {
-  @override
-  _PopAdState createState() => _PopAdState();
-}
-
-class _PopAdState extends State<PopAd> {
-  late BannerAd _ad;
-  @override
-  void initState(){
-    super.initState();
-    _ad = BannerAd(
-      adUnitId: unitId(AdState.bannerAdUnitId),
-      size: AdSize.largeBanner,
-      request: AdRequest(),
-      listener: AdState.bannerListener,
-    );
-
-    _ad.load();
-  }
-  @override
-  Widget build(BuildContext context) {
-    // ignore: unnecessary_null_comparison
-    if(_ad == null)
-      return SizedBox(height: 100);
-    else
-      return Container(
-        width: _ad.size.width.toDouble(),
-        height: _ad.size.height.toDouble(),
-        child: AdWidget(ad: _ad),
-      );
-  }
-}

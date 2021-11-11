@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:handrange/calculates/components/board_boxes.dart';
 import 'package:handrange/calculates/equity/components/opponent.dart';
 import 'package:handrange/calculates/equity/components/user.dart';
-import 'package:handrange/components/widgets/drawer.dart';
+import 'package:handrange/components/drawer.dart';
 import 'equity_select_page.dart';
 import 'models/equity_page_model.dart';
 import 'package:provider/provider.dart';

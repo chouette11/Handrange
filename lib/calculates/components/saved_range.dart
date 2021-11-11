@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/components/widgets/gridview.dart';
-import 'package:handrange/components/widgets/tapbox.dart';
+import 'package:handrange/components/gridview.dart';
+import 'package:handrange/components/tapbox.dart';
 import '../../components/functions/creategraph.dart';
 
 class AlertSavedRange extends StatelessWidget {

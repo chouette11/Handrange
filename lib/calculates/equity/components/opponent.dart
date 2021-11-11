@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:handrange/calculates/components/rangeList.dart';
+import 'package:handrange/calculates/components/range_list.dart';
 import 'package:handrange/calculates/equity/components/holebox.dart';
 import 'package:handrange/calculates/equity/models/equity_page_model.dart';
-import 'package:handrange/components/widgets/gridview.dart';
-import 'package:handrange/components/widgets/tapbox.dart';
+import 'package:handrange/components/gridview.dart';
+import 'package:handrange/components/tapbox.dart';
 
 class Opponent extends StatelessWidget {
   Opponent({Key? key, required this.num, required this.cardHole, required this.range}) : super(key: key);

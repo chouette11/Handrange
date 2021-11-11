@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:handrange/components/widgets/gridview.dart';
-import '../ad/ad_state.dart';
-import 'package:handrange/components/widgets/drawer.dart';
-import 'package:handrange/components/widgets/tapbox.dart';
+import 'package:handrange/ad/components/banner_ad.dart';
+import 'package:handrange/components/gridview.dart';
+import 'package:handrange/components/drawer.dart';
+import 'package:handrange/components/tapbox.dart';
 import 'package:handrange/data/initsql.dart';
 import 'package:handrange/data/sql.dart';
 import 'package:handrange/make/compornents/vpip_field.dart';

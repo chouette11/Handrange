@@ -47,9 +47,6 @@ String returnMark(String? m) {
   }
 }
 
-//selectCard
-
-
 Column smallCard(int number, String selectedMark){
   return Column(
     children: [
@@ -68,32 +65,4 @@ Column smallCard(int number, String selectedMark){
       ),
     ],
   );
-}
-
-//AdState
-String unitId(String adUnitId) {
-  var isRelease = const bool.fromEnvironment('dart.vm.project');
-
-  if (isRelease) {
-    return adUnitId;
-  } else {
-    return "ca-app-pub-3940256099942544/6300978111";
-  }
-}
-
-launchURL() async {
-  const url = "https://twitter.com/chouette111";
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not Launch $url';
-  }
-}
-
-int aceTo14(int num) {
-  if (num == 1) {
-    return 14;
-  } else {
-    return num;
-  }
 }

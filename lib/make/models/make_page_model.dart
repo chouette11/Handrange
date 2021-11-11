@@ -23,26 +23,6 @@ class MakePageModel extends ChangeNotifier {
   bool isAll = false;
   int count = 0;
 
-  onHighs(String num){
-    highs[num] = !highs[num];
-
-    status.forEach((element) {
-      int value = element["value"];
-
-      if (element["hand"].contains(num)) {
-        if (element["isSelected"] == true && highs[num] == true) {
-          count -= value;
-        }
-        if (element["isSelected"] == false && highs[num] == false) {
-          count += value;
-        }
-        element["isSelected"] = highs[num];
-      }
-    });
-    highs[num] ? count = count + 198 : count = count - 198;
-    notifyListeners();
-  }
-
   onTapped(String hand, List<Map<String, dynamic>> range) {
     final tappedBox = range.firstWhere((e) => e["hand"] == hand);
     int value = tappedBox["value"];
@@ -55,24 +35,20 @@ class MakePageModel extends ChangeNotifier {
   onPocket() {
     isPocket= !isPocket;
     status.forEach((element) {
-      pocketHand(element, isPocket);
+      int value = element["value"];
+
+      if (element["hand"].contains( RegExp(r"(.)\1") )) {
+        if (element["isSelected"] == true && isPocket == true) {
+          count -= value;
+        }
+        if (element["isSelected"] == false && isPocket == false) {
+          count += value;
+        }
+        element["isSelected"] = isPocket;
+      }
     });
     isPocket ? count += 78 : count -= 78;
     notifyListeners();
-  }
-
-  pocketHand(element,bool name){
-    int value = element["value"];
-
-    if (element["hand"].contains( RegExp(r"(.)\1") )) {
-      if (element["isSelected"] == true && name == true) {
-        count -= value;
-      }
-      if (element["isSelected"] == false && name == false) {
-        count += value;
-      }
-      element["isSelected"] = name;
-    }
   }
 
   onClear() {
@@ -122,14 +98,6 @@ class MakePageModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  onConnect(int minNum, String isSuit, element){
-    int i;
-    for (i = 9; i > minNum; i--) {
-      if (element["hand"].contains("$i${i - 1}$isSuit")) {
-        element["isSelected"] = true;
-      }
-    }
-  }
 //sqlからgraphのリストを受け取ってタップ時に読み込み
   String graphName = "";
   late int graphId;
@@ -165,8 +133,4 @@ class MakePageModel extends ChangeNotifier {
     count = inputCount;
     notifyListeners();
   }
-}
-
-lightButton(String name, function){
-  return ElevatedButton(onPressed: () => function, child: Text(name));
 }
