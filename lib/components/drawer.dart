@@ -34,7 +34,7 @@ Drawer returnDrawer(BuildContext context,) {
         ),
         ListTile(
           leading: Icon(Icons.analytics),
-          title: Text('計算'),
+          title: Text('役計算'),
           onTap: () {
             Navigator.pushNamedAndRemoveUntil(context, '/calculate', (Route<dynamic> route) => false);
           },

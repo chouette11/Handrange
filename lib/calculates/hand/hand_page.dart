@@ -17,7 +17,7 @@ class CalculatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('計算'),
+        title: Text('役計算'),
       ),
       drawer: returnDrawer(context),
       body: Consumer<HandPageModel>(builder: (context, model, child) {
