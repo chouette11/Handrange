@@ -6,6 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../calculates/hand/models/hand_page_model.dart';
 
 class PopAdPage extends StatelessWidget {
+  PopAdPage({Key? key, required this.isRange, required this.sum}) : super(key: key);
+  final bool isRange;
+  final double sum;
+
   @override
   Widget build(BuildContext context) {
     final double screenSizeWidth = MediaQuery.of(context).size.width;
@@ -19,7 +23,7 @@ class PopAdPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              PopAdWidget(),
+              PopAdWidget(isRange: isRange, sum: sum),
             ],
           ),
         ),
@@ -29,8 +33,19 @@ class PopAdPage extends StatelessWidget {
 }
 
 class PopAdWidget extends StatelessWidget {
+  PopAdWidget({Key? key, required this.isRange, required this.sum}) : super(key: key);
+  final bool isRange;
+  final double sum;
+
   @override
   Widget build(BuildContext context) {
+    double second;
+    if (isRange == false) {
+      second = 1;
+    } else if (isRange == true) {
+
+    }
+
     return Consumer<HandPageModel>(builder: (context, model, child) {
       final Future<String> _calculation = Future<String>.delayed(
           Duration(seconds: 2 ),
