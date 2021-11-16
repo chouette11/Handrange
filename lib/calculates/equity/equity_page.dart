@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:handrange/ad/components/banner_ad.dart';
+import 'package:handrange/ad/popad_page.dart';
 import 'package:handrange/calculates/components/board_boxes.dart';
 import 'package:handrange/calculates/equity/components/opponent.dart';
 import 'package:handrange/calculates/equity/components/user.dart';
@@ -37,7 +39,28 @@ class EquityPage extends StatelessWidget{
                   SizedBox(width: 8),
                   ElevatedButton(
                     child: Text('計算'),
-                    onPressed: () => model.equity(context),
+                    onPressed: () async {
+                      if (model.boardCard.length <= 2) {
+                        showDialog(context: context,
+                          builder: (_) => SimpleDialog(
+                            title:Text("エラー"),
+                            children: <Widget>[
+                              SimpleDialogOption(
+                                child: Text('ボードのカードを３枚以上選択してください'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      else {
+                        showDialog(
+                          context: context,
+                          builder: (_) => PopAdPage(isRange: model.isRange, sum: model.percent[3]),
+                        );
+                        model.equity(context);
+                      }
+                    },
                   ),
                 ],
               ),
