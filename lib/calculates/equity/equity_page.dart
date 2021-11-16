@@ -44,6 +44,14 @@ class EquityPage extends StatelessWidget{
             ),
             User(num: 1, cardHole: model.cardHole1),
             Opponent(num: 2, cardHole: model.cardHole2, range: model.status1),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  BottomAd(),
+                ],
+              ),
+            ),
           ],
         );
       }),
