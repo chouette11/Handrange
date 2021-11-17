@@ -6,9 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../calculates/hand/models/hand_page_model.dart';
 
 class PopAdPage extends StatelessWidget {
-  PopAdPage({Key? key, required this.isRange, required this.sum}) : super(key: key);
-  final bool isRange;
-  final double sum;
+  PopAdPage({Key? key, required this.time}) : super(key: key);
+  final double time;
 
   @override
   Widget build(BuildContext context) {
@@ -17,117 +16,83 @@ class PopAdPage extends StatelessWidget {
       backgroundColor: Colors.transparent,
       body:WillPopScope(
         onWillPop: () async => false,
-        child: Container(
-          width: screenSizeWidth,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              PopAdWidget(isRange: isRange, sum: sum),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Consumer<HandPageModel>(builder: (context, model, child) {
+              final Future<String> _calculation = Future<String>.delayed(
+                  Duration(seconds: time.toInt()),
+                      () => '計算が終わりました'
+              );
+
+              return FutureBuilder(
+                    future: _calculation,
+                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          width: screenSizeWidth,
+                          height: 400,
+                          margin: EdgeInsets.only(left: 16, right: 16),
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              PopAd(),
+                              Text("計算が完了しました"),
+                              RaisedButton(
+                                onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/equity', (Route<dynamic> route) => false),
+                                child: Text("表示"),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          width: screenSizeWidth,
+                          height: 400,
+                          margin: EdgeInsets.only(left: 16, right: 16),
+                          color: Colors.white,
+                          child: Column(
+                            children: [
+                              PopAd(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("計算中です"),
+                                  CircularProgressIndicator(strokeWidth: 1.5)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text("ご利用ありがとうございます"),
+                                  Text("不具合・改善点がありましたらお問い合わせください"),
+                                  Container(
+                                    child: InkWell(
+                                      child: Text(
+                                        "twitter_@chouette111まで",
+                                        style: TextStyle(color: Colors.lightBlue),
+                                      ),
+                                      onTap: () async {
+                                        const url = "https://twitter.com/chouette111";
+                                        if (await canLaunch(url)) {
+                                          await launch(url);
+                                        } else {
+                                          throw 'Could not Launch $url';
+                                        }
+                                      },
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    }
+                );
+            }),
+          ],
         ),
       ),
     );
   }
 }
-
-class PopAdWidget extends StatelessWidget {
-  PopAdWidget({Key? key, required this.isRange, required this.sum}) : super(key: key);
-  final bool isRange;
-  final double sum;
-
-  @override
-  Widget build(BuildContext context) {
-    double second;
-    if (isRange == false) {
-      second = 1;
-    } else if (isRange == true) {
-
-    }
-
-    return Consumer<HandPageModel>(builder: (context, model, child) {
-      final Future<String> _calculation = Future<String>.delayed(
-          Duration(seconds: 2 ),
-              () => '計算が終わりました'
-      );
-
-      return
-        FutureBuilder(
-            future: _calculation,
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      PopAd(),
-                      Container(
-                        padding:EdgeInsets.only(top: 3),
-                        child: Text("計算が完了しました"),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          model.onVisible();
-                          Navigator.pushNamedAndRemoveUntil(context, '/calculate', (Route<dynamic> route) => false);
-                        },
-                        child: Text("表示"),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              else{
-                return Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      PopAd(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("計算中です"),
-                          Container(
-                            width: 20, height: 20,
-                            child: CircularProgressIndicator(strokeWidth: 1.5,),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text("ご利用ありがとうございます"),
-                          Text("不具合・改善点がありましたらお問い合わせください"),
-                          Container(
-                            padding: EdgeInsets.only(top: 4,bottom: 4),
-                            child: InkWell(
-                              child: Text(
-                                "twitter_@chouette111まで",
-                                style: TextStyle(color: Colors.lightBlue),
-                              ),
-                              onTap: () async {
-                                const url = "https://twitter.com/chouette111";
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  throw 'Could not Launch $url';
-                                }
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                      RaisedButton(
-                        onPressed: () =>
-                            Navigator.pop(context),
-                        child: Text("キャンセル"),
-                      ),
-                    ],
-                  ),
-                );
-              }
-            }
-        );
-    });
-  }
-}
-
