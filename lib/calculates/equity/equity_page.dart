@@ -52,8 +52,19 @@ class EquityPage extends StatelessWidget{
                             ],
                           ),
                         );
-                      }
-                      else {
+                      } else if (model.cardHole1.length != 2 || (model.isRange == false && model.cardHole2.length != 2)) {
+                        showDialog(context: context,
+                          builder: (_) => SimpleDialog(
+                            title:Text("エラー"),
+                            children: <Widget>[
+                              SimpleDialogOption(
+                                child: Text('手札は２枚選択してください'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
                         showDialog(
                           context: context,
                           builder: (_) => PopAdPage(time: model.time()),
