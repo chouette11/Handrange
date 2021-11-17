@@ -17,7 +17,7 @@ class PopAdPage extends StatelessWidget {
       body:WillPopScope(
         onWillPop: () async => false,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Consumer<HandPageModel>(builder: (context, model, child) {
               final Future<String> _calculation = Future<String>.delayed(
@@ -31,13 +31,16 @@ class PopAdPage extends StatelessWidget {
                       if (snapshot.hasData) {
                         return Container(
                           width: screenSizeWidth,
-                          height: 400,
+                          height: 180,
                           margin: EdgeInsets.only(left: 16, right: 16),
                           color: Colors.white,
                           child: Column(
                             children: [
                               PopAd(),
-                              Text("計算が完了しました"),
+                              Container(
+                                margin: EdgeInsets.only(top: 4),
+                                  child: Text("計算が完了しました")
+                              ),
                               RaisedButton(
                                 onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/equity', (Route<dynamic> route) => false),
                                 child: Text("表示"),
@@ -48,7 +51,7 @@ class PopAdPage extends StatelessWidget {
                       } else {
                         return Container(
                           width: screenSizeWidth,
-                          height: 400,
+                          height: 200,
                           margin: EdgeInsets.only(left: 16, right: 16),
                           color: Colors.white,
                           child: Column(
@@ -58,7 +61,12 @@ class PopAdPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text("計算中です"),
-                                  CircularProgressIndicator(strokeWidth: 1.5)
+                                  Container(
+                                    margin: EdgeInsets.only(left: 4),
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(strokeWidth: 1.5),
+                                  ),
                                 ],
                               ),
                               Column(
