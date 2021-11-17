@@ -56,8 +56,10 @@ class EquityPage extends StatelessWidget{
                       else {
                         showDialog(
                           context: context,
-                          builder: (_) => PopAdPage(isRange: model.isRange, sum: model.percent[3]),
+                          builder: (_) => PopAdPage(time: model.time()),
                         );
+                      }
+                      if (model.boardCard.length >= 3) {
                         model.equity(context);
                       }
                     },
