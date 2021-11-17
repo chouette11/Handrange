@@ -67,7 +67,7 @@ class CalculatePage extends StatelessWidget {
                   ElevatedButton(
                     child: Text('計算'),
                     onPressed: () async {
-                      if (model.boardCard.length == 2) {
+                      if (model.boardCard.length <= 2) {
                         showDialog(context: context,
                           builder: (_) => SimpleDialog(
                             title:Text("エラー"),
@@ -83,10 +83,7 @@ class CalculatePage extends StatelessWidget {
                         );
                       }
                       else {
-                        showDialog(
-                          context: context,
-                          builder: (_) => PopAdPage(),
-                        );
+                        model.onVisible();
                         model.calculate(model.status, model.boardCard);
                       }
                     },
