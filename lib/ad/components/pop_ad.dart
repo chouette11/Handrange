@@ -23,14 +23,10 @@ class _PopAdState extends State<PopAd> {
   }
   @override
   Widget build(BuildContext context) {
-    // ignore: unnecessary_null_comparison
-    if(_ad == null)
-      return SizedBox(height: 100);
-    else
-      return Container(
-        width: _ad.size.width.toDouble(),
-        height: _ad.size.height.toDouble(),
-        child: AdWidget(ad: _ad),
-      );
+    return Container(
+      width: _ad.size.width.toDouble(),
+      height: _ad.size.height.toDouble(),
+      child: AdWidget(ad: _ad),
+    );
   }
 }
