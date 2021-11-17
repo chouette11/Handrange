@@ -74,7 +74,33 @@ class EquityPageModel extends ChangeNotifier {
     }
   }
 
-  //selectBoard
+  double time() {
+    int count = 0;
+    status1.forEach((element) {
+      if(element['isSelected'] == true) {
+        if(element['hand'].length == 2) {
+          count += 6;
+        } else if (element['hand'][2] == 'o') {
+          count += 12;
+        } else if (element['hand'][2] == 's') {
+          count += 4;
+        }
+      }
+    });
+
+    if (isRange == false) {
+      return 1;
+    } else if (boardCard.length == 3) {
+      double percent = (count / 1326) * 100;
+      return percent * 6;
+    } else if (boardCard.length == 4) {
+      double percent = (count / 1326) * 100;
+      return percent / 15;
+    } else {
+      return 1;
+    }
+  }
+
   List<Map<String, dynamic>> cards = CARDS.map((e) => {
     "num": e["num"],
     "mark": e["mark"],
@@ -89,11 +115,6 @@ class EquityPageModel extends ChangeNotifier {
   }
 
   List<Map<String, dynamic>> status1 = CONBI.map((e) => {
-    "hand": e["hand"],
-    "isSelected": false,
-  }).toList();
-
-  List<Map<String, dynamic>> status2 = CONBI.map((e) => {
     "hand": e["hand"],
     "isSelected": false,
   }).toList();
