@@ -32,7 +32,7 @@ class AdState {
 }
 
 String unitId(String adUnitId) {
-  var isRelease = const bool.fromEnvironment('dart.vm.project');
+  var isRelease = const bool.fromEnvironment('dart.vm.product');
 
   if (isRelease) {
     return adUnitId;
