@@ -93,17 +93,17 @@ class Opponent extends StatelessWidget {
                     children: [
                       ElevatedButton(
                           onPressed: () {
-                            model.isRange = false;
-                            model.notifyListeners();
-                          },
-                          child: Text("ハンド")
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
                             model.isRange = true;
                             model.notifyListeners();
                           },
                           child: Text("レンジ")
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            model.isRange = false;
+                            model.notifyListeners();
+                          },
+                          child: Text("ハンド")
                       ),
                     ],
                   ),
