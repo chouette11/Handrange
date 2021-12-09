@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   url_launcher: ^6.0.6
   app_tracking_transparency: ^2.0.1
-  google_mobile_ads: ^1.0.1
+  google_mobile_ads: ^0.13.0
 
 dev_dependencies:
   flutter_test:
