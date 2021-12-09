@@ -87,15 +87,14 @@ class EquityPageModel extends ChangeNotifier {
         }
       }
     });
-
     if (isRange == false) {
       return 1;
     } else if (boardCard.length == 3) {
       double percent = (count / 1326) * 100;
-      return percent * 6;
+      return percent * 15;
     } else if (boardCard.length == 4) {
       double percent = (count / 1326) * 100;
-      return percent / 15;
+      return percent * 3;
     } else {
       return 1;
     }
