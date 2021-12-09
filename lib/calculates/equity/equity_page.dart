@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:handrange/ad/components/banner_ad.dart';
@@ -67,11 +69,11 @@ class EquityPage extends StatelessWidget{
                       } else {
                         showDialog(
                           context: context,
-                          builder: (_) => PopAdPage(time: model.time()),
+                          builder: (_) => Platform.isAndroid ? PopAdPageAndroid(time: model.time()) : PopAdPage(time: model.time()),
                         );
                       }
                       if (model.boardCard.length >= 3) {
-                        model.equity(context);
+                        Future.delayed(Duration(seconds: 5), () => model.equity(context));
                       }
                     },
                   ),
